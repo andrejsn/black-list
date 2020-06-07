@@ -58,7 +58,10 @@ export const routes: Routes = [
         path: 'add',
         loadChildren: () => import('./views/add/add.module').then(m => m.AddModule)
       },
-
+      {
+        path: 'debtors',
+        loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule)
+      },
 
       // ##################
 

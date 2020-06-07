@@ -5,6 +5,12 @@ import { DebtorComponent } from './debtor/debtor.component';
 
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'reports',
+  //   pathMatch: 'full',
+  // },
+
   {
     path: 'debtor',
     component: DebtorComponent,
