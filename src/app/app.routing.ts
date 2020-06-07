@@ -62,6 +62,10 @@ export const routes: Routes = [
         path: 'debtors',
         loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule)
       },
+      {
+        path: 'calendar',
+        loadChildren: () => import('./views/calendar/calendar.module').then(m => m.CalendarModule)
+      },
 
       // ##################
 
