@@ -1,0 +1,129 @@
+{
+	"about": {
+		"crm": {
+			"text": "Patentēta programmatūra attiecību vadības optimizēšanai",
+			"title": "CRM ieviešana 2020. gadā"
+		},
+		"software": {
+			"text": "Programmu izstrāde atbilstoši klienta specifikācijām",
+			"title": "Programmatūru izstrāde kopš 2018. gada"
+		},
+		"support": {
+			"text": "Mēs piedāvājam tehnisko atbalstu gandrīz jebkuram projektam",
+			"title": "IT atbalsts kopš 2015. gada"
+		},
+		"test": {
+			"text": "Vienkāršu testa gadījumu rakstīšana tīmekļa lietojumprogrammām",
+			"title": "Programmu testēšana kopš 2013. gada"
+		},
+		"text": "",
+		"title": "Par mums"
+	},
+	"app": {
+		"about": "Par mums",
+		"contact": "Kontakti",
+		"gallery": "Galerija",
+		"pricing": "Likmes",
+		"ranges": "Spektrs",
+		"working": "Pakalpojumi",
+		"cookie": "Apmeklējot šo vietni, jūs piekrītat mūsu politikai attiecībā uz sīkdatņu izmantošanu. Tomēr jūs varat novērst sīkdatņu izmantošanu un izdzēst tās, pārlūkā atlasot atbilstošo opciju."
+	},
+	"contact": {
+		"button": "Sazinies ar mums",
+		"enter": {
+			"email": "Lūdzu, ievadiet savu e-pastu",
+			"name": "Lūdzu, ievadiet savu vārdu",
+			"phone": "Lūdzu, ievadiet savu tālruni",
+			"message": "Lūdzu, atstājiet mums ziņojumu",
+			"robot": "Es neesmu robots ツ"
+		},
+		"error": {
+			"email": "E-pasts ir",
+			"email_valid": "Lūdzu ievadiet derīgu e-pasta adresi",
+			"name": "Vārds ir",
+			"phone": "Telefons ir",
+			"required": "obligāts"
+		},
+		"placeholder": {
+			"email": "E-pasts",
+			"name": "Nosaukums",
+			"phone": "Tālrunis"
+		},
+		"subtitle": "atstājiet savu kontaktinformāciju",
+		"title": "Sazinieties ar mums"
+	},
+	"footer": {
+		"subtitle": "",
+		"title": "Juridiskā informācija par mums"
+	},
+	"gallery": {
+		"subtitle": "",
+		"title": "Galerija"
+	},
+	"header": {
+		"greeting": "Mēs sveicam jūs ツ"
+	},
+	"pricing": {
+		"development": {
+			"line": {
+				"1": "Jauni projekti",
+				"2": "Programmatūras inženierija",
+				"3": "Dokumentācijas apkopošana"
+			},
+			"price": "no 55€ stundā",
+			"title": "Projekta attīstīšana"
+		},
+		"subtitle": "Cena ir atkarīga no projekta specifikas",
+		"support": {
+			"line": {
+				"1": "Pieprasījuma apstrāde",
+				"2": "Personāla apmācība",
+				"3": "Pieejamība 24/7"
+			},
+			"price": "no 30€ stundā",
+			"title": "Atbalsts"
+		},
+		"testing": {
+			"line": {
+				"1": "Funkcionalitātes pārbaude",
+				"2": "Slodzes pārbaude",
+				"3": "IT drošības pārbaude"
+			},
+			"price": "no 45€ stundā",
+			"title": "Pārbaude"
+		},
+		"title": "Likmes"
+	},
+	"ranges": {
+		"development": {
+			"text": "Programmatūras izstrāde vai uzlabošana.",
+			"title": "Programmēšana"
+		},
+		"subtitle": "Darbība procentos",
+		"suport": {
+			"text": "Tehniskā atbalsta organizēšana un nodrošināšana.",
+			"title": "Projekta atbalsts"
+		},
+		"testing": {
+			"text": "Visu veidu testu vadība un ieviešana projektos.",
+			"title": "Projekta pārbaude"
+		},
+		"title": "Spektrs"
+	},
+	"working": {
+		"client": {
+			"text": "Darbs ar klientu - ir jebkura biznesa pamats. Klients pie mums meklē risinājumus savām problēmām. Mums nav nozīmes: jaunu risinājumu radīšana vai jau esošs atbalsts. Mums ir svarīgi, lai mēs varētu piedāvāt produktu, ar kuru mūsu klients var ietaupīt vai nopelnīt.",
+			"title": "Darbs ar klientu"
+		},
+		"project": {
+			"text": "Mēs piedāvājam visa veida risinājumus. Labākā risinājuma izvēle ir visgrūtākais un izšķirošākais solis, no kura ir atkarīgs daudz. Mūsu IT speciālistiem un programmētājiem ir liela pieredze ar dažādiem projektiem, un viņi vienmēr piedāvās labāko risinājumu!",
+			"title": "Projekta gaita"
+		},
+		"subtitle": "Ilgtermiņa attiecības ar klientu ir mūsu darba pamatā",
+		"support": {
+			"text": "Pienāk laiks, kad projekts pāriet no izstrādes un testēšanas posma uz realizācijas un atbalsta posmu. Tas nozīmē, ka mēs turpinām labot, optimizēt un uzlabot produktu, ievērojot klienta prasības. Mēs arī veicam visus atjauninājumus un nekavējoties informējam viņus klientus par jaunajām versijām.",
+			"title": "Projekta atbalsts"
+		},
+		"title": "Pakalpojumi"
+	}
+}

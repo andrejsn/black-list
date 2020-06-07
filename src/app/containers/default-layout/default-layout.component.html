@@ -42,10 +42,10 @@
         <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comment<span class="badge badge-warning">42</span></a>
 
         <div class="dropdown-header text-center"><strong>Language</strong></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Latvietis</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Русский</a>
+        <a class="dropdown-item" href="#" (click)="translate.use('lv')"><i class="fa fa-globe"></i> Latvietis</a>
+        <a class="dropdown-item" href="#" (click)="translate.use('ru')"><i class="fa fa-globe"></i> Русский</a>
 
-        <div class="dropdown-header text-center"><strong>Settings</strong></div>
+        <div class="dropdown-header text-center"><strong>{{ 'Setting' | translate}}</strong></div>
         <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
         <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-dark">42</span></a>
