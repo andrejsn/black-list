@@ -54,6 +54,10 @@ export const routes: Routes = [
         path: 'reports',
         loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule)
       },
+      {
+        path: 'add',
+        loadChildren: () => import('./views/add/add.module').then(m => m.AddModule)
+      },
 
 
       // ##################
