@@ -6,6 +6,7 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
+import { AuthComponent } from './views/auth/auth.component';
 
 
 export const routes: Routes = [
@@ -28,20 +29,11 @@ export const routes: Routes = [
       title: 'Page 500'
     }
   },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  //   data: {
-  //     title: 'Login Page'
-  //   }
-  // },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent,
-  //   data: {
-  //     title: 'Register Page'
-  //   }
-  // },
+  {
+    path: 'auth',
+    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+  },
+
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -49,10 +41,6 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
-      {
-        path: 'auth',
-        loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
-      },
       {
         path: 'reports',
         loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule)
@@ -110,7 +98,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
