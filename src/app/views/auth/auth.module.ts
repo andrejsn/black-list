@@ -6,10 +6,19 @@ import { LogoutComponent } from './logout/logout.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
-  declarations: [LogoutComponent, SignupComponent, ForgotComponent, ResetComponent],
+  declarations: [
+    LoginComponent,
+    RegisterComponent,
+
+    LogoutComponent,
+    SignupComponent,
+    ForgotComponent,
+    ResetComponent],
   imports: [
     CommonModule,
     AuthRoutingModule
