@@ -6,8 +6,8 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from './views/auth/login/login.component';
+import { RegisterComponent } from './views/auth/register/register.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +50,10 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path: 'auth',
+        loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+      },
       {
         path: 'reports',
         loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule)
