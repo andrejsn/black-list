@@ -7,7 +7,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+
 
 
 
@@ -15,7 +15,7 @@ import { RegisterComponent } from './register/register.component';
   declarations:
   [
     LoginComponent,
-    RegisterComponent,
+    SignupComponent,
 
     LogoutComponent,
     SignupComponent,
