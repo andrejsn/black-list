@@ -3,39 +3,62 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
+          <!--form -->
           <div class="card mx-4">
             <div class="card-body p-4">
-              <form>
-                <h1>Register</h1>
-                <p class="text-muted">Create your account</p>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
+
+              <h1>Register</h1>
+              <p class="text-muted">Create your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
+                <input type="text" class="form-control" placeholder="Username" autocomplete="username" [(ngModel)]="username" >
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
                 </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
+                <input type="text" class="form-control" placeholder="Email" autocomplete="email" [(ngModel)]="email">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
                 </div>
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
+                <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" [(ngModel)]="password">
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
                 </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
-              </form>
+                <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" [(ngModel)]="repeat_password">
+              </div>
+              <button type="button" class="btn btn-block btn-success" (click)="signup()">Create Account</button>
+
             </div>
             <div class="card-footer p-4">
+
+              <!-- Default unchecked -->
+              <!-- <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label class="custom-control-label" for="defaultUnchecked">You must agree before submitting.</label>
+              </div> -->
+
+
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck">
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+
+
+
               <!-- <div class="row">
                 <div class="col-6">
                   <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
@@ -46,6 +69,7 @@
               </div> -->
             </div>
           </div>
+          <!--/form -->
         </div>
       </div>
     </div>
