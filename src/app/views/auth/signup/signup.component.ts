@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -7,26 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  username: string;
-  email: string;
-  password: string;
-  repeat_password: string;
-  agree:boolean = false;
+  signupForm: FormGroup = new FormGroup({
+    username: new FormControl(),
+    email: new FormControl(),
+    password: new FormControl(),
+    password_confirmation: new FormControl()
+  });
+
+  returnUrl: string;
+  submitted = false;
+  loading = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  signup() {
-    console.log('signup ---');
-    console.log('username: ' + this.username);
-    console.log('email: ' + this.email);
-    console.log('password: ' + this.password);
-    console.log('repeat_password: ' + this.repeat_password);
-    console.log('agree: ' + this.agree);
-
-     console.log('----');
+  onSubmit() {
 
   }
+
 }
