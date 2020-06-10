@@ -36,7 +36,7 @@
                   <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password"
                     formControlName="password_confirmation">
                 </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
+                <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Create Account</button>
 
               </div>
               <div class="card-footer p-4">
