@@ -12,12 +12,14 @@ export class SignupComponent implements OnInit {
     username: new FormControl(),
     email: new FormControl(),
     password: new FormControl(),
-    password_confirmation: new FormControl()
+    password_confirmation: new FormControl(),
+    agree: new FormControl()
   });
 
   returnUrl: string;
   submitted = false;
   loading = false;
+
 
   constructor(private formBuilder: FormBuilder, ) { }
 
@@ -47,7 +49,9 @@ export class SignupComponent implements OnInit {
             [
               Validators.required
             ]
-          ]
+          ],
+          agree:
+          [false, Validators.required]
       },
       { validator: this.checkPasswords }
     );
