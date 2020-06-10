@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-reports',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
+    this.snotifyService.info('Hello world');
   }
 
 }

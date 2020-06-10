@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   imports: [
     BrowserModule,
+    SnotifyModule,
     HttpClientModule,
     TranslateModule.forRoot({ defaultLanguage: 'en', loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } }),
     BrowserAnimationsModule,
@@ -79,6 +81,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true
+    },
+
+    SnotifyService,
+    {
+      provide: 'SnotifyToastConfig', useValue: ToastDefaults
     }
   ],
   bootstrap: [AppComponent]
