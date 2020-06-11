@@ -12,20 +12,33 @@ export class Interceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (request.method === 'GET' || request.method === 'HEAD'){
+    request = request.clone({
+    //  withCredentials: true
+  });
 
-      return next.handle(request);
-    }
+  return next.handle(request);
 
-    const token = this.tokenService.getToken();
+    // if (request.method === 'GET' || request.method === 'HEAD'){
 
-    // Be careful not to overwrite an existing header of the same name.
-    if (token !== null && !request.headers.has(this.headerName))
-    {
-      request = request.clone({headers: request.headers.set(this.headerName, token)});
-    }
-    return next.handle(request);
+    //   return next.handle(request);
+    // }
 
+    // const token = this.tokenService.getToken();
+    // console.log('########' + this.tokenService);
+
+
+
+    // localStorage.setItem('token', token);
+
+
+    // // Be careful not to overwrite an existing header of the same name.
+    // if (token !== null && !request.headers.has(this.headerName))
+    // {
+    //   request = request.clone({headers: request.headers.set(this.headerName, token)});
+    // }
+    // return next.handle(request);
+
+    //######################################
 
     // const customReq = request.clone({
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +24,7 @@ export class SignupComponent implements OnInit {
   loading = false;
 
 
-  constructor(private formBuilder: FormBuilder, ) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
@@ -57,6 +60,9 @@ export class SignupComponent implements OnInit {
 
     console.log('submit +');
 
+    const username = this.signupForm.controls['username'].value;
+
+
 
     this.submitted = true;
 
@@ -64,10 +70,36 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.invalid) {
 
       console.log('the form is invalid');
-
-
-      return;
+      //  return;
     }
+
+    //this.loading = true;
+
+    this.http.post<any>(`${environment.apiUrl}/auth/signup`, { 'username': '12' })
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log('error = ' + error);
+        }
+      )
+      ;
+
+
+
+    // this.http.post<any>(`${environment.apiUrl}/api/sanctum/signup`, {'username':'12'})
+    // .subscribe(
+    //   data => {
+    //     console.log(data);
+    //   },
+    //   error => {
+    //     console.log('error = ' + error);
+    //   }
+    // )
+
+
 
   }
 
