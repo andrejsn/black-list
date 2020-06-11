@@ -12,7 +12,7 @@ import { environment } from '../../../../environments/environment';
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup({
-    username: new FormControl(),
+    name: new FormControl(),
     email: new FormControl(),
     password: new FormControl(),
     password_confirmation: new FormControl(),
@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
       {
-        username:
+        name:
           ['',
             [
               Validators.required, Validators.minLength(3), Validators.maxLength(32)
@@ -60,9 +60,11 @@ export class SignupComponent implements OnInit {
 
     console.log('submit +');
 
-    const username = this.signupForm.controls['username'].value;
-
-
+    const name = this.signupForm.controls['name'].value;
+    const email = this.signupForm.controls['email'].value;
+    const password = this.signupForm.controls['password'].value;
+    const password_confirmation = this.signupForm.controls['password_confirmation'].value;
+    const agree = this.signupForm.controls['agree'].value;
 
     this.submitted = true;
 
@@ -75,8 +77,15 @@ export class SignupComponent implements OnInit {
 
     //this.loading = true;
 
-    this.http.post<any>(`${environment.apiUrl}/auth/signup`, { 'username': '12' })
-      .pipe(first())
+    this.http.post<any>(`${environment.apiUrl}/auth/signup`,
+      {
+        'name': name,
+        'email': email,
+        'password': password,
+        'password_confirmation': password_confirmation,
+        'agree': agree
+      }
+      ).pipe(first())
       .subscribe(
         data => {
           console.log(data);
@@ -84,25 +93,12 @@ export class SignupComponent implements OnInit {
         error => {
           console.log('error = ' + error);
         }
-      )
-      ;
-
-
-
-    // this.http.post<any>(`${environment.apiUrl}/api/sanctum/signup`, {'username':'12'})
-    // .subscribe(
-    //   data => {
-    //     console.log(data);
-    //   },
-    //   error => {
-    //     console.log('error = ' + error);
-    //   }
-    // )
-
-
-
+      );
   }
 
+  /*
+  * check password confirm
+  */
   checkPasswords(formGroup: FormGroup) {
     //
     const pass = formGroup.get('password').value;

@@ -9,16 +9,16 @@
 
                 <h1>Register</h1>
                 <p class="text-muted">Create your account</p>
-                <!-- username -->
-                <small *ngIf="submitted && f.username.errors" class="text-danger">
-                  <div *ngIf="f.username.errors.required">
-                    Username is required
+                <!-- name -->
+                <small *ngIf="submitted && f.name.errors" class="text-danger">
+                  <div *ngIf="f.name.errors.required">
+                    Name is required
                   </div>
-                  <div *ngIf="f.username.errors.minlength">
-                    Username is too short
+                  <div *ngIf="f.name.errors.minlength">
+                    Name is too short
                   </div>
-                  <div *ngIf="f.username.errors.maxlength">
-                    Username is too long
+                  <div *ngIf="f.name.errors.maxlength">
+                    Name is too long
                   </div>
                 </small>
 
@@ -27,8 +27,8 @@
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
                   <input type="text" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.username.errors, 'is-valid': submitted && !f.username.errors}"
-                    placeholder="Username" autocomplete="username" formControlName="username">
+                    [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}"
+                    placeholder="Name" autocomplete="name" formControlName="name">
                 </div>
                 <!--email -->
                 <small *ngIf="submitted && f.email.errors" class="text-danger">
