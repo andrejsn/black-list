@@ -7,6 +7,7 @@ import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { AuthComponent } from './views/auth/auth.component';
+import { AuthenticationGuardService } from './shared/helpers/authentication/authentication.guard.service';
 
 
 export const routes: Routes = [
@@ -43,19 +44,19 @@ export const routes: Routes = [
     children: [
       {
         path: 'reports',
-        loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule)
+        loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule), canActivate: [AuthenticationGuardService]
       },
       {
         path: 'add',
-        loadChildren: () => import('./views/add/add.module').then(m => m.AddModule)
+        loadChildren: () => import('./views/add/add.module').then(m => m.AddModule), canActivate: [AuthenticationGuardService]
       },
       {
         path: 'debtors',
-        loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule)
+        loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule), canActivate: [AuthenticationGuardService]
       },
       {
         path: 'calendar',
-        loadChildren: () => import('./views/calendar/calendar.module').then(m => m.CalendarModule)
+        loadChildren: () => import('./views/calendar/calendar.module').then(m => m.CalendarModule), canActivate: [AuthenticationGuardService]
       },
 
       // ##################
