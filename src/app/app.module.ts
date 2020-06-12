@@ -42,8 +42,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Interceptor } from './shared/helpers/csrf/interceptor';
-import { CSRFService } from './shared/helpers/csrf/csrf.service';
+import { AuthenticationInterceptor } from './shared/helpers/authentication/authentication.interceptor';
+import { AuthenticationService } from './shared/helpers/authentication/authentication.service';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -75,12 +76,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     P500Component,
   ],
   providers: [
-    CSRFService,
+    AuthenticationService,// ?
     {
       provide: LocationStrategy, useClass: HashLocationStrategy,
     },
     {
-      provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true
+      provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true
     },
 
     SnotifyService,

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { AuthenticationService } from '../../../shared/services/authentication/authentication-service.service';
+import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
