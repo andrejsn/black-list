@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +13,7 @@ import { AuthenticationService } from '../../../shared/helpers/authentication/au
 })
 export class LoginComponent implements OnInit {
 
-  signupForm: FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl(),
   });
@@ -23,10 +25,14 @@ export class LoginComponent implements OnInit {
   constructor
   (
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private snotifyService: SnotifyService,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.signupForm = this.formBuilder.group(
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.loginForm = this.formBuilder.group(
       {
         email:
           ['',
@@ -47,16 +53,21 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     console.log('login +');
 
-    const email = this.signupForm.controls['email'].value;
-    const password = this.signupForm.controls['password'].value;
+    const email = this.loginForm.controls['email'].value;
+    const password = this.loginForm.controls['password'].value;
 
     this.authenticationService.login(email, password);
   }
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.signupForm.controls;
+    return this.loginForm.controls;
   }
 }
