@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
+  styles: ['.xxx {font-size: xxx-large;}'],
   templateUrl: './default-layout.component.html'
 })
 export class DefaultLayoutComponent {
@@ -12,7 +13,7 @@ export class DefaultLayoutComponent {
 
 constructor(public translate: TranslateService){}
 
-  toggleMinimize(e) {
+  toggleMinimize(e: boolean) {
     this.sidebarMinimized = e;
   }
 
