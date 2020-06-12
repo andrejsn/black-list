@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
   loading = false;
 
   constructor
-  (
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private snotifyService: SnotifyService,
-    private authenticationService: AuthenticationService) { }
+    (
+      private formBuilder: FormBuilder,
+      private route: ActivatedRoute,
+      private router: Router,
+      private snotifyService: SnotifyService,
+      private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'reports';
     this.loginForm = this.formBuilder.group(
       {
         email:
@@ -58,12 +58,25 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log('login +');
+    this.loading = true;
 
     const email = this.loginForm.controls['email'].value;
     const password = this.loginForm.controls['password'].value;
 
-    this.authenticationService.login(email, password);
+    this.authenticationService.login(email, password).subscribe(
+      response => {
+
+console.log(this.returnUrl);
+
+
+        this.authenticationService.setSession(response);
+        this.router.navigate(['../reports']);
+      },
+      error => {
+        this.loading = false;
+        console.log(error);
+      }
+    );;
   }
 
   // convenience getter for easy access to form fields

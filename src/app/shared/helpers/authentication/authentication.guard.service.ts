@@ -11,10 +11,10 @@ export class AuthenticationGuardService implements CanActivate {
     private authenticationService: AuthenticationService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authenticationService.isLoggedOut) {
+    if (this.authenticationService.isLoggedOut()) {
       // not logged in so redirect to login page with the return url
       this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
-      return false;
+      return true;
     }
 
     // logged in so return true

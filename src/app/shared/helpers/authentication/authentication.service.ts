@@ -13,25 +13,18 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
 
-    this.http.post<any>(`${environment.apiUrl}/auth/login`,
+    return this.http.post<any>(`${environment.apiUrl}/auth/login`,
       {
         'email': email,
         'password': password,
       }
     ).pipe(first())
-      .subscribe(
-        res => this.setSession(res),
-        error => {
-          console.log('error = ' + error);
-        }
-      );
-
   }
 
   /*
   * set in session local storage
   */
-  private setSession(authResult: { access_token: string; expires_in: moment.DurationInputArg1; }) {
+  setSession(authResult: { access_token: string; expires_in: moment.DurationInputArg1; }) {
     localStorage.setItem('access_token', authResult.access_token);
     const expiresAt = moment().add(authResult.expires_in, 'second');
 
