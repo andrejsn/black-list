@@ -9,6 +9,7 @@ import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-dashboard',
+  styles: ['.forgot{background-color: #20a8d838;}'],
   templateUrl: 'login.component.html'
 })
 export class LoginComponent implements OnInit {
@@ -21,6 +22,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   submitted = false;
   loading = false;
+  error = false;
+
 
   constructor
     (
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
       private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'reports';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.loginForm = this.formBuilder.group(
       {
         email:
@@ -52,6 +55,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.error = false;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -65,16 +69,12 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(email, password).subscribe(
       response => {
-
-console.log(this.returnUrl);
-
-
         this.authenticationService.setSession(response);
-        this.router.navigate(['../reports']);
+        this.router.navigate([this.returnUrl]);
       },
       error => {
         this.loading = false;
-        console.log(error);
+        this.error = true;
       }
     );;
   }
