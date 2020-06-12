@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { AuthenticationService } from '../../../shared/services/authentication/authentication-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,10 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor
+  (
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
@@ -48,21 +52,7 @@ export class LoginComponent implements OnInit {
     const email = this.signupForm.controls['email'].value;
     const password = this.signupForm.controls['password'].value;
 
-    this.http.post<any>(`${environment.apiUrl}/auth/login`,
-      {
-        'email': email,
-        'password': password,
-
-      }
-    ).pipe(first())
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log('error = ' + error);
-        }
-      );
+    this.authenticationService.login(email, password);
   }
 
   // convenience getter for easy access to form fields
