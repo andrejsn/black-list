@@ -57,6 +57,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
 
     console.log('submit +');
 
@@ -66,7 +67,7 @@ export class SignupComponent implements OnInit {
     const password_confirmation = this.signupForm.controls['password_confirmation'].value;
     const agree = this.signupForm.controls['agree'].value;
 
-    this.submitted = true;
+
 
     // stop here if form is invalid
     if (this.signupForm.invalid) {
@@ -85,7 +86,7 @@ export class SignupComponent implements OnInit {
         'password_confirmation': password_confirmation,
         'agree': agree
       }
-      ).pipe(first())
+    ).pipe(first())
       .subscribe(
         data => {
           console.log(data);
