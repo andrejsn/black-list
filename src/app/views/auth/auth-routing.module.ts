@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { SignupComponent } from './signup/signup.component';
-import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
@@ -32,13 +31,7 @@ const routes: Routes = [
       title: 'Signup'
     }
   },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    data: {
-      title: 'Logout'
-    }
-  }
+
 ];
 
 @NgModule({

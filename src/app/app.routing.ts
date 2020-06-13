@@ -30,11 +30,16 @@ export const routes: Routes = [
       title: 'Page 500'
     }
   },
+  // authentication & authorization: login, signup ...
   {
     path: 'auth',
     loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
   },
-
+  // user: profile, payments, lock account, logout
+  {
+    path: 'user',
+    loadChildren: () => import('./views/user/user.module').then(m => m.UserModule), canActivate:[AuthenticationGuardService]
+  },
   {
     path: '',
     component: DefaultLayoutComponent,
