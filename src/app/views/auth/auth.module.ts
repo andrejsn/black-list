@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppFooterModule } from '@coreui/angular';
 
 import { AuthRoutingModule } from './auth-routing.module';
 
@@ -24,7 +25,8 @@ import { ResetComponent } from './reset/reset.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    AppFooterModule
   ]
 })
 export class AuthModule { }
