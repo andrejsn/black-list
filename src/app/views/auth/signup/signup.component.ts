@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { SnotifyService } from 'ng-snotify';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +26,11 @@ export class SignupComponent implements OnInit {
   loading = false;
 
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private snotifyService: SnotifyService,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
@@ -71,9 +77,9 @@ export class SignupComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.signupForm.invalid) {
+      this.translate.get('toast.auth.signup_form').subscribe((error:string) => {this.snotifyService.error(error)});
 
-      console.log('the form is invalid');
-      //  return;
+      return;
     }
 
     //this.loading = true;
@@ -92,7 +98,7 @@ export class SignupComponent implements OnInit {
           console.log(data);
         },
         error => {
-          console.log('error = ' + error);
+          this.translate.get('toast.auth.email_exist').subscribe((error:string) => {this.snotifyService.error(error)});
         }
       );
   }

@@ -1,4 +1,12 @@
 {
+  "toast":{
+    "auth": {
+      "signup_form": "Check form to sign up",
+      "email_exist": "This email address already exists"
+    }
+  },
+
+
 	"about": {
 		"crm": {
 			"text": "Patentēta programmatūra attiecību vadības optimizēšanai",

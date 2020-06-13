@@ -1,4 +1,12 @@
 {
+  "toast":{
+    "auth": {
+      "signup_form": "Check form to sign up",
+      "email_exist": "This email address already exists"
+    }
+  },
+
+
 	"about": {
 		"crm": {
 			"text": "Proprietary software to optimize customer interactions",
@@ -29,7 +37,7 @@
 		"cookie": "By continuing to browse the site, you're agreeing to our use of cookies. However, you can prevent the use of cookies and delete them by selecting the appropriate option in your browser."
 	},
 	"contact": {
-		
+
 		"button": "Contact Us",
 		"enter": {
 			"email": "Please enter your email",
