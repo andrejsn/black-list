@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: '<router-outlet></router-outlet><ng-snotify></ng-snotify>'
+  template: '<ng-http-loader></ng-http-loader><router-outlet></router-outlet><ng-snotify></ng-snotify>'
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router,
