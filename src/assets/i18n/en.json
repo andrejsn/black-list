@@ -2,7 +2,8 @@
   "toast":{
     "auth": {
       "signup_form": "Check form to sign up",
-      "email_exist": "This email address already exists"
+      "email_exist": "This email address already exists",
+      "signup_success": "You have registered successfully"
     }
   },
 

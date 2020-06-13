@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { SnotifyService } from 'ng-snotify';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -29,6 +31,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
+    private router: Router,
+    private authenticationService: AuthenticationService,
     private snotifyService: SnotifyService,
     private translate: TranslateService) { }
 
@@ -95,7 +99,12 @@ export class SignupComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-          console.log(data);
+          // login in new account
+          this.authenticationService.login(email, password).subscribe(
+            response => {
+              this.authenticationService.setSession(response);
+              this.router.navigate(['/']);
+            },);
         },
         error => {
           this.translate.get('toast.auth.email_exist').subscribe((error:string) => {this.snotifyService.error(error)});
