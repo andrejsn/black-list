@@ -16,6 +16,14 @@
     "lib": [
       "esnext",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
+    }
   }
 }

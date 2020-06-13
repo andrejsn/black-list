@@ -10,12 +10,6 @@
       "@angular/*": [
         "../node_modules/@angular/*"
       ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@environments/*": [
-        "src/environments/*"
-      ]
     }
   },
   "angularCompilerOptions": {
