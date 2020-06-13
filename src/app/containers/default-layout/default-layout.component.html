@@ -42,9 +42,9 @@
             class="badge badge-warning">42</span></a>
 
         <div class="dropdown-header text-center"><strong>{{ 'Setting' | translate}}</strong></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" [routerLink]="['/user/profile']"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-dark">42</span></a>
+        <a class="dropdown-item" [routerLink]="['/user/payments']"><i class="fa fa-usd"></i> Payments<!--span class="badge badge-dark">42</span--></a>
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span
             class="badge badge-primary">42</span></a>
         <div class="divider"></div>
