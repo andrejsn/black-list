@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +31,9 @@ export class LoginComponent implements OnInit {
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
+      private http: HttpClient,
       private snotifyService: SnotifyService,
+      private translate: TranslateService,
       private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -59,6 +62,7 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
+      this.translate.get('toast.auth.login_form').subscribe((error: string) => { this.snotifyService.error(error) });
       return;
     }
 
@@ -70,11 +74,24 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(email, password).subscribe(
       response => {
         this.authenticationService.setSession(response);
+        // get user info
+        this.http.post<any>(`${environment.apiUrl}/auth/me`, {}
+        ).pipe(first())
+          .subscribe(
+            data => {
+              console.log(data);
+            },
+            error => {
+              // can't get user info
+            }
+          );
+
         this.router.navigate([this.returnUrl]);
       },
       error => {
         this.loading = false;
         this.error = true;
+        this.translate.get('toast.auth.login_error').subscribe((error: string) => { this.snotifyService.error(error) });
       }
     );
   }

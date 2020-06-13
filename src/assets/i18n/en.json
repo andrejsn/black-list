@@ -3,7 +3,8 @@
     "auth": {
       "signup_form": "Check form to sign up",
       "email_exist": "This email address already exists",
-      "signup_success": "You have registered successfully"
+      "login_form": "Check form to login",
+      "login_error": "Email or password is incorrect"
     }
   },
 
