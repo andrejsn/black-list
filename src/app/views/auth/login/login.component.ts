@@ -7,6 +7,8 @@ import { AuthenticationService } from '../../../shared/helpers/authentication/au
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from '../../../models';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +26,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loading = false;
   error = false;
+
+  user:User;
 
 
   constructor
