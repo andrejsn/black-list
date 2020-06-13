@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LogoutComponent } from './logout/logout.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 const routes: Routes =
@@ -26,6 +27,13 @@ const routes: Routes =
     component: ProfileComponent,
     data: {
       title: 'Profile'
+    }
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent,
+    data: {
+      title: 'Notifications'
     }
   },
 ];
