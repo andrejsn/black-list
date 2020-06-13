@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.error = true;
       }
-    );;
+    );
   }
 
   // convenience getter for easy access to form fields
