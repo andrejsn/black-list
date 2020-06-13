@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.post<any>(`${environment.apiUrl}/auth/logout`, {}).pipe(first()).subscribe();
-
+    // TODO: test not this -> this.authenticationService.logout()
     this.authenticationService.logout();
   }
 
