@@ -1,7 +1,14 @@
 import { INavData } from '@coreui/angular';
 
-export const navItems: INavData[] = [
+// ATTENTION : this values sync to navigation list & en.json|ru.json|lv.json
+export const navI18n: RegExp[] = [
+  /Reports|Отчёты|Atskaites/g,
+  /Debtors|Должники|Parādnieki/g,
+  /Add Debtor|Должника добавить|Parādnieku pievienot/g,
+  /Calendar|Календарь|Kalendārs/g
+];
 
+export const navItems: INavData[] = [
 
   {
     name: 'Reports',
