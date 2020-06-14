@@ -7,7 +7,7 @@ import { AuthenticationService } from '../../../shared/helpers/authentication/au
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from '../../../models';
+
 
 
 @Component({
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = false;
 
-  user:User;
+
 
 
   constructor
@@ -78,18 +78,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(email, password).subscribe(
       response => {
         this.authenticationService.setSession(response);
-        // get user info
-        this.http.post<any>(`${environment.apiUrl}/auth/me`, {}
-        ).pipe(first())
-          .subscribe(
-            data => {
-              console.log(data);
-            },
-            error => {
-              // can't get user info
-            }
-          );
-
         this.router.navigate([this.returnUrl]);
       },
       error => {

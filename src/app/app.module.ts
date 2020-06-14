@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from './shared/helpers/authentication/authentication.interceptor';
 import { AuthenticationService } from './shared/helpers/authentication/authentication.service';
-import { SharedModule } from './shared/shared.module';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -73,7 +72,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    SharedModule.forRoot()  //will provide service as singleton service
   ],
   declarations: [
     AppComponent,
