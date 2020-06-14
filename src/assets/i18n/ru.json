@@ -2,7 +2,7 @@
   "app-sidebar-nav-link":{
     "reports": "Отчёты",
     "debtors": "Должники",
-    "add_debtor": "добавить Должника",
+    "add_debtor": "Должника добавить",
     "calendar": "Календарь"
   },
 
