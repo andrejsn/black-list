@@ -1,4 +1,22 @@
 {
+  "app-sidebar-nav-link":{
+    "reports": "Atskaites",
+    "debtors": "Parādnieki",
+    "add_debtor": "pievienot Parādnieku",
+    "calendar": "Kalendārs"
+  },
+
+  "dropdown-header":{
+    "setting": "Setting"
+  },
+
+  "navItems": {
+    "reports":"Reports",
+    "debtors":"Debtors",
+    "add_debtor": "Add Debtor",
+    "calendar": "Calendar"
+  },
+
   "toast":{
     "auth": {
       "signup_form": "Check form to sign up",

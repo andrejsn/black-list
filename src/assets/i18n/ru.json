@@ -1,4 +1,22 @@
 {
+  "app-sidebar-nav-link":{
+    "reports": "Отчёты",
+    "debtors": "Должники",
+    "add_debtor": "добавить Должника",
+    "calendar": "Календарь"
+  },
+
+  "dropdown-header":{
+    "setting": "Настройки"
+  },
+
+  "navItems": {
+    "reports":"Отчёты",
+    "debtors":"Должники",
+    "add_debtor": "+ Должник",
+    "calendar": "Календарь"
+  },
+
   "toast":{
     "auth": {
       "signup_form": "Проверьте форму, чтобы зарегистрироваться",
