@@ -78,18 +78,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(email, password).subscribe(
       response => {
         this.authenticationService.setSession(response);
-        // get user info
-        this.http.post<any>(`${environment.apiUrl}/auth/me`, {}
-        ).pipe(first())
-          .subscribe(
-            data => {
-              console.log(data);
-            },
-            error => {
-              // can't get user info
-            }
-          );
-
         this.router.navigate([this.returnUrl]);
       },
       error => {
