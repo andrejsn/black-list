@@ -41,7 +41,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comment<span
             class="badge badge-warning">42</span></a>
 
-        <div class="dropdown-header text-center"><strong>{{ 'Setting' | translate}}</strong></div>
+        <div class="dropdown-header text-center"><strong>{{ 'dropdown-header.setting' | translate}}</strong></div>
         <a class="dropdown-item" [routerLink]="['/user/profile']"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
         <a class="dropdown-item" [routerLink]="['/user/payments']"><i class="fa fa-usd"></i> Payments<!--span class="badge badge-dark">42</span--></a>
@@ -295,8 +295,8 @@
                 <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
               </label> -->
             </div>
-            <a class="dropdown-item" href="#" (click)="translate.use('lv')"> Latvietis</a>
-            <a class="dropdown-item" href="#" (click)="translate.use('ru')"> Русский</a>
+            <a class="dropdown-item" href="#" (click)="translateTo('lv')"> Latvietis</a>
+            <a class="dropdown-item" href="#" (click)="translateTo('ru')"> Русский</a>
             <div>
               <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua.</small>
