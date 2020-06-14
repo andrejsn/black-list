@@ -7,6 +7,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationInterceptor } from './shared/helpers/authentication/authentication.interceptor';
+import { AuthenticationService } from './shared/helpers/authentication/authentication.service';
+import { SharedModule } from './shared/shared.module';
+
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -42,9 +47,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthenticationInterceptor } from './shared/helpers/authentication/authentication.interceptor';
-import { AuthenticationService } from './shared/helpers/authentication/authentication.service';
+
 
 
 // AoT requires an exported function for factories
@@ -69,7 +72,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,
