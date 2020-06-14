@@ -73,7 +73,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    SharedModule
+    SharedModule.forRoot()  //will provide service as singleton service
   ],
   declarations: [
     AppComponent,
