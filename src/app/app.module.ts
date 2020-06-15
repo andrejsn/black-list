@@ -57,6 +57,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   imports: [
     BrowserModule,
+    AppRoutingModule,// ?
     HttpClientModule,
     SnotifyModule,
     NgHttpLoaderModule.forRoot(),
