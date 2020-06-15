@@ -21,7 +21,7 @@ export class DefaultLayoutComponent implements AfterViewInit {
 
 
 
-  constructor(public translate: TranslateService) { }
+  constructor(private translate: TranslateService) { }
   ngAfterViewInit(): void {
     this.breadcrumb = document.getElementsByClassName('breadcrumb').item(0);
     const elements = document.getElementsByTagName('app-sidebar-nav-link-content');
