@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { navItems, navI18n } from '../../_nav';
+
 import { TranslateService } from '@ngx-translate/core';
+import { navI18n, navItems } from '@app/_nav';
 
 @Component({
   selector: 'app-dashboard',
