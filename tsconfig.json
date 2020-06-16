@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -19,10 +20,10 @@
     ],
     "paths": {
       "@app/*": [
-        "src/app/*"
+        "app/*"
       ],
       "@environments/*": [
-        "src/environments/*"
+        "environments/*"
       ]
     }
   }

@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
-import { SnotifyService } from 'ng-snotify';
-import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
+
+import { TranslateService } from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+
+import { environment } from '@environments/environment';
+import { AuthenticationService } from '@app/shared/helpers';
+
 
 @Component({
   selector: 'app-signup',

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
-import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { SnotifyService } from 'ng-snotify';
 import { TranslateService } from '@ngx-translate/core';
-
+import { AuthenticationService } from '@app/shared/helpers';
 
 
 @Component({

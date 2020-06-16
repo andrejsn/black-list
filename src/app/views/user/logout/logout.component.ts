@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../../shared/helpers/authentication/authentication.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { first } from 'rxjs/operators';
+
+import { environment } from '@environments/environment';
+import { AuthenticationService } from '@app/shared/helpers';
 
 @Component({
   selector: 'app-logout',
