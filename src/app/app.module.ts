@@ -47,8 +47,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 
-// A Simple WYSIWYG Editor for Angular Applications
-import { NgxEditorModule } from 'ngx-editor';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -73,7 +71,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    NgxEditorModule
   ],
   declarations: [
     AppComponent,
