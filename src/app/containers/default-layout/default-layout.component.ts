@@ -27,8 +27,8 @@ export class DefaultLayoutComponent implements AfterViewInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log(event.url);
         const url: string = event.url;
+
         if (url === '/' || url === navItems[0].url) {
           this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.active = res; });
         } else if (url === navItems[1].url) {
