@@ -1,10 +1,11 @@
 import { INavData } from '@coreui/angular';
 
 // ATTENTION : this values sync to navigation list & en.json|ru.json|lv.json
+// TODO read i18n.json for regexp ?
 export const navI18n: RegExp[] = [
   /Reports|Отчёты|Atskaites/g,
   /Debtors|Должники|Parādnieki/g,
-  /Add Debtor|Должника добавить|Parādnieku pievienot/g,
+  /Add Debtor|добавить Должника|pievienot Parādnieku/g,
   /Calendar|Календарь|Kalendārs/g
 ];
 

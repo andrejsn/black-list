@@ -44,7 +44,8 @@
         <div class="dropdown-header text-center"><strong>{{ 'dropdown-header.setting' | translate}}</strong></div>
         <a class="dropdown-item" [routerLink]="['/user/profile']"><i class="fa fa-user"></i> Profile</a>
         <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
-        <a class="dropdown-item" [routerLink]="['/user/payments']"><i class="fa fa-usd"></i> Payments<!--span class="badge badge-dark">42</span--></a>
+        <a class="dropdown-item" [routerLink]="['/user/payments']"><i class="fa fa-usd"></i> Payments
+          <!--span class="badge badge-dark">42</span--></a>
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span
             class="badge badge-primary">42</span></a>
         <div class="divider"></div>
@@ -63,10 +64,22 @@
   <!-- Main content -->
   <main class="main">
     <!-- Breadcrumb -->
+    <!-- PLAN B -->
+    <!-- #### -->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/']" href="#">Home</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <span tabindex="0">{{active}}</span>
+      </li>
+    </ol>
+
+    <!-- #### -->
     <!-- breaking change 'cui-breadcrumb' -->
-    <cui-breadcrumb>
-      <!-- Breadcrumb Menu-->
-      <!-- <li class="breadcrumb-menu d-md-down-none">
+    <!-- <cui-breadcrumb> -->
+    <!-- Breadcrumb Menu-->
+    <!-- <li class="breadcrumb-menu d-md-down-none">
 
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
           <a class="btn" href="#"><i class="icon-speech"></i></a>
@@ -74,7 +87,9 @@
           <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
         </div>
       </li> -->
-    </cui-breadcrumb>
+    <!-- </cui-breadcrumb> -->
+    <!-- #### -->
+
     <!-- deprecation warning for 'app-breadcrumb' -->
     <!--<ol class="breadcrumb">-->
     <!--<app-breadcrumb></app-breadcrumb>-->
