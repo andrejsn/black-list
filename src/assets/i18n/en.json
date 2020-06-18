@@ -1,23 +1,29 @@
 {
-  "app-sidebar-nav-link":{
+  "app-sidebar-nav-link": {
     "reports": "Reports",
     "debtors": "Debtors",
     "add_debtor": "Add Debtor",
     "calendar": "Calendar"
   },
-
-  "dropdown-header":{
+  "status":{
+    "awaiting": "Awaiting - en",
+    "in_work": "In Work - ",
+    "debt_collected": "Debt collected",
+    "to_sue": "To sue - ",
+    "in_court": "In court - ",
+    "hopeless": "Hopeless - ",
+    "insolvency": "Insolvency - "
+  },
+  "dropdown-header": {
     "setting": "Setting"
   },
-
   "navItems": {
-    "reports":"Reports",
-    "debtors":"Debtors",
+    "reports": "Reports",
+    "debtors": "Debtors",
     "add_debtor": "Add Debtor",
     "calendar": "Calendar"
   },
-
-  "toast":{
+  "toast": {
     "auth": {
       "signup_form": "Check form to sign up",
       "email_exist": "This email address already exists",
@@ -25,133 +31,131 @@
       "login_error": "Email or password is incorrect"
     }
   },
-
-	"about": {
-		"crm": {
-			"text": "Proprietary software to optimize customer interactions",
-			"title": "Implementation of its CRM in 2020"
-		},
-		"software": {
-			"text": "Development of programs according to customer specifications",
-			"title": "Software development since 2018"
-		},
-		"support": {
-			"text": "We offer technical support for almost any project",
-			"title": "IT Support since 2015"
-		},
-		"test": {
-			"text": "Writing simple test cases for web application",
-			"title": "Test management since 2013"
-		},
-		"text": "In 2013, we started writing simple computer tests using Selenium. From simple to complex: since 2015 we offer technical support services for our customers. The next stage begins in 2018. We are entering the IT market with our software. Today, our CRM systems optimize customer service.",
-		"title": "(briefly) About us"
-	},
-	"app": {
-		"about": "About us",
-		"contact": "Contact",
-		"gallery": "Gallery",
-		"pricing": "Pricing",
-		"ranges": "Ranges",
-		"working": "Working",
-		"cookie": "By continuing to browse the site, you're agreeing to our use of cookies. However, you can prevent the use of cookies and delete them by selecting the appropriate option in your browser."
-	},
-	"contact": {
-
-		"button": "Contact Us",
-		"enter": {
-			"email": "Please enter your email",
-			"name": "Please enter your name",
-			"phone": "Please enter your phone",
-			"message": "Please leave a message for us",
-			"robot": "I'm not a robot ツ"
-		},
-		"error": {
-			"email": "Email is",
-			"email_valid": "Please enter a valid email address",
-			"name": "Name is",
-			"phone": "Phone is",
-			"required": "required"
-		},
-		"placeholder": {
-			"email": "Email",
-			"name": "Name",
-			"phone": "Phone"
-		},
-		"subtitle": "leave your contact details",
-		"title": "Contact Us"
-	},
-	"footer": {
-		"subtitle": "(in Latvian)",
-		"title": "Legal information about us"
-	},
-	"gallery": {
-		"subtitle": "(((not) simple) Pictures =)",
-		"title": "Gallery"
-	},
-	"header": {
-		"greeting": "We greet you ツ"
-	},
-	"pricing": {
-		"development": {
-			"line": {
-				"1": "New projects",
-				"2": "Reverse engineering",
-				"3": "Compilation of documentation"
-			},
-			"price": "from 55€ per hour",
-			"title": "Development"
-		},
-		"subtitle": "The price depends on the specific of project",
-		"support": {
-			"line": {
-				"1": "Request processing",
-				"2": "Employee training",
-				"3": "Availability 24/7"
-			},
-			"price": "from 30€ per hour",
-			"title": "Support"
-		},
-		"testing": {
-			"line": {
-				"1": "Functional",
-				"2": "Load testing",
-				"3": "Security"
-			},
-			"price": "from 45€ per hour",
-			"title": "Testing"
-		},
-		"title": "Pricing"
-	},
-	"ranges": {
-		"development": {
-			"text": "Development or improvement of software.",
-			"title": "Development"
-		},
-		"subtitle": "Activities as a percentage",
-		"suport": {
-			"text": "Organization and provision of technical support.",
-			"title": "Project Support"
-		},
-		"testing": {
-			"text": "Management and implementation of all types of tests in projects.",
-			"title": "Project Testing"
-		},
-		"title": "Spectrum"
-	},
-	"working": {
-		"client": {
-			"text": "Work with the client - is the foundation of any business. The client comes to us for solutions to their problems. Does not matter to us: the creation of new solutions or support already existing. For us it is important that we can provide the product with which our customer can save or earn.",
-			"title": "Work with the client"
-		},
-		"project": {
-			"text": "For us, thinking about a project is not limited to any framework. We offer all kinds of solutions. Choosing the best solution is the most difficult and crucial step, a step on which a lot depends. Our analysts have extensive experience with a variety of projects, and will always offer the best solution!ле",
-			"title": "Project thinking"
-		},
-		"subtitle": "Long-term relationship to the client are the basis of our work",
-		"support": {
-			"text": "There comes a time when the project moves from the development and testing stage to the maintenance stage. This means that we continue to correct, optimize and enhance the product, following the customer's requirements. We also supplement the documentation for users and promptly inform them about the new versions.",
-			"title": "Project Support"
-		},
-		"title": "(how we are) Working"
-	}
+  "about": {
+    "crm": {
+      "text": "Proprietary software to optimize customer interactions",
+      "title": "Implementation of its CRM in 2020"
+    },
+    "software": {
+      "text": "Development of programs according to customer specifications",
+      "title": "Software development since 2018"
+    },
+    "support": {
+      "text": "We offer technical support for almost any project",
+      "title": "IT Support since 2015"
+    },
+    "test": {
+      "text": "Writing simple test cases for web application",
+      "title": "Test management since 2013"
+    },
+    "text": "In 2013, we started writing simple computer tests using Selenium. From simple to complex: since 2015 we offer technical support services for our customers. The next stage begins in 2018. We are entering the IT market with our software. Today, our CRM systems optimize customer service.",
+    "title": "(briefly) About us"
+  },
+  "app": {
+    "about": "About us",
+    "contact": "Contact",
+    "gallery": "Gallery",
+    "pricing": "Pricing",
+    "ranges": "Ranges",
+    "working": "Working",
+    "cookie": "By continuing to browse the site, you're agreeing to our use of cookies. However, you can prevent the use of cookies and delete them by selecting the appropriate option in your browser."
+  },
+  "contact": {
+    "button": "Contact Us",
+    "enter": {
+      "email": "Please enter your email",
+      "name": "Please enter your name",
+      "phone": "Please enter your phone",
+      "message": "Please leave a message for us",
+      "robot": "I'm not a robot ツ"
+    },
+    "error": {
+      "email": "Email is",
+      "email_valid": "Please enter a valid email address",
+      "name": "Name is",
+      "phone": "Phone is",
+      "required": "required"
+    },
+    "placeholder": {
+      "email": "Email",
+      "name": "Name",
+      "phone": "Phone"
+    },
+    "subtitle": "leave your contact details",
+    "title": "Contact Us"
+  },
+  "footer": {
+    "subtitle": "(in Latvian)",
+    "title": "Legal information about us"
+  },
+  "gallery": {
+    "subtitle": "(((not) simple) Pictures =)",
+    "title": "Gallery"
+  },
+  "header": {
+    "greeting": "We greet you ツ"
+  },
+  "pricing": {
+    "development": {
+      "line": {
+        "1": "New projects",
+        "2": "Reverse engineering",
+        "3": "Compilation of documentation"
+      },
+      "price": "from 55€ per hour",
+      "title": "Development"
+    },
+    "subtitle": "The price depends on the specific of project",
+    "support": {
+      "line": {
+        "1": "Request processing",
+        "2": "Employee training",
+        "3": "Availability 24/7"
+      },
+      "price": "from 30€ per hour",
+      "title": "Support"
+    },
+    "testing": {
+      "line": {
+        "1": "Functional",
+        "2": "Load testing",
+        "3": "Security"
+      },
+      "price": "from 45€ per hour",
+      "title": "Testing"
+    },
+    "title": "Pricing"
+  },
+  "ranges": {
+    "development": {
+      "text": "Development or improvement of software.",
+      "title": "Development"
+    },
+    "subtitle": "Activities as a percentage",
+    "suport": {
+      "text": "Organization and provision of technical support.",
+      "title": "Project Support"
+    },
+    "testing": {
+      "text": "Management and implementation of all types of tests in projects.",
+      "title": "Project Testing"
+    },
+    "title": "Spectrum"
+  },
+  "working": {
+    "client": {
+      "text": "Work with the client - is the foundation of any business. The client comes to us for solutions to their problems. Does not matter to us: the creation of new solutions or support already existing. For us it is important that we can provide the product with which our customer can save or earn.",
+      "title": "Work with the client"
+    },
+    "project": {
+      "text": "For us, thinking about a project is not limited to any framework. We offer all kinds of solutions. Choosing the best solution is the most difficult and crucial step, a step on which a lot depends. Our analysts have extensive experience with a variety of projects, and will always offer the best solution!ле",
+      "title": "Project thinking"
+    },
+    "subtitle": "Long-term relationship to the client are the basis of our work",
+    "support": {
+      "text": "There comes a time when the project moves from the development and testing stage to the maintenance stage. This means that we continue to correct, optimize and enhance the product, following the customer's requirements. We also supplement the documentation for users and promptly inform them about the new versions.",
+      "title": "Project Support"
+    },
+    "title": "(how we are) Working"
+  }
 }

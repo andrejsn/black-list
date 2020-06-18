@@ -5,7 +5,8 @@
       <div class="card-body">
         <div class="form-group">
           <label for="company">Company</label>
-          <input [(ngModel)]="company" class="form-control" id="company" type="text" placeholder="Enter your company name" (ngModelChange)="companyNameChanged($event)">
+          <input [(ngModel)]="company" class="form-control" id="company" type="text"
+            placeholder="Enter your company name" (ngModelChange)="companyNameChanged($event)">
         </div>
         <div class="form-group">
           <label for="vat">VAT</label>
@@ -92,11 +93,11 @@
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="status">Status</label>
           <div class="col-md-9">
-            <select  class="form-control" id="status" name="status" (change)="statusChanged($event.target.value)">
+            <select class="form-control" id="status" name="status" (change)="statusChanged($event.target.value)">
               <option value="0">Please select</option>
-              <option [value]="status.key" *ngFor="let status of all_statuses | keyvalue" >
-                {{status.value}}
-            </option>
+              <option [value]="status" *ngFor="let status of all_statuses">
+                {{ 'status.'+status | translate}}
+              </option>
             </select>
           </div>
         </div>

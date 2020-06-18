@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '@app/models';
+import { statuses } from '@app/models';
 
 @Component({
   selector: 'app-debtor',
@@ -10,7 +10,7 @@ export class DebtorComponent implements OnInit {
 
   company: string;
 
-  all_statuses  = Status;
+  all_statuses:string[]  = statuses;
 
   constructor() { }
 
