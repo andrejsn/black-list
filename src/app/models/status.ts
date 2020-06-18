@@ -1,3 +1,9 @@
 export enum Status {
-  awaiting, in_work, debt_collected, to_sue, in_court, hopeless, insolvency
+  awaiting = "Awaiting",
+  in_work = "In work",
+  debt_collected = "Debt collected",
+  to_sue = "To sue",
+  in_court = "In court",
+  hopeless = "Hopeless",
+  insolvency = "Insolvency"
 }
