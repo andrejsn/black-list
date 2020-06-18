@@ -5,14 +5,17 @@
     "add_debtor": "Add Debtor",
     "calendar": "Calendar"
   },
+  "select": {
+    "status": "The name of the stage at which the debtor is in the process of collecting debt"
+  },
   "status":{
-    "awaiting": "Awaiting - en",
-    "in_work": "In Work - ",
-    "debt_collected": "Debt collected",
-    "to_sue": "To sue - ",
-    "in_court": "In court - ",
-    "hopeless": "Hopeless - ",
-    "insolvency": "Insolvency - "
+    "awaiting": "Awaiting - pre-trial recovery process not started",
+    "in_work": "In Work - the process of pre-trial recovery from the debtor",
+    "debt_collected": "Debt collected - debt is collected on this debtor",
+    "to_sue": "To sue - pre-trial process is completed, the debt is not recovered, it is advisable to transfer to court",
+    "in_court": "In court - case brought to court",
+    "hopeless": "Hopeless - inappropriate to bring a case to court",
+    "insolvency": "Insolvency - debtor insolvency proceedings started"
   },
   "dropdown-header": {
     "setting": "Setting"

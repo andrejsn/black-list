@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong> <small>Basic data</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -Basic data</small></div>
       <div class="card-body">
         <div class="form-group">
           <label for="company">Company</label>
@@ -22,7 +22,7 @@
 
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong> <small>Addresse</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -Addresse</small></div>
       <div class="card-body">
         <div class="form-group">
           <label for="street">Street</label>
@@ -50,7 +50,7 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong> <small>Kontakt</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -Kontakt</small></div>
       <div class="card-body">
         <div class="form-group">
           <label for="phone">Phone</label>
@@ -70,7 +70,7 @@
 
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong> <small>Banking information</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -Banking information</small></div>
       <div class="card-body">
         <div class="form-group">
           <label for="bank">Name of bank</label>
@@ -88,13 +88,13 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong> <small>Status and Info</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -Status and Info</small></div>
       <div class="card-body">
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="status">Status</label>
           <div class="col-md-9">
             <select class="form-control" id="status" name="status" (change)="statusChanged($event.target.value)">
-              <option value="0">Please select</option>
+              <option value="0">{{'select.status' | translate}}</option>
               <option [value]="status" *ngFor="let status of all_statuses">
                 {{ 'status.'+status | translate}}
               </option>

@@ -5,14 +5,17 @@
     "add_debtor": "pievienot Parādnieku",
     "calendar": "Kalendārs"
   },
+  "select": {
+    "status": "Stadijas nosaukums, kurā atrodas parādnieks parāda atgūšanas procesā"
+  },
   "status": {
-    "awaiting": "Awaiting - lv",
-    "in_work": "In Work - ",
-    "debt_collected": "Debt collected",
-    "to_sue": "To sue - ",
-    "in_court": "In court - ",
-    "hopeless": "Hopeless - ",
-    "insolvency": "Insolvency - "
+    "awaiting": "Gaida - pirmstiesas piedziņas process nav uzsākts",
+    "in_work": "Darbā - pirmstiesas piedziņas process pret parādnieku ir uzsākts",
+    "debt_collected": "Parāds piedzīts - parāds no parādnieka ir piedzīts",
+    "to_sue": "Iesniegšanai tiesā - pirmstiesas process ir uzsākts, parāds nav piedzīts, ir lietderīgi nodot lietu tiesā",
+    "in_court": "Tiesā - lieta ir nodota tiesā",
+    "hopeless": "Bezcerīgs - nav vērts nodot lietu tiesā",
+    "insolvency": "Maksātnespēja - ir uzsākts parādnieka maksātnespējas process"
   },
   "dropdown-header": {
     "setting": "Setting"
