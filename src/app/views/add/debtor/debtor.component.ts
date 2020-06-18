@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Status } from '@app/models';
 
 @Component({
   selector: 'app-debtor',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DebtorComponent implements OnInit {
 
+
+
   constructor() { }
+
+
 
   ngOnInit(): void {
   }
