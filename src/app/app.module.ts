@@ -78,6 +78,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     P404Component,
     P500Component,
   ],
+  exports: [TranslateModule],
   providers: [
     AuthenticationService,// ?
     {
