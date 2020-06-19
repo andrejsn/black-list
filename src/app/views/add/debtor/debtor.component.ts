@@ -59,7 +59,7 @@ export class DebtorComponent implements OnInit {
         homepage: [],
         bank_name: [],
         bank_account_number: [],
-        status: [],
+        status: [null, [ Validators.required ] ],
         note: [],
       }
     );
@@ -89,12 +89,13 @@ export class DebtorComponent implements OnInit {
     if (this.addDebtorForm.invalid) {
       this.translate.get('toast.error.debtor_form').subscribe((error: string) => { this.snotifyService.error(error) });
 
-      return;
+      // return;
     }
 
     const company = this.addDebtorForm.controls['company'].value;
     console.log(company);
-
+    const status = this.addDebtorForm.controls['status'].value;
+    console.log(status);
 
   }
 
