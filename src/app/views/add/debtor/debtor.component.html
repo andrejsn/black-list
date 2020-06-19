@@ -1,20 +1,23 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong><small> -Basic data</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -{{ 'debtor.basic_data' | translate}}</small></div>
       <div class="card-body">
         <div class="form-group">
-          <label for="company">Company</label>
+          <label for="company">{{ 'debtor.company' | translate}}</label>
           <input [(ngModel)]="company" class="form-control" id="company" type="text"
-            placeholder="Enter your company name" (ngModelChange)="companyNameChanged($event)">
+            placeholder="Enter debtor company name" (ngModelChange)="companyNameChanged($event)">
         </div>
         <div class="form-group">
-          <label for="vat">VAT</label>
-          <input class="form-control" id="vat" type="text" placeholder="LV1234567890">
+          <label for="reg_number">{{ 'debtor.reg_number' | translate}}</label>
+          <input class="form-control" id="reg_number" type="text" placeholder="Registration number">
         </div>
         <div class="form-group">
-          <label for="debt">Debt</label>
-          <input class="form-control" id="debt" type="text" placeholder="100.000,00">
+          <label for="debt">{{ 'debtor.debt' | translate}}</label>
+          <div class="input-group">
+            <input class="form-control" id="debt" type="text" placeholder="100.000,00">
+            <div class="input-group-append"><span class="input-group-text">€</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,24 +25,25 @@
 
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong><small> -Addresse</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -{{ 'debtor.legal_address' | translate}}</small>
+      </div>
       <div class="card-body">
         <div class="form-group">
-          <label for="street">Street</label>
-          <input class="form-control" id="street" type="text" placeholder="Enter street name">
+          <label for="address">{{ 'debtor.legal_address' | translate}}</label>
+          <input class="form-control" id="address" type="text" placeholder="Enter address">
         </div>
         <div class="row">
           <div class="form-group col-sm-8">
-            <label for="city">City</label>
-            <input class="form-control" id="city" type="text" placeholder="Enter your city">
+            <label for="city">{{ 'debtor.city' | translate}}</label>
+            <input class="form-control" id="city" type="text" placeholder="Enter city">
           </div>
           <div class="form-group col-sm-4">
-            <label for="postal-code">Postal Code</label>
-            <input class="form-control" id="postal-code" type="text" placeholder="Postal Code">
+            <label for="postal_code">{{ 'debtor.postal_code' | translate}}</label>
+            <input class="form-control" id="postal_code" type="text" placeholder="Postal Code">
           </div>
         </div>
         <div class="form-group">
-          <label for="country">Country</label>
+          <label for="country">{{ 'debtor.country' | translate}}</label>
           <input class="form-control" id="country" type="text" placeholder="Country name">
         </div>
       </div>
@@ -50,19 +54,23 @@
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong><small> -Kontakt</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -{{ 'debtor.contact' | translate}}</small></div>
       <div class="card-body">
         <div class="form-group">
-          <label for="phone">Phone</label>
-          <input class="form-control" id="phone" type="text" placeholder="Enter company phone">
+          <label for="phone">{{ 'debtor.phone' | translate}}</label>
+          <input class="form-control" id="phone" type="text" placeholder="Enter phone">
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input class="form-control" id="email" type="text" placeholder="Enter company email">
+          <label for="fax">{{ 'debtor.fax' | translate}}</label>
+          <input class="form-control" id="fax" type="text" placeholder="Enter fax">
         </div>
         <div class="form-group">
-          <label for="fax">Fax</label>
-          <input class="form-control" id="fax" type="text" placeholder="Enter company fax">
+          <label for="email">{{ 'debtor.email' | translate}}</label>
+          <input class="form-control" id="email" type="text" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="homepage">{{ 'debtor.homepage' | translate}}</label>
+          <input class="form-control" id="homepage" type="text" placeholder="Enter homepage">
         </div>
       </div>
     </div>
@@ -70,15 +78,16 @@
 
   <div class="col-sm-6">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong><small> -Banking information</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small>
+          -{{ 'debtor.banking_information' | translate}}</small></div>
       <div class="card-body">
         <div class="form-group">
-          <label for="bank">Name of bank</label>
+          <label for="bank">{{ 'debtor.bank_name' | translate}}</label>
           <input class="form-control" id="bank" type="text" placeholder="Enter bank name">
         </div>
         <div class="form-group">
-          <label for="iban">IBAN</label>
-          <input class="form-control" id="iban" type="text" placeholder="Enter IBAN">
+          <label for="bank_account_number">{{ 'debtor.bank_account_number' | translate}}</label>
+          <input class="form-control" id="bank_account_number" type="text" placeholder="Enter bank account number">
         </div>
       </div>
     </div>
@@ -88,10 +97,10 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
-      <div class="card-header"><strong>{{company}}</strong><small> -Status and Info</small></div>
+      <div class="card-header"><strong>{{company}}</strong><small> -{{ 'debtor.add_info' | translate}}</small></div>
       <div class="card-body">
         <div class="form-group row">
-          <label class="col-md-3 col-form-label" for="status">Status</label>
+          <label class="col-md-3 col-form-label" for="status">{{ 'debtor.status' | translate}}</label>
           <div class="col-md-9">
             <select class="form-control" id="status" name="status" (change)="statusChanged($event.target.value)">
               <option value="0">{{'select.status' | translate}}</option>
@@ -103,7 +112,7 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-md-3 col-form-label" for="note">Note</label>
+          <label class="col-md-3 col-form-label" for="note">{{ 'debtor.notes' | translate}}</label>
           <div class="col-md-9">
             <textarea class="form-control" id="note" name="note" rows="9" placeholder="Note..."
               style="margin-top: 0px; margin-bottom: 0px; height: 97px;"></textarea>
