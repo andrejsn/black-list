@@ -74,6 +74,13 @@ export class SignupComponent implements OnInit {
 
     console.log('submit +');
 
+    // stop here if form is invalid
+    if (this.signupForm.invalid) {
+      this.translate.get('toast.error.signup_form').subscribe((error: string) => { this.snotifyService.error(error) });
+
+      return;
+    }
+
     const name = this.signupForm.controls['name'].value;
     const email = this.signupForm.controls['email'].value;
     const password = this.signupForm.controls['password'].value;
@@ -82,12 +89,7 @@ export class SignupComponent implements OnInit {
 
 
 
-    // stop here if form is invalid
-    if (this.signupForm.invalid) {
-      this.translate.get('toast.auth.signup_form').subscribe((error:string) => {this.snotifyService.error(error)});
 
-      return;
-    }
 
     //this.loading = true;
 
@@ -107,10 +109,10 @@ export class SignupComponent implements OnInit {
             response => {
               this.authenticationService.setSession(response);
               this.router.navigate(['/']);
-            },);
+            });
         },
         error => {
-          this.translate.get('toast.auth.email_exist').subscribe((error:string) => {this.snotifyService.error(error)});
+          this.translate.get('toast.error.email_exist').subscribe((error: string) => { this.snotifyService.error(error) });
         }
       );
   }

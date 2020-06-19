@@ -69,11 +69,12 @@
     "calendar": "Calendar"
   },
   "toast": {
-    "auth": {
-      "signup_form": "Check form to sign up",
-      "email_exist": "This email address already exists",
-      "login_form": "Check form to login",
-      "login_error": "Email or password is incorrect"
+    "error": {
+      "signup_form": "Pārbaudiet veidlapu, lai reģistrētos",
+      "email_exist": "Šī e-pasta adrese jau pastāv",
+      "login_form": "Pārbaudiet veidlapu, lai pieteiktos",
+      "login_error": "E-pasts vai parole nav pareiza",
+      "debtor_form": "Pārbaudiet veidlapu, lai pievienotu parādnieku"
     }
   },
   "about": {

@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-      this.translate.get('toast.auth.login_form').subscribe((error: string) => { this.snotifyService.error(error) });
+      this.translate.get('toast.error.login_form').subscribe((error: string) => { this.snotifyService.error(error) });
       return;
     }
 
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
       error => {
         this.loading = false;
         this.error = true;
-        this.translate.get('toast.auth.login_error').subscribe((error: string) => { this.snotifyService.error(error) });
+        this.translate.get('toast.error.login_error').subscribe((error: string) => { this.snotifyService.error(error) });
       }
     );
   }

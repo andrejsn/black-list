@@ -69,11 +69,12 @@
     "calendar": "Calendar"
   },
   "toast": {
-    "auth": {
+    "error": {
       "signup_form": "Check form to sign up",
       "email_exist": "This email address already exists",
       "login_form": "Check form to login",
-      "login_error": "Email or password is incorrect"
+      "login_error": "Email or password is incorrect",
+      "debtor_form": "Check form to add the debtor"
     }
   },
   "about": {

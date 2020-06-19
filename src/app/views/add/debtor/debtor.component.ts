@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { statuses } from '@app/models';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-debtor',
@@ -11,6 +13,9 @@ export class DebtorComponent implements OnInit {
 
   company_name: string;
   all_statuses: string[] = statuses;
+
+  submitted = false;
+  loading = false;
 
   addDebtorForm: FormGroup = new FormGroup(
     {
@@ -33,7 +38,10 @@ export class DebtorComponent implements OnInit {
     }
   );
 
-  constructor(private formBuilder: FormBuilder,) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
     this.addDebtorForm = this.formBuilder.group(
@@ -73,8 +81,16 @@ export class DebtorComponent implements OnInit {
    * submit
    */
   onSubmit() {
+    this.submitted = true;
 
-    console.log('submit');
+    console.log('submit new debtor');
+
+    // stop here if form is invalid
+    if (this.addDebtorForm.invalid) {
+      this.translate.get('toast.error.debtor_form').subscribe((error: string) => { this.snotifyService.error(error) });
+
+      return;
+    }
 
     const company = this.addDebtorForm.controls['company'].value;
     console.log(company);

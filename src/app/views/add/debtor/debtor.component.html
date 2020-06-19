@@ -7,8 +7,12 @@
         <div class="card-body">
           <div class="form-group">
             <label for="company">{{ 'debtor.company' | translate}}</label>
-            <input formControlName="company" autocomplete="organization" class="form-control"
-              id="company" type="text" placeholder="{{ 'placeholder.debtor.company' | translate}}" (change)="changedCompanyName()">
+            <input formControlName="company"
+            autocomplete="organization"
+            class="form-control"
+            [ngClass]="{'is-invalid': submitted && f.company.errors, 'is-valid': submitted && !f.company.errors}"
+              id="company" type="text" placeholder="{{ 'placeholder.debtor.company' | translate}}"
+              (change)="changedCompanyName()">
           </div>
           <div class="form-group">
             <label for="reg_number">{{ 'debtor.reg_number' | translate}}</label>
@@ -35,8 +39,8 @@
         <div class="card-body">
           <div class="form-group">
             <label for="legal_address">{{ 'debtor.legal_address' | translate}}</label>
-            <input formControlName="legal_address" autocomplete="address-level1"  class="form-control" id="legal_address" type="text"
-              placeholder="{{ 'placeholder.debtor.legal_address' | translate}}">
+            <input formControlName="legal_address" autocomplete="address-level1" class="form-control" id="legal_address"
+              type="text" placeholder="{{ 'placeholder.debtor.legal_address' | translate}}">
           </div>
           <div class="row">
             <div class="form-group col-sm-8">
@@ -46,13 +50,13 @@
             </div>
             <div class="form-group col-sm-4">
               <label for="postal_code">{{ 'debtor.postal_code' | translate}}</label>
-              <input formControlName="postal_code" autocomplete="postal-code" class="form-control" id="postal_code" type="text"
-                placeholder="{{ 'placeholder.debtor.postal_code' | translate}}">
+              <input formControlName="postal_code" autocomplete="postal-code" class="form-control" id="postal_code"
+                type="text" placeholder="{{ 'placeholder.debtor.postal_code' | translate}}">
             </div>
           </div>
           <div class="form-group">
             <label for="country">{{ 'debtor.country' | translate}}</label>
-            <input formControlName="country"  autocomplete="country-name" class="form-control" id="country" type="text"
+            <input formControlName="country" autocomplete="country-name" class="form-control" id="country" type="text"
               placeholder="{{ 'placeholder.debtor.country' | translate}}">
           </div>
         </div>
@@ -73,7 +77,8 @@
           </div>
           <div class="form-group">
             <label for="fax">{{ 'debtor.fax' | translate}}</label>
-            <input formControlName="fax" class="form-control" id="fax" type="text" placeholder="{{ 'placeholder.debtor.fax' | translate}}">
+            <input formControlName="fax" class="form-control" id="fax" type="text"
+              placeholder="{{ 'placeholder.debtor.fax' | translate}}">
           </div>
           <div class="form-group">
             <label for="email">{{ 'debtor.email' | translate}}</label>
@@ -137,7 +142,8 @@
           </div>
 
           <div class="card-footer">
-            <button class="btn btn-sm btn-primary" type="submit"> {{ 'debtor.submit_debtor' | translate}}</button>
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              {{ 'debtor.submit_debtor' | translate}}</button>
             <button class="btn btn-sm btn-warning" type="reset"> {{ 'debtor.reset_debtor' | translate}}</button>
           </div>
         </div>
