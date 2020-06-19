@@ -27,7 +27,18 @@
     "status": "Status",
     "notes": "Notes about debt",
     "submit_debtor": "Add debtor",
-    "reset_debtor": "Reset input"
+    "reset_debtor": "Reset input",
+    "error":{
+      "company":{
+        "required": "Company name is required"
+      },
+      "reg_number":{
+        "required": "The registration number is required"
+      },
+      "debt" : {
+        "required": "Debt amount required"
+      }
+    }
   },
   "select": {
     "status": "The name of the stage at which the debtor is in the process of collecting debt"

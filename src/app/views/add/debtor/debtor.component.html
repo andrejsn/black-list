@@ -7,24 +7,30 @@
         <div class="card-body">
           <div class="form-group">
             <label for="company">{{ 'debtor.company' | translate}}</label>
-            <input formControlName="company"
-            autocomplete="organization"
-            class="form-control"
-            [ngClass]="{'is-invalid': submitted && f.company.errors, 'is-valid': submitted && !f.company.errors}"
+            <input formControlName="company" autocomplete="organization" class="form-control"
+              [ngClass]="{'is-invalid': submitted && f.company.errors, 'is-valid': submitted && !f.company.errors}"
               id="company" type="text" placeholder="{{ 'placeholder.debtor.company' | translate}}"
               (change)="changedCompanyName()">
+            <div *ngIf="submitted && f.company.errors && f.company.errors.required" class="invalid-feedback">
+              {{'debtor.error.company.required' | translate}}</div>
           </div>
           <div class="form-group">
             <label for="reg_number">{{ 'debtor.reg_number' | translate}}</label>
             <input formControlName="reg_number" autocomplete="off" class="form-control" id="reg_number" type="text"
+              [ngClass]="{'is-invalid': submitted && f.reg_number.errors, 'is-valid': submitted && !f.reg_number.errors}"
               placeholder="{{ 'placeholder.debtor.reg_number' | translate}}">
+            <div *ngIf="submitted && f.reg_number.errors && f.reg_number.errors.required" class="invalid-feedback">
+              {{'debtor.error.reg_number.required' | translate}}</div>
           </div>
           <div class="form-group">
             <label for="debt">{{ 'debtor.debt' | translate}}</label>
             <div class="input-group">
               <input formControlName="debt" autocomplete="off" class="form-control" id="debt" type="text"
+                [ngClass]="{'is-invalid': submitted && f.debt.errors, 'is-valid': submitted && !f.debt.errors}"
                 placeholder="{{ 'placeholder.debtor.debt' | translate}}">
               <div class="input-group-append"><span class="input-group-text">€</span></div>
+              <div *ngIf="submitted && f.debt.errors && f.debt.errors.required" class="invalid-feedback">
+                {{'debtor.error.debt.required' | translate}}</div>
             </div>
           </div>
         </div>
