@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class DebtorComponent implements OnInit {
 
-  //company: string;
+  company_name: string;
   all_statuses: string[] = statuses;
 
   addDebtorForm: FormGroup = new FormGroup(
@@ -41,19 +41,47 @@ export class DebtorComponent implements OnInit {
         company: ['', [Validators.required]], // TODO min oder max length?
         reg_number: ['', [Validators.required]], // TODO min oder max length?
         debt: ['', [Validators.required]], // TODO min oder max length? number?
+        legal_address: [],
+        city: [],
+        postal_code: [],
+        country: [],
+        phone: [],
+        fax: [],
+        email: [],
+        homepage: [],
+        bank_name: [],
+        bank_account_number: [],
+        status: [],
+        note: [],
       }
     );
   }
 
-
-  companyNameChanged(companyName: string) {
-    console.log(companyName);
-
+  /**
+   * set company name in cards
+   */
+  changedCompanyName() {
+    this.company_name = this.addDebtorForm.controls['company'].value;
   }
 
   statusChanged(status) {
     console.log(status);
   }
+
+
+  /**
+   * submit
+   */
+  onSubmit() {
+
+    console.log('submit');
+
+    const company = this.addDebtorForm.controls['company'].value;
+    console.log(company);
+
+
+  }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.addDebtorForm.controls;
