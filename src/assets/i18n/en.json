@@ -25,12 +25,14 @@
     "bank_account_number": "Bank account number",
     "add_info": "Status and additional notes",
     "status": "Status",
-    "notes": "Notes about debt"
+    "notes": "Notes about debt",
+    "submit_debtor": "Add debtor",
+    "reset_debtor": "Reset input"
   },
   "select": {
     "status": "The name of the stage at which the debtor is in the process of collecting debt"
   },
-  "status":{
+  "status": {
     "awaiting": "Awaiting - pre-trial recovery process not started",
     "in_work": "In Work - the process of pre-trial recovery from the debtor",
     "debt_collected": "Debt collected - debt is collected on this debtor",
@@ -38,6 +40,24 @@
     "in_court": "In court - case brought to court",
     "hopeless": "Hopeless - inappropriate to bring a case to court",
     "insolvency": "Insolvency - debtor insolvency proceedings started"
+  },
+  "placeholder": {
+    "debtor": {
+      "company": "Enter debtor company name",
+      "reg_number": "Registration number",
+      "debt": "100.000,00",
+      "address": "Enter address",
+      "city": "Enter city",
+      "postal_code": "Postal code",
+      "country": "Country name",
+      "phone": "Enter phone",
+      "fax": "Enter fax",
+      "email": "Enter email",
+      "homepage": "Enter homepage",
+      "bank_name": "Enter bank name",
+      "bank_account_number": "Enter bank account number",
+      "note": "Note..."
+    }
   },
   "dropdown-header": {
     "setting": "Setting"

@@ -14,7 +14,7 @@
     "address": "Adrese",
     "city": "Pilsēta",
     "country": "Valsts",
-    "postal_code": "",
+    "postal_code": "Indekss",
     "contact": "Kontaktinformācija",
     "phone": "Tālrunis",
     "fax": "Fakss",
@@ -25,7 +25,9 @@
     "bank_account_number": "Bankas konta numurs",
     "add_info": "Papildu piezīmes",
     "status": "Stāvoklis",
-    "notes": "Piezīmes par parādu"
+    "notes": "Piezīmes par parādu",
+    "submit_debtor": "Pievienot parādnieku",
+    "reset_debtor": "Atiestatīt ievadi"
   },
   "select": {
     "status": "Stadijas nosaukums, kurā atrodas parādnieks parāda atgūšanas procesā"
@@ -38,6 +40,24 @@
     "in_court": "Tiesā - lieta ir nodota tiesā",
     "hopeless": "Bezcerīgs - nav vērts nodot lietu tiesā",
     "insolvency": "Maksātnespēja - ir uzsākts parādnieka maksātnespējas process"
+  },
+  "placeholder": {
+    "debtor": {
+      "company": "Ievadiet parādnieka uzņēmuma nosaukumu",
+      "reg_number": "Reģistrācijas numurs",
+      "debt": "100.000,00",
+      "address": "Adrese",
+      "city": "Pilsēta",
+      "postal_code": "Pasta indekss",
+      "country": "Valsts nosaukums",
+      "phone": "Ievadiet tālruņa numuru",
+      "fax": "Ievadiet faksu",
+      "email": "Ievadiet e-pasta adresi",
+      "homepage": "Ievadiet mājas lapu",
+      "bank_name": "Ievadiet bankas nosaukumu",
+      "bank_account_number": "Ievadiet bankas konta numuru",
+      "note": "Piezīme..."
+    }
   },
   "dropdown-header": {
     "setting": "Setting"
