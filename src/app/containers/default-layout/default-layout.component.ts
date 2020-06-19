@@ -6,7 +6,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  styles: ['.xxx {font-size: xxx-large;}'],
+  styles: ['.xxx {font-size: xxx-large;} .i18n_click:hover {cursor:pointer;}'],
   templateUrl: './default-layout.component.html'
 })
 export class DefaultLayoutComponent implements AfterViewInit {
@@ -27,19 +27,8 @@ export class DefaultLayoutComponent implements AfterViewInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        const url: string = event.url;
-
-        if (url === '/' || url === navItems[0].url) {
-          this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.active = res; });
-        } else if (url === navItems[1].url) {
-          this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.active = res; });
-        } else if (url === navItems[2].url) {
-          this.translate.get('app-sidebar-nav-link.add_debtor').subscribe((res: string) => { this.active = res; });
-        } else if (url === navItems[3].url) {
-          this.translate.get('app-sidebar-nav-link.calendar').subscribe((res: string) => { this.active = res; });
-        }
+        this.translateActiveBreadcrump(event.url);
       }
-
     });
   }
 
@@ -66,6 +55,25 @@ export class DefaultLayoutComponent implements AfterViewInit {
     this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.debtors.innerHTML = this.debtors.innerHTML.replace(navI18n[1], res); })
     this.translate.get('app-sidebar-nav-link.add_debtor').subscribe((res: string) => { this.add_debtor.innerHTML = this.add_debtor.innerHTML.replace(navI18n[2], res); })
     this.translate.get('app-sidebar-nav-link.calendar').subscribe((res: string) => { this.calendar.innerHTML = this.calendar.innerHTML.replace(navI18n[3], res); })
+
+    this.translateActiveBreadcrump(this.router.url);
+  }
+
+  /**
+   * I18n for active breadcrump
+   *
+   * @param url - current url
+   */
+  translateActiveBreadcrump(url:string){
+    if (url === '/' || url === navItems[0].url) {
+      this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.active = res; });
+    } else if (url === navItems[1].url) {
+      this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.active = res; });
+    } else if (url === navItems[2].url) {
+      this.translate.get('app-sidebar-nav-link.add_debtor').subscribe((res: string) => { this.active = res; });
+    } else if (url === navItems[3].url) {
+      this.translate.get('app-sidebar-nav-link.calendar').subscribe((res: string) => { this.active = res; });
+    }
   }
 
   toggleMinimize(e: boolean) {
