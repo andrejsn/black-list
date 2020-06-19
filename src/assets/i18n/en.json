@@ -37,6 +37,9 @@
       },
       "debt" : {
         "required": "Debt amount required"
+      },
+      "status" : {
+        "required": "It is necessary to indicate the name of the stage at which the debtor is in the process of debt collection"
       }
     }
   },

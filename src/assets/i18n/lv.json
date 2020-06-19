@@ -37,6 +37,9 @@
       },
       "debt" : {
         "required": "Nepieciešamā parāda summa"
+      },
+      "status" : {
+        "required": "Ir jānorāda tās stadijas nosaukums, kurā parādnieks atrodas parāda piedziņas procesā"
       }
     }
   },
