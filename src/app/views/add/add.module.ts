@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AddRoutingModule } from './add-routing.module';
@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
   declarations: [DebtorComponent],
   imports: [
     CommonModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     //NgxEditorModule,
     AddRoutingModule,
     TranslateModule
