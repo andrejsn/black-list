@@ -5,6 +5,27 @@
     "add_debtor": "добавить Должника",
     "calendar": "Календарь"
   },
+  "debtor": {
+    "basic_data": "",
+    "company": "",
+    "reg_number": "",
+    "debt": "",
+    "legal_address": "",
+    "address": "",
+    "city": "",
+    "country": "",
+    "postal_code": "",
+    "contact": "",
+    "phone": "",
+    "fax": "",
+    "email": "",
+    "homepage": "",
+    "banking_information": "",
+    "bank_name": "",
+    "bank_account_number": "",
+    "status": "",
+    "notes": ""
+  },
   "select": {
     "status": "Название стадии, на которой находится должник в процессе взыскания долга"
   },

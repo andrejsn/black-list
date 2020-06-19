@@ -5,6 +5,27 @@
     "add_debtor": "pievienot Parādnieku",
     "calendar": "Kalendārs"
   },
+  "debtor": {
+    "basic_data": "Pamatdati",
+    "company": "Nosaukums",
+    "reg_number": "Reģistrācijas numurs",
+    "debt": "Parāds",
+    "legal_address": "Juridiskā adrese",
+    "address": "Adrese",
+    "city": "Pilsēta",
+    "country": "Valsts",
+    "postal_code": "",
+    "contact": "Kontaktinformācija",
+    "phone": "Tālrunis",
+    "fax": "Fakss",
+    "email": "E-pasts",
+    "homepage": "Mājas lapa",
+    "banking_information": "Informācija par banku",
+    "bank_name": "Bankas nosaukums",
+    "bank_account_number": "Bankas konta numurs",
+    "status": "Stāvoklis",
+    "notes": "Piezīmes par parādu"
+  },
   "select": {
     "status": "Stadijas nosaukums, kurā atrodas parādnieks parāda atgūšanas procesā"
   },
