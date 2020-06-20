@@ -3,6 +3,9 @@ import { statuses } from '@app/models';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-debtor',
@@ -41,6 +44,7 @@ export class DebtorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private translate: TranslateService,
+    private http: HttpClient,
     private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
@@ -59,7 +63,7 @@ export class DebtorComponent implements OnInit {
         homepage: [],
         bank_name: [],
         bank_account_number: [],
-        status: [null, [ Validators.required ] ],
+        status: [null, [Validators.required]],
         note: [],
       }
     );
@@ -89,13 +93,43 @@ export class DebtorComponent implements OnInit {
     if (this.addDebtorForm.invalid) {
       this.translate.get('toast.error.debtor_form').subscribe((error: string) => { this.snotifyService.error(error) });
 
-      // return;
+      return;
     }
 
     const company = this.addDebtorForm.controls['company'].value;
     console.log(company);
     const status = this.addDebtorForm.controls['status'].value;
     console.log(status);
+
+    //this.loading = true;
+
+    this.http.post<any>(`${environment.apiUrl}/add/debtor`,
+      {
+        'company': this.addDebtorForm.controls['company'].value,
+        'reg_number': this.addDebtorForm.controls['reg_number'].value,
+        'debt': this.addDebtorForm.controls['debt'].value,
+        'legal_address': this.addDebtorForm.controls['legal_address'].value,
+        'city': this.addDebtorForm.controls['city'].value,
+        'postal_code': this.addDebtorForm.controls['postal_code'].value,
+        'country': this.addDebtorForm.controls['country'].value,
+        'phone': this.addDebtorForm.controls['phone'].value,
+        'fax': this.addDebtorForm.controls['fax'].value,
+        'email': this.addDebtorForm.controls['email'].value,
+        'homepage': this.addDebtorForm.controls['homepage'].value,
+        'bank_name': this.addDebtorForm.controls['bank_name'].value,
+        'bank_account_number': this.addDebtorForm.controls['bank_account_number'].value,
+        'status': this.addDebtorForm.controls['status'].value,
+        'note': this.addDebtorForm.controls['note'].value,
+      }
+    ).pipe(first())
+      .subscribe(
+        data => {
+
+        },
+        error => {
+
+        }
+      );
 
   }
 
