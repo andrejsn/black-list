@@ -1,19 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthenticationInterceptor } from './shared/helpers/authentication/authentication.interceptor';
-import { AuthenticationService } from './shared/helpers/authentication/authentication.service';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+import { AuthenticationService } from '@shared/helpers/authentication/';
+import { AuthenticationInterceptor } from '@shared/helpers/interceptors/';
+import { ErrorInterceptor } from '@shared/helpers/interceptors/';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -85,7 +86,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       provide: LocationStrategy, useClass: HashLocationStrategy,
     },
     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true
+      provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true,
     },
 
     SnotifyService,
