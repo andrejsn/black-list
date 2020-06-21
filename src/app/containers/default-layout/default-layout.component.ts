@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { navI18n, navItems } from '@app/_nav';
@@ -9,10 +9,12 @@ import { Router, NavigationEnd } from '@angular/router';
   styles: ['.xxx {font-size: xxx-large;} .i18n_click:hover {cursor:pointer;}'],
   templateUrl: './default-layout.component.html'
 })
-export class DefaultLayoutComponent implements AfterViewInit {
+export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   public sidebarMinimized = false;
   public navItems = navItems;
 
+  // user avatar
+  user_name: string;
   // menu elements
   reports: Element;
   debtors: Element;
@@ -23,13 +25,20 @@ export class DefaultLayoutComponent implements AfterViewInit {
 
 
 
-  constructor(private translate: TranslateService, private router: Router) {
+  constructor
+    (
+      private translate: TranslateService,
+      private router: Router
+    ) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.translateActiveBreadcrump(event.url);
       }
     });
+  }
+  ngOnInit(): void {
+    this.user_name = JSON.parse(localStorage.getItem('user')).name;
   }
 
 
@@ -64,7 +73,7 @@ export class DefaultLayoutComponent implements AfterViewInit {
    *
    * @param url - current url
    */
-  translateActiveBreadcrump(url:string){
+  translateActiveBreadcrump(url: string) {
     if (url === '/' || url === navItems[0].url) {
       this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.active = res; });
     } else if (url === navItems[1].url) {
