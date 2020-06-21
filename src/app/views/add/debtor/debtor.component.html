@@ -155,7 +155,7 @@
           <div class="card-footer">
             <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
               {{ 'debtor.submit_debtor' | translate}}</button>
-            <button class="btn btn-sm btn-warning" type="reset"> {{ 'debtor.reset_debtor' | translate}}</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset"> {{ 'debtor.reset_debtor' | translate}}</button>
           </div>
         </div>
       </div>

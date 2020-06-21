@@ -88,7 +88,8 @@
       "email_exist": "This email address already exists",
       "login_form": "Check form to login",
       "login_error": "Email or password is incorrect",
-      "debtor_form": "Check form to add the debtor"
+      "debtor_form": "Check form to add the debtor",
+      "response": "Http failure response"
     }
   },
   "about": {

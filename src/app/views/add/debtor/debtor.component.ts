@@ -82,8 +82,6 @@ export class DebtorComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    console.log('submit new debtor');
-
     // stop here if form is invalid
     if (this.addDebtorForm.invalid) {
       this.translate.get('toast.error.debtor_form').subscribe((error: string) => { this.snotifyService.error(error) });
@@ -91,12 +89,7 @@ export class DebtorComponent implements OnInit {
       return;
     }
 
-    const company = this.addDebtorForm.controls['company'].value;
-    console.log(company);
-    const status = this.addDebtorForm.controls['status'].value;
-    console.log(status);
-
-    //this.loading = true;
+    this.loading = true;
 
     this.http.post<any>(`${environment.apiUrl}/add/debtor`,
       {
@@ -119,10 +112,13 @@ export class DebtorComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
+console.log(data);
 
         },
         error => {
-
+          this.loading = false;
+          this.submitted = false;
+          this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
         }
       );
 

@@ -88,7 +88,8 @@
       "email_exist": "Šī e-pasta adrese jau pastāv",
       "login_form": "Pārbaudiet veidlapu, lai pieteiktos",
       "login_error": "E-pasts vai parole nav pareiza",
-      "debtor_form": "Pārbaudiet veidlapu, lai pievienotu parādnieku"
+      "debtor_form": "Pārbaudiet veidlapu, lai pievienotu parādnieku",
+      "response": "Http atteices reakcija"
     }
   },
   "about": {
