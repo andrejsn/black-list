@@ -20,6 +20,22 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+import { CurrencyMaskInputMode, NgxCurrencyModule } from "ngx-currency";
+export const customCurrencyMaskConfig = {
+  align: "right",
+  allowNegative: false,
+  allowZero: false,
+  decimal: ".",
+  precision: 2,
+  prefix: "",
+  suffix: "",
+  thousands: "",
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
+
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -72,6 +88,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
+
   ],
   declarations: [
     AppComponent,

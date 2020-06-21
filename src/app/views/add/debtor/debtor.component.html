@@ -25,9 +25,9 @@
           <div class="form-group">
             <label for="debt">{{ 'debtor.debt' | translate}}</label>
             <div class="input-group">
-              <input formControlName="debt" autocomplete="off" class="form-control" id="debt" type="text"
+              <input currencyMask formControlName="debt" autocomplete="off" class="form-control" id="debt" type="text"
                 [ngClass]="{'is-invalid': submitted && f.debt.errors, 'is-valid': submitted && !f.debt.errors}"
-                placeholder="{{ 'placeholder.debtor.debt' | translate}}">
+                placeholder="{{ 'debtor.debt' | translate}}">
               <div class="input-group-append"><span class="input-group-text">€</span></div>
               <div *ngIf="submitted && f.debt.errors && f.debt.errors.required" class="invalid-feedback">
                 {{'debtor.error.debt.required' | translate}}</div>
