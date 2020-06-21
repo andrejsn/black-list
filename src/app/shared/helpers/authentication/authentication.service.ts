@@ -25,11 +25,12 @@ export class AuthenticationService {
   /*
   * set in session local storage
   */
-  setSession(authResult: { access_token: string; expires_in: moment.DurationInputArg1; }) {
+  setSession(authResult: { access_token: string; expires_in: moment.DurationInputArg1; user: JSON}) {
     localStorage.setItem('access_token', authResult.access_token);
     const expiresAt = moment().add(authResult.expires_in, 'second');
 
     localStorage.setItem('expires_in', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('user', JSON.stringify( authResult.user));
   }
 
 
@@ -39,6 +40,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_in');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn() {
