@@ -64,6 +64,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 
+// Import your AvatarModule
+import { AvatarModule } from 'ngx-avatar';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -88,7 +90,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-
+    AvatarModule,
   ],
   declarations: [
     AppComponent,
