@@ -50,9 +50,9 @@ export class DebtorComponent implements OnInit {
   ngOnInit(): void {
     this.addDebtorForm = this.formBuilder.group(
       {
-        company: ['', [Validators.required]], // TODO min oder max length?
-        reg_number: ['', [Validators.required]], // TODO min oder max length?
-        debt: ['', [Validators.required]], // TODO min oder max length? number?
+        company: ['', [Validators.required]],
+        reg_number: ['', [Validators.required]],
+        debt: ['', [Validators.required]],
         legal_address: [],
         city: [],
         postal_code: [],
