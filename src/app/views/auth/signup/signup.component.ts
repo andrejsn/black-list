@@ -112,6 +112,7 @@ export class SignupComponent implements OnInit {
             });
         },
         error => {
+          // TODO: Http failure response error?
           this.translate.get('toast.error.email_exist').subscribe((error: string) => { this.snotifyService.error(error) });
         }
       );
