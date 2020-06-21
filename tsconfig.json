@@ -24,6 +24,9 @@
       ],
       "@environments/*": [
         "environments/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
       ]
     }
   }
