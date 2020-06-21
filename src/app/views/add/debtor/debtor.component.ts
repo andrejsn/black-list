@@ -76,11 +76,6 @@ export class DebtorComponent implements OnInit {
     this.company_name = this.addDebtorForm.controls['company'].value;
   }
 
-  statusChanged(status) {
-    console.log(status);
-  }
-
-
   /**
    * submit
    */

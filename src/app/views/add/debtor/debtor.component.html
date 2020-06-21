@@ -132,7 +132,7 @@
             <div class="col-md-9">
               <select formControlName="status" class="form-control"
               [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
-              id="status" name="status" (change)="statusChanged($event.target.value)">
+              id="status" name="status">
                 <option [ngValue]="null" disabled>{{'select.status' | translate}}</option>
                 <option [value]="status" *ngFor="let status of all_statuses">
                   {{ 'status.'+status | translate}}
