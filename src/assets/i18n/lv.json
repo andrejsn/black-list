@@ -59,7 +59,7 @@
     "debtor": {
       "company": "Ievadiet parādnieka uzņēmuma nosaukumu",
       "reg_number": "Reģistrācijas numurs",
-      "debt": "100.000,00",
+      "debt": "Debt amount",
       "legal_address": "Adrese",
       "city": "Pilsēta",
       "postal_code": "Pasta indekss",

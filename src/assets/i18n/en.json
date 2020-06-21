@@ -59,7 +59,7 @@
     "debtor": {
       "company": "Enter debtor company name",
       "reg_number": "Registration number",
-      "debt": "100.000,00",
+      "debt": "Debt amount",
       "legal_address": "Enter address",
       "city": "Enter city",
       "postal_code": "Postal code",
