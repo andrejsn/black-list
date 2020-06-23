@@ -1,10 +1,10 @@
 export const statuses: string[] =
   [
-    'awaiting',
-    'in_work',
-    'debt_collected',
-    'to_sue',
-    'in_court',
-    'hopeless',
-    'insolvency',
+    'awaiting', // badge-secondary
+    'in_work', // badge-primary
+    'debt_collected', // badge-success
+    'to_sue', // badge-light
+    'in_court', // badge-info
+    'hopeless', // badge-warning
+    'insolvency', // badge-danger
   ]
