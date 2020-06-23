@@ -28,17 +28,17 @@
     "notes": "Notes about debt",
     "submit_debtor": "Add debtor",
     "reset_debtor": "Reset input",
-    "error":{
-      "company":{
+    "error": {
+      "company": {
         "required": "Company name is required"
       },
-      "reg_number":{
+      "reg_number": {
         "required": "The registration number is required"
       },
-      "debt" : {
+      "debt": {
         "required": "Debt amount required"
       },
-      "status" : {
+      "status": {
         "required": "It is necessary to indicate the name of the stage at which the debtor is in the process of debt collection"
       }
     }
@@ -47,13 +47,24 @@
     "status": "The name of the stage at which the debtor is in the process of collecting debt"
   },
   "status": {
-    "awaiting": "Awaiting - pre-trial recovery process not started",
-    "in_work": "In Work - the process of pre-trial recovery from the debtor",
-    "debt_collected": "Debt collected - debt is collected on this debtor",
-    "to_sue": "To sue - pre-trial process is completed, the debt is not recovered, it is advisable to transfer to court",
-    "in_court": "In court - case brought to court",
-    "hopeless": "Hopeless - inappropriate to bring a case to court",
-    "insolvency": "Insolvency - debtor insolvency proceedings started"
+    "long": {
+      "awaiting": "Awaiting - pre-trial recovery process not started",
+      "in_work": "In Work - the process of pre-trial recovery from the debtor",
+      "debt_collected": "Debt collected - debt is collected on this debtor",
+      "to_sue": "To sue - pre-trial process is completed, the debt is not recovered, it is advisable to transfer to court",
+      "in_court": "In court - case brought to court",
+      "hopeless": "Hopeless - inappropriate to bring a case to court",
+      "insolvency": "Insolvency - debtor insolvency proceedings started"
+    },
+    "short":{
+      "awaiting": "Awaiting",
+      "in_work": "In Work",
+      "debt_collected": "Debt collected",
+      "to_sue": "To sue",
+      "in_court": "In court",
+      "hopeless": "Hopeless",
+      "insolvency": "Insolvency"
+    }
   },
   "placeholder": {
     "debtor": {

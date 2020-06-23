@@ -135,7 +135,7 @@
               id="status" name="status">
                 <option [ngValue]="null" disabled>{{'select.status' | translate}}</option>
                 <option [value]="status" *ngFor="let status of all_statuses">
-                  {{ 'status.'+status | translate}}
+                  {{ 'status.long'+status | translate}}
                 </option>
               </select>
               <div *ngIf="submitted && f.status.errors && f.status.errors.required" class="invalid-feedback">

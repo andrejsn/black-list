@@ -23,7 +23,10 @@
                 <td>{{debtor.company}}</td>
                 <td>{{debtor.created_at | date}}</td>
                 <td>{{debtor.debt}}</td>
-                <td><span class="badge badge-danger">{{debtor.status}}</span></td>
+                <td>
+                  <span class="badge" [ngClass]="{'badge-light': debtor.status === 'awaiting', 'badge-primary': debtor.status === 'in_work', 'badge-success': debtor.status === 'debt_collected', 'badge-secondary': debtor.status === 'to_sue', 'badge-info': debtor.status === 'in_court', 'badge-warning': debtor.status === 'hopeless', 'badge-danger': debtor.status === 'insolvency'}">
+                    {{ 'status.short.'+ debtor.status | translate}}
+                  </span></td>
               </tr>
               <tr class="d-none row-num-{{i}}">
                 <td *ngIf="showTable" colspan="5">

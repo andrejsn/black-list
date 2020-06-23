@@ -28,17 +28,17 @@
     "notes": "Piezīmes par parādu",
     "submit_debtor": "Pievienot parādnieku",
     "reset_debtor": "Atiestatīt ievadi",
-    "error":{
-      "company":{
+    "error": {
+      "company": {
         "required": "Nepieciešams parādnieka uzņēmuma "
       },
-      "reg_number":{
+      "reg_number": {
         "required": "Nepieciešams reģistrācijas numurs"
       },
-      "debt" : {
+      "debt": {
         "required": "Nepieciešamā parāda summa"
       },
-      "status" : {
+      "status": {
         "required": "Ir jānorāda tās stadijas nosaukums, kurā parādnieks atrodas parāda piedziņas procesā"
       }
     }
@@ -47,13 +47,24 @@
     "status": "Stadijas nosaukums, kurā atrodas parādnieks parāda atgūšanas procesā"
   },
   "status": {
-    "awaiting": "Gaida - pirmstiesas piedziņas process nav uzsākts",
-    "in_work": "Darbā - pirmstiesas piedziņas process pret parādnieku ir uzsākts",
-    "debt_collected": "Parāds piedzīts - parāds no parādnieka ir piedzīts",
-    "to_sue": "Iesniegšanai tiesā - pirmstiesas process ir uzsākts, parāds nav piedzīts, ir lietderīgi nodot lietu tiesā",
-    "in_court": "Tiesā - lieta ir nodota tiesā",
-    "hopeless": "Bezcerīgs - nav vērts nodot lietu tiesā",
-    "insolvency": "Maksātnespēja - ir uzsākts parādnieka maksātnespējas process"
+    "long": {
+      "awaiting": "Gaida - pirmstiesas piedziņas process nav uzsākts",
+      "in_work": "Darbā - pirmstiesas piedziņas process pret parādnieku ir uzsākts",
+      "debt_collected": "Parāds piedzīts - parāds no parādnieka ir piedzīts",
+      "to_sue": "Iesniegšanai tiesā - pirmstiesas process ir uzsākts, parāds nav piedzīts, ir lietderīgi nodot lietu tiesā",
+      "in_court": "Tiesā - lieta ir nodota tiesā",
+      "hopeless": "Bezcerīgs - nav vērts nodot lietu tiesā",
+      "insolvency": "Maksātnespēja - ir uzsākts parādnieka maksātnespējas process"
+    },
+    "short":{
+      "awaiting": "Gaida",
+      "in_work": "Darbā",
+      "debt_collected": "Parāds piedzīts",
+      "to_sue": "Iesniegšanai tiesā",
+      "in_court": "Tiesā",
+      "hopeless": "Bezcerīgs",
+      "insolvency": "Maksātnespēja"
+    }
   },
   "placeholder": {
     "debtor": {
