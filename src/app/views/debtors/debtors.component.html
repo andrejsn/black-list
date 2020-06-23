@@ -1,11 +1,12 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"> Combined All Table</div>
+      <div class="card-header"> Debtors list</div>
       <div class="card-body">
         <table class="table table-responsive-sm table-bordered table-striped table-sm">
           <thead>
             <tr>
+              <th></th>
               <th>Debtorname</th>
               <th>Date registered</th>
               <th>Debt</th>
@@ -13,43 +14,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let debtor of debtors">
-              <td>{{debtor.company}}</td>
-              <td>{{debtor.created_at | date}}</td>
-              <td>{{debtor.debt}}</td>
-              <td><span class="badge badge-danger">{{debtor.status}}</span></td>
-            </tr>
-
-            <tr>
-              <td>Vishnu Serghei</td>
-              <td>2012/01/01</td>
-              <td>Member</td>
-              <td><span class="badge badge-success">Active</span></td>
-            </tr>
-            <tr>
-              <td>Zbyněk Phoibos</td>
-              <td>2012/02/01</td>
-              <td>Staff</td>
-              <td><span class="badge badge-danger">Banned</span></td>
-            </tr>
-            <tr>
-              <td>Einar Randall</td>
-              <td>2012/02/01</td>
-              <td>Admin</td>
-              <td><span class="badge badge-secondary">Inactive</span></td>
-            </tr>
-            <tr>
-              <td>Félix Troels</td>
-              <td>2012/03/01</td>
-              <td>Member</td>
-              <td><span class="badge badge-warning">Pending</span></td>
-            </tr>
-            <tr>
-              <td>Aulus Agmundr</td>
-              <td>2012/01/21</td>
-              <td>Staff</td>
-              <td><span class="badge badge-success">Active</span></td>
-            </tr>
+            <ng-container *ngFor="let debtor of debtorsList; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(debtor, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !debtor.visible,'fa-compress': debtor.visible}"></i>
+                </td>
+                <td>{{debtor.company}}</td>
+                <td>{{debtor.created_at | date}}</td>
+                <td>{{debtor.debt}}</td>
+                <td><span class="badge badge-danger">{{debtor.status}}</span></td>
+              </tr>
+              <tr class="d-none row-num-{{i}}">
+                <td *ngIf="showTable" colspan="5">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="card">
+                        <!-- <div class="card-header">{{debtor.company}}</div> -->
+                        <div class="card-body">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
         <nav>

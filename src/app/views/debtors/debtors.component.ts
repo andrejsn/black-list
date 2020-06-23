@@ -4,6 +4,11 @@ import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
 import { Debtor } from '@app/models';
 
+
+interface DebtorTableElement extends Debtor {
+  visible: boolean;
+}
+
 @Component({
   selector: 'app-debtors',
   templateUrl: './debtors.component.html',
@@ -11,18 +16,19 @@ import { Debtor } from '@app/models';
 })
 export class DebtorsComponent implements OnInit {
 
-  debtors: Debtor[];
+  debtorsList: DebtorTableElement[];
+  showTable: boolean;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get<any>(`${environment.apiUrl}/get/debtors`,
-{}
+      {}
     ).pipe(first())
       .subscribe(
         data => {
-          this.debtors = data;
-          console.log(this.debtors);
+          this.debtorsList = data;
+          console.log(this.debtorsList);
 
         },
         error => {
@@ -30,6 +36,14 @@ export class DebtorsComponent implements OnInit {
 
         }
       );
+  }
+
+  toggle(debtor: DebtorTableElement, index: number) {
+    debtor.visible = !debtor.visible;
+
+    let selector = `.row-num-${index}`;
+    document.querySelector(selector).classList.toggle('d-none');
+    this.showTable = true;
   }
 
 }
