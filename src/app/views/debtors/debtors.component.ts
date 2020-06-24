@@ -38,12 +38,19 @@ export class DebtorsComponent implements OnInit {
       );
   }
 
-  toggle(debtor: DebtorTableElement, index: number) {
-    debtor.visible = !debtor.visible;
+  toggle(debtorsList: DebtorTableElement[], index: number) {
+    for (let i = 0; i < debtorsList.length; i++) {
+      const debtor = debtorsList[i];
+      let selector = `.row-num-${i}`;
 
-    let selector = `.row-num-${index}`;
-    document.querySelector(selector).classList.toggle('d-none');
-    this.showTable = true;
+      if (i === index) {
+        document.querySelector(selector).classList.toggle('d-none');
+        debtor.visible = !debtor.visible;
+      } else {
+        document.querySelector(selector).classList.add('d-none');
+        debtor.visible = false;
+      }
+    }
   }
 
 }

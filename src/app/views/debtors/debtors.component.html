@@ -16,7 +16,7 @@
           <tbody>
             <ng-container *ngFor="let debtor of debtorsList; let i = index">
               <tr>
-                <td class="toggle" (click)="toggle(debtor, i)">
+                <td class="toggle" (click)="toggle(debtorsList, i)">
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !debtor.visible,'fa-compress': debtor.visible}"></i>
                 </td>
@@ -29,7 +29,7 @@
                   </span></td>
               </tr>
               <tr class="d-none row-num-{{i}}">
-                <td *ngIf="showTable" colspan="5">
+                <td *ngIf="debtor.visible" colspan="5">
                   <button class="btn"><i class="fa fa-trash"></i> Trash</button>
                   <button class="btn"><i class="fa fa-eye"></i> Details</button>
                   <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
