@@ -60,6 +60,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule), canActivate: [AuthenticationGuardService]
       },
       {
+        path: 'debtor',
+        loadChildren: () => import('./views/debtor/debtor.module').then(m => m.DebtorModule), canActivate: [AuthenticationGuardService]
+      },
+      {
         path: 'calendar',
         loadChildren: () => import('./views/calendar/calendar.module').then(m => m.CalendarModule), canActivate: [AuthenticationGuardService]
       },
