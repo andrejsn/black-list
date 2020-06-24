@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { environment } from '@environments/environment';
 import { first } from 'rxjs/operators';
 import { Debtor } from '@app/models';
+import { DebtorCachedService } from '@app/shared/services';
 
 
 interface DebtorTableElement extends Debtor {
@@ -17,9 +20,12 @@ interface DebtorTableElement extends Debtor {
 export class DebtorsComponent implements OnInit {
 
   debtorsList: DebtorTableElement[];
-  showTable: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private debtorCachedService: DebtorCachedService
+  ) { }
 
   ngOnInit(): void {
     this.http.get<any>(`${environment.apiUrl}/get/debtors`,
@@ -38,6 +44,9 @@ export class DebtorsComponent implements OnInit {
       );
   }
 
+  /**
+   * toggle table row
+   */
   toggle(debtorsList: DebtorTableElement[], index: number) {
     for (let i = 0; i < debtorsList.length; i++) {
       const debtor = debtorsList[i];
@@ -51,6 +60,14 @@ export class DebtorsComponent implements OnInit {
         debtor.visible = false;
       }
     }
+  }
+
+  /**
+   * route to get details
+   */
+  getDetails(selectesDebtor: Debtor) {
+    this.debtorCachedService.debtor = selectesDebtor;
+    this.router.navigate(['/debtor/details']);
   }
 
 }
