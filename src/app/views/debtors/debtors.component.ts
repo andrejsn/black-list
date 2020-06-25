@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+
+import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@environments/environment';
-import { first } from 'rxjs/operators';
 import { Debtor } from '@app/models';
-import { DebtorCachedService } from '@app/shared/services';
+import { DebtorCachedService, CurrentlyTitleService } from '@shared/services';
 
 
 interface DebtorTableElement extends Debtor {
@@ -22,12 +24,17 @@ export class DebtorsComponent implements OnInit {
   debtorsList: DebtorTableElement[];
 
   constructor(
+    private currentlyTitleService: CurrentlyTitleService,
+    private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
     private debtorCachedService: DebtorCachedService
   ) { }
 
   ngOnInit(): void {
+    // set title
+    this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.currentlyTitleService.title = res; });
+    // get data
     this.http.get<any>(`${environment.apiUrl}/get/debtors`,
       {}
     ).pipe(first())

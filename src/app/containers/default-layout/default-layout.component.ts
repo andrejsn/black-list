@@ -3,6 +3,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { navI18n, navItems } from '@app/_nav';
 import { Router, NavigationEnd } from '@angular/router';
+import { CurrentlyTitleService } from '@shared/services';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,13 +25,20 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   active: string = '';
 
 
+  // use for CurrentlyTitleService
+  title: string;
 
   constructor
     (
+      private currentlyTitleService: CurrentlyTitleService,
       private translate: TranslateService,
       private router: Router
     ) {
 
+
+     // currentlyTitleService.currentlyTitle$.subscribe((currentlyTitle: string) => { this.title = currentlyTitle });
+
+    // TODO : to delete
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.translateActiveBreadcrump(event.url);

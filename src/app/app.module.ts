@@ -66,6 +66,8 @@ import { ChartsModule } from 'ng2-charts';
 
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
+//
+import { CurrentlyTitleService, DebtorCachedService } from '@shared/services';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -101,6 +103,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   exports: [TranslateModule],
   providers: [
     AuthenticationService,// ?
+    DebtorCachedService,
+    CurrentlyTitleService,
     {
       provide: LocationStrategy, useClass: HashLocationStrategy,
     },
@@ -110,7 +114,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     {
       provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true,
     },
-
     SnotifyService,
     {
       provide: 'SnotifyToastConfig', useValue: ToastDefaults
