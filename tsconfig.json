@@ -19,15 +19,15 @@
       "dom"
     ],
     "paths": {
+      "@shared/*": [
+        "app/shared/*"
+      ],
       "@app/*": [
         "app/*"
       ],
       "@environments/*": [
         "environments/*"
       ],
-      "@shared/*": [
-        "app/shared/*"
-      ]
     }
   }
 }
