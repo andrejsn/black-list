@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -41,7 +41,7 @@ export class DebtorsComponent implements OnInit {
       .subscribe(
         data => {
           this.debtorsList = data;
-          console.log(this.debtorsList);
+          // console.log(this.debtorsList);
 
         },
         error => {
