@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { DebtorCachedService } from '@app/shared/services';
 
 @Component({
   selector: 'app-details',
@@ -10,21 +7,9 @@ import { DebtorCachedService } from '@app/shared/services';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(
-    private debtorCachedService: DebtorCachedService,
-    private router: Router,
-    ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    if(!this.debtorCachedService.debtor) {
-      // no debtor cached
-      this.router.navigate(['/debtors']);
-
-      return;
-    }
-
-    console.log(this.debtorCachedService.debtor.company);
-
   }
 
 }
