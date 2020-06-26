@@ -33,7 +33,7 @@
                 <td>{{contract.pay_term_days}}</td>
                 <td>{{contract.fine_per_day}}</td>
                 <td>{{contract.max_fine_percent}}</td>
-                <td>{{contract.type_of_fine}}</td>
+                <td><span class="badge" [ngClass]="{'badge badge-secondary': (contract.type_of_fine + '') === 'percent_law'}">{{contract.type_of_fine}}</span></td>
                 <!-- <td>{{contract.note}}</td> -->
 
 
