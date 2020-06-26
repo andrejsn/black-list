@@ -35,16 +35,11 @@
                 <td>{{contract.fine_per_day}}</td>
                 <td>{{contract.max_fine_percent}}</td>
                 <td><span class="badge"
-                    [ngClass]="{'badge-warning': (contract.type_of_fine + '') === 'percent_law'}">{{contract.type_of_fine}}</span>
+                    [ngClass]="{'badge-warning': contract.type_of_fine.toString() === 'percent_law', 'badge-light': contract.type_of_fine.toString() === 'fine' || contract.type_of_fine.toString() === 'percent_debt' }">{{contract.type_of_fine}}</span>
                 </td>
                 <!-- <td>{{contract.note}}</td> -->
 
 
-                <!-- <td>
-                  <span class="badge" [ngClass]="{'badge-light': debtor.status === 'awaiting', 'badge-primary': debtor.status === 'in_work', 'badge-success': debtor.status === 'debt_collected', 'badge-secondary': debtor.status === 'to_sue', 'badge-info': debtor.status === 'in_court', 'badge-warning': debtor.status === 'hopeless', 'badge-danger': debtor.status === 'insolvency'}">
-                    {{ 'status.short.'+ debtor.status | translate}}
-                  </span>
-                </td> -->
               </tr>
               <tr class="d-none row-num-{{i}}">
                 <td *ngIf="contract.visible" colspan="7">
