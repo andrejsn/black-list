@@ -5,7 +5,7 @@ export interface Contract {
   created_by: number;
   debtor_id: number;
 
-  is_agreement: boolean;
+  with_agreement: boolean;
   number: string;
   date: Date;
   pay_term_days: number;
