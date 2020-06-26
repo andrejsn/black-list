@@ -53,10 +53,10 @@
                   <button class="btn"><i class="fa fa-eye"></i> Details</button>
                   <button class="btn"><i class="fa fa-tasks"></i> Tasks</button>
                   <!--  -->
-                  <app-invoices></app-invoices>
-                  <app-representatives></app-representatives>
-                  <app-guarantors></app-guarantors>
-                  <app-documents></app-documents>
+                  <app-invoices [contract]="contract"></app-invoices>
+                  <app-representatives [contract]="contract"></app-representatives>
+                  <app-guarantors [contract]="contract"></app-guarantors>
+                  <app-documents [contract]="contract"></app-documents>
                 </td>
               </tr>
 
