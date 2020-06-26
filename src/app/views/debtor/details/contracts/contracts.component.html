@@ -13,11 +13,46 @@
               <th>Fine per day</th>
               <th>Max. percentage</th>
               <th>Type of fine</th>
-              <th>Note</th>
+              <!-- <th>Note</th> -->
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let debtor of debtorsList; let i = index"></ng-container>
+            <ng-container *ngFor="let contract of contractsList; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(contractsList, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !contract.visible,'fa-compress': contract.visible}"></i>
+                </td>
+
+                <!-- contract with agreement -->
+                <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
+                <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
+                <!-- contract without agreement -->
+                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2"></td>
+
+                <td>{{contract.pay_term_days}}</td>
+                <td>{{contract.fine_per_day}}</td>
+                <td>{{contract.max_fine_percent}}</td>
+                <td>{{contract.type_of_fine}}</td>
+                <!-- <td>{{contract.note}}</td> -->
+
+
+                <!-- <td>
+                  <span class="badge" [ngClass]="{'badge-light': debtor.status === 'awaiting', 'badge-primary': debtor.status === 'in_work', 'badge-success': debtor.status === 'debt_collected', 'badge-secondary': debtor.status === 'to_sue', 'badge-info': debtor.status === 'in_court', 'badge-warning': debtor.status === 'hopeless', 'badge-danger': debtor.status === 'insolvency'}">
+                    {{ 'status.short.'+ debtor.status | translate}}
+                  </span>
+                </td> -->
+              </tr>
+              <tr class="d-none row-num-{{i}}">
+                <td *ngIf="contract.visible" colspan="7">
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                  <button class="btn"><i class="fa fa-eye"></i> Details</button>
+                  <button class="btn"><i class="fa fa-tasks"></i> Tasks</button>
+                </td>
+              </tr>
+
+            </ng-container>
           </tbody>
         </table>
       </div>

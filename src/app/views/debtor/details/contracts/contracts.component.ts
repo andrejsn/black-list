@@ -52,4 +52,19 @@ export class ContractsComponent implements OnInit {
       );
   }
 
+  toggle (contractsList: ContractTableElement[], index:number){
+    for (let i = 0; i < contractsList.length; i++) {
+      const debtor = contractsList[i];
+      let selector = `.row-num-${i}`;
+
+      if (i === index) {
+        document.querySelector(selector).classList.toggle('d-none');
+        debtor.visible = !debtor.visible;
+      } else {
+        document.querySelector(selector).classList.add('d-none');
+        debtor.visible = false;
+      }
+    }
+  }
+
 }
