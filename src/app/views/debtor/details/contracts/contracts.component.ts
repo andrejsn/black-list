@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { DebtorCachedService } from '@shared/services';
-import { Contract } from '@app/models/contract';
+import { Debtor, Contract } from '@app/models';
 
 interface ContractTableElement extends Contract {
   visible: boolean;
@@ -19,17 +18,17 @@ interface ContractTableElement extends Contract {
 })
 export class ContractsComponent implements OnInit {
 
+  @Input() debtor: Debtor;
   contractsList: ContractTableElement[];
   count: number;
 
   constructor(
-    private debtorCachedService: DebtorCachedService,
     private router: Router,
     private http: HttpClient,
     ) { }
 
   ngOnInit(): void {
-    if(!this.debtorCachedService.debtor) {
+    if(!this.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
@@ -37,7 +36,7 @@ export class ContractsComponent implements OnInit {
     }
 
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/debtor/` + this.debtorCachedService.debtor.id + `/contracts`,
+    this.http.get<any>(`${environment.apiUrl}/get/debtor/` + this.debtor.id + `/contracts`,
       {}
     ).pipe(first())
       .subscribe(
