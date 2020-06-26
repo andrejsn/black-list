@@ -72,11 +72,11 @@ export class DebtorsComponent implements OnInit {
   }
 
   /**
-   * route to get details
+   * route to get contracts
    */
   contracts(selectesDebtor: Debtor) {
     this.debtorCachedService.debtor = selectesDebtor;
-    this.router.navigate(['/debtor/details']);
+    this.router.navigate(['/debtor/contracts']);
   }
 
 }
