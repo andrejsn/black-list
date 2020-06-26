@@ -28,12 +28,15 @@
                 <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
                 <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
                 <!-- contract without agreement -->
-                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span class="badge badge-warning">without agreement</span></td>
+                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span
+                    class="badge badge-warning">without agreement</span></td>
 
                 <td>{{contract.pay_term_days}}</td>
                 <td>{{contract.fine_per_day}}</td>
                 <td>{{contract.max_fine_percent}}</td>
-                <td><span class="badge" [ngClass]="{'badge-warning': (contract.type_of_fine + '') === 'percent_law'}">{{contract.type_of_fine}}</span></td>
+                <td><span class="badge"
+                    [ngClass]="{'badge-warning': (contract.type_of_fine + '') === 'percent_law'}">{{contract.type_of_fine}}</span>
+                </td>
                 <!-- <td>{{contract.note}}</td> -->
 
 
@@ -49,6 +52,11 @@
                   <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
                   <button class="btn"><i class="fa fa-eye"></i> Details</button>
                   <button class="btn"><i class="fa fa-tasks"></i> Tasks</button>
+                  <!--  -->
+                  <app-invoices></app-invoices>
+                  <app-representatives></app-representatives>
+                  <app-guarantors></app-guarantors>
+                  <app-documents></app-documents>
                 </td>
               </tr>
 
