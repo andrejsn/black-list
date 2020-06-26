@@ -8,6 +8,10 @@ import { environment } from '@environments/environment';
 import { DebtorCachedService } from '@shared/services';
 import { Contract } from '@app/models/contract';
 
+interface ContractTableElement extends Contract {
+  visible: boolean;
+}
+
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
@@ -15,7 +19,7 @@ import { Contract } from '@app/models/contract';
 })
 export class ContractsComponent implements OnInit {
 
-  contracts: Contract[];
+  contractsList: ContractTableElement[];
 
   constructor(
     private debtorCachedService: DebtorCachedService,
@@ -37,8 +41,8 @@ export class ContractsComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-          this.contracts = data;
-          console.log(this.contracts);
+          this.contractsList = data;
+          console.log(this.contractsList);
 
         },
         error => {

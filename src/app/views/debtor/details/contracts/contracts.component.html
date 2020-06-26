@@ -9,15 +9,15 @@
               <th></th>
               <th>Date</th>
               <th>Number</th>
-              <th>Payment term<br> (days)</th>
-              <th>Penalty <br>(interest per day)</th>
-              <th>Maximum <br>penalty percentage</th>
+              <th>Pay term days</th>
+              <th>Fine per day</th>
+              <th>Max. percentage</th>
               <th>Type of fine</th>
-              <th>A type</th>
               <th>Note</th>
             </tr>
           </thead>
           <tbody>
+            <ng-container *ngFor="let debtor of debtorsList; let i = index"></ng-container>
           </tbody>
         </table>
       </div>

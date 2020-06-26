@@ -22,6 +22,7 @@ interface DebtorTableElement extends Debtor {
 export class DebtorsComponent implements OnInit {
 
   debtorsList: DebtorTableElement[];
+  count: number;
 
   constructor(
     private currentlyTitleService: CurrentlyTitleService,
@@ -41,6 +42,7 @@ export class DebtorsComponent implements OnInit {
       .subscribe(
         data => {
           this.debtorsList = data;
+          this.count = this.debtorsList.length;
           // console.log(this.debtorsList);
 
         },
