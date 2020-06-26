@@ -28,7 +28,7 @@
                 <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
                 <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
                 <!-- contract without agreement -->
-                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2"></td>
+                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span class="badge badge-secondary">without agreement</span></td>
 
                 <td>{{contract.pay_term_days}}</td>
                 <td>{{contract.fine_per_day}}</td>
