@@ -1,3 +1,5 @@
+import { DebtorStatus } from './debtor_status';
+
 export interface Debtor {
   id: number;
   created_by: number;
@@ -15,7 +17,7 @@ export interface Debtor {
   homepage: string;
   bank_name: string;
   bank_account_number: string;
-  status: string;
+  status: DebtorStatus;
   note: string;
 
   created_at: Date;

@@ -68,6 +68,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AvatarModule } from 'ngx-avatar';
 //
 import { CurrentlyTitleService, DebtorCachedService } from '@shared/services';
+import { EnumToArrayPipe } from '@shared/helpers/';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -99,6 +100,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
+    //EnumToArrayPipe,
   ],
   exports: [TranslateModule],
   providers: [

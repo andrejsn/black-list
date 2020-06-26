@@ -1,11 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { statuses } from '@app/models';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
-import { HttpClient } from '@angular/common/http';
+
+import { DebtorStatus } from '@app/models';
 import { environment } from '@environments/environment';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-debtor',
@@ -15,7 +17,7 @@ import { first } from 'rxjs/operators';
 export class DebtorComponent implements OnInit {
 
   company_name: string;
-  all_statuses: string[] = statuses;
+  debtorStatus = DebtorStatus;
 
   submitted = false;
   loading = false;

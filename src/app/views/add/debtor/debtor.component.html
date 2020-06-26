@@ -134,8 +134,8 @@
               [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
               id="status" name="status">
                 <option [ngValue]="null" disabled>{{'select.status' | translate}}</option>
-                <option [value]="status" *ngFor="let status of all_statuses">
-                  {{ 'status.long'+status | translate}}
+                <option [value]="status" *ngFor="let status of debtorStatus | enumToArray">
+                  {{ 'status.long.'+status | translate}}
                 </option>
               </select>
               <div *ngIf="submitted && f.status.errors && f.status.errors.required" class="invalid-feedback">
