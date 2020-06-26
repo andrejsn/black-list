@@ -20,6 +20,7 @@ interface ContractTableElement extends Contract {
 export class ContractsComponent implements OnInit {
 
   contractsList: ContractTableElement[];
+  count: number;
 
   constructor(
     private debtorCachedService: DebtorCachedService,
@@ -42,6 +43,7 @@ export class ContractsComponent implements OnInit {
       .subscribe(
         data => {
           this.contractsList = data;
+          this.count = this.contractsList.length;
           console.log(this.contractsList);
 
         },
