@@ -24,7 +24,7 @@
                 <td>{{debtor.created_at | date}}</td>
                 <td>{{debtor.debt}}</td>
                 <td>
-                  <span class="badge" [ngClass]="{'badge-light': debtor.status === 'awaiting', 'badge-primary': debtor.status === 'in_work', 'badge-success': debtor.status === 'debt_collected', 'badge-secondary': debtor.status === 'to_sue', 'badge-info': debtor.status === 'in_court', 'badge-warning': debtor.status === 'hopeless', 'badge-danger': debtor.status === 'insolvency'}">
+                  <span class="badge" [ngClass]="{'badge-light': debtor.status.toString() === 'awaiting', 'badge-primary': debtor.status.toString() === 'in_work', 'badge-success': debtor.status.toString() === 'debt_collected', 'badge-secondary': debtor.status.toString() === 'to_sue', 'badge-info': debtor.status.toString() === 'in_court', 'badge-warning': debtor.status.toString() === 'hopeless', 'badge-danger': debtor.status.toString() === 'insolvency'}">
                     {{ 'status.short.'+ debtor.status | translate}}
                   </span></td>
               </tr>
