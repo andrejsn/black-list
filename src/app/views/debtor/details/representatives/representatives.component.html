@@ -16,9 +16,9 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let representative of representativesTableElement; let i = index">
+            <ng-container *ngFor="let representative of representativesList; let i = index">
               <tr>
-                <td class="toggle" (click)="toggle(representativesTableElement, i)">
+                <td class="toggle" (click)="toggle(representativesList, i)">
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !representative.visible,'fa-compress': representative.visible}"></i>
                 </td>
@@ -35,7 +35,6 @@
                   <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
                 </td>
               </tr>
-
             </ng-container>
           </tbody>
         </table>

@@ -18,7 +18,7 @@ interface RepresentativeTableElement extends Representative {
 export class RepresentativesComponent implements OnInit {
 
   @Input() contract: Contract;
-  representativesTableElement: RepresentativeTableElement[];
+  representativesList: RepresentativeTableElement[];
   count: number;
 
   constructor(private http: HttpClient,) { }
@@ -31,9 +31,9 @@ export class RepresentativesComponent implements OnInit {
       .subscribe(
         data => {
 
-          this.representativesTableElement = data;
-          this.count = this.representativesTableElement.length;
-          console.log(this.representativesTableElement);
+          this.representativesList = data;
+          this.count = this.representativesList.length;
+          console.log(this.representativesList);
         },
         error => {
           console.log(error);

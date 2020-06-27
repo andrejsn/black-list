@@ -3,6 +3,39 @@
     <div class="card">
       <div class="card-header">Guarantors ({{count}})</div>
       <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th></th>
+              <th>First Name Last Name</th>
+              <th>Personal code</th>
+              <th>Telephone</th>
+              <th>Address</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let guarantor of guarantorsList; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(guarantorsList, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !guarantor.visible,'fa-compress': guarantor.visible}"></i>
+                </td>
+                <td>{{guarantor.name}}</td>
+                <td>{{guarantor.code}}</td>
+                <td>{{guarantor.phone}}</td>
+                <td>{{guarantor.address}}</td>
+                <td>{{guarantor.email}}</td>
+              </tr>
+              <tr class="d-none row-num-{{i}}-guarantor">
+                <td *ngIf="guarantor.visible" colspan="7">
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
