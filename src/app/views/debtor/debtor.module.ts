@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
-import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from './details';
+import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
 
 
 
