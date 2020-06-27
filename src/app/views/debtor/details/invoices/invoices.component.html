@@ -3,6 +3,50 @@
     <div class="card">
       <div class="card-header">Invoices ({{count}})</div>
       <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Number</th>
+              <th>Date</th>
+              <th>Date to</th>
+              <th>Amount- <br>
+                Debt / Paid</th>
+              <th>?Pay in days?</th>
+              <th>Penalty (interest per day) -<br>
+                Contractual (Current) / Paid</th>
+              <th>Status</th>
+              <th>Payments</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let invoice of invoicesList; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(invoicesList, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !invoice.visible,'fa-compress': invoice.visible}"></i>
+                </td>
+                <td>{{invoice.number}}</td>
+                <td>{{invoice.date}}</td>
+                <td>{{invoice.date_to}}</td>
+                <td>{{invoice.sum}}</td>
+                <td>?Pay in days?</td>
+                <td>Penalty (interest per day)-<br>
+                  Contractual (Current) / Paid</td>
+                <td>{{invoice.status}}</td>
+                <td>Payments</td>
+                <td>{{invoice.note}}</td>
+              </tr>
+              <tr class="d-none row-num-{{i}}-invoice">
+                <td *ngIf="invoice.visible" colspan="11">
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

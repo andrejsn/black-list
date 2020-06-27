@@ -6,6 +6,10 @@ import { first } from 'rxjs/operators';
 import { Contract, Invoice } from '@app/models';
 import { environment } from '@environments/environment';
 
+interface InvoiceTableElement extends Invoice {
+  visible: boolean;
+}
+
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
@@ -14,7 +18,7 @@ import { environment } from '@environments/environment';
 export class InvoicesComponent implements OnInit {
 
   @Input() contract: Contract;
-  invoicesList: Invoice[];
+  invoicesList: InvoiceTableElement[];
   count: number;
 
   constructor(private http: HttpClient, ) { }
@@ -39,8 +43,21 @@ export class InvoicesComponent implements OnInit {
 
         }
       );
+  }
 
+  toggle (invoiceList: InvoiceTableElement[], index:number){
+    for (let i = 0; i < invoiceList.length; i++) {
+      const debtor = invoiceList[i];
+      let selector = `.row-num-${i}-invoice`;
 
+      if (i === index) {
+        document.querySelector(selector).classList.toggle('d-none');
+        debtor.visible = !debtor.visible;
+      } else {
+        document.querySelector(selector).classList.add('d-none');
+        debtor.visible = false;
+      }
+    }
   }
 
 }
