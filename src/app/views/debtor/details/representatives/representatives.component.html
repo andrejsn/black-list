@@ -9,6 +9,7 @@
               <th></th>
               <th>First Name Last Name</th>
               <th>Personal code</th>
+              <th>Position</th>
               <th>Telephone</th>
               <th>Address</th>
               <th>Email</th>
@@ -21,14 +22,15 @@
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !representative.visible,'fa-compress': representative.visible}"></i>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{representative.name}}</td>
+                <td>{{representative.code}}</td>
+                <td>{{representative.position}}</td>
+                <td>{{representative.phone}}</td>
+                <td>{{representative.address}}</td>
+                <td>{{representative.email}}</td>
               </tr>
               <tr class="d-none row-num-{{i}}-representative">
-                <td *ngIf="representative.visible" colspan="6">
+                <td *ngIf="representative.visible" colspan="7">
                   <button class="btn"><i class="fa fa-trash"></i> Trash</button>
                   <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
                 </td>
