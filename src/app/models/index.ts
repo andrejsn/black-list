@@ -6,3 +6,4 @@ export * from './type_of_fine';
 export * from './invoice';
 export * from './invoice_status';
 export * from './representative';
+export * from './guarantor';

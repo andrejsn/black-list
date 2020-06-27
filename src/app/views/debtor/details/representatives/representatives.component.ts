@@ -20,22 +20,22 @@ export class RepresentativesComponent implements OnInit {
   constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
-       // get data
-       this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/representatives`,
-       {}
-     ).pipe(first())
-       .subscribe(
-         data => {
+    // get data
+    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/representatives`,
+      {}
+    ).pipe(first())
+      .subscribe(
+        data => {
 
-           this.representativesList = data;
-           this.count = this.representativesList.length;
-           console.log(this.representativesList);
-         },
-         error => {
-           console.log(error);
+          this.representativesList = data;
+          this.count = this.representativesList.length;
+          console.log(this.representativesList);
+        },
+        error => {
+          console.log(error);
 
-         }
-       );
+        }
+      );
   }
 
 }

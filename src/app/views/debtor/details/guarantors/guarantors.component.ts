@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Contract } from '@app/models';
+import { HttpClient } from '@angular/common/http';
+
+import { first } from 'rxjs/operators';
+
+import { Contract, Guarantor } from '@app/models';
+import { environment } from '@environments/environment';
+
 
 @Component({
   selector: 'app-guarantors',
@@ -9,10 +15,27 @@ import { Contract } from '@app/models';
 export class GuarantorsComponent implements OnInit {
 
   @Input() contract: Contract;
+  guarantorsList: Guarantor[];
+  count: number;
 
-  constructor() { }
+  constructor(private http: HttpClient,) { }
 
-  ngOnInit(): void {console.log(this.contract.number);
+  ngOnInit(): void {
+    // get data
+    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/guarantors`,
+      {}
+    ).pipe(first())
+      .subscribe(
+        data => {
+
+          this.guarantorsList = data;
+          this.count = this.guarantorsList.length;
+          console.log(this.guarantorsList);
+        },
+        error => {
+          console.log(error);
+
+        }
+      );
   }
-
 }

@@ -1,10 +1,9 @@
-export interface Representative {
+export interface Guarantor {
   id: number
   created_by: number;
   contract_id: number;
   name: string;
   code: string;
-  position: string;
   phone: string;
   address: string;
   email: string;
