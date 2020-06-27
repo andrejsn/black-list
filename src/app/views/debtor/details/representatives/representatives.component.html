@@ -3,6 +3,40 @@
     <div class="card">
       <div class="card-header">Representatives ({{count}})</div>
       <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th></th>
+              <th>First Name Last Name</th>
+              <th>Personal code</th>
+              <th>Telephone</th>
+              <th>Address</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let representative of representativesTableElement; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(representativesTableElement, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !representative.visible,'fa-compress': representative.visible}"></i>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr class="d-none row-num-{{i}}-representative">
+                <td *ngIf="representative.visible" colspan="6">
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                </td>
+              </tr>
+
+            </ng-container>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

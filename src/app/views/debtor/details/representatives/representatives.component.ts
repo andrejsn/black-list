@@ -6,6 +6,10 @@ import { first } from 'rxjs/operators';
 import { Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
 
+interface RepresentativeTableElement extends Representative {
+  visible: boolean;
+}
+
 @Component({
   selector: 'app-representatives',
   templateUrl: './representatives.component.html',
@@ -14,7 +18,7 @@ import { environment } from '@environments/environment';
 export class RepresentativesComponent implements OnInit {
 
   @Input() contract: Contract;
-  representativesList: Representative[];
+  representativesTableElement: RepresentativeTableElement[];
   count: number;
 
   constructor(private http: HttpClient,) { }
@@ -27,15 +31,30 @@ export class RepresentativesComponent implements OnInit {
       .subscribe(
         data => {
 
-          this.representativesList = data;
-          this.count = this.representativesList.length;
-          console.log(this.representativesList);
+          this.representativesTableElement = data;
+          this.count = this.representativesTableElement.length;
+          console.log(this.representativesTableElement);
         },
         error => {
           console.log(error);
 
         }
       );
+  }
+
+  toggle (representativeList: RepresentativeTableElement[], index:number){
+    for (let i = 0; i < representativeList.length; i++) {
+      const debtor = representativeList[i];
+      let selector = `.row-num-${i}-representative`;
+
+      if (i === index) {
+        document.querySelector(selector).classList.toggle('d-none');
+        debtor.visible = !debtor.visible;
+      } else {
+        document.querySelector(selector).classList.add('d-none');
+        debtor.visible = false;
+      }
+    }
   }
 
 }
