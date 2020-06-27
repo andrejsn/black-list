@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Contract } from '@app/models';
+import { HttpClient } from '@angular/common/http';
+
+import { first } from 'rxjs/operators';
+
+import { Contract, Representative } from '@app/models';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-representatives',
@@ -9,11 +14,28 @@ import { Contract } from '@app/models';
 export class RepresentativesComponent implements OnInit {
 
   @Input() contract: Contract;
+  representativesList: Representative[];
+  count: number;
 
-  constructor() { }
+  constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
-    console.log(this.contract.number);
+       // get data
+       this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/representatives`,
+       {}
+     ).pipe(first())
+       .subscribe(
+         data => {
+
+           this.representativesList = data;
+           this.count = this.representativesList.length;
+           console.log(this.representativesList);
+         },
+         error => {
+           console.log(error);
+
+         }
+       );
   }
 
 }
