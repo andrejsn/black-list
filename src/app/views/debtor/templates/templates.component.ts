@@ -26,7 +26,7 @@ export class TemplateComponent implements OnInit {
 
   ngOnInit(): void {
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/guarantors`,
+    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/templates`,
       {}
     ).pipe(first())
       .subscribe(
