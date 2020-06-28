@@ -33,7 +33,7 @@ export class GuarantorsComponent implements OnInit {
 
           this.guarantorsList = data;
           this.count = this.guarantorsList.length;
-          console.log(this.guarantorsList);
+          // console.log(this.guarantorsList);
         },
         error => {
           console.log(error);

@@ -50,7 +50,7 @@
                   <!--  -->
                   <div class="card-body" (collapsed)="collapsed($event)" (expanded)="expanded($event)"
                     [collapse]="isTemplateCollapsed">
-                    <app-templates></app-templates>
+                    <app-templates [contract]="contract"></app-templates>
                   </div>
                   <app-invoices [contract]="contract"></app-invoices>
                   <app-representatives [contract]="contract"></app-representatives>

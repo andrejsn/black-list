@@ -24,19 +24,15 @@ export class InvoicesComponent implements OnInit {
   constructor(private http: HttpClient, ) { }
 
   ngOnInit(): void {
-
-    console.log(this.contract.number);
-
     // get data
     this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/invoices`,
       {}
     ).pipe(first())
       .subscribe(
         data => {
-
           this.invoicesList = data;
           this.count = this.invoicesList.length;
-          console.log(this.invoicesList);
+          // console.log(this.invoicesList);
         },
         error => {
           console.log(error);

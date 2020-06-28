@@ -30,10 +30,10 @@ export class RepresentativesComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-
           this.representativesList = data;
           this.count = this.representativesList.length;
-          console.log(this.representativesList);
+
+          // console.log(this.representativesList);
         },
         error => {
           console.log(error);

@@ -12,7 +12,8 @@ export class DocumentsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {console.log(this.contract.number);
+  ngOnInit(): void {
+    // console.log(this.contract.number);
   }
 
 }
