@@ -21,6 +21,7 @@ export class ContractsComponent implements OnInit {
   @Input() debtor: Debtor;
   contractsList: ContractTableElement[];
   count: number;
+  isTemplateCollapsed: boolean = true;
 
   constructor(
     private router: Router,
@@ -43,8 +44,8 @@ export class ContractsComponent implements OnInit {
         data => {
           this.contractsList = data;
           this.count = this.contractsList.length;
-          console.log(this.contractsList);
 
+          this.isTemplateCollapsed = true;
         },
         error => {
           console.log(error);
@@ -66,6 +67,16 @@ export class ContractsComponent implements OnInit {
         debtor.visible = false;
       }
     }
+  }
+
+
+
+  collapsed(event: any): void {
+    console.log(event);
+  }
+
+  expanded(event: any): void {
+    console.log(event);
   }
 
 }

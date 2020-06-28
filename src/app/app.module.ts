@@ -70,6 +70,8 @@ import { AvatarModule } from 'ngx-avatar';
 import { CurrentlyTitleService, DebtorCachedService } from '@shared/services';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/');
@@ -94,6 +96,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TabsModule.forRoot(),
     ChartsModule,
     AvatarModule,
+    CollapseModule.forRoot(),
   ],
   declarations: [
     AppComponent,

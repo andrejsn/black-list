@@ -6,13 +6,15 @@ import { DetailsComponent } from './details/details.component';
 import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
 import { TemplateComponent } from './template/template.component';
 
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 @NgModule({
   declarations: [DetailsComponent, ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent, TemplateComponent],
   imports: [
     CommonModule,
-    DebtorRoutingModule
+    DebtorRoutingModule,
+    CollapseModule
   ]
 })
 export class DebtorModule { }
