@@ -7,3 +7,4 @@ export * from './invoice';
 export * from './invoice_status';
 export * from './representative';
 export * from './guarantor';
+export * from './template';

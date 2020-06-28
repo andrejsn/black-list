@@ -1,5 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Contract } from '@app/models';
+import { HttpClient } from '@angular/common/http';
+
+import { first } from 'rxjs/operators';
+
+import { Contract, Template } from '@app/models';
+import { environment } from '@environments/environment';
+
+
+interface TemplateTableElement extends Template {
+  visible: boolean;
+}
+
 
 @Component({
   selector: 'app-templates',
@@ -9,10 +20,30 @@ import { Contract } from '@app/models';
 export class TemplateComponent implements OnInit {
 
   @Input() contract: Contract;
+  templateList: TemplateTableElement[];
 
-  constructor() { }
+  constructor(private http: HttpClient,) { }
 
-  ngOnInit(): void {console.log(this.contract.number);
+  ngOnInit(): void {
+    // get data
+    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/guarantors`,
+      {}
+    ).pipe(first())
+      .subscribe(
+        data => {
+
+          this.templateList = data;
+
+          // console.log(this.templateList);
+        },
+        error => {
+          console.log(error);
+
+        }
+      );
   }
 
+  toggle(templateList, i) {
+
+  }
 }

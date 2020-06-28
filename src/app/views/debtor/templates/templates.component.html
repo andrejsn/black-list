@@ -1,1 +1,37 @@
-<p>template works!</p>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">Template</div>
+      <div class="card-body">
+        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let template of templateList; let i = index">
+              <tr>
+                <td class="toggle" (click)="toggle(templateList, i)">
+                  <i aria-hidden="true" class="fa"
+                    [ngClass]="{'fa-expand': !template.visible,'fa-compress': template.visible}"></i>
+                </td>
+                <td>{{template.name}}</td>
+                <td>{{template.note}}</td>
+
+              </tr>
+              <tr class="d-none row-num-{{i}}-guarantor">
+                <td *ngIf="template.visible" colspan="3">
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
