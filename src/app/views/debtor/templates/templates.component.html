@@ -19,9 +19,9 @@
                     [ngClass]="{'fa-expand': !template.visible,'fa-compress': template.visible}"></i>
                 </td>
                 <td>{{template.name}}</td>
-                <td (click)="toggleNote(i)" class="note">
-                  <p class="note-short-{{i}}">{{template.note | shortenText:maxLetters:' ...'}}</p>
-                  <p class="d-none note-long-{{i}}">{{template.note}}</p>
+                <td (click)="toggleNote(i)">
+                  <p class="note-short-{{i}} resize_short">{{template.note | shortenText:maxLetters:' ...'}}</p>
+                  <p class="d-none note-long-{{i}} resize_long">{{template.note}}</p>
                 </td>
 
               </tr>

@@ -1,3 +1,7 @@
-.note {
-  cursor: pointer;
+.resize_short {
+  cursor: s-resize;
+}
+
+.resize_long {
+  cursor: n-resize;
 }
