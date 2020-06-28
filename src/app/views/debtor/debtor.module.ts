@@ -7,14 +7,25 @@ import { ContractsComponent, InvoicesComponent, RepresentativesComponent, Guaran
 import { TemplateComponent } from './templates/templates.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ShortenTextPipe } from '@shared/helpers';
 
 
 @NgModule({
-  declarations: [DetailsComponent, ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent, TemplateComponent],
+  declarations: [
+    DetailsComponent,
+    ContractsComponent,
+    InvoicesComponent,
+    RepresentativesComponent,
+    GuarantorsComponent,
+    DocumentsComponent,
+    TemplateComponent,
+
+    ShortenTextPipe,
+  ],
   imports: [
     CommonModule,
     DebtorRoutingModule,
-    CollapseModule
+    CollapseModule,
   ]
 })
 export class DebtorModule { }

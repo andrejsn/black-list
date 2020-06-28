@@ -68,6 +68,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AvatarModule } from 'ngx-avatar';
 //
 import { CurrentlyTitleService, DebtorCachedService } from '@shared/services';
+import { ShortenTextPipe } from './shared/helpers/pipes/shorten-text.pipe';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -103,6 +104,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
+    //ShortenTextPipe,
     //EnumToArrayPipe,
   ],
   exports: [TranslateModule],

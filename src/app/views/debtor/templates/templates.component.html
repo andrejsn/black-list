@@ -19,10 +19,13 @@
                     [ngClass]="{'fa-expand': !template.visible,'fa-compress': template.visible}"></i>
                 </td>
                 <td>{{template.name}}</td>
-                <td>{{template.note}}</td>
+                <td (click)="toggleNote(i)" class="note">
+                  <p class="note-short-{{i}}">{{template.note | shortenText:maxLetters:' ...'}}</p>
+                  <p class="d-none note-long-{{i}}">{{template.note}}</p>
+                </td>
 
               </tr>
-              <tr class="d-none row-num-{{i}}-guarantor">
+              <tr class="d-none row-num-{{i}}-template">
                 <td *ngIf="template.visible" colspan="3">
                   <button class="btn"><i class="fa fa-trash"></i> Trash</button>
                   <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
