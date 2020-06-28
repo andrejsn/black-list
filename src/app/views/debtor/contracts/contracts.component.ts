@@ -21,7 +21,7 @@ export class ContractsComponent implements OnInit {
   @Input() debtor: Debtor;
   contractsList: ContractTableElement[];
   count: number;
-  isTemplateCollapsed: boolean = true;
+  isTemplateCollapsed: boolean;
 
   constructor(
     private router: Router,

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
 import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
-import { TemplateComponent } from './template/template.component';
+import { TemplateComponent } from './templates/templates.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
