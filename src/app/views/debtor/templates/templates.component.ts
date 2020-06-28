@@ -60,13 +60,10 @@ export class TemplateComponent implements OnInit {
   }
 
   toggleNote(i: number){
-    console.log('hello from ' + i);
-
     const selectorShort = `.note-short-${i}`;
     const selectorLong = `.note-long-${i}`;
 
     document.querySelector(selectorShort).classList.toggle('d-none');
     document.querySelector(selectorLong).classList.toggle('d-none');
-
   }
 }
