@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { first } from 'rxjs/operators';
 
-import { Contract, Template } from '@app/models';
+import { Contract, Template, TemplateStatus } from '@app/models';
 import { environment } from '@environments/environment';
 
 
@@ -21,6 +21,7 @@ export class TemplateComponent implements OnInit {
 
   @Input() contract: Contract;
   templateList: TemplateTableElement[];
+  templateStatus: TemplateStatus;
   maxLetters = 128;
 
   constructor(private http: HttpClient,) { }
@@ -44,7 +45,13 @@ export class TemplateComponent implements OnInit {
       );
   }
 
-  toggle (templatesList: TemplateTableElement[], index:number){
+  /**
+   * Toggle row
+   *
+   * @param templatesList - list of html elements
+   * @param index - from foreach of list
+   */
+  toggle(templatesList: TemplateTableElement[], index: number) {
     for (let i = 0; i < templatesList.length; i++) {
       const debtor = templatesList[i];
       const selector = `.row-num-${i}-template`;
@@ -59,9 +66,15 @@ export class TemplateComponent implements OnInit {
     }
   }
 
-  toggleNote(i: number){
-    const selectorShort = `.note-short-${i}`;
-    const selectorLong = `.note-long-${i}`;
+  /**
+   *
+   * Shorten or show long notes text
+   *
+   * @param index - from foreach of list
+   */
+  toggleNote(index: number) {
+    const selectorShort = `.note-short-${index}`;
+    const selectorLong = `.note-long-${index}`;
 
     document.querySelector(selectorShort).classList.toggle('d-none');
     document.querySelector(selectorLong).classList.toggle('d-none');

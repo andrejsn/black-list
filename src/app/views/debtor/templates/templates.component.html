@@ -26,9 +26,16 @@
 
               </tr>
               <tr class="d-none row-num-{{i}}-template">
-                <td *ngIf="template.visible" colspan="3">
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                <td *ngIf="template.visible" ng colspan="3">
+                  <div [ngSwitch]="template.status">
+                    <div *ngSwitchCase="'reminder_pay'"><app-reminder-pay></app-reminder-pay></div>
+                    <div *ngSwitchCase="'warning_pay'"><app-warning-pay></app-warning-pay></div>
+                    <div *ngSwitchCase="'debt_calculation'"><app-debt-calculation></app-debt-calculation></div>
+                    <div *ngSwitchCase="'warning_pre_trial'"><app-warning-pre-trial></app-warning-pre-trial></div>
+                    <div *ngSwitchCase="'claim_to_court'"><app-claim-to-court></app-claim-to-court></div>
+                    <div *ngSwitchCase="'creditor_to_administrator'"><app-creditor-to-administrator></app-creditor-to-administrator></div>
+                    <div *ngSwitchDefault></div>
+                  </div>
                 </td>
               </tr>
             </ng-container>

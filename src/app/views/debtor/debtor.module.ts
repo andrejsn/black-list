@@ -8,6 +8,12 @@ import { TemplateComponent } from './templates/templates.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ShortenTextPipe } from '@shared/helpers';
+import { ReminderPayComponent } from './templates/reminder-pay/reminder-pay.component';
+import { WarningPayComponent } from './templates/warning-pay/warning-pay.component';
+import { DebtCalculationComponent } from './templates/debt-calculation/debt-calculation.component';
+import { WarningPreTrialComponent } from './templates/warning-pre-trial/warning-pre-trial.component';
+import { ClaimToCourtComponent } from './templates/claim-to-court/claim-to-court.component';
+import { CreditorToAdministratorComponent } from './templates/creditor-to-administrator/creditor-to-administrator.component';
 
 
 @NgModule({
@@ -21,6 +27,18 @@ import { ShortenTextPipe } from '@shared/helpers';
     TemplateComponent,
 
     ShortenTextPipe,
+
+    ReminderPayComponent,
+
+    WarningPayComponent,
+
+    DebtCalculationComponent,
+
+    WarningPreTrialComponent,
+
+    ClaimToCourtComponent,
+
+    CreditorToAdministratorComponent,
   ],
   imports: [
     CommonModule,
