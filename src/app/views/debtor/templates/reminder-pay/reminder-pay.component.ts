@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Contract } from '@app/models';
 
 @Component({
   selector: 'app-reminder-pay',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderPayComponent implements OnInit {
 
+  @Input() contract: Contract;
+
   constructor() { }
 
   ngOnInit(): void {
+
+    console.log(this.contract);
+
+
   }
 
 }
