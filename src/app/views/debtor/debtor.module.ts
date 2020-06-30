@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
 import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
 import { TemplateComponent } from './templates/templates.component';
 
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ShortenTextPipe } from '@shared/helpers';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { ReminderPayComponent } from './templates/reminder-pay/reminder-pay.component';
 import { WarningPayComponent } from './templates/warning-pay/warning-pay.component';
 import { DebtCalculationComponent } from './templates/debt-calculation/debt-calculation.component';
@@ -29,21 +32,19 @@ import { CreditorToAdministratorComponent } from './templates/creditor-to-admini
     ShortenTextPipe,
 
     ReminderPayComponent,
-
     WarningPayComponent,
-
     DebtCalculationComponent,
-
     WarningPreTrialComponent,
-
     ClaimToCourtComponent,
-
     CreditorToAdministratorComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     DebtorRoutingModule,
     CollapseModule,
+    BsDatepickerModule,
   ]
 })
 export class DebtorModule { }
