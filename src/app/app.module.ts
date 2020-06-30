@@ -72,7 +72,10 @@ import { ShortenTextPipe } from './shared/helpers/pipes/shorten-text.pipe';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from "ngx-bootstrap/chronos";
+import { lvLocale } from "ngx-bootstrap/locale";
+defineLocale("lv", lvLocale);
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -130,4 +133,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private bsLocaleService: BsLocaleService) {
+    this.bsLocaleService.use('lv');
+    }
+}
