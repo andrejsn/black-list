@@ -72,6 +72,7 @@ import { ShortenTextPipe } from './shared/helpers/pipes/shorten-text.pipe';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -98,6 +99,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ChartsModule,
     AvatarModule,
     CollapseModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   declarations: [
     AppComponent,
