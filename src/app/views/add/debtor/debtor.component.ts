@@ -19,8 +19,8 @@ export class DebtorComponent implements OnInit {
   company_name: string;
   debtorStatus = DebtorStatus;
 
-  submitted = false;
-  loading = false;
+  submitted:boolean = false;
+  loading:boolean = false;
 
   addDebtorForm: FormGroup = new FormGroup(
     {

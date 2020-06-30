@@ -1,34 +1,64 @@
 <div class="row">
-  <div class="card">
-    <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small> Information</small></div>
-    <div class="card-body">
-      <div class="form-group">
-        <label for="place">Place of writing the document</label>
-        <input class="form-control" id="place" type="text" placeholder="Enter place of writing the document">
-      </div>
-      <div class="form-group">
-        <label for="vat">VAT</label>
-        <input class="form-control" id="vat" type="text" placeholder="PL1234567890">
-      </div>
-      <div class="form-group">
-        <label for="street">Street</label>
-        <input class="form-control" id="street" type="text" placeholder="Enter street name">
-      </div>
-      <div class="row">
-        <div class="form-group col-sm-8">
-          <label for="city">City</label>
-          <input class="form-control" id="city" type="text" placeholder="Enter your city">
-        </div>
-        <div class="form-group col-sm-4">
-          <label for="postal-code">Postal Code</label>
-          <input class="form-control" id="postal-code" type="text" placeholder="Postal Code">
-        </div>
-      </div>
+  <div class="col-lg-12">
+    <form [formGroup]="form">
+      <div class="card">
+        <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small>
+            Information</small></div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="place">Place of writing the document</label>
+            <input class="form-control" id="place" type="text" placeholder="Enter place">
+          </div>
 
-      <div class="form-group">
-        <label for="country">Country</label>
-        <input class="form-control" id="country" type="text" placeholder="Country name">
+          <div class="form-group">
+            <label for="number">Internal registration number</label>
+            <input class="form-control" id="number" type="text" placeholder="Enter registration number">
+          </div>
+
+          <div class="form-group">
+            <label for="days">Number of days to pay a debt</label>
+            <input class="form-control" id="days" type="text" placeholder="Enter number of days">
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date of the document</label>
+            <input class="form-control" bsDatepicker id="date" type="date" placeholder="date">
+          </div>
+
+
+          <!--  -->
+
+
+          <!-- <div class="form-group">
+          <input
+            class="form-control"
+            #datepickerYMD="bsDatepicker"
+            bsDatepicker
+            formControlName="dateYMD"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+        </div>
+        <div class="col-xs-12 col-12 col-md-3 form-group">
+          <button class="btn btn-success" (click)="datepickerYMD.toggle()" [attr.aria-expanded]="datepickerYMD.isOpen" type="button">Date Picker</button>
+        </div> -->
+
+          <!--  -->
+
+
+          <div class="form-group">
+            <div class="form-check checkbox">
+              <input class="form-check-input" id="save" type="checkbox" value="">
+              <label class="form-check-label" for="save">Save to my docs</label>
+            </div>
+          </div>
+
+
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+          </div>
+        </div>
       </div>
+    </form>
     </div>
   </div>
-</div>

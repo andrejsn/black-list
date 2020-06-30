@@ -24,9 +24,9 @@
                   <p class="d-none note-long-{{i}} resize_long">{{template.note}}</p>
                 </td>
               </tr>
-              <tr  class="d-none row-num-{{i}}-template">
+              <tr [ngSwitch]="template.status" class="d-none row-num-{{i}}-template">
                 <td ng colspan="2"></td>
-                <div [ngSwitch]="template.status">
+
                   <td *ngSwitchCase="'reminder_pay'">
                     <app-reminder-pay [contract]="contract"></app-reminder-pay>
                   </td>
@@ -46,7 +46,7 @@
                     <app-creditor-to-administrator></app-creditor-to-administrator>
                   </td>
                   <td *ngSwitchDefault></td>
-                </div>
+
               </tr>
             </ng-container>
           </tbody>
