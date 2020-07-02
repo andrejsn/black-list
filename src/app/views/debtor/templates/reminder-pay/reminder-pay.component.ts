@@ -77,14 +77,21 @@ export class ReminderPayComponent implements OnInit {
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/remind`,
       {
         'contract': this.contract
-      }
+      }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
 
+
+          window.open(window.URL.createObjectURL(data));
         },
         error => {
+
+
+          console.log(error);
+
+
           this.loading = false;
           this.submitted = false;
           this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
