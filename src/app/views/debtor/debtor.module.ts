@@ -8,6 +8,7 @@ import { ContractsComponent, InvoicesComponent, RepresentativesComponent, Guaran
 import { TemplateComponent } from './templates/templates.component';
 
 import { ShortenTextPipe } from '@shared/helpers';
+import { TranslateModule } from '@ngx-translate/core';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -45,6 +46,7 @@ import { CreditorToAdministratorComponent } from './templates/creditor-to-admini
     DebtorRoutingModule,
     CollapseModule,
     BsDatepickerModule,
+    TranslateModule,
   ]
 })
 export class DebtorModule { }
