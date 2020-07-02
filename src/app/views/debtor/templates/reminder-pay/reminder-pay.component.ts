@@ -40,8 +40,6 @@ export class ReminderPayComponent implements OnInit {
     private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
-    console.log(this.contract);
-
     this.reminderPayForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
@@ -50,12 +48,10 @@ export class ReminderPayComponent implements OnInit {
         remindDate: ['', [Validators.required]]
       }
     );
-
-
   }
 
   /**
-   *
+   * submit form
    */
   onSubmit() {
     this.submitted = true;
@@ -81,7 +77,7 @@ export class ReminderPayComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-          //console.log(data);
+         // console.log(data);
 
 
           window.open(window.URL.createObjectURL(data));
