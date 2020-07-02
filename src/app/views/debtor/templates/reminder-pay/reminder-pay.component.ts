@@ -10,6 +10,11 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
+interface ContractRemindPay extends Contract {
+  place: string, number: string, days: string, remindDate: Date;
+}
+
+
 @Component({
   selector: 'app-reminder-pay',
   templateUrl: './reminder-pay.component.html',
@@ -17,7 +22,7 @@ import { environment } from '@environments/environment';
 })
 export class ReminderPayComponent implements OnInit {
 
-  @Input() contract: Contract;
+  @Input() contract: ContractRemindPay;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -26,7 +31,7 @@ export class ReminderPayComponent implements OnInit {
     place: new FormControl(),
     number: new FormControl(),
     days: new FormControl(),
-    date: new FormControl(new Date()),
+    remindDate: new FormControl(new Date()),
   });
 
   constructor(private formBuilder: FormBuilder,
@@ -42,7 +47,7 @@ export class ReminderPayComponent implements OnInit {
         place: ['', [Validators.required]],
         number: ['', Validators.required],
         days: ['', [Validators.required]],
-        date: ['', [Validators.required]]
+        remindDate: ['', [Validators.required]]
       }
     );
 
@@ -53,11 +58,6 @@ export class ReminderPayComponent implements OnInit {
    *
    */
   onSubmit() {
-console.log(this.reminderPayForm.controls['date'].value);
-
-
-
-
     this.submitted = true;
 
     // stop here if form is invalid
@@ -68,6 +68,28 @@ console.log(this.reminderPayForm.controls['date'].value);
     }
 
     this.loading = true;
+
+    this.contract.place = this.reminderPayForm.controls['place'].value;
+    this.contract.number = this.reminderPayForm.controls['number'].value;
+    this.contract.days = this.reminderPayForm.controls['days'].value;
+    this.contract.remindDate = this.reminderPayForm.controls['remindDate'].value;
+
+    this.http.post<any>(`${environment.apiUrl}/pdf/contract/remind`,
+      {
+        'contract': this.contract
+      }
+    ).pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+
+        },
+        error => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
+        }
+      );
   }
 
 
