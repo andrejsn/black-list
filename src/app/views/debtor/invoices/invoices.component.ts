@@ -19,6 +19,7 @@ export class InvoicesComponent implements OnInit {
 
   @Input() contract: Contract;
   invoicesList: InvoiceTableElement[];
+  visible:boolean = false;
   count: number;
 
   constructor(private http: HttpClient, ) { }
