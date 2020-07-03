@@ -1,14 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Contract } from '@app/models';
+import { inOutAnimation } from '@shared/helpers';
 
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
+  styleUrls: ['./documents.component.css'],
+  animations: [inOutAnimation()],
 })
 export class DocumentsComponent implements OnInit {
 
   @Input() contract: Contract;
+  visible: boolean;
 
   constructor() { }
 

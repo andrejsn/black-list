@@ -1,7 +1,10 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i> Guarantors ({{count}})
+      <div class="card-header">
+        <i aria-hidden="true" class="toggle fa fa-2x" (click)="visible =!visible"
+          [ngClass]="{'fa-expand': !visible,'fa-compress': visible}"></i>
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i> Guarantors ({{count}})
         <span class="float-right">
           <button class="btn">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -9,7 +12,7 @@
           </button>
         </span>
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="visible" [@inOutAnimation]>
         <table class="table table-responsive-sm table-bordered table-striped table-sm">
           <thead>
             <tr>

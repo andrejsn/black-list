@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { Contract, Guarantor } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation } from '@shared/helpers';
 
 interface GuarantorTableElement extends Guarantor {
   visible: boolean;
@@ -13,12 +14,14 @@ interface GuarantorTableElement extends Guarantor {
 @Component({
   selector: 'app-guarantors',
   templateUrl: './guarantors.component.html',
-  styleUrls: ['./guarantors.component.css']
+  styleUrls: ['./guarantors.component.css'],
+  animations: [inOutAnimation()],
 })
 export class GuarantorsComponent implements OnInit {
 
   @Input() contract: Contract;
   guarantorsList: GuarantorTableElement[];
+  visible: boolean = false;
   count: number;
 
   constructor(private http: HttpClient,) { }

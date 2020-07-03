@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation } from '@shared/helpers';
 
 interface RepresentativeTableElement extends Representative {
   visible: boolean;
@@ -13,12 +14,14 @@ interface RepresentativeTableElement extends Representative {
 @Component({
   selector: 'app-representatives',
   templateUrl: './representatives.component.html',
-  styleUrls: ['./representatives.component.css']
+  styleUrls: ['./representatives.component.css'],
+  animations: [inOutAnimation()],
 })
 export class RepresentativesComponent implements OnInit {
 
   @Input() contract: Contract;
   representativesList: RepresentativeTableElement[];
+  visible: boolean = false;
   count: number;
 
   constructor(private http: HttpClient,) { }
