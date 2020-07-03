@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { Contract, Invoice } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation } from '@shared/helpers';
 
 interface InvoiceTableElement extends Invoice {
   visible: boolean;
@@ -13,16 +14,17 @@ interface InvoiceTableElement extends Invoice {
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.css']
+  styleUrls: ['./invoices.component.css'],
+  animations: [inOutAnimation()],
 })
 export class InvoicesComponent implements OnInit {
 
   @Input() contract: Contract;
   invoicesList: InvoiceTableElement[];
-  visible:boolean = false;
+  visible: boolean = false;
   count: number;
 
-  constructor(private http: HttpClient, ) { }
+  constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
     // get data
@@ -42,7 +44,7 @@ export class InvoicesComponent implements OnInit {
       );
   }
 
-  toggle (invoiceList: InvoiceTableElement[], index:number){
+  toggle(invoiceList: InvoiceTableElement[], index: number) {
     for (let i = 0; i < invoiceList.length; i++) {
       const debtor = invoiceList[i];
       let selector = `.row-num-${i}-invoice`;
