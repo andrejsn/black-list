@@ -1,5 +1,7 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 
+// cut & copy from: https://medium.com/ngconf/animating-angulars-ngif-and-ngfor-32a6ff26ed2d
+
 export function inOutAnimation() {
   return trigger(
     'inOutAnimation',
