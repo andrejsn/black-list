@@ -1,8 +1,11 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>Template</div>
-      <div class="card-body">
+      <div class="card-header">
+        <i aria-hidden="true" class="toggle fa fa-2x" (click)="visible =!visible"
+          [ngClass]="{'fa-expand': !visible,'fa-compress': visible}"></i>
+        <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>Templates</div>
+      <div class="card-body" *ngIf="visible" [@inOutAnimation]>
         <table class="table table-responsive-sm table-bordered table-striped table-sm">
           <thead>
             <tr>
@@ -25,27 +28,25 @@
                 </td>
               </tr>
               <tr [ngSwitch]="template.status" class="d-none row-num-{{i}}-template">
-                <td ng colspan="2"></td>
-
-                  <td *ngSwitchCase="'reminder_pay'">
-                    <app-reminder-pay [contract]="contract"></app-reminder-pay>
-                  </td>
-                  <td *ngSwitchCase="'warning_pay'">
-                    <app-warning-pay></app-warning-pay>
-                  </td>
-                  <td *ngSwitchCase="'debt_calculation'">
-                    <app-debt-calculation></app-debt-calculation>
-                  </td>
-                  <td *ngSwitchCase="'warning_pre_trial'">
-                    <app-warning-pre-trial></app-warning-pre-trial>
-                  </td>
-                  <td *ngSwitchCase="'claim_to_court'">
-                    <app-claim-to-court></app-claim-to-court>
-                  </td>
-                  <td *ngSwitchCase="'creditor_to_administrator'">
-                    <app-creditor-to-administrator></app-creditor-to-administrator>
-                  </td>
-                  <td *ngSwitchDefault></td>
+                <td *ngSwitchCase="'reminder_pay'" colspan="3">
+                  <app-reminder-pay [contract]="contract"></app-reminder-pay>
+                </td>
+                <td *ngSwitchCase="'warning_pay'" colspan="3">
+                  <app-warning-pay></app-warning-pay>
+                </td>
+                <td *ngSwitchCase="'debt_calculation'" colspan="3">
+                  <app-debt-calculation></app-debt-calculation>
+                </td>
+                <td *ngSwitchCase="'warning_pre_trial'" colspan="3">
+                  <app-warning-pre-trial></app-warning-pre-trial>
+                </td>
+                <td *ngSwitchCase="'claim_to_court'" colspan="3">
+                  <app-claim-to-court></app-claim-to-court>
+                </td>
+                <td *ngSwitchCase="'creditor_to_administrator'" colspan="3">
+                  <app-creditor-to-administrator></app-creditor-to-administrator>
+                </td>
+                <td *ngSwitchDefault></td>
 
               </tr>
             </ng-container>

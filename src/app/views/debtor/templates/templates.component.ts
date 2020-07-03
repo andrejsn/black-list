@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { Contract, Template, TemplateStatus } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation } from '@shared/helpers';
 
 
 interface TemplateTableElement extends Template {
@@ -15,11 +16,13 @@ interface TemplateTableElement extends Template {
 @Component({
   selector: 'app-templates',
   templateUrl: './templates.component.html',
-  styleUrls: ['./templates.component.css']
+  styleUrls: ['./templates.component.css'],
+  animations: [inOutAnimation()]
 })
 export class TemplateComponent implements OnInit {
 
   @Input() contract: Contract;
+  visible:boolean = false;
   templateList: TemplateTableElement[];
   templateStatus: TemplateStatus;
   maxLetters = 128;
