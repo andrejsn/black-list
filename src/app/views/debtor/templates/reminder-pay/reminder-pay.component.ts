@@ -11,7 +11,7 @@ import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
 interface ContractRemindPay extends Contract {
-  place: string, number: string, days: string, remindDate: Date;
+  place: string, number: string, days: string, remindDate: Date, saveDoc: boolean
 }
 
 
@@ -32,6 +32,7 @@ export class ReminderPayComponent implements OnInit {
     number: new FormControl(),
     days: new FormControl(),
     remindDate: new FormControl(new Date()),
+    saveDoc: new FormControl()
   });
 
   constructor(private formBuilder: FormBuilder,
@@ -45,9 +46,11 @@ export class ReminderPayComponent implements OnInit {
         place: ['', [Validators.required]],
         number: ['', Validators.required],
         days: ['', [Validators.required, Validators.min(1)]],
-        remindDate: ['', [Validators.required]]
+        remindDate: ['', [Validators.required]],
+        saveDoc: ['', '']
       }
     );
+    this.reminderPayForm.patchValue({ saveDoc: true });
   }
 
   /**
@@ -69,6 +72,7 @@ export class ReminderPayComponent implements OnInit {
     this.contract.number = this.reminderPayForm.controls['number'].value;
     this.contract.days = this.reminderPayForm.controls['days'].value;
     this.contract.remindDate = this.reminderPayForm.controls['remindDate'].value;
+    this.contract.saveDoc = this.reminderPayForm.controls['saveDoc'].value;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/remind`,
       {
@@ -77,7 +81,7 @@ export class ReminderPayComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-         // console.log(data);
+          // console.log(data);
 
 
           window.open(window.URL.createObjectURL(data));
