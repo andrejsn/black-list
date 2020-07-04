@@ -32,7 +32,7 @@
                   <app-reminder-pay [contract]="contract"></app-reminder-pay>
                 </td>
                 <td *ngSwitchCase="'warning_pay'" colspan="3">
-                  <app-warning-pay></app-warning-pay>
+                  <app-warning-pay [contract]="contract"></app-warning-pay>
                 </td>
                 <td *ngSwitchCase="'debt_calculation'" colspan="3">
                   <app-debt-calculation></app-debt-calculation>
