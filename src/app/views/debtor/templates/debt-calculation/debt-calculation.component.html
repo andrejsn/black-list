@@ -1,1 +1,37 @@
-<p>debt-calculation works!</p>
+<div class="row">
+  <div class="col-lg-4">
+    <form [formGroup]="calcPayForm" (ngSubmit)="onSubmit()" role="form">
+
+      <div class="card">
+        <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small>
+            Information</small></div>
+
+        <div class="card-body">
+
+          <div class="form-group">
+            <label for="calcDate">Date of the document</label>
+            <input id="calcDate" class="form-control" bsDatepicker formControlName="calcDate" placement="top"
+              [ngClass]="{'is-invalid': submitted && f.calcDate.errors, 'is-valid': submitted && !f.calcDate.errors}"
+              [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+            <div *ngIf="submitted && f.calcDate.errors && f.calcDate.errors.required" class="invalid-feedback">
+              {{'template.error.calcDate.required' | translate}}</div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check checkbox">
+              <input class="form-check-input" id="saveCalcDoc" formControlName="saveDoc" type="checkbox">
+              <label class="form-check-label" for="saveCalcDoc">Save to my docs</label>
+            </div>
+          </div>
+
+
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

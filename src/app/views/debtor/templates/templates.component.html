@@ -35,7 +35,7 @@
                   <app-warning-pay [contract]="contract"></app-warning-pay>
                 </td>
                 <td *ngSwitchCase="'debt_calculation'" colspan="3">
-                  <app-debt-calculation></app-debt-calculation>
+                  <app-debt-calculation [contract]="contract"></app-debt-calculation>
                 </td>
                 <td *ngSwitchCase="'warning_pre_trial'" colspan="3">
                   <app-warning-pre-trial></app-warning-pre-trial>
