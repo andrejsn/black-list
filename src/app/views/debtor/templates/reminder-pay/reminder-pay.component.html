@@ -24,19 +24,22 @@
 
           <div class="form-group">
             <label for="days">Number of days to pay a debt</label>
-            <input class="form-control" id="days" formControlName="days" type="text" placeholder="Enter number of days"
+            <input class="form-control" id="days" formControlName="days" type="number"
+              placeholder="Enter number of days"
               [ngClass]="{'is-invalid': submitted && f.days.errors, 'is-valid': submitted && !f.days.errors}">
             <div *ngIf="submitted && f.days.errors && f.days.errors.required" class="invalid-feedback">
               {{'template.error.days.required' | translate}}</div>
+            <div *ngIf="submitted && f.days.errors && f.days.errors.min" class="invalid-feedback">
+              {{'template.error.days.min.required' | translate}}</div>
           </div>
 
           <div class="form-group">
             <label for="remindDate">Date of the document</label>
             <input id="remindDate" class="form-control" bsDatepicker formControlName="remindDate"
-            [ngClass]="{'is-invalid': submitted && f.remindDate.errors, 'is-valid': submitted && !f.remindDate.errors}"
+              [ngClass]="{'is-invalid': submitted && f.remindDate.errors, 'is-valid': submitted && !f.remindDate.errors}"
               [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-              <div *ngIf="submitted && f.remindDate.errors && f.remindDate.errors.required" class="invalid-feedback">
-                {{'template.error.remindDate.required' | translate}}</div>
+            <div *ngIf="submitted && f.remindDate.errors && f.remindDate.errors.required" class="invalid-feedback">
+              {{'template.error.remindDate.required' | translate}}</div>
           </div>
 
           <div class="form-group">

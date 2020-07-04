@@ -44,7 +44,7 @@ export class ReminderPayComponent implements OnInit {
       {
         place: ['', [Validators.required]],
         number: ['', Validators.required],
-        days: ['', [Validators.required]],
+        days: ['', [Validators.required, Validators.min(1)]],
         remindDate: ['', [Validators.required]]
       }
     );
