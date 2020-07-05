@@ -12,16 +12,10 @@ import { environment } from '@environments/environment';
 
 enum Court { arbitration, state }
 
-interface StateCourt {
-  court: Court.state,
-  name: string,
-  addresse: string
-}
-
 enum Basis { product, services }
 
 interface ContractClaimToCourt extends Contract {
-  place: string, number: string, judgesNumber: number, court: Court, stateCourt: StateCourt, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
+  place: string, number: string, judgesNumber: number, court: Court, courtName: string, courtAddress:string, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
 }
 
 @Component({
@@ -48,6 +42,7 @@ export class ClaimToCourtComponent implements OnInit {
     basis: new FormControl(),
     court: new FormControl(),
     courtName: new FormControl(),
+    courtAddress: new FormControl(),
 
     claimToCourtDate: new FormControl(new Date()),
     saveDoc: new FormControl()
@@ -68,7 +63,8 @@ export class ClaimToCourtComponent implements OnInit {
 
         basis: [null, [Validators.required]],
         court: [null, [Validators.required]],
-        courtName: ['', ''],
+        courtName: ['', [Validators.required]],
+        courtAddress: ['', [Validators.required]],
 
         claimToCourtDate: ['', [Validators.required]],
         saveDoc: ['', '']
@@ -87,6 +83,14 @@ export class ClaimToCourtComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+    if((this.selectedCourt + '') == 'arbitration'){
+      this.claimToCourtForm.controls['courtName'].setValue('empty');
+      this.claimToCourtForm.controls['courtAddress'].setValue('empty');
+    }else {
+      // state
+      this.claimToCourtForm.controls['judgesNumber'].setValue('1234567890');
+    }
+
     // stop here if form is invalid
     if (this.claimToCourtForm.invalid) {
       this.translate.get('toast.error.template.form').subscribe((error: string) => { this.snotifyService.error(error) });
@@ -101,8 +105,11 @@ export class ClaimToCourtComponent implements OnInit {
     this.contract.judgesNumber = this.claimToCourtForm.controls['judgesNumber'].value;
 
     this.contract.basis = this.claimToCourtForm.controls['basis'].value;
+    this.contract.court = this.claimToCourtForm.controls['court'].value;
+    this.contract.courtName = this.claimToCourtForm.controls['courtName'].value;
+    this.contract.courtAddress = this.claimToCourtForm.controls['courtAddress'].value;
 
-    this.contract.claimToCourtDate = this.claimToCourtForm.controls['warningDate'].value;
+    this.contract.claimToCourtDate = this.claimToCourtForm.controls['claimToCourtDate'].value;
     this.contract.saveDoc = this.claimToCourtForm.controls['saveDoc'].value;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/claim/to/court`,

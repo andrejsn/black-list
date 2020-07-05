@@ -76,17 +76,35 @@
                     {{'debtor.error.court.required' | translate}}</div>
                 </div>
 
-                <!-- <div class="form-group">
-                  <label for="claimToCourtlNumber">Internal registration number</label>
-                  <input class="form-control" id="claimToCourtlNumber" formControlName="number" type="text"
-                    placeholder="Enter registration number"
-                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-                    {{'template.error.number.required' | translate}}</div>
-                </div> -->
+                <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
+                  <label for="claimToCourtName">Name of court</label>
+                  <input class="form-control" id="claimToCourtName" formControlName="courtName" type="text"
+                    placeholder="Enter court name"
+                    [ngClass]="{'is-invalid': submitted && f.courtName.errors, 'is-valid': submitted && !f.courtName.errors}">
+                  <div *ngIf="submitted && f.courtName.errors && f.courtName.errors.required" class="invalid-feedback">
+                    {{'template.error.courtName.required' | translate}}</div>
+                </div>
+
+                <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
+                  <label for="claimToCourtAddress">Address of court</label>
+                  <input class="form-control" id="claimToCourtAddress" formControlName="courtAddress" type="text"
+                    placeholder="Enter court address"
+                    [ngClass]="{'is-invalid': submitted && f.courtAddress.errors, 'is-valid': submitted && !f.courtAddress.errors}">
+                  <div *ngIf="submitted && f.courtAddress.errors && f.courtAddress.errors.required"
+                    class="invalid-feedback">
+                    {{'template.error.courtAddress.required' | translate}}</div>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-check checkbox">
+                    <input class="form-check-input" id="saveClaimToCourtDoc" formControlName="saveDoc" type="checkbox" >
+                    <label class="form-check-label" for="saveClaimToCourtDoc">Save to my docs</label>
+                  </div>
+                </div>
 
               </div>
             </div>
+
             <div class="col-lg-4">
               <div class="card-body">
                 <div class="form-group" *ngIf="(selectedCourt + '') === 'arbitration'">
@@ -97,76 +115,17 @@
                   <div *ngIf="submitted && f.judgesNumber.errors && f.judgesNumber.errors.required"
                     class="invalid-feedback">
                     {{'template.error.judgesNumber.required' | translate}}</div>
+                  <div *ngIf="submitted && f.judgesNumber.errors && f.judgesNumber.errors.min" class="invalid-feedback">
+                    {{'template.error.judgesNumber.min.required' | translate}}</div>
                 </div>
-
-
-                <!-- <div class="form-group">
-                  <label for="claimToCourtsDebtBasis">Debt basis</label>
-                  <select formControlName="basis" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.basis.errors, 'is-valid': submitted && !f.basis.errors}"
-                    id="claimToCourtsDebtBasis">
-                    <option [ngValue]="null" disabled>{{'select.basis' | translate}}</option>
-                    <option [value]="basis" *ngFor="let basis of debtorBasis | enumToArray">
-                      {{ 'basis.long.'+basis | translate}}
-                    </option>
-                  </select>
-                  <div *ngIf="submitted && f.basis.errors && f.basis.errors.required" class="invalid-feedback">
-                    {{'debtor.error.basis.required' | translate}}</div>
-                </div> -->
-
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <!-- <div class="col-lg-4 tags p-b-2">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="claimToCourtJudgesNumber">Number of judges</label>
-                  <input class="form-control" id="claimToCourtJudgesNumber" formControlName="judgesNumber" type="number"
-                    placeholder="Enter number"
-                    [ngClass]="{'is-invalid': submitted && f.judgesNumber.errors, 'is-valid': submitted && !f.judgesNumber.errors}">
-                  <div *ngIf="submitted && f.judgesNumber.errors && f.judgesNumber.errors.required"
-                    class="invalid-feedback">
-                    {{'template.error.judgesNumber.required' | translate}}</div>
-                </div>
-              </div>
-            </div> -->
-            <!-- <div class="col-lg-10">
-              <div class="card-body">
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label" for="claimToCourts">Court</label>
-                  <select class="col-md-6 form-control" formControlName="court" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.court.errors, 'is-valid': submitted && !f.court.errors}"
-                    id="claimToCourts">
-                    <option [ngValue]="null" disabled>{{'select.court' | translate}}</option>
-                    <option [value]="court" *ngFor="let court of courts | enumToArray">
-                      {{ 'court.long.'+court | translate}}
-                    </option>
-                  </select>
-                  <div *ngIf="submitted && f.court.errors && f.court.errors.required" class="invalid-feedback">
-                    {{'debtor.error.court.required' | translate}}</div>
-                </div>
-              </div>
-            </div> -->
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
           </div>
-
-          <!-- <div class="row">
-            <div class="col-lg-10">
-              <div class="card-body float-right">
-                <div class="form-group row">
-                  <label class="col-md-3 col-form-label" for="claimToCourtName">Name of court</label>
-                  <input class="col-md-7 form-control" id="claimToCourtName" formControlName="courtName" type="text"
-                    placeholder="Enter number"
-                    [ngClass]="{'is-invalid': submitted && f.courtName.errors, 'is-valid': submitted && !f.courtName.errors}">
-                  <div *ngIf="submitted && f.courtName.errors && f.courtName.errors.required"
-                    class="invalid-feedback">
-                    {{'template.error.courtName.required' | translate}}</div>
-                </div>
-
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </form>
