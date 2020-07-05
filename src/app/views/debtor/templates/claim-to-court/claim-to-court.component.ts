@@ -10,12 +10,13 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
+
 enum Court { arbitration, state }
 
 enum Basis { product, services }
 
 interface ContractClaimToCourt extends Contract {
-  place: string, number: string, judgesNumber: number, court: Court, courtName: string, courtAddress:string, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
+  place: string, number: string, judgesNumber: number, court: Court, courtName: string, courtAddress: string, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
 }
 
 @Component({
@@ -28,7 +29,8 @@ export class ClaimToCourtComponent implements OnInit {
   @Input() contract: ContractClaimToCourt;
   debtorBasis = Basis;
   courts = Court;
-  selectedCourt:Court;
+  selectedCourt: Court;
+  apiUrl: string;
 
 
   submitted: boolean = false;
@@ -59,18 +61,18 @@ export class ClaimToCourtComponent implements OnInit {
       {
         place: ['', [Validators.required]],
         number: ['', Validators.required],
-        judgesNumber: ['', [Validators.required, Validators.min(1)]],
+        claimToCourtDate: ['', [Validators.required]],
 
         basis: [null, [Validators.required]],
         court: [null, [Validators.required]],
+        judgesNumber: ['', [Validators.required, Validators.min(1)]],
         courtName: ['', [Validators.required]],
         courtAddress: ['', [Validators.required]],
 
-        claimToCourtDate: ['', [Validators.required]],
         saveDoc: ['', '']
       }
     );
-    this.claimToCourtForm.patchValue({ saveDoc: true });
+    this.claimToCourtForm.patchValue({ judgesNumber: 1, saveDoc: true });
   }
 
 
@@ -82,14 +84,6 @@ export class ClaimToCourtComponent implements OnInit {
   */
   onSubmit() {
     this.submitted = true;
-
-    if((this.selectedCourt + '') == 'arbitration'){
-      this.claimToCourtForm.controls['courtName'].setValue('empty');
-      this.claimToCourtForm.controls['courtAddress'].setValue('empty');
-    }else {
-      // state
-      this.claimToCourtForm.controls['judgesNumber'].setValue('1234567890');
-    }
 
     // stop here if form is invalid
     if (this.claimToCourtForm.invalid) {
@@ -103,16 +97,14 @@ export class ClaimToCourtComponent implements OnInit {
     this.contract.place = this.claimToCourtForm.controls['place'].value;
     this.contract.number = this.claimToCourtForm.controls['number'].value;
     this.contract.judgesNumber = this.claimToCourtForm.controls['judgesNumber'].value;
-
     this.contract.basis = this.claimToCourtForm.controls['basis'].value;
     this.contract.court = this.claimToCourtForm.controls['court'].value;
     this.contract.courtName = this.claimToCourtForm.controls['courtName'].value;
     this.contract.courtAddress = this.claimToCourtForm.controls['courtAddress'].value;
-
     this.contract.claimToCourtDate = this.claimToCourtForm.controls['claimToCourtDate'].value;
     this.contract.saveDoc = this.claimToCourtForm.controls['saveDoc'].value;
 
-    this.http.post<any>(`${environment.apiUrl}/pdf/contract/claim/to/court`,
+    this.http.post<any>(`${environment.apiUrl}` + this.apiUrl,
       {
         'contract': this.contract
       }, { responseType: 'blob' as 'json' }
@@ -138,7 +130,23 @@ export class ClaimToCourtComponent implements OnInit {
   }
 
 
+  selectCourt(_court) {
+    this.selectedCourt = _court;
+    this.f['judgesNumber'].setValue(this.f['judgesNumber'].value > 0 ? this.f['judgesNumber'].value : 1);
 
+    if ((this.selectedCourt + '') == 'arbitration') {
+      this.apiUrl = '/pdf/contract/claim/to/arbitration/court';
+
+      this.f['courtName'].setValue(this.f['courtName'].value ? this.f['courtName'].value : ' ');
+      this.f['courtAddress'].setValue(this.f['courtAddress'].value ? this.f['courtAddress'].value : ' ');
+    } else {
+      // state
+      this.apiUrl = '/pdf/contract/claim/to/state/court';
+
+      this.f['courtName'].setValue(this.f['courtName'].value == ' ' ? '' : this.f['courtName'].value);
+      this.f['courtAddress'].setValue(this.f['courtAddress'].value == ' ' ? '' : this.f['courtAddress'].value);
+    }
+  }
 
   // convenience getter for easy access to form fields
   get f() {
