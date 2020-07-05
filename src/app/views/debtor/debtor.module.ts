@@ -7,7 +7,7 @@ import { DetailsComponent } from './details/details.component';
 import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
 import { TemplateComponent } from './templates/templates.component';
 
-import { ShortenTextPipe } from '@shared/helpers';
+import { ShortenTextPipe, EnumToArrayPipe } from '@shared/helpers';
 import { TranslateModule } from '@ngx-translate/core';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -31,6 +31,7 @@ import { CreditorToAdministratorComponent } from './templates/creditor-to-admini
     TemplateComponent,
 
     ShortenTextPipe,
+    EnumToArrayPipe,
 
     ReminderPayComponent,
     WarningPayComponent,
