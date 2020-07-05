@@ -1,1 +1,65 @@
-<p>claim-to-court works!</p>
+<div class="row">
+  <div class="col-lg-10">
+    <form [formGroup]="claimToCourtForm" (ngSubmit)="onSubmit()" role="form">
+      <div class="card">
+        <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small>
+            Information</small>
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-lg-6 tags p-b-2">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="claimToCourtPlace">Place of writing the document</label>
+                  <input class="form-control" id="claimToCourtPlace" formControlName="place" type="text"
+                    placeholder="Enter place"
+                    [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
+                  <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
+                    {{'template.error.place.required' | translate}}</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="claimToCourtlNumber">Internal registration number</label>
+                  <input class="form-control" id="claimToCourtlNumber" formControlName="number" type="text"
+                    placeholder="Enter registration number"
+                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
+                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
+                    {{'template.error.number.required' | translate}}</div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="claimToCourtDate">Date of the document</label>
+                  <input id="claimToCourtDate" class="form-control" bsDatepicker formControlName="claimToCourtDate"
+                    placement="top"
+                    [ngClass]="{'is-invalid': submitted && f.claimToCourtDate.errors, 'is-valid': submitted && !f.claimToCourtDate.errors}"
+                    [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                  <div *ngIf="submitted && f.claimToCourtDate.errors && f.claimToCourtDate.errors.required"
+                    class="invalid-feedback">
+                    {{'template.error.claimToCourtDate.required' | translate}}</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="claimToCourtDebtBasis">Debt basis</label>
+                  <select formControlName="basis" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.basis.errors, 'is-valid': submitted && !f.basis.errors}"
+                  id="claimToCourtDebtBasis">
+                    <option [ngValue]="null" disabled>{{'select.basis' | translate}}</option>
+                    <option [value]="basis" *ngFor="let basis of debtorBasis | enumToArray">
+                      {{ 'basis.long.'+basis | translate}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f.basis.errors && f.basis.errors.required" class="invalid-feedback">
+                    {{'debtor.error.basis.required' | translate}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -10,12 +10,18 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
-enum Courts {
-  arbitration,
-  state
+enum Courts { arbitration, state }
+
+interface StateCourt {
+  court: Courts.state,
+  name: string,
+  addresse: string
 }
+
+enum Basis { product, services }
+
 interface ContractClaimToCourt extends Contract {
-  place: string, number: string, judgesNumber: number, court: Courts, stateCourtName: string, stateCourtAddress: string, attachments: string[], claimToCourtDate: Date, saveDoc: boolean
+  place: string, number: string, judgesNumber: number, court: Courts, stateCourt: StateCourt, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
 }
 
 @Component({
@@ -25,10 +31,97 @@ interface ContractClaimToCourt extends Contract {
 })
 export class ClaimToCourtComponent implements OnInit {
 
-  constructor() { }
+  @Input() contract: ContractClaimToCourt;
+  debtorBasis = Basis;
+
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  claimToCourtForm = new FormGroup({
+    place: new FormControl(),
+    number: new FormControl(),
+    judgesNumber: new FormControl(),
+
+    basis: new FormControl(),
+
+    claimToCourtDate: new FormControl(new Date()),
+    saveDoc: new FormControl()
+  });
+
+
+  constructor(private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private http: HttpClient,
+    private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
+    this.claimToCourtForm = this.formBuilder.group(
+      {
+        place: ['', [Validators.required]],
+        number: ['', Validators.required],
+        judgesNumber: ['', [Validators.required, Validators.min(1)]],
+
+        basis: [null, [Validators.required]],
+
+        claimToCourtDate: ['', [Validators.required]],
+        saveDoc: ['', '']
+      }
+    );
+    this.claimToCourtForm.patchValue({ saveDoc: true });
   }
 
+  /**
+* submit form
+*/
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.claimToCourtForm.invalid) {
+      this.translate.get('toast.error.template.form').subscribe((error: string) => { this.snotifyService.error(error) });
+
+      return;
+    }
+
+    //this.loading = true;
+
+    this.contract.place = this.claimToCourtForm.controls['place'].value;
+    this.contract.number = this.claimToCourtForm.controls['number'].value;
+    this.contract.judgesNumber = this.claimToCourtForm.controls['judgesNumber'].value;
+
+    this.contract.basis = this.claimToCourtForm.controls['basis'].value;
+
+    this.contract.claimToCourtDate = this.claimToCourtForm.controls['warningDate'].value;
+    this.contract.saveDoc = this.claimToCourtForm.controls['saveDoc'].value;
+
+    this.http.post<any>(`${environment.apiUrl}/pdf/contract/claim/to/court`,
+      {
+        'contract': this.contract
+      }, { responseType: 'blob' as 'json' }
+    ).pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+
+
+          // window.open(window.URL.createObjectURL(data));
+        },
+        error => {
+
+
+          console.log(error);
+
+
+          this.loading = false;
+          this.submitted = false;
+          this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
+        }
+      );
+  }
+
+    // convenience getter for easy access to form fields
+    get f() {
+      return this.claimToCourtForm.controls;
+    }
 }
 
