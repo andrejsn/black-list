@@ -12,7 +12,7 @@
                 <div class="form-group">
                   <label for="claimToCourtPlace">Place of writing the document</label>
                   <input class="form-control" id="claimToCourtPlace" formControlName="place" type="text"
-                    placeholder="Enter place"
+                    placeholder="Enter place" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
                   <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
                     {{'template.error.place.required' | translate}}</div>
@@ -21,7 +21,7 @@
                 <div class="form-group">
                   <label for="claimToCourtlNumber">Internal registration number</label>
                   <input class="form-control" id="claimToCourtlNumber" formControlName="number" type="text"
-                    placeholder="Enter registration number"
+                    placeholder="Enter registration number" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
                   <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
                     {{'template.error.number.required' | translate}}</div>
@@ -64,7 +64,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="claimToCourts">Court</label>
-                  <select formControlName="court" class="form-control" (ngModelChange)="selectedCourt = $event"
+                  <select formControlName="court" class="form-control" (ngModelChange)="selectCourt($event)"
                     [ngClass]="{'is-invalid': submitted && f.court.errors, 'is-valid': submitted && !f.court.errors}"
                     id="claimToCourts">
                     <option [ngValue]="null" disabled>{{'select.court' | translate}}</option>
@@ -79,7 +79,7 @@
                 <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
                   <label for="claimToCourtName">Name of court</label>
                   <input class="form-control" id="claimToCourtName" formControlName="courtName" type="text"
-                    placeholder="Enter court name"
+                    placeholder="Enter court name" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.courtName.errors, 'is-valid': submitted && !f.courtName.errors}">
                   <div *ngIf="submitted && f.courtName.errors && f.courtName.errors.required" class="invalid-feedback">
                     {{'template.error.courtName.required' | translate}}</div>
@@ -88,7 +88,7 @@
                 <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
                   <label for="claimToCourtAddress">Address of court</label>
                   <input class="form-control" id="claimToCourtAddress" formControlName="courtAddress" type="text"
-                    placeholder="Enter court address"
+                    placeholder="Enter court address" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.courtAddress.errors, 'is-valid': submitted && !f.courtAddress.errors}">
                   <div *ngIf="submitted && f.courtAddress.errors && f.courtAddress.errors.required"
                     class="invalid-feedback">
@@ -97,7 +97,7 @@
 
                 <div class="form-group">
                   <div class="form-check checkbox">
-                    <input class="form-check-input" id="saveClaimToCourtDoc" formControlName="saveDoc" type="checkbox" >
+                    <input class="form-check-input" id="saveClaimToCourtDoc" formControlName="saveDoc" type="checkbox">
                     <label class="form-check-label" for="saveClaimToCourtDoc">Save to my docs</label>
                   </div>
                 </div>
