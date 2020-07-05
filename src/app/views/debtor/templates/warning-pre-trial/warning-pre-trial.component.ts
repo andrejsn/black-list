@@ -11,7 +11,7 @@ import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
 interface ContractWarningPreTrial extends Contract {
-  place: string, number: string, days: string, warningDate: Date, saveDoc: boolean
+  place: string, number: string, days: number, warningDate: Date, saveDoc: boolean
 }
 
 @Component({

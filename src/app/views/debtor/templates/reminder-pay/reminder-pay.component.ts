@@ -11,7 +11,7 @@ import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
 interface ContractRemindPay extends Contract {
-  place: string, number: string, days: string, remindDate: Date, saveDoc: boolean
+  place: string, number: string, days: number, remindDate: Date, saveDoc: boolean
 }
 
 
