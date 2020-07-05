@@ -10,10 +10,10 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
-enum Courts { arbitration, state }
+enum Court { arbitration, state }
 
 interface StateCourt {
-  court: Courts.state,
+  court: Court.state,
   name: string,
   addresse: string
 }
@@ -21,7 +21,7 @@ interface StateCourt {
 enum Basis { product, services }
 
 interface ContractClaimToCourt extends Contract {
-  place: string, number: string, judgesNumber: number, court: Courts, stateCourt: StateCourt, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
+  place: string, number: string, judgesNumber: number, court: Court, stateCourt: StateCourt, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
 }
 
 @Component({
@@ -33,6 +33,9 @@ export class ClaimToCourtComponent implements OnInit {
 
   @Input() contract: ContractClaimToCourt;
   debtorBasis = Basis;
+  courts = Court;
+  selectedCourt:Court;
+
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -43,6 +46,8 @@ export class ClaimToCourtComponent implements OnInit {
     judgesNumber: new FormControl(),
 
     basis: new FormControl(),
+    court: new FormControl(),
+    courtName: new FormControl(),
 
     claimToCourtDate: new FormControl(new Date()),
     saveDoc: new FormControl()
@@ -62,6 +67,8 @@ export class ClaimToCourtComponent implements OnInit {
         judgesNumber: ['', [Validators.required, Validators.min(1)]],
 
         basis: [null, [Validators.required]],
+        court: [null, [Validators.required]],
+        courtName: ['', ''],
 
         claimToCourtDate: ['', [Validators.required]],
         saveDoc: ['', '']
@@ -70,9 +77,13 @@ export class ClaimToCourtComponent implements OnInit {
     this.claimToCourtForm.patchValue({ saveDoc: true });
   }
 
+
+
+
+
   /**
-* submit form
-*/
+  * submit form
+  */
   onSubmit() {
     this.submitted = true;
 
@@ -119,9 +130,12 @@ export class ClaimToCourtComponent implements OnInit {
       );
   }
 
-    // convenience getter for easy access to form fields
-    get f() {
-      return this.claimToCourtForm.controls;
-    }
+
+
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.claimToCourtForm.controls;
+  }
 }
 
