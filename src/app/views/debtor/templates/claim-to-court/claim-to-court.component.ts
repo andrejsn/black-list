@@ -16,7 +16,7 @@ enum Court { arbitration, state }
 enum Basis { product, services }
 
 interface ContractClaimToCourt extends Contract {
-  place: string, number: string, judgesNumber: number, court: Court, courtName: string, courtAddress: string, attachments: string[], claimToCourtDate: Date, basis: Basis, saveDoc: boolean
+  place: string, number: string, judgesNumber: number, court: Court, courtName: string, courtAddress: string, attachments: any, claimToCourtDate: Date, basis: Basis, saveDoc: boolean
 }
 
 @Component({
@@ -45,6 +45,7 @@ export class ClaimToCourtComponent implements OnInit {
     court: new FormControl(),
     courtName: new FormControl(),
     courtAddress: new FormControl(),
+    attachments: new FormControl(),
 
     claimToCourtDate: new FormControl(new Date()),
     saveDoc: new FormControl()
@@ -69,23 +70,25 @@ export class ClaimToCourtComponent implements OnInit {
         courtName: ['', [Validators.required]],
         courtAddress: ['', [Validators.required]],
 
-        attachments: this.formBuilder.array([this.formBuilder.group({ attachmentName: '' })]),
+        attachments: this.formBuilder.array([]),
         saveDoc: ['', '']
       }
     );
     this.claimToCourtForm.patchValue({ judgesNumber: 1, saveDoc: true });
   }
 
-  get attacmentNames() {
+
+
+  get attachments() {
     return this.claimToCourtForm.get('attachments') as FormArray;
   }
 
-  addAttachmentName() {
-    this.attacmentNames.push(this.formBuilder.group({attachmentName: ''}));
+  addAttachment() {
+    this.attachments.push(this.formBuilder.group({ name: ['', [Validators.required]] }));
   }
 
-  deleteAttachmentName(index:number){
-    this.attacmentNames.removeAt(index);
+  deleteAttachment(index: number) {
+    this.attachments.removeAt(index);
   }
 
   /**
@@ -111,6 +114,7 @@ export class ClaimToCourtComponent implements OnInit {
     this.contract.courtName = this.claimToCourtForm.controls['courtName'].value;
     this.contract.courtAddress = this.claimToCourtForm.controls['courtAddress'].value;
     this.contract.claimToCourtDate = this.claimToCourtForm.controls['claimToCourtDate'].value;
+    this.contract.attachments = this.claimToCourtForm.controls['attachments'].value
     this.contract.saveDoc = this.claimToCourtForm.controls['saveDoc'].value;
 
     this.http.post<any>(`${environment.apiUrl}` + this.apiUrl,
@@ -161,5 +165,6 @@ export class ClaimToCourtComponent implements OnInit {
   get f() {
     return this.claimToCourtForm.controls;
   }
+
 }
 

@@ -119,30 +119,43 @@
           <div class="row">
             <div class="col-lg-10">
               <div class="card-body">
-                <div class="form-group">
-                  <label>In the attachment</label>
-
-                  <div formArrayName="attachments">
-                    <div *ngFor="let attachment of attacmentNames.controls; let attachmentIndex=index"
-                      [formGroupName]="attachmentIndex">
-                      <p>Hello {{attachmentIndex}} <button type="button"
-                          (click)="deleteAttachmentName(attachmentIndex)">Delete</button></p>
-
-                      <input class="form-control" id="attachmentName{{attachmentIndex}}"
-                        formControlName="attachmentName" type="text" placeholder="Enter attachment name"
-                        pattern="[^' ']+"
-                        [ngClass]="{'is-invalid': submitted && f.attachmentName.errors, 'is-valid': submitted && !f.attachmentName.errors}">
-                      <div *ngIf="submitted && f.attachmentName.errors && f.attachmentName.errors.required"
-                        class="invalid-feedback">
-                        {{'template.error.attachmentName.required' | translate}}</div>
-
-                    </div>
-                    <button type="button" (click)="addAttachmentName()">add attachment</button>
+                <label>In the attachment</label>
+                <div formArrayName="attachments"
+                  *ngFor="let attachment of attachments.controls; let attachmentIndex=index">
+                  <div [formGroupName]="attachmentIndex" class="form-group">
+                    <span class="float-right">
+                      <button class="btn-ghost-danger" (click)="deleteAttachment(attachmentIndex)" type="button">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </span>
+                    <input class="form-control" id="attachmentName-{{attachmentIndex}}" type="text"
+                      placeholder="Enter attachment name" formControlName="name"
+                      [ngClass]="{'is-invalid': submitted && attachment.controls.name.errors, 'is-valid': submitted && !attachment.controls.name.errors}">
+                    <div *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
+                      class="invalid-feedback">
+                      {{'template.error.attachment.required' | translate}}</div>
                   </div>
-
                 </div>
+                <button class="btn" (click)="addAttachment()" type="button">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  Attachment
+                </button>
               </div>
             </div>
+
+            <!-- <div class="col-lg-2">
+              <div class="card-body">
+                <label *ngIf="attachments.controls.length > 0">Delete</label>
+                <div formArrayName="attachments"
+                  *ngFor="let attachment of attachments.controls; let attachmentIndex=index">
+                  <div [formGroupName]="attachmentIndex" class="form-group">
+                    <button class="btn-outline-danger" (click)="deleteAttachment(attachmentIndex)" type="button">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
           </div>
 
           <div class="card-footer">
