@@ -120,20 +120,24 @@
             <div class="col-lg-10">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="xxx">In the attachment</label>
+                  <label>In the attachment</label>
 
                   <div formArrayName="attachments">
-                    <div *ngFor="let attachment of attacmentNames.controls; let attachmentIndex=index" [formGroupName]="attachmentIndex">
-                      <p>Hello {{attachmentIndex}} <button type="button" (click)="deleteAttachmentName(attachmentIndex)">Delete</button></p>
+                    <div *ngFor="let attachment of attacmentNames.controls; let attachmentIndex=index"
+                      [formGroupName]="attachmentIndex">
+                      <p>Hello {{attachmentIndex}} <button type="button"
+                          (click)="deleteAttachmentName(attachmentIndex)">Delete</button></p>
 
-                      <!-- <input class="form-control" id="xxx" formControlName="attachmentName" type="text"
-                        placeholder="Enter registration number" pattern="[^' ']+"
-                        [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-                      <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-                        {{'template.error.number.required' | translate}}</div> -->
+                      <input class="form-control" id="attachmentName{{attachmentIndex}}"
+                        formControlName="attachmentName" type="text" placeholder="Enter attachment name"
+                        pattern="[^' ']+"
+                        [ngClass]="{'is-invalid': submitted && f.attachmentName.errors, 'is-valid': submitted && !f.attachmentName.errors}">
+                      <div *ngIf="submitted && f.attachmentName.errors && f.attachmentName.errors.required"
+                        class="invalid-feedback">
+                        {{'template.error.attachmentName.required' | translate}}</div>
 
                     </div>
-<button type="button" (click)="addAttachmentName()">add attachment</button>
+                    <button type="button" (click)="addAttachmentName()">add attachment</button>
                   </div>
 
                 </div>
