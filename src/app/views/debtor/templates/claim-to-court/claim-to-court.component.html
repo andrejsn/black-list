@@ -95,13 +95,6 @@
                     {{'template.error.courtAddress.required' | translate}}</div>
                 </div>
 
-                <div class="form-group">
-                  <div class="form-check checkbox">
-                    <input class="form-check-input" id="saveClaimToCourtDoc" formControlName="saveDoc" type="checkbox">
-                    <label class="form-check-label" for="saveClaimToCourtDoc">Save to my docs</label>
-                  </div>
-                </div>
-
               </div>
             </div>
 
@@ -121,7 +114,41 @@
               </div>
             </div>
           </div>
+
+
+          <div class="row">
+            <div class="col-lg-10">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="xxx">In the attachment</label>
+
+                  <div formArrayName="attachments">
+                    <div *ngFor="let attachment of attacmentNames.controls; let attachmentIndex=index" [formGroupName]="attachmentIndex">
+                      <p>Hello {{attachmentIndex}} <button type="button" (click)="deleteAttachmentName(attachmentIndex)">Delete</button></p>
+
+                      <!-- <input class="form-control" id="xxx" formControlName="attachmentName" type="text"
+                        placeholder="Enter registration number" pattern="[^' ']+"
+                        [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
+                      <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
+                        {{'template.error.number.required' | translate}}</div> -->
+
+                    </div>
+<button type="button" (click)="addAttachmentName()">add attachment</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="card-footer">
+            <div class="form-group">
+              <div class="form-check checkbox">
+                <input class="form-check-input" id="saveClaimToCourtDoc" formControlName="saveDoc" type="checkbox">
+                <label class="form-check-label" for="saveClaimToCourtDoc">Save to my docs</label>
+              </div>
+            </div>
+
             <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
               Create</button>
             <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>

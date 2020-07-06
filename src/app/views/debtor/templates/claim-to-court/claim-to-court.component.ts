@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -69,15 +69,24 @@ export class ClaimToCourtComponent implements OnInit {
         courtName: ['', [Validators.required]],
         courtAddress: ['', [Validators.required]],
 
+        attachments: this.formBuilder.array([this.formBuilder.group({ attachmentName: '' })]),
         saveDoc: ['', '']
       }
     );
     this.claimToCourtForm.patchValue({ judgesNumber: 1, saveDoc: true });
   }
 
+  get attacmentNames() {
+    return this.claimToCourtForm.get('attachments') as FormArray;
+  }
 
+  addAttachmentName() {
+    this.attacmentNames.push(this.formBuilder.group({attachmentName: ''}));
+  }
 
-
+  deleteAttachmentName(index:number){
+    this.attacmentNames.removeAt(index);
+  }
 
   /**
   * submit form
@@ -137,8 +146,8 @@ export class ClaimToCourtComponent implements OnInit {
     if ((this.selectedCourt + '') == 'arbitration') {
       this.apiUrl = '/pdf/contract/claim/to/arbitration/court';
 
-      this.f['courtName'].setValue(this.f['courtName'].value ? this.f['courtName'].value : ' ');
-      this.f['courtAddress'].setValue(this.f['courtAddress'].value ? this.f['courtAddress'].value : ' ');
+      this.f['courtName'].setValue(this.f['courtName'].value != '' ? this.f['courtName'].value : ' ');
+      this.f['courtAddress'].setValue(this.f['courtAddress'].value != '' ? this.f['courtAddress'].value : ' ');
     } else {
       // state
       this.apiUrl = '/pdf/contract/claim/to/state/court';
