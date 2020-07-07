@@ -1,56 +1,71 @@
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-10">
     <form [formGroup]="warningPayForm" (ngSubmit)="onSubmit()" role="form">
       <div class="card">
         <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small>
-            Information</small></div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="warningPlace">Place of writing the document</label>
-            <input class="form-control" id="warningPlace" formControlName="place" type="text" placeholder="Enter place"
-              [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
-            <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
-              {{'template.error.place.required' | translate}}</div>
-          </div>
+            Information</small>
+        </div>
 
-          <div class="form-group">
-            <label for="warningNumber">Internal registration number</label>
-            <input class="form-control" id="warningNumber" formControlName="number" type="text"
-              placeholder="Enter registration number"
-              [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-            <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-              {{'template.error.number.required' | translate}}</div>
-          </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-lg-6 tags p-b-2">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="warningPlace">Place of writing the document</label>
+                  <input class="form-control" id="warningPlace" formControlName="place" type="text"
+                    placeholder="Enter place"
+                    [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
+                  <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
+                    {{'template.error.place.required' | translate}}</div>
+                </div>
 
-          <div class="form-group">
-            <label for="warningDays">Number of days to pay a debt</label>
-            <input class="form-control" id="warningDays" formControlName="days" type="number"
-              placeholder="Enter number of days"
-              [ngClass]="{'is-invalid': submitted && f.days.errors, 'is-valid': submitted && !f.days.errors}">
-            <div *ngIf="submitted && f.days.errors && f.days.errors.required" class="invalid-feedback">
-              {{'template.error.days.required' | translate}}</div>
-            <div *ngIf="submitted && f.days.errors && f.days.errors.min" class="invalid-feedback">
-              {{'template.error.days.min.required' | translate}}</div>
-          </div>
-
-          <div class="form-group">
-            <label for="warningDate">Date of the document</label>
-            <input id="warningDate" class="form-control" bsDatepicker formControlName="warningDate" placement="top"
-              [ngClass]="{'is-invalid': submitted && f.warningDate.errors, 'is-valid': submitted && !f.warningDate.errors}"
-              [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-            <div *ngIf="submitted && f.warningDate.errors && f.warningDate.errors.required" class="invalid-feedback">
-              {{'template.error.warningDate.required' | translate}}</div>
-          </div>
-
-          <div class="form-group">
-            <div class="form-check checkbox">
-              <input class="form-check-input" id="saveWarningDoc" formControlName="saveDoc" type="checkbox" >
-              <label class="form-check-label" for="saveWarningDoc">Save to my docs</label>
+                <div class="form-group">
+                  <label for="warningNumber">Internal registration number</label>
+                  <input class="form-control" id="warningNumber" formControlName="number" type="text"
+                    placeholder="Enter registration number"
+                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
+                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
+                    {{'template.error.number.required' | translate}}</div>
+                </div>
+              </div>
             </div>
-          </div>
 
+            <div class="col-lg-4 offset-lg-1">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="warningDate">Date of the document</label>
+                  <input id="warningDate" class="form-control" bsDatepicker formControlName="warningDate"
+                    placement="top"
+                    [ngClass]="{'is-invalid': submitted && f.warningDate.errors, 'is-valid': submitted && !f.warningDate.errors}"
+                    [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                  <div *ngIf="submitted && f.warningDate.errors && f.warningDate.errors.required"
+                    class="invalid-feedback">
+                    {{'template.error.warningDate.required' | translate}}</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="warningDays">Number of days to pay a debt</label>
+                  <input class="form-control" id="warningDays" formControlName="days" type="number"
+                    placeholder="Enter number of days"
+                    [ngClass]="{'is-invalid': submitted && f.days.errors, 'is-valid': submitted && !f.days.errors}">
+                  <div *ngIf="submitted && f.days.errors && f.days.errors.required" class="invalid-feedback">
+                    {{'template.error.days.required' | translate}}</div>
+                  <div *ngIf="submitted && f.days.errors && f.days.errors.min" class="invalid-feedback">
+                    {{'template.error.days.min.required' | translate}}</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
 
           <div class="card-footer">
+            <div class="form-group">
+              <div class="form-check checkbox">
+                <input class="form-check-input" id="saveWarningDoc" formControlName="saveDoc" type="checkbox">
+                <label class="form-check-label" for="saveWarningDoc">Save to my docs</label>
+              </div>
+            </div>
+
             <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
               Create</button>
             <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
@@ -59,4 +74,3 @@
       </div>
     </form>
   </div>
-</div>
