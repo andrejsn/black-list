@@ -129,7 +129,7 @@
                       </button>
                     </span>
                     <input class="form-control" id="attachmentName-{{attachmentIndex}}" type="text"
-                      placeholder="Enter attachment name" formControlName="name"
+                      placeholder="Enter attachment name" formControlName="name" pattern="[^' ']+"
                       [ngClass]="{'is-invalid': submitted && attachment.controls.name.errors, 'is-valid': submitted && !attachment.controls.name.errors}">
                     <div *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
                       class="invalid-feedback">
