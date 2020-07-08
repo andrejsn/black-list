@@ -7,7 +7,7 @@ import { DetailsComponent } from './details/details.component';
 import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
 import { TemplateComponent } from './templates/templates.component';
 
-import { ShortenTextPipe, EnumToArrayPipe } from '@shared/helpers';
+import { ShortenTextPipe } from '@shared/helpers';
 import { TranslateModule } from '@ngx-translate/core';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -18,6 +18,7 @@ import { DebtCalculationComponent } from './templates/debt-calculation/debt-calc
 import { WarningPreTrialComponent } from './templates/warning-pre-trial/warning-pre-trial.component';
 import { ClaimToCourtComponent } from './templates/claim-to-court/claim-to-court.component';
 import { CreditorToAdministratorComponent } from './templates/creditor-to-administrator/creditor-to-administrator.component';
+import { SharingModule } from '@shared/shareModule';
 
 
 @NgModule({
@@ -31,7 +32,6 @@ import { CreditorToAdministratorComponent } from './templates/creditor-to-admini
     TemplateComponent,
 
     ShortenTextPipe,
-    EnumToArrayPipe,
 
     ReminderPayComponent,
     WarningPayComponent,
@@ -42,6 +42,7 @@ import { CreditorToAdministratorComponent } from './templates/creditor-to-admini
   ],
   imports: [
     CommonModule,
+    SharingModule,
     FormsModule,
     ReactiveFormsModule,
     DebtorRoutingModule,

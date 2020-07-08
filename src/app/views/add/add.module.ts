@@ -9,12 +9,14 @@ import { AddRoutingModule } from './add-routing.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { NgxCurrencyModule } from "ngx-currency";
 import { customCurrencyMaskConfig } from '@app/app.module';
-import { EnumToArrayPipe } from '@shared/helpers';
+import { SharingModule } from '@shared/shareModule';
+
 
 @NgModule({
-  declarations: [DebtorComponent, EnumToArrayPipe],
+  declarations: [DebtorComponent],
   imports: [
     CommonModule,
+    SharingModule,
     FormsModule, ReactiveFormsModule,
     //NgxEditorModule,
     AddRoutingModule,
