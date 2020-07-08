@@ -62,7 +62,7 @@
           <div class="row">
             <div class="col-lg-8">
               <div class="card-body">
-                <div class="form-group">
+                <div *ngIf="(contract.with_agreement + '') == '1'" class="form-group">
                   <label for="claimToCourts">Court</label>
                   <select formControlName="court" class="form-control" (ngModelChange)="selectCourt($event)"
                     [ngClass]="{'is-invalid': submitted && f.court.errors, 'is-valid': submitted && !f.court.errors}"
@@ -76,7 +76,7 @@
                     {{'debtor.error.court.required' | translate}}</div>
                 </div>
 
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
+                <div class="form-group" *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
                   <label for="claimToCourtName">Name of court</label>
                   <input class="form-control" id="claimToCourtName" formControlName="courtName" type="text"
                     placeholder="Enter court name" pattern="[^' ']+"
@@ -85,7 +85,7 @@
                     {{'template.error.courtName.required' | translate}}</div>
                 </div>
 
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'state'">
+                <div class="form-group" *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
                   <label for="claimToCourtAddress">Address of court</label>
                   <input class="form-control" id="claimToCourtAddress" formControlName="courtAddress" type="text"
                     placeholder="Enter court address" pattern="[^' ']+"
@@ -100,7 +100,7 @@
 
             <div class="col-lg-4">
               <div class="card-body">
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'arbitration'">
+                <div class="form-group" *ngIf="(selectedCourt + '') === 'arbitration' && (contract.with_agreement + '') == '1'">
                   <label for="claimToCourtJudgesNumber">Number of judges</label>
                   <input class="form-control" id="claimToCourtJudgesNumber" formControlName="judgesNumber" type="number"
                     placeholder="Enter number"
