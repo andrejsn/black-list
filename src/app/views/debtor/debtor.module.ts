@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
-import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent } from '.';
+import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent, PaymentsComponent } from '.';
 import { TemplateComponent } from './templates/templates.component';
 
 import { ShortenTextPipe } from '@shared/helpers';
@@ -19,6 +19,7 @@ import { WarningPreTrialComponent } from './templates/warning-pre-trial/warning-
 import { ClaimToCourtComponent } from './templates/claim-to-court/claim-to-court.component';
 import { CreditorToAdministratorComponent } from './templates/creditor-to-administrator/creditor-to-administrator.component';
 import { SharingModule } from '@shared/shareModule';
+
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SharingModule } from '@shared/shareModule';
     WarningPreTrialComponent,
     ClaimToCourtComponent,
     CreditorToAdministratorComponent,
+    PaymentsComponent,
   ],
   imports: [
     CommonModule,

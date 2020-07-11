@@ -7,11 +7,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
 
-import { Contract } from '@app/models';
+import { Contract, Debtor } from '@app/models';
 import { environment } from '@environments/environment';
+import { DebtorCachedService } from '@shared/services';
 
 interface ContractCalcPay extends Contract {
-  calcDate: Date, saveDoc: boolean
+  company: string, reg_number: string, calcDate: Date, saveDoc: boolean
 }
 
 @Component({
@@ -32,6 +33,7 @@ export class DebtCalculationComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
+    private debtorCachedService: DebtorCachedService,
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService) { }
@@ -58,8 +60,10 @@ export class DebtCalculationComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
+    // this.loading = true;
 
+    this.contract.company = this.debtorCachedService.debtor.company;
+    this.contract.reg_number = this.debtorCachedService.debtor.reg_number;
     this.contract.calcDate = this.calcPayForm.controls['calcDate'].value;
     this.contract.saveDoc = this.calcPayForm.controls['saveDoc'].value;
 
@@ -70,10 +74,10 @@ export class DebtCalculationComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-           console.log(data);
+          // console.log(data);
 
 
-         // window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(data));
         },
         error => {
 

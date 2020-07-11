@@ -27,7 +27,6 @@
               <th>Penalty (interest per day) -<br>
                 Contractual (Current) / Paid</th>
               <th>Status</th>
-              <th>Payments</th>
               <th>Note</th>
             </tr>
           </thead>
@@ -46,13 +45,20 @@
                 <td>Penalty (interest per day)-<br>
                   Contractual (Current) / Paid</td>
                 <td>{{invoice.status}}</td>
-                <td>Payments</td>
                 <td>{{invoice.note}}</td>
               </tr>
               <tr class="d-none row-num-{{i}}-invoice">
                 <td *ngIf="invoice.visible" colspan="11">
-                  <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i> Trash</button>
+                  <button class="btn" (click)="showPayments = !showPayments">
+                    <i aria-hidden="true" class="toggle fa"
+                      [ngClass]="{'fa-expand': !showPayments,'fa-compress': showPayments}"></i>
+                    <i class="fa fa-eur" aria-hidden="true"></i> Payments
+                  </button>
                   <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                  <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i> Trash</button>
+                  <div>
+                    <app-payments *ngIf="showPayments"></app-payments>
+                  </div>
                 </td>
               </tr>
             </ng-container>

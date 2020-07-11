@@ -24,6 +24,8 @@ export class InvoicesComponent implements OnInit {
   visible: boolean = false;
   count: number;
 
+  showPayments: boolean = false;
+
   constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
