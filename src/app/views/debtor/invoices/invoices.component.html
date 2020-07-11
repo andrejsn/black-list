@@ -49,21 +49,34 @@
               </tr>
               <tr class="d-none row-num-{{i}}-invoice">
                 <td *ngIf="invoice.visible" colspan="11">
-                  <button class="btn" (click)="showPayments = !showPayments">
-                    <i aria-hidden="true" class="toggle fa"
-                      [ngClass]="{'fa-expand': !showPayments,'fa-compress': showPayments}"></i>
-                    <i class="fa fa-eur" aria-hidden="true"></i>
-                    Payments
-                  </button>
-                  <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>
-                    Add payment
-                  </button>
-                  <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                  <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i> Trash</button>
-                  <div>
-                    <app-payments *ngIf="showPayments" [@inOutAnimation]></app-payments>
-
+                  <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'payments')?'payments':''"> <i
+                      class="fa fa-eur" aria-hidden="true"></i>
+                    Payments </button>
+                  <button class="btn"
+                    (click)="showSubMenu = (showSubMenu.toString() !== 'add_payment')?'add_payment':''"><i
+                      class="fa fa-plus" aria-hidden="true"></i> Add payment</button>
+                  <span class="float-right">
+                    <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'edit')?'edit':''"><i
+                        class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
+                    <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'delete')?'delete':''"><i
+                        class="fa fa-trash" aria-hidden="true"></i>Delete</button>
+                  </span>
+                  <div [ngSwitch]="showSubMenu">
+                    <div *ngSwitchCase="'payments'">
+                      <app-payments></app-payments>
+                    </div>
+                    <div *ngSwitchCase="'add_payment'">
+                      <app-add-payment></app-add-payment>
+                    </div>
+                    <div *ngSwitchCase="'edit'">
+                      +edit+
+                    </div>
+                    <div *ngSwitchCase="'delete'">
+                      +delete+
+                    </div>
+                    <div *ngSwitchDefault></div>
                   </div>
+
                 </td>
               </tr>
             </ng-container>
