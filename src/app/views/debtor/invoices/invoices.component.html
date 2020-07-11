@@ -14,7 +14,7 @@
         </span>
       </div>
       <div class="card-body" *ngIf="visible" [@inOutAnimation]>
-        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+        <table class="table table-responsive-sm table-sm">
           <thead>
             <tr>
               <th></th>
@@ -52,12 +52,17 @@
                   <button class="btn" (click)="showPayments = !showPayments">
                     <i aria-hidden="true" class="toggle fa"
                       [ngClass]="{'fa-expand': !showPayments,'fa-compress': showPayments}"></i>
-                    <i class="fa fa-eur" aria-hidden="true"></i> Payments
+                    <i class="fa fa-eur" aria-hidden="true"></i>
+                    Payments
+                  </button>
+                  <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>
+                    Add payment
                   </button>
                   <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
                   <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i> Trash</button>
                   <div>
-                    <app-payments *ngIf="showPayments"></app-payments>
+                    <app-payments *ngIf="showPayments" [@inOutAnimation]></app-payments>
+
                   </div>
                 </td>
               </tr>
