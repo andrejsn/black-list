@@ -49,6 +49,9 @@ export class InvoicesComponent implements OnInit {
       );
   }
 
+  /**
+   *
+   */
   toggle(invoiceList: InvoiceTableElement[], index: number) {
     for (let i = 0; i < invoiceList.length; i++) {
       const debtor = invoiceList[i];
@@ -62,6 +65,18 @@ export class InvoicesComponent implements OnInit {
         debtor.visible = false;
       }
     }
+  }
+
+  /**
+   *
+   */
+  invoicesSum():number {
+    let sum:number = 0;
+    this.invoicesList.forEach(invoice => {
+      sum += invoice.sum * 1.
+    });
+
+    return sum;
   }
 
 }
