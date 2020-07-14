@@ -5,6 +5,8 @@ export * from './contract';
 export * from './type_of_fine';
 export * from './invoice';
 export * from './invoice_status';
+export * from './payment';
+export * from './payment_status';
 export * from './representative';
 export * from './guarantor';
 export * from './template';
