@@ -1,4 +1,5 @@
 import { InvoiceStatus } from './invoice_status';
+import { Payment } from './payment';
 
 export interface Invoice {
   id: number;
@@ -10,6 +11,7 @@ export interface Invoice {
   sum: number;
   status: InvoiceStatus;
   note: string;
+  payments: Payment[];
 
   created_at: Date;
   deleted_at: Date;
