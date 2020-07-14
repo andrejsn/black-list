@@ -16,10 +16,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Date</td>
-              <td>Sum</td>
-              <td>Status</td>
+            <tr *ngFor="let payment of payments">
+              <td>{{payment.date}}</td>
+              <td>{{payment.sum}}</td>
+              <td>{{payment.status}}</td>
               <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
               <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
             </tr>
