@@ -1,4 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { SnotifyService } from 'ng-snotify';
+
+import { PaymentStatus } from '@app/models';
+import { environment } from '@environments/environment';
+
 
 @Component({
   selector: 'app-add-payment',
@@ -7,9 +17,85 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPaymentComponent implements OnInit {
 
-  constructor() { }
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  addPaymentForm: FormGroup = new FormGroup(
+    {
+      date: new FormControl(),
+      sum: new FormControl(),
+      status: new FormControl()
+    }
+  );
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private http: HttpClient,
+    private snotifyService: SnotifyService) { }
+
 
   ngOnInit(): void {
+    this.addPaymentForm = this.formBuilder.group(
+      {
+        date: ['', [Validators.required]],
+        sum: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+      }
+    );
   }
 
+  /**
+   * submit
+   */
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.addPaymentForm.invalid) {
+      this.translate.get('toast.error.form.payment').subscribe((error: string) => { this.snotifyService.error(error) });
+
+      return;
+    }
+
+    this.loading = true;
+
+    this.http.post<any>(`${environment.apiUrl}/add/payment`,
+      {
+        // 'company': this.addDebtorForm.controls['company'].value,
+        // 'reg_number': this.addDebtorForm.controls['reg_number'].value,
+        // 'debt': this.addDebtorForm.controls['debt'].value,
+        // 'legal_address': this.addDebtorForm.controls['legal_address'].value,
+        // 'city': this.addDebtorForm.controls['city'].value,
+        // 'postal_code': this.addDebtorForm.controls['postal_code'].value,
+        // 'country': this.addDebtorForm.controls['country'].value,
+        // 'phone': this.addDebtorForm.controls['phone'].value,
+        // 'fax': this.addDebtorForm.controls['fax'].value,
+        // 'email': this.addDebtorForm.controls['email'].value,
+        // 'homepage': this.addDebtorForm.controls['homepage'].value,
+        // 'bank_name': this.addDebtorForm.controls['bank_name'].value,
+        // 'bank_account_number': this.addDebtorForm.controls['bank_account_number'].value,
+        // 'status': this.addDebtorForm.controls['status'].value,
+        // 'note': this.addDebtorForm.controls['note'].value,
+      }
+    ).pipe(first())
+      .subscribe(
+        data => {
+console.log(data);
+
+        },
+        error => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
+        }
+      );
+
+  }
+
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.addPaymentForm.controls;
+  }
 }
