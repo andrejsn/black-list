@@ -31,18 +31,24 @@
                 <td>{{debtor.created_at | date}}</td>
                 <td>{{debtor.debt}}</td>
                 <td>
-                  <span class="badge" [ngClass]="{'badge-light': debtor.status.toString() === 'awaiting', 'badge-primary': debtor.status.toString() === 'in_work', 'badge-success': debtor.status.toString() === 'debt_collected', 'badge-secondary': debtor.status.toString() === 'to_sue', 'badge-info': debtor.status.toString() === 'in_court', 'badge-warning': debtor.status.toString() === 'hopeless', 'badge-danger': debtor.status.toString() === 'insolvency'}">
+                  <span class="badge"
+                    [ngClass]="{'badge-light': debtor.status.toString() === 'awaiting', 'badge-primary': debtor.status.toString() === 'in_work', 'badge-success': debtor.status.toString() === 'debt_collected', 'badge-secondary': debtor.status.toString() === 'to_sue', 'badge-info': debtor.status.toString() === 'in_court', 'badge-warning': debtor.status.toString() === 'hopeless', 'badge-danger': debtor.status.toString() === 'insolvency'}">
                     {{ 'status.short.'+ debtor.status | translate}}
-                  </span></td>
+                  </span>
+                </td>
               </tr>
               <tr class="d-none row-num-{{i}}">
-                <td *ngIf="debtor.visible" colspan="5">
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                  <button class="btn"><i class="fa fa-eye"></i> Details</button>
-                  <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o"></i> Contracts</button>
-                  <button class="btn"><i class="fa fa-tasks"></i> Tasks</button>
-                </td>
+                <ng-container *ngIf="debtor.visible">
+                  <td colspan="3">
+                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o"></i> Contracts</button>
+                    <button class="btn"><i class="fa fa-eye"></i> Details</button>
+                  </td>
+                  <td colspan="2">
+                    <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                    <!-- <button class="btn"><i class="fa fa-tasks"></i> Tasks</button> -->
+                  </td>
+                </ng-container>
               </tr>
             </ng-container>
           </tbody>
