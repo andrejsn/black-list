@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
-import { PaymentStatus } from '@app/models';
+import { PaymentStatus, Payment } from '@app/models';
 import { environment } from '@environments/environment';
+import * as moment from 'moment';
 
 
 @Component({
@@ -16,6 +17,10 @@ import { environment } from '@environments/environment';
   styleUrls: ['./add-payment.component.css']
 })
 export class AddPaymentComponent implements OnInit {
+
+  @Input() payment: Payment;
+  paymentDate: Date;
+  paymentStatus = PaymentStatus;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -36,11 +41,14 @@ export class AddPaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const date = this.payment ? moment(this.payment.date) : moment();
+    date.locale('lv');
+
     this.addPaymentForm = this.formBuilder.group(
       {
-        date: ['', [Validators.required]],
-        sum: ['', [Validators.required]],
-        status: ['', [Validators.required]],
+        date: [date.format('LL'), [Validators.required]],
+        sum: [this.payment ? this.payment.sum : '', [Validators.required, Validators.min(0.01)]],
+        status: [this.payment ? this.payment.status : null, [Validators.required]],
       }
     );
   }
@@ -81,7 +89,7 @@ export class AddPaymentComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-console.log(data);
+          console.log(data);
 
         },
         error => {

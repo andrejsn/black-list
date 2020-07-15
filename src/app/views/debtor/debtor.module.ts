@@ -20,6 +20,9 @@ import { ClaimToCourtComponent } from './templates/claim-to-court/claim-to-court
 import { CreditorToAdministratorComponent } from './templates/creditor-to-administrator/creditor-to-administrator.component';
 import { SharingModule } from '@shared/shareModule';
 
+import { NgxCurrencyModule } from 'ngx-currency';
+import { customCurrencyMaskConfig } from '@app/app.module';
+
 
 
 @NgModule({
@@ -52,6 +55,7 @@ import { SharingModule } from '@shared/shareModule';
     CollapseModule,
     BsDatepickerModule,
     TranslateModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
   ]
 })
 export class DebtorModule { }

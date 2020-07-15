@@ -16,15 +16,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let payment of payments">
+            <ng-container *ngFor="let payment of payments">
+            <tr>
               <td>{{payment.date}}</td>
               <td>{{payment.sum}}</td>
               <td>{{payment.status}}</td>
-              <td><button class="btn" (click)="changeMode(payment)"><i *ngIf="payment.mode === 'edit'" class="fa fa-pencil"
-                    aria-hidden="true"></i><i *ngIf="payment.mode === 'save'" class="fa fa-floppy-o"
-                    aria-hidden="true"></i></button></td>
+              <td>
+                <button class="btn" (click)="changeMode(payment)">
+                  <i *ngIf="payment.mode === 'edit'" class="fa fa-pencil" aria-hidden="true"></i>
+                  <i *ngIf="payment.mode === 'save'" class="fa fa-times" aria-hidden="true"></i>
+                </button></td>
               <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
             </tr>
+            <tr *ngIf="payment.mode === 'save'">
+              <td colspan="5">
+                <app-add-payment [payment]="payment"></app-add-payment>
+              </td>
+            </tr>
+          </ng-container>
           </tbody>
         </table>
       </div>
