@@ -18,9 +18,15 @@
                 <i class="fa fa-chevron-up" *ngIf="sortCompanyNameDirection === 'asc'"></i>
                 <i class="fa fa-chevron-down" *ngIf="sortCompanyNameDirection === 'desc'"></i>
               </th>
-              <th (click)="sortTable(2)">Date registered</th>
-              <th (click)="sortTable(3)">Debt</th>
-              <th>Status</th>
+              <th (click)="sortRegisterDate()" class="cursor_default">Date registered
+                <i class="fa fa-chevron-up" *ngIf="sortRegisterDateDirection === 'asc'"></i>
+                <i class="fa fa-chevron-down" *ngIf="sortRegisterDateDirection === 'desc'"></i>
+              </th>
+              <th (click)="sortDebt()" class="cursor_default">Debt
+                <i class="fa fa-chevron-up" *ngIf="sortDebtDirection === 'asc'"></i>
+                <i class="fa fa-chevron-down" *ngIf="sortDebtDirection === 'desc'"></i>
+              </th>
+              <th (click)="sortStatus()" class="cursor_default">Status</th>
             </tr>
           </thead>
           <tbody>
