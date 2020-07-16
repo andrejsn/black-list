@@ -75,6 +75,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from "ngx-bootstrap/chronos";
 import { lvLocale } from "ngx-bootstrap/locale";
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 defineLocale("lv", lvLocale);
 
 // AoT requires an exported function for factories
@@ -103,6 +104,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AvatarModule,
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   declarations: [
     AppComponent,

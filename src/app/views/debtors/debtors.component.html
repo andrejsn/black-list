@@ -21,9 +21,9 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let debtor of debtorsList; let i = index">
+            <ng-container *ngFor="let debtor of pagedDebtorsList; let i = index">
               <tr>
-                <td class="toggle" (click)="toggle(debtorsList, i)">
+                <td class="toggle" (click)="toggle(pagedDebtorsList, i)">
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !debtor.visible,'fa-compress': debtor.visible}"></i>
                 </td>
@@ -54,15 +54,11 @@
           </tbody>
         </table>
         <nav>
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+          <pagination [totalItems]="count" (pageChanged)="pageChanged($event)"  [maxSize]="maxSize" class="pagination-sm"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
         </nav>
+        <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre>
       </div>
     </div>
   </div>
