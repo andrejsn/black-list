@@ -73,10 +73,16 @@ import { EnumToArrayPipe } from '@shared/helpers/';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { defineLocale } from "ngx-bootstrap/chronos";
 import { lvLocale } from "ngx-bootstrap/locale";
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 defineLocale("lv", lvLocale);
+
+import { registerLocaleData } from '@angular/common';
+import localeLv from '@angular/common/locales/lv';
+
+registerLocaleData(localeLv);
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
