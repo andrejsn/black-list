@@ -31,7 +31,7 @@
                     [ngClass]="{'fa-expand': !debtor.visible,'fa-compress': debtor.visible}"></i>
                 </td>
                 <td>{{debtor.company}}</td>
-                <td>{{debtor.created_at | date}}</td>
+                <td>{{debtor.created_at | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td>{{debtor.debt}}</td>
                 <td>
                   <span class="badge"
