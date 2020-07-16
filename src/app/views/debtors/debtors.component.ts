@@ -30,6 +30,7 @@ export class DebtorsComponent implements OnInit {
   sortCompanyNameDirection: 'asc' | 'desc' | '';
   sortRegisterDateDirection: 'asc' | 'desc' | '';
   sortDebtDirection: 'asc' | 'desc' | '';
+  sortStatusDirection: 'asc' | 'desc' | '';
 
   // pagination
   maxSize: number = 5;
@@ -124,6 +125,7 @@ export class DebtorsComponent implements OnInit {
 
     this.sortRegisterDateDirection = "";
     this.sortDebtDirection = "";
+    this.sortStatusDirection = "";
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
@@ -138,6 +140,7 @@ export class DebtorsComponent implements OnInit {
 
     this.sortCompanyNameDirection = "";
     this.sortDebtDirection = "";
+    this.sortStatusDirection = "";
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
@@ -152,11 +155,23 @@ export class DebtorsComponent implements OnInit {
 
     this.sortCompanyNameDirection = "";
     this.sortRegisterDateDirection = "";
+    this.sortStatusDirection = "";
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
   sortStatus() {
+    if (this.sortStatusDirection === 'asc') {
+      this.sortStatusDirection = "desc";
+      this.debtorsList.sort((a, b) => { return (a.status < b.status) ? 1 : -1 });
+    } else {
+      this.debtorsList.sort((a, b) => { return (a.status > b.status) ? 1 : -1 });
+      this.sortStatusDirection = "asc";
+    }
 
+    this.sortCompanyNameDirection = "";
+    this.sortRegisterDateDirection = "";
+    this.sortDebtDirection = "";
+    this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
 }

@@ -26,7 +26,10 @@
                 <i class="fa fa-chevron-up" *ngIf="sortDebtDirection === 'asc'"></i>
                 <i class="fa fa-chevron-down" *ngIf="sortDebtDirection === 'desc'"></i>
               </th>
-              <th (click)="sortStatus()" class="cursor_default">Status</th>
+              <th (click)="sortStatus()" class="cursor_default">Status
+                <i class="fa fa-chevron-up" *ngIf="sortStatusDirection === 'asc'"></i>
+                <i class="fa fa-chevron-down" *ngIf="sortStatusDirection === 'desc'"></i>
+              </th>
             </tr>
           </thead>
           <tbody>
