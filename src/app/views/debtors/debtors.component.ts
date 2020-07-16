@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@environments/environment';
-import { Debtor } from '@app/models';
+import { Debtor, DebtorStatus } from '@app/models';
 import { DebtorCachedService, CurrentlyTitleService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
@@ -107,9 +107,9 @@ export class DebtorsComponent implements OnInit {
     this.currentPage = event.page;
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
+    this.count = this.debtorsList.length;
     this.pagedDebtorsList = this.debtorsList.slice(startItem, endItem);
   }
-
 
   /**
    * sort company name
@@ -129,6 +129,9 @@ export class DebtorsComponent implements OnInit {
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
+  /**
+   * sort register date
+   */
   sortRegisterDate() {
     if (this.sortRegisterDateDirection === 'asc') {
       this.sortRegisterDateDirection = "desc";
@@ -144,6 +147,9 @@ export class DebtorsComponent implements OnInit {
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
+  /**
+   * sort debt
+   */
   sortDebt() {
     if (this.sortDebtDirection === 'asc') {
       this.sortDebtDirection = "desc";
@@ -159,6 +165,9 @@ export class DebtorsComponent implements OnInit {
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
+  /**
+   * sort status
+   */
   sortStatus() {
     if (this.sortStatusDirection === 'asc') {
       this.sortStatusDirection = "desc";
@@ -174,4 +183,11 @@ export class DebtorsComponent implements OnInit {
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
+  /**
+  * select statuses
+  */
+  selectStatuses(status: DebtorStatus) {
+    this.pagedDebtorsList = [...this.debtorsList.filter(e => e.status === status)];
+    this.count = this.pagedDebtorsList.length;
+  }
 }
