@@ -10,13 +10,16 @@
         </span>
       </div>
       <div class="card-body">
-        <table class="table table-responsive-sm table-sm">
+        <table id="debtors" class="table table-responsive-sm table-sm">
           <thead>
             <tr>
               <th></th>
-              <th>Debtorname</th>
-              <th>Date registered</th>
-              <th>Debt</th>
+              <th (click)="sortCompanyName()" class="cursor_default">Debtorname
+                <i class="fa fa-chevron-up" *ngIf="sortCompanyNameDirection === 'asc'"></i>
+                <i class="fa fa-chevron-down" *ngIf="sortCompanyNameDirection === 'desc'"></i>
+              </th>
+              <th (click)="sortTable(2)">Date registered</th>
+              <th (click)="sortTable(3)">Debt</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -54,9 +57,9 @@
           </tbody>
         </table>
         <nav>
-          <pagination [totalItems]="count" (pageChanged)="pageChanged($event)"  [maxSize]="maxSize" class="pagination-sm"
-                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
-                      [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
+          <pagination [totalItems]="count" (pageChanged)="pageChanged($event)" [maxSize]="maxSize" class="pagination-sm"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+            [rotate]="false" (numPages)="numPages = $event"></pagination>
         </nav>
         <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre>
       </div>
