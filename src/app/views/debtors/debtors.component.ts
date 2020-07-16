@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
 import { DebtorCachedService, CurrentlyTitleService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DetailsComponent } from '../debtor/details/details.component';
 
 
 interface DebtorTableElement extends Debtor {
@@ -22,9 +23,10 @@ interface DebtorTableElement extends Debtor {
 })
 export class DebtorsComponent implements OnInit {
 
-  debtorsList: DebtorTableElement[];
+  rawDebtorsList: DebtorTableElement[];
+  debtorsList: DebtorTableElement[] = [];
   pagedDebtorsList: DebtorTableElement[];
-  count: number;
+
 
   // sort name
   sortCompanyNameDirection: 'asc' | 'desc' | '';
@@ -54,10 +56,11 @@ export class DebtorsComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-          this.debtorsList = data;
-          this.count = this.debtorsList.length;
-          this.pagedDebtorsList = this.debtorsList.slice(0, 10);
-          // console.log(this.debtorsList);
+          this.rawDebtorsList = data;
+          this.debtorsList = [...this.rawDebtorsList];
+
+          this.pagedDebtorsList = this.rawDebtorsList.slice(0, 10);
+          // console.log(this.rawDebtorsList);
 
         },
         error => {
@@ -70,9 +73,9 @@ export class DebtorsComponent implements OnInit {
   /**
    * toggle table row
    */
-  toggle(debtorsList: DebtorTableElement[], index: number) {
-    for (let i = 0; i < debtorsList.length; i++) {
-      const debtor = debtorsList[i];
+  toggle(rawDebtorsList: DebtorTableElement[], index: number) {
+    for (let i = 0; i < rawDebtorsList.length; i++) {
+      const debtor = rawDebtorsList[i];
       let selector = `.row-num-${i}`;
 
       if (i === index) {
@@ -107,7 +110,7 @@ export class DebtorsComponent implements OnInit {
     this.currentPage = event.page;
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.count = this.debtorsList.length;
+
     this.pagedDebtorsList = this.debtorsList.slice(startItem, endItem);
   }
 
@@ -115,12 +118,14 @@ export class DebtorsComponent implements OnInit {
    * sort company name
    */
   sortCompanyName() {
+    this.debtorsList = [...this.rawDebtorsList];
+
     if (this.sortCompanyNameDirection === 'asc') {
       this.sortCompanyNameDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (b.company.localeCompare(a.company)) });
+      this.rawDebtorsList.sort((a, b) => { return (b.company.localeCompare(a.company)) });
     } else {
       this.sortCompanyNameDirection = "asc";
-      this.debtorsList.sort((a, b) => { return (a.company.localeCompare(b.company)) });
+      this.rawDebtorsList.sort((a, b) => { return (a.company.localeCompare(b.company)) });
     }
 
     this.sortRegisterDateDirection = "";
@@ -133,11 +138,13 @@ export class DebtorsComponent implements OnInit {
    * sort register date
    */
   sortRegisterDate() {
+    this.debtorsList = [...this.rawDebtorsList];
+
     if (this.sortRegisterDateDirection === 'asc') {
       this.sortRegisterDateDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() < b.created_at.valueOf()) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.created_at.valueOf() < b.created_at.valueOf()) ? 1 : -1 });
     } else {
-      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() > b.created_at.valueOf()) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.created_at.valueOf() > b.created_at.valueOf()) ? 1 : -1 });
       this.sortRegisterDateDirection = "asc";
     }
 
@@ -151,11 +158,13 @@ export class DebtorsComponent implements OnInit {
    * sort debt
    */
   sortDebt() {
+    this.debtorsList = [...this.rawDebtorsList];
+
     if (this.sortDebtDirection === 'asc') {
       this.sortDebtDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (a.debt < b.debt) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.debt < b.debt) ? 1 : -1 });
     } else {
-      this.debtorsList.sort((a, b) => { return (a.debt > b.debt) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.debt > b.debt) ? 1 : -1 });
       this.sortDebtDirection = "asc";
     }
 
@@ -169,11 +178,13 @@ export class DebtorsComponent implements OnInit {
    * sort status
    */
   sortStatus() {
+    this.debtorsList = [...this.rawDebtorsList];
+
     if (this.sortStatusDirection === 'asc') {
       this.sortStatusDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (a.status < b.status) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.status < b.status) ? 1 : -1 });
     } else {
-      this.debtorsList.sort((a, b) => { return (a.status > b.status) ? 1 : -1 });
+      this.rawDebtorsList.sort((a, b) => { return (a.status > b.status) ? 1 : -1 });
       this.sortStatusDirection = "asc";
     }
 
@@ -187,7 +198,8 @@ export class DebtorsComponent implements OnInit {
   * select statuses
   */
   selectStatuses(status: DebtorStatus) {
-    this.pagedDebtorsList = [...this.debtorsList.filter(e => e.status === status)];
-    this.count = this.pagedDebtorsList.length;
+    this.debtorsList = [...this.rawDebtorsList.filter(e => e.status === status)];
+
+    this.pageChanged({ page: 1, itemsPerPage: 10 });
   }
 }
