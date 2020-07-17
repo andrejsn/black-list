@@ -122,15 +122,16 @@ export class DebtorsComponent implements OnInit {
 
     if (this.sortCompanyNameDirection === 'asc') {
       this.sortCompanyNameDirection = "desc";
-      this.rawDebtorsList.sort((a, b) => { return (b.company.localeCompare(a.company)) });
+      this.debtorsList.sort((a, b) => { return (b.company.localeCompare(a.company)) });
     } else {
       this.sortCompanyNameDirection = "asc";
-      this.rawDebtorsList.sort((a, b) => { return (a.company.localeCompare(b.company)) });
+      this.debtorsList.sort((a, b) => { return (a.company.localeCompare(b.company)) });
     }
 
     this.sortRegisterDateDirection = "";
     this.sortDebtDirection = "";
     this.sortStatusDirection = "";
+
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
@@ -142,15 +143,16 @@ export class DebtorsComponent implements OnInit {
 
     if (this.sortRegisterDateDirection === 'asc') {
       this.sortRegisterDateDirection = "desc";
-      this.rawDebtorsList.sort((a, b) => { return (a.created_at.valueOf() < b.created_at.valueOf()) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() < b.created_at.valueOf()) ? 1 : -1 });
     } else {
-      this.rawDebtorsList.sort((a, b) => { return (a.created_at.valueOf() > b.created_at.valueOf()) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() > b.created_at.valueOf()) ? 1 : -1 });
       this.sortRegisterDateDirection = "asc";
     }
 
     this.sortCompanyNameDirection = "";
     this.sortDebtDirection = "";
     this.sortStatusDirection = "";
+
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
@@ -162,15 +164,16 @@ export class DebtorsComponent implements OnInit {
 
     if (this.sortDebtDirection === 'asc') {
       this.sortDebtDirection = "desc";
-      this.rawDebtorsList.sort((a, b) => { return (a.debt < b.debt) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (a.debt < b.debt) ? 1 : -1 });
     } else {
-      this.rawDebtorsList.sort((a, b) => { return (a.debt > b.debt) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (a.debt > b.debt) ? 1 : -1 });
       this.sortDebtDirection = "asc";
     }
 
     this.sortCompanyNameDirection = "";
     this.sortRegisterDateDirection = "";
     this.sortStatusDirection = "";
+
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
 
@@ -182,16 +185,41 @@ export class DebtorsComponent implements OnInit {
 
     if (this.sortStatusDirection === 'asc') {
       this.sortStatusDirection = "desc";
-      this.rawDebtorsList.sort((a, b) => { return (a.status < b.status) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status)  < this.statusToNumber(b.status)) ? 1 : -1 });
     } else {
-      this.rawDebtorsList.sort((a, b) => { return (a.status > b.status) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status) > this.statusToNumber(b.status)) ? 1 : -1 });
       this.sortStatusDirection = "asc";
     }
 
     this.sortCompanyNameDirection = "";
     this.sortRegisterDateDirection = "";
     this.sortDebtDirection = "";
+
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
+  }
+
+  /**
+   * status get number for sorting
+   */
+  private statusToNumber(status): number {
+    switch (status) {
+      case 'awaiting':
+        return 0;
+      case 'in_work':
+        return 1;
+      case 'debt_collected':
+        return 2;
+      case 'to_sue':
+        return 3;
+      case 'in_court':
+        return 4;
+      case 'hopeless':
+        return 5;
+      case 'insolvency':
+        return 6;
+      default:
+        break;
+    }
   }
 
   /**
