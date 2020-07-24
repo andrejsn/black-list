@@ -19,7 +19,6 @@ interface ContractTableElement extends Contract {
 })
 export class ContractsComponent implements OnInit {
 
-  // @Input() debtor: Debtor;
   debtor: Debtor;
   contractsList: ContractTableElement[];
   count: number;
