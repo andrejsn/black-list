@@ -8,5 +8,8 @@ export interface Calendar {
   date:Date;
   note: string;
 
-  status: CalendarStatus;
+  remind_date: Date;
+  remind_note: string;
+  remind_status: CalendarStatus;
+  remind_done: boolean;
 }
