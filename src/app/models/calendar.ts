@@ -6,7 +6,6 @@ export interface Calendar {
   debtor_id: number;
 
   date:Date;
-  message: string;
   note: string;
 
   status: CalendarStatus;
