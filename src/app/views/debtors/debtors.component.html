@@ -52,9 +52,9 @@
               <tr class="d-none row-num-{{i}}">
                 <ng-container *ngIf="debtor.visible">
                   <td colspan="3">
-                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o"></i> Contracts</button>
-                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye"></i> Details</button>
-                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks"></i> Tasks</button>
+                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i> Contracts</button>
+                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i> Details</button>
+                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i> Tasks</button>
                   </td>
                   <td colspan="2">
                     <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
