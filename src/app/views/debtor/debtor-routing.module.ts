@@ -1,16 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DetailsComponent } from './details/details.component';
+import { ContractsComponent, DetailsComponent, TasksComponent } from '.';
+
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'contracts',
+    component: ContractsComponent,
+    data: {
+      title: 'ContractsComponent'
+    }
+  },
+  {
+    path: 'details',
     component: DetailsComponent,
     data: {
-      title: 'Debtor'
+      title: 'ContractsComponent'
     }
-  }
+  },
+  {
+    path: 'tasks',
+    component: TasksComponent,
+    data: {
+      title: 'ContractsComponent'
+    }
+  },
+
 ];
 
 @NgModule({

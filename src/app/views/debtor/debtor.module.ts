@@ -22,6 +22,7 @@ import { SharingModule } from '@shared/shareModule';
 
 import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
+import { TasksComponent } from './tasks/tasks.component';
 
 
 
@@ -45,6 +46,7 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     CreditorToAdministratorComponent,
     PaymentsComponent,
     AddPaymentComponent,
+    TasksComponent,
   ],
   imports: [
     CommonModule,

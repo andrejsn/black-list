@@ -97,6 +97,22 @@ export class DebtorsComponent implements OnInit {
   }
 
   /**
+  * go to contracts
+  */
+  details(selectesDebtor: Debtor) {
+    this.debtorCachedService.debtor = selectesDebtor;
+    this.router.navigate(['/debtor/details']);
+  }
+
+  /**
+   * go to tasks
+   */
+  tasks(selectesDebtor: Debtor) {
+    this.debtorCachedService.debtor = selectesDebtor;
+    this.router.navigate(['/debtor/tasks']);
+  }
+
+  /**
    * go to add debtor
    */
   addDebtor() {
@@ -185,7 +201,7 @@ export class DebtorsComponent implements OnInit {
 
     if (this.sortStatusDirection === 'asc') {
       this.sortStatusDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status)  < this.statusToNumber(b.status)) ? 1 : -1 });
+      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status) < this.statusToNumber(b.status)) ? 1 : -1 });
     } else {
       this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status) > this.statusToNumber(b.status)) ? 1 : -1 });
       this.sortStatusDirection = "asc";
