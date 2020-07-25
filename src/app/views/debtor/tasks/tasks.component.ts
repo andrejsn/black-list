@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 
 interface CalendarTableElement extends Calendar {
   visible: boolean;
+  isChecked: boolean;
 }
 @Component({
   selector: 'app-tasks',
@@ -70,5 +71,14 @@ export class TasksComponent implements OnInit {
         debtor.visible = false;
       }
     }
+  }
+
+  /**
+   * on check done
+   */
+  onChecked(calendar: CalendarTableElement){
+    console.log(calendar.isChecked); // {}, true || false
+
+    // TODO get to server - change done
   }
 }

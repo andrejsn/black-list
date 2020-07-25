@@ -46,7 +46,7 @@
                       the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}}
                       <div class="card-header-actions" style="height: 21px;">
                         <label class="switch switch-sm switch-label switch-info">
-                          <input type="checkbox" class="switch-input" checked>
+                          <input type="checkbox" class="switch-input" [checked]="calendar.remind_done == 0" [(ngModel)]="calendar.isChecked" (change)="onChecked(calendar)" >
                           <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                         </label>
                       </div>
