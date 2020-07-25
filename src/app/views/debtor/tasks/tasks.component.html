@@ -40,7 +40,22 @@
               </tr>
               <tr class="d-none row-num-{{ i }}">
                 <td *ngIf="calendar.visible" colspan="4">
-                  <table class="table table-responsive-sm table-sm">
+                  <div class="card"
+                    [ngClass]="{'border-danger': calendar.remind_status.toString() === 'important', 'border-info': calendar.remind_status.toString() === 'unimportant', 'border-warning': calendar.remind_status.toString() === 'regular'}">
+                    <div class="card-header">
+                      the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}}
+                      <div class="card-header-actions" style="height: 21px;">
+                        <label class="switch switch-sm switch-label switch-info">
+                          <input type="checkbox" class="switch-input" checked>
+                          <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      {{calendar.remind_note}}
+                    </div>
+                  </div>
+                  <!-- <table class="table table-responsive-sm table-sm">
                     <thead>
                       <tr>
                         <th>remind Date</th>
@@ -55,7 +70,7 @@
                       <td>{{calendar.remind_status}}</td>
                       <td>{{calendar.remind_done}}</td>
                     </tbody>
-                  </table>
+                  </table> -->
                 </td>
               </tr>
             </ng-container>
