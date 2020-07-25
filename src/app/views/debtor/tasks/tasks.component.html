@@ -35,7 +35,8 @@
 
                 <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td>{{calendar.note}}</td>
-                <td></td>
+                <td><button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button></td>
               </tr>
               <tr class="d-none row-num-{{ i }}">
                 <td *ngIf="calendar.visible" colspan="4">
