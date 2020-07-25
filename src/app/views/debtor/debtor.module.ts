@@ -4,8 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
-import { ContractsComponent, InvoicesComponent, RepresentativesComponent, GuarantorsComponent, DocumentsComponent, PaymentsComponent, AddPaymentComponent } from '.';
 import { TemplateComponent } from './templates/templates.component';
+import {
+  TasksComponent,
+  AddTaskComponent,
+  ContractsComponent,
+  InvoicesComponent,
+  RepresentativesComponent,
+  GuarantorsComponent,
+  DocumentsComponent,
+  PaymentsComponent,
+  AddPaymentComponent,
+} from '.';
 
 import { ShortenTextPipe } from '@shared/helpers';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,9 +32,6 @@ import { SharingModule } from '@shared/shareModule';
 
 import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
-import { TasksComponent } from './tasks/tasks.component';
-
-
 
 @NgModule({
   declarations: [
@@ -47,6 +54,7 @@ import { TasksComponent } from './tasks/tasks.component';
     PaymentsComponent,
     AddPaymentComponent,
     TasksComponent,
+    AddTaskComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +66,6 @@ import { TasksComponent } from './tasks/tasks.component';
     BsDatepickerModule,
     TranslateModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-  ]
+  ],
 })
-export class DebtorModule { }
+export class DebtorModule {}

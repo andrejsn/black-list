@@ -19,6 +19,7 @@ interface CalendarTableElement extends Calendar {
 export class TasksComponent implements OnInit {
   debtor: Debtor;
   calendarList: CalendarTableElement[];
+  addMode: boolean;
 
   constructor(
     private debtorCachedService: DebtorCachedService,
@@ -34,6 +35,7 @@ export class TasksComponent implements OnInit {
       return;
     }
 
+    this.addMode = false;
     this.debtor = this.debtorCachedService.debtor;
 
     // get data
@@ -76,9 +78,16 @@ export class TasksComponent implements OnInit {
   /**
    * on check done
    */
-  onChecked(calendar: CalendarTableElement){
+  onChecked(calendar: CalendarTableElement) {
     console.log(calendar.isChecked); // {}, true || false
 
     // TODO get to server - change done
+  }
+
+  /**
+   * add new task
+   */
+  addTask() {
+    this.addMode = true;
   }
 }
