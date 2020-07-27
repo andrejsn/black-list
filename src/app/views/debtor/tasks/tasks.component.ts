@@ -30,6 +30,7 @@ export class TasksComponent implements OnInit {
   debtor: Debtor;
   calendarList: CalendarTableElement[];
   addMode: boolean;
+  isCreateReminder: boolean;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -57,6 +58,7 @@ export class TasksComponent implements OnInit {
     }
 
     this.addMode = false;
+    this.isCreateReminder = false;
     this.debtor = this.debtorCachedService.debtor;
 
     // create validators
@@ -135,6 +137,11 @@ export class TasksComponent implements OnInit {
       return;
     }
     this.addMode = false;
+  }
+
+  changedCreateReminder() {
+    this.isCreateReminder = !this.isCreateReminder;
+    console.log(this.isCreateReminder);
   }
 
   // convenience getter for easy access to form fields
