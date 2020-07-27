@@ -3,11 +3,34 @@
   <div class="col-lg-11">
     <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()" role="form">
       <div class="card">
-        <div class="card-header"><strong><i class="cui-note icons font-2xl d-block mt-4"></i>Task details</strong> <small></small>
+        <div class="card-header"><strong><i class="cui-note icons font-2xl d-block mt-4"></i>Task details</strong>
+          <small></small>
         </div>
-        <div class="card-block">
+        <div class="card-body">
 
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="newTaskDate">Date of the new task</label>
+            <div class="col-md-8">
+              <input id="newTaskDate" class="form-control" bsDatepicker formControlName="newTaskDate" placement="auto"
+                [ngClass]="{'is-invalid': submitted && f.newTaskDate.errors, 'is-valid': submitted && !f.newTaskDate.errors}"
+                [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+              <div *ngIf="submitted && f.newTaskDate.errors && f.newTaskDate.errors.required" class="invalid-feedback">
+                {{'template.error.newTaskDate.required' | translate}}</div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="newTaskNote">New task note</label>
+            <div class="col-md-8">
+              <textarea formControlName="newTaskNote" class="form-control" id="newTaskNote" name="newTaskNote" rows="9"
+                placeholder="{{ 'placeholder.task.note' | translate}}"
+                style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
+                [ngClass]="{'is-invalid': submitted && f.newTaskNote.errors, 'is-valid': submitted && !f.newTaskNote.errors}">
+              </textarea>
+              <div *ngIf="submitted && f.newTaskNote.errors && f.newTaskNote.errors.required" class="invalid-feedback">
+                {{'template.error.newTaskNote.required' | translate}}</div>
+            </div>
 
+          </div>
 
           <div class="card-footer">
             <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
