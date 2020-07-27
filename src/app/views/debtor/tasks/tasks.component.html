@@ -9,27 +9,27 @@
         <div class="card-body">
 
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="newTaskDate">Date of the new task</label>
+            <label class="col-md-3 col-form-label" for="taskDate">Date of the new task</label>
             <div class="col-md-8">
-              <input id="newTaskDate" class="form-control" bsDatepicker formControlName="newTaskDate" placement="auto"
+              <input id="taskDate" class="form-control" bsDatepicker formControlName="taskDate" placement="auto"
                 placeholder="{{ 'placeholder.task.date' | translate}}"
-                [ngClass]="{'is-invalid': submitted && f.newTaskDate.errors, 'is-valid': submitted && !f.newTaskDate.errors}"
+                [ngClass]="{'is-invalid': submitted && f.taskDate.errors, 'is-valid': submitted && !f.taskDate.errors}"
                 [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-              <div *ngIf="submitted && f.newTaskDate.errors && f.newTaskDate.errors.required" class="invalid-feedback">
-                {{'template.error.newTaskDate.required' | translate}}</div>
+              <div *ngIf="submitted && f.taskDate.errors && f.taskDate.errors.required" class="invalid-feedback">
+                {{'template.error.taskDate.required' | translate}}</div>
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="newTaskNote">New task note</label>
+            <label class="col-md-3 col-form-label" for="taskNote">New task note</label>
             <div class="col-md-8">
-              <textarea formControlName="newTaskNote" class="form-control" id="newTaskNote" name="newTaskNote" rows="9"
+              <textarea formControlName="taskNote" class="form-control" id="taskNote" name="taskNote" rows="9"
                 placeholder="{{ 'placeholder.task.note' | translate}}"
                 style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
-                [ngClass]="{'is-invalid': submitted && f.newTaskNote.errors, 'is-valid': submitted && !f.newTaskNote.errors}">
+                [ngClass]="{'is-invalid': submitted && f.taskNote.errors, 'is-valid': submitted && !f.taskNote.errors}">
               </textarea>
-              <div *ngIf="submitted && f.newTaskNote.errors && f.newTaskNote.errors.required" class="invalid-feedback">
-                {{'template.error.newTaskNote.required' | translate}}</div>
+              <div *ngIf="submitted && f.taskNote.errors && f.taskNote.errors.required" class="invalid-feedback">
+                {{'template.error.taskNote.required' | translate}}</div>
             </div>
           </div>
 
@@ -40,6 +40,33 @@
                 <input id="createReminder" type="checkbox" class="switch-input" (change)="changedCreateReminder()">
                 <span class="switch-slider"></span>
               </label>
+            </div>
+          </div>
+
+          <div *ngIf="isCreateReminder" class="form-group row">
+            <label class="col-md-3 col-form-label" for="reminderDate">Date of reminder</label>
+            <div class="col-md-8">
+              <input id="reminderDate" class="form-control" bsDatepicker formControlName="reminderDate" placement="auto"
+                placeholder="{{ 'placeholder.task.date' | translate}}"
+                [ngClass]="{'is-invalid': submitted && f.reminderDate.errors, 'is-valid': submitted && !f.reminderDate.errors}"
+                [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+              <div *ngIf="submitted && f.reminderDate.errors && f.reminderDate.errors.required"
+                class="invalid-feedback">
+                {{'template.error.reminderDate.required' | translate}}</div>
+            </div>
+          </div>
+
+          <div *ngIf="isCreateReminder" class="form-group row">
+            <label class="col-md-3 col-form-label" for="reminderNote">Reminder note</label>
+            <div class="col-md-8">
+              <textarea formControlName="reminderNote" class="form-control" id="reminderNote" name="reminderNote"
+                rows="9" placeholder="{{ 'placeholder.task.note' | translate}}"
+                style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
+                [ngClass]="{'is-invalid': submitted && f.reminderNote.errors, 'is-valid': submitted && !f.reminderNote.errors}">
+              </textarea>
+              <div *ngIf="submitted && f.reminderNote.errors && f.reminderNote.errors.required"
+                class="invalid-feedback">
+                {{'template.error.reminderNote.required' | translate}}</div>
             </div>
           </div>
 

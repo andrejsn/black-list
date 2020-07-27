@@ -36,8 +36,10 @@ export class TasksComponent implements OnInit {
   loading: boolean = false;
 
   addTaskForm = new FormGroup({
-    newTaskDate: new FormControl(new Date()),
-    newTaskNote: new FormControl(),
+    taskDate: new FormControl(new Date()),
+    taskNote: new FormControl(),
+    reminderNote: new FormControl(),
+    reminderDate: new FormControl(new Date()),
   });
 
   constructor(
@@ -57,14 +59,15 @@ export class TasksComponent implements OnInit {
       return;
     }
 
-    this.addMode = false;
-    this.isCreateReminder = false;
     this.debtor = this.debtorCachedService.debtor;
+    this.addMode = false;
 
     // create validators
     this.addTaskForm = this.formBuilder.group({
-      newTaskDate: ['', [Validators.required]],
-      newTaskNote: ['', [Validators.required]],
+      taskDate: ['', [Validators.required]],
+      taskNote: ['', [Validators.required]],
+      reminderNote: ['', [Validators.required]],
+      reminderDate: ['', [Validators.required]],
     });
 
     // get data
@@ -118,6 +121,9 @@ export class TasksComponent implements OnInit {
    */
   addTask() {
     this.addMode = true;
+    this.isCreateReminder = false;
+    this.addTaskForm.get('reminderDate').disable();
+    this.addTaskForm.get('reminderNote').disable();
   }
 
   /**
@@ -142,6 +148,14 @@ export class TasksComponent implements OnInit {
   changedCreateReminder() {
     this.isCreateReminder = !this.isCreateReminder;
     console.log(this.isCreateReminder);
+
+    if (this.isCreateReminder) {
+      this.addTaskForm.get('reminderDate').enable();
+      this.addTaskForm.get('reminderNote').enable();
+    } else {
+      this.addTaskForm.get('reminderDate').disable();
+      this.addTaskForm.get('reminderNote').disable();
+    }
   }
 
   // convenience getter for easy access to form fields
