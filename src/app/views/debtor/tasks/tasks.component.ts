@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Debtor } from '@app/models';
-import { DebtorCachedService } from '@shared/services';
-import { Router } from '@angular/router';
-import { Calendar } from '@app/models/calendar';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { first } from 'rxjs/operators';
+
+import { Debtor } from '@app/models';
+import { Calendar } from '@app/models/calendar';
+import { environment } from '@environments/environment';
+import { DebtorCachedService } from '@shared/services';
 
 interface CalendarTableElement extends Calendar {
   visible: boolean;
@@ -20,6 +28,10 @@ export class TasksComponent implements OnInit {
   debtor: Debtor;
   calendarList: CalendarTableElement[];
   addMode: boolean;
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  addTaskForm = new FormGroup({});
 
   constructor(
     private debtorCachedService: DebtorCachedService,
@@ -89,5 +101,14 @@ export class TasksComponent implements OnInit {
    */
   addTask() {
     this.addMode = true;
+  }
+
+  /**
+   * submit form
+   */
+  onSubmit() {
+    console.log('submit form');
+    console.log(this.addMode);
+    this.addMode = false;
   }
 }

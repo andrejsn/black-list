@@ -1,5 +1,25 @@
 <!-- add new calendar task: -->
-<app-add-task *ngIf="addMode"></app-add-task>
+<div *ngIf="addMode" class="row">
+  <div class="col-lg-11">
+    <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()" role="form">
+      <div class="card">
+        <div class="card-header"><strong><i class="cui-note icons font-2xl d-block mt-4"></i>Task details</strong> <small></small>
+        </div>
+        <div class="card-block">
+
+
+
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <!-- show calendar tasks: -->
 <div *ngIf="!addMode" class="row">
   <div class="col-lg-12">
