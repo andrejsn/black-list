@@ -7,7 +7,6 @@ import { DetailsComponent } from './details/details.component';
 import { TemplateComponent } from './templates/templates.component';
 import {
   TasksComponent,
-  AddTaskComponent,
   ContractsComponent,
   InvoicesComponent,
   RepresentativesComponent,
@@ -54,7 +53,6 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     PaymentsComponent,
     AddPaymentComponent,
     TasksComponent,
-    AddTaskComponent,
   ],
   imports: [
     CommonModule,
