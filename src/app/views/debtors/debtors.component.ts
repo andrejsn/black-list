@@ -9,8 +9,6 @@ import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
 import { DebtorCachedService, CurrentlyTitleService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { DetailsComponent } from '../debtor/details/details.component';
-
 
 interface DebtorTableElement extends Debtor {
   visible: boolean;
@@ -19,14 +17,15 @@ interface DebtorTableElement extends Debtor {
 @Component({
   selector: 'app-debtors',
   templateUrl: './debtors.component.html',
-  styleUrls: ['./debtors.component.css']
+  styleUrls: ['./debtors.component.css'],
 })
 export class DebtorsComponent implements OnInit {
-
   rawDebtorsList: DebtorTableElement[];
   debtorsList: DebtorTableElement[] = [];
   pagedDebtorsList: DebtorTableElement[];
 
+  //  search
+  search: string;
 
   // sort name
   sortCompanyNameDirection: 'asc' | 'desc' | '';
@@ -45,27 +44,29 @@ export class DebtorsComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private debtorCachedService: DebtorCachedService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // set title
-    this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.currentlyTitleService.title = res; });
+    this.translate
+      .get('app-sidebar-nav-link.debtors')
+      .subscribe((res: string) => {
+        this.currentlyTitleService.title = res;
+      });
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/debtors`,
-      {}
-    ).pipe(first())
+    this.http
+      .get<any>(`${environment.apiUrl}/get/debtors`, {})
+      .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this.rawDebtorsList = data;
           this.debtorsList = [...this.rawDebtorsList];
 
           this.pagedDebtorsList = this.rawDebtorsList.slice(0, 10);
           // console.log(this.rawDebtorsList);
-
         },
-        error => {
+        (error) => {
           console.log(error);
-
         }
       );
   }
@@ -76,7 +77,7 @@ export class DebtorsComponent implements OnInit {
   toggle(rawDebtorsList: DebtorTableElement[], index: number) {
     for (let i = 0; i < rawDebtorsList.length; i++) {
       const debtor = rawDebtorsList[i];
-      let selector = `.row-num-${i}`;
+      const selector = `.row-num-${i}`;
 
       if (i === index) {
         document.querySelector(selector).classList.toggle('d-none');
@@ -97,8 +98,8 @@ export class DebtorsComponent implements OnInit {
   }
 
   /**
-  * go to contracts
-  */
+   * go to contracts
+   */
   details(selectesDebtor: Debtor) {
     this.debtorCachedService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/details']);
@@ -137,16 +138,20 @@ export class DebtorsComponent implements OnInit {
     this.debtorsList = [...this.rawDebtorsList];
 
     if (this.sortCompanyNameDirection === 'asc') {
-      this.sortCompanyNameDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (b.company.localeCompare(a.company)) });
+      this.sortCompanyNameDirection = 'desc';
+      this.debtorsList.sort((a, b) => {
+        return b.company.localeCompare(a.company);
+      });
     } else {
-      this.sortCompanyNameDirection = "asc";
-      this.debtorsList.sort((a, b) => { return (a.company.localeCompare(b.company)) });
+      this.sortCompanyNameDirection = 'asc';
+      this.debtorsList.sort((a, b) => {
+        return a.company.localeCompare(b.company);
+      });
     }
 
-    this.sortRegisterDateDirection = "";
-    this.sortDebtDirection = "";
-    this.sortStatusDirection = "";
+    this.sortRegisterDateDirection = '';
+    this.sortDebtDirection = '';
+    this.sortStatusDirection = '';
 
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
@@ -158,16 +163,20 @@ export class DebtorsComponent implements OnInit {
     this.debtorsList = [...this.rawDebtorsList];
 
     if (this.sortRegisterDateDirection === 'asc') {
-      this.sortRegisterDateDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() < b.created_at.valueOf()) ? 1 : -1 });
+      this.sortRegisterDateDirection = 'desc';
+      this.debtorsList.sort((a, b) => {
+        return a.created_at.valueOf() < b.created_at.valueOf() ? 1 : -1;
+      });
     } else {
-      this.debtorsList.sort((a, b) => { return (a.created_at.valueOf() > b.created_at.valueOf()) ? 1 : -1 });
-      this.sortRegisterDateDirection = "asc";
+      this.debtorsList.sort((a, b) => {
+        return a.created_at.valueOf() > b.created_at.valueOf() ? 1 : -1;
+      });
+      this.sortRegisterDateDirection = 'asc';
     }
 
-    this.sortCompanyNameDirection = "";
-    this.sortDebtDirection = "";
-    this.sortStatusDirection = "";
+    this.sortCompanyNameDirection = '';
+    this.sortDebtDirection = '';
+    this.sortStatusDirection = '';
 
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
@@ -179,16 +188,20 @@ export class DebtorsComponent implements OnInit {
     this.debtorsList = [...this.rawDebtorsList];
 
     if (this.sortDebtDirection === 'asc') {
-      this.sortDebtDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (a.debt < b.debt) ? 1 : -1 });
+      this.sortDebtDirection = 'desc';
+      this.debtorsList.sort((a, b) => {
+        return a.debt < b.debt ? 1 : -1;
+      });
     } else {
-      this.debtorsList.sort((a, b) => { return (a.debt > b.debt) ? 1 : -1 });
-      this.sortDebtDirection = "asc";
+      this.debtorsList.sort((a, b) => {
+        return a.debt > b.debt ? 1 : -1;
+      });
+      this.sortDebtDirection = 'asc';
     }
 
-    this.sortCompanyNameDirection = "";
-    this.sortRegisterDateDirection = "";
-    this.sortStatusDirection = "";
+    this.sortCompanyNameDirection = '';
+    this.sortRegisterDateDirection = '';
+    this.sortStatusDirection = '';
 
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
@@ -200,16 +213,24 @@ export class DebtorsComponent implements OnInit {
     this.debtorsList = [...this.rawDebtorsList];
 
     if (this.sortStatusDirection === 'asc') {
-      this.sortStatusDirection = "desc";
-      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status) < this.statusToNumber(b.status)) ? 1 : -1 });
+      this.sortStatusDirection = 'desc';
+      this.debtorsList.sort((a, b) => {
+        return this.statusToNumber(a.status) < this.statusToNumber(b.status)
+          ? 1
+          : -1;
+      });
     } else {
-      this.debtorsList.sort((a, b) => { return (this.statusToNumber(a.status) > this.statusToNumber(b.status)) ? 1 : -1 });
-      this.sortStatusDirection = "asc";
+      this.debtorsList.sort((a, b) => {
+        return this.statusToNumber(a.status) > this.statusToNumber(b.status)
+          ? 1
+          : -1;
+      });
+      this.sortStatusDirection = 'asc';
     }
 
-    this.sortCompanyNameDirection = "";
-    this.sortRegisterDateDirection = "";
-    this.sortDebtDirection = "";
+    this.sortCompanyNameDirection = '';
+    this.sortRegisterDateDirection = '';
+    this.sortDebtDirection = '';
 
     this.pageChanged({ page: this.currentPage, itemsPerPage: 10 });
   }
@@ -239,10 +260,12 @@ export class DebtorsComponent implements OnInit {
   }
 
   /**
-  * select statuses
-  */
+   * select statuses
+   */
   selectStatuses(status: DebtorStatus) {
-    this.debtorsList = [...this.rawDebtorsList.filter(e => e.status === status)];
+    this.debtorsList = [
+      ...this.rawDebtorsList.filter((e) => e.status === status),
+    ];
 
     this.pageChanged({ page: 1, itemsPerPage: 10 });
   }

@@ -4,7 +4,6 @@ th.cursor_default {
 
 #search {
   position: relative;
-  font-size: 12px;
   padding: 5px;
   margin: -20px auto 0;
 }
@@ -35,7 +34,6 @@ th.cursor_default {
 .input-lg {
   height: 36px;
   padding: 10px 16px;
-  font-size: 12px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
