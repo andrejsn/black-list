@@ -1,3 +1,41 @@
 th.cursor_default {
   cursor: default;
 }
+
+#search {
+  position: relative;
+  font-size: 12px;
+  padding: 5px;
+  margin: -20px auto 0;
+}
+
+#search label {
+  position: absolute;
+  left: 17px;
+  top: 11px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+#search #search-input {
+  padding-left: 43px;
+  padding-right: 43px;
+  border-radius: 23px;
+}
+
+.input-lg {
+  height: 36px;
+  padding: 10px 16px;
+  font-size: 12px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}

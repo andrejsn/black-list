@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-users fa-2x" aria-hidden="true"></i> Debtors list ({{debtorsList.length}})
+      <div class="card-header"><i class="fa fa-users fa-2x" aria-hidden="true"></i> Debtors list
+        ({{debtorsList.length}})
         <span class="float-right">
           <button class="btn" (click)="addDebtor()">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -10,6 +11,17 @@
         </span>
       </div>
       <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <!--  -->
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <section id="search">
+              <label for="search-input"><i class="fa fa-search fa-lg" aria-hidden="true"></i><span class="sr-only">Search:</span></label>
+              <input id="search-input" class="form-control input-lg" placeholder="search by name or register number" autocomplete="off" spellcheck="false" autocorrect="off" tabindex="1">
+            </section>
+          </div>
+        </div>
         <table id="debtors" class="table table-responsive-sm table-sm">
           <thead>
             <tr>
@@ -52,9 +64,12 @@
               <tr class="d-none row-num-{{i}}">
                 <ng-container *ngIf="debtor.visible">
                   <td colspan="3">
-                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i> Contracts</button>
-                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i> Details</button>
-                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i> Tasks</button>
+                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                      Contracts</button>
+                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i>
+                      Details</button>
+                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i>
+                      Tasks</button>
                   </td>
                   <td colspan="2">
                     <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
@@ -66,9 +81,9 @@
           </tbody>
         </table>
         <nav>
-          <pagination [totalItems]="debtorsList.length" (pageChanged)="pageChanged($event)" [maxSize]="maxSize" class="pagination-sm"
-            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
-            [rotate]="false" (numPages)="numPages = $event"></pagination>
+          <pagination [totalItems]="debtorsList.length" (pageChanged)="pageChanged($event)" [maxSize]="maxSize"
+            class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+            [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
         </nav>
         <pre class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre>
       </div>
