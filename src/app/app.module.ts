@@ -20,16 +20,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-import { CurrencyMaskInputMode, NgxCurrencyModule } from "ngx-currency";
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 export const customCurrencyMaskConfig = {
-  align: "right",
+  align: 'right',
   allowNegative: false,
   allowZero: false,
-  decimal: ".",
+  decimal: '.',
   precision: 2,
-  prefix: "",
-  suffix: "",
-  thousands: "",
+  prefix: '',
+  suffix: '',
+  thousands: '',
   nullable: true,
   min: 0,
   max: 999999999.99,
@@ -74,9 +74,9 @@ import { EnumToArrayPipe } from '@shared/helpers/';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { defineLocale } from "ngx-bootstrap/chronos";
-import { lvLocale } from "ngx-bootstrap/locale";
-defineLocale("lv", lvLocale);
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { lvLocale } from 'ngx-bootstrap/locale';
+defineLocale('lv', lvLocale);
 
 import { registerLocaleData } from '@angular/common';
 import localeLv from '@angular/common/locales/lv';
@@ -95,6 +95,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HttpClientModule,
     SnotifyModule,
     NgHttpLoaderModule.forRoot(),
+    // tslint:disable-next-line: max-line-length
     TranslateModule.forRoot({ defaultLanguage: 'en', loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } }),
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -117,12 +118,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    //ShortenTextPipe,
-    //EnumToArrayPipe,
   ],
   exports: [TranslateModule],
   providers: [
-    AuthenticationService,// ?
+    AuthenticationService, // ?
     DebtorCachedService,
     CurrentlyTitleService,
     {
