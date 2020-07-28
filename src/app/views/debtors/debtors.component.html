@@ -48,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let debtor of pagedDebtorsList; let i = index">
+            <ng-container *ngFor="let debtor of (pagedDebtorsList | debtorFilterPipe:search); let i = index">
               <tr>
                 <td class="toggle" (click)="toggle(pagedDebtorsList, i)">
                   <i aria-hidden="true" class="fa"
