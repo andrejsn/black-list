@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Debtor } from '@app/models';
 
+// TODO: not in use, plese delete!
 @Pipe({
   name: 'debtorFilterPipe',
 })
