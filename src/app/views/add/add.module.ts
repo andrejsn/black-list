@@ -7,22 +7,21 @@ import { DebtorComponent } from './debtor/debtor.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddRoutingModule } from './add-routing.module';
 import { NgxEditorModule } from 'ngx-editor';
-import { NgxCurrencyModule } from "ngx-currency";
+import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
 import { SharingModule } from '@shared/shareModule';
-
 
 @NgModule({
   declarations: [DebtorComponent],
   imports: [
     CommonModule,
     SharingModule,
-    FormsModule, ReactiveFormsModule,
-    //NgxEditorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // NgxEditorModule,
     AddRoutingModule,
     TranslateModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-
-  ]
+  ],
 })
-export class AddModule { }
+export class AddModule {}

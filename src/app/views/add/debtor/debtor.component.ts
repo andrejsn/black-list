@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,63 +17,59 @@ import { environment } from '@environments/environment';
 @Component({
   selector: 'app-debtor',
   templateUrl: './debtor.component.html',
-  styleUrls: ['./debtor.component.css']
+  styleUrls: ['./debtor.component.css'],
 })
 export class DebtorComponent implements OnInit {
-
   company_name: string;
   debtorStatus = DebtorStatus;
 
-  submitted:boolean = false;
-  loading:boolean = false;
+  submitted: boolean = false;
+  loading: boolean = false;
 
-  addDebtorForm: FormGroup = new FormGroup(
-    {
-      company: new FormControl(),
-      reg_number: new FormControl(),
-      debt: new FormControl(),
+  addDebtorForm: FormGroup = new FormGroup({
+    company: new FormControl(),
+    reg_number: new FormControl(),
+    debt: new FormControl(),
 
-      legal_address: new FormControl(),
-      city: new FormControl(),
-      postal_code: new FormControl(),
-      country: new FormControl(),
-      phone: new FormControl(),
-      fax: new FormControl(),
-      email: new FormControl(),
-      homepage: new FormControl(),
-      bank_name: new FormControl(),
-      bank_account_number: new FormControl(),
-      status: new FormControl(),
-      note: new FormControl(),
-    }
-  );
+    legal_address: new FormControl(),
+    city: new FormControl(),
+    postal_code: new FormControl(),
+    country: new FormControl(),
+    phone: new FormControl(),
+    fax: new FormControl(),
+    email: new FormControl(),
+    homepage: new FormControl(),
+    bank_name: new FormControl(),
+    bank_account_number: new FormControl(),
+    status: new FormControl(),
+    note: new FormControl(),
+  });
 
   constructor(
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
-    private snotifyService: SnotifyService) { }
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit(): void {
-    this.addDebtorForm = this.formBuilder.group(
-      {
-        company: ['', [Validators.required]],
-        reg_number: ['', [Validators.required]],
-        debt: ['', [Validators.required]],
-        legal_address: [],
-        city: [],
-        postal_code: [],
-        country: [],
-        phone: [],
-        fax: [],
-        email: [],
-        homepage: [],
-        bank_name: [],
-        bank_account_number: [],
-        status: [null, [Validators.required]],
-        note: [],
-      }
-    );
+    this.addDebtorForm = this.formBuilder.group({
+      company: ['', [Validators.required]],
+      reg_number: ['', [Validators.required]],
+      debt: ['', [Validators.required]],
+      legal_address: [],
+      city: [],
+      postal_code: [],
+      country: [],
+      phone: [],
+      fax: [],
+      email: [],
+      homepage: [],
+      bank_name: [],
+      bank_account_number: [],
+      status: [null, [Validators.required]],
+      note: [],
+    });
   }
 
   /**
@@ -86,44 +87,51 @@ export class DebtorComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.addDebtorForm.invalid) {
-      this.translate.get('toast.error.debtor_form').subscribe((error: string) => { this.snotifyService.error(error) });
+      this.translate
+        .get('toast.error.debtor_form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
 
       return;
     }
 
     this.loading = true;
 
-    this.http.post<any>(`${environment.apiUrl}/add/debtor`,
-      {
-        'company': this.addDebtorForm.controls['company'].value,
-        'reg_number': this.addDebtorForm.controls['reg_number'].value,
-        'debt': this.addDebtorForm.controls['debt'].value,
-        'legal_address': this.addDebtorForm.controls['legal_address'].value,
-        'city': this.addDebtorForm.controls['city'].value,
-        'postal_code': this.addDebtorForm.controls['postal_code'].value,
-        'country': this.addDebtorForm.controls['country'].value,
-        'phone': this.addDebtorForm.controls['phone'].value,
-        'fax': this.addDebtorForm.controls['fax'].value,
-        'email': this.addDebtorForm.controls['email'].value,
-        'homepage': this.addDebtorForm.controls['homepage'].value,
-        'bank_name': this.addDebtorForm.controls['bank_name'].value,
-        'bank_account_number': this.addDebtorForm.controls['bank_account_number'].value,
-        'status': this.addDebtorForm.controls['status'].value,
-        'note': this.addDebtorForm.controls['note'].value,
-      }
-    ).pipe(first())
+    this.http
+      .post<any>(`${environment.apiUrl}/add/debtor`, {
+        company: this.addDebtorForm.controls['company'].value,
+        reg_number: this.addDebtorForm.controls['reg_number'].value,
+        debt: this.addDebtorForm.controls['debt'].value,
+        legal_address: this.addDebtorForm.controls['legal_address'].value,
+        city: this.addDebtorForm.controls['city'].value,
+        postal_code: this.addDebtorForm.controls['postal_code'].value,
+        country: this.addDebtorForm.controls['country'].value,
+        phone: this.addDebtorForm.controls['phone'].value,
+        fax: this.addDebtorForm.controls['fax'].value,
+        email: this.addDebtorForm.controls['email'].value,
+        homepage: this.addDebtorForm.controls['homepage'].value,
+        bank_name: this.addDebtorForm.controls['bank_name'].value,
+        bank_account_number: this.addDebtorForm.controls['bank_account_number']
+          .value,
+        status: this.addDebtorForm.controls['status'].value,
+        note: this.addDebtorForm.controls['note'].value,
+      })
+      .pipe(first())
       .subscribe(
-        data => {
-console.log(data);
-
+        (data) => {
+          console.log(data);
         },
-        error => {
+        (error) => {
           this.loading = false;
           this.submitted = false;
-          this.translate.get('toast.error.response').subscribe((error: string) => { this.snotifyService.error(error) });
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
         }
       );
-
   }
 
   // convenience getter for easy access to form fields

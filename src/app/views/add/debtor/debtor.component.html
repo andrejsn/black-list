@@ -14,6 +14,7 @@
             <div *ngIf="submitted && f.company.errors && f.company.errors.required" class="invalid-feedback">
               {{'debtor.error.company.required' | translate}}</div>
           </div>
+
           <div class="form-group">
             <label for="reg_number">{{ 'debtor.reg_number' | translate}}</label>
             <input formControlName="reg_number" autocomplete="off" class="form-control" id="reg_number" type="text"
@@ -22,6 +23,7 @@
             <div *ngIf="submitted && f.reg_number.errors && f.reg_number.errors.required" class="invalid-feedback">
               {{'debtor.error.reg_number.required' | translate}}</div>
           </div>
+
           <div class="form-group">
             <label for="debt">{{ 'debtor.debt' | translate}}</label>
             <div class="input-group">
@@ -33,6 +35,7 @@
                 {{'debtor.error.debt.required' | translate}}</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -131,8 +134,8 @@
 
             <div class="col-md-9">
               <select formControlName="status" class="form-control"
-              [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
-              id="status" name="status">
+                [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
+                id="status" name="status">
                 <option [ngValue]="null" disabled>{{'select.status' | translate}}</option>
                 <option [value]="status" *ngFor="let status of debtorStatus | enumToArray">
                   {{ 'status.long.'+status | translate}}
@@ -151,12 +154,12 @@
                 style="margin-top: 0px; margin-bottom: 0px; height: 97px;"></textarea>
             </div>
           </div>
-<!-- TODO card footer to outside  -->
-          <div class="card-footer">
-            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-              {{ 'debtor.submit_debtor' | translate}}</button>
-            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset"> {{ 'debtor.reset_debtor' | translate}}</button>
-          </div>
+        </div>
+        <div class="card-footer">
+          <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+            {{ 'debtor.submit' | translate}}</button>
+          <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">
+            {{ 'debtor.reset' | translate}}</button>
         </div>
       </div>
     </div>
