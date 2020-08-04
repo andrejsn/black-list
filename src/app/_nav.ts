@@ -6,34 +6,32 @@ export const navI18n: RegExp[] = [
   /Reports|Отчёты|Atskaites/g,
   /Debtors|Должники|Parādnieki/g,
   /Add Debtor|добавить Должника|pievienot Parādnieku/g,
-  /Calendar|Календарь|Kalendārs/g
+  /Calendar|Календарь|Kalendārs/g,
 ];
 
 export const navItems: INavData[] = [
-
   {
     name: 'Reports',
     url: '/reports',
-    icon: 'icon-layers'
+    icon: 'icon-layers',
   },
   {
     name: 'Debtors',
     url: '/debtors',
-    icon: 'icon-people'
+    icon: 'icon-people',
   },
   {
     name: 'Add Debtor',
     url: '/add/debtor',
-    icon: 'icon-user-follow'
+    icon: 'icon-user-follow',
   },
   {
     name: 'Calendar',
     url: '/calendar',
-    icon: 'icon-calendar'
+    icon: 'icon-calendar',
   },
 
-  //#########################################
-
+  // #########################################
 
   {
     name: 'Dashboard',
@@ -41,26 +39,26 @@ export const navItems: INavData[] = [
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',
-      text: 'NEW'
-    }
+      text: 'NEW',
+    },
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Theme',
   },
   {
     name: 'Colors',
     url: '/theme/colors',
-    icon: 'icon-drop'
+    icon: 'icon-drop',
   },
   {
     name: 'Typography',
     url: '/theme/typography',
-    icon: 'icon-pencil'
+    icon: 'icon-pencil',
   },
   {
     title: true,
-    name: 'Components'
+    name: 'Components',
   },
   {
     name: 'Base',
@@ -70,65 +68,64 @@ export const navItems: INavData[] = [
       {
         name: 'Cards',
         url: '/base/cards',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Carousels',
         url: '/base/carousels',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Collapses',
         url: '/base/collapses',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Forms',
         url: '/base/forms',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Navbars',
         url: '/base/navbars',
-        icon: 'icon-puzzle'
-
+        icon: 'icon-puzzle',
       },
       {
         name: 'Pagination',
         url: '/base/paginations',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Popovers',
         url: '/base/popovers',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Progress',
         url: '/base/progress',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Switches',
         url: '/base/switches',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Tables',
         url: '/base/tables',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Tabs',
         url: '/base/tabs',
-        icon: 'icon-puzzle'
+        icon: 'icon-puzzle',
       },
       {
         name: 'Tooltips',
         url: '/base/tooltips',
-        icon: 'icon-puzzle'
-      }
-    ]
+        icon: 'icon-puzzle',
+      },
+    ],
   },
   {
     name: 'Buttons',
@@ -138,24 +135,24 @@ export const navItems: INavData[] = [
       {
         name: 'Buttons',
         url: '/buttons/buttons',
-        icon: 'icon-cursor'
+        icon: 'icon-cursor',
       },
       {
         name: 'Dropdowns',
         url: '/buttons/dropdowns',
-        icon: 'icon-cursor'
+        icon: 'icon-cursor',
       },
       {
         name: 'Brand Buttons',
         url: '/buttons/brand-buttons',
-        icon: 'icon-cursor'
-      }
-    ]
+        icon: 'icon-cursor',
+      },
+    ],
   },
   {
     name: 'Charts',
     url: '/charts',
-    icon: 'icon-pie-chart'
+    icon: 'icon-pie-chart',
   },
   {
     name: 'Icons',
@@ -168,13 +165,13 @@ export const navItems: INavData[] = [
         icon: 'icon-star',
         badge: {
           variant: 'success',
-          text: 'NEW'
-        }
+          text: 'NEW',
+        },
       },
       {
         name: 'Flags',
         url: '/icons/flags',
-        icon: 'icon-star'
+        icon: 'icon-star',
       },
       {
         name: 'Font Awesome',
@@ -182,15 +179,15 @@ export const navItems: INavData[] = [
         icon: 'icon-star',
         badge: {
           variant: 'secondary',
-          text: '4.7'
-        }
+          text: '4.7',
+        },
       },
       {
         name: 'Simple Line Icons',
         url: '/icons/simple-line-icons',
-        icon: 'icon-star'
-      }
-    ]
+        icon: 'icon-star',
+      },
+    ],
   },
   {
     name: 'Notifications',
@@ -200,19 +197,19 @@ export const navItems: INavData[] = [
       {
         name: 'Alerts',
         url: '/notifications/alerts',
-        icon: 'icon-bell'
+        icon: 'icon-bell',
       },
       {
         name: 'Badges',
         url: '/notifications/badges',
-        icon: 'icon-bell'
+        icon: 'icon-bell',
       },
       {
         name: 'Modals',
         url: '/notifications/modals',
-        icon: 'icon-bell'
-      }
-    ]
+        icon: 'icon-bell',
+      },
+    ],
   },
   {
     name: 'Widgets',
@@ -220,11 +217,11 @@ export const navItems: INavData[] = [
     icon: 'icon-calculator',
     badge: {
       variant: 'info',
-      text: 'NEW'
-    }
+      text: 'NEW',
+    },
   },
   {
-    divider: true
+    divider: true,
   },
   {
     title: true,
@@ -238,24 +235,24 @@ export const navItems: INavData[] = [
       {
         name: 'Login',
         url: '/login',
-        icon: 'icon-star'
+        icon: 'icon-star',
       },
       {
         name: 'Register',
         url: '/register',
-        icon: 'icon-star'
+        icon: 'icon-star',
       },
       {
         name: 'Error 404',
         url: '/404',
-        icon: 'icon-star'
+        icon: 'icon-star',
       },
       {
         name: 'Error 500',
         url: '/500',
-        icon: 'icon-star'
-      }
-    ]
+        icon: 'icon-star',
+      },
+    ],
   },
   {
     name: 'Disabled',
@@ -263,7 +260,7 @@ export const navItems: INavData[] = [
     icon: 'icon-ban',
     badge: {
       variant: 'secondary',
-      text: 'NEW'
+      text: 'NEW',
     },
     attributes: { disabled: true },
   },
@@ -283,5 +280,4 @@ export const navItems: INavData[] = [
   //   variant: 'danger',
   //   attributes: { target: '_blank', rel: 'noopener' }
   // }
-
 ];

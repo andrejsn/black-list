@@ -9,7 +9,6 @@ import { P500Component } from './views/error/500.component';
 import { AuthComponent } from './views/auth/auth.component';
 import { AuthenticationGuardService } from './shared/helpers/authentication/authentication.guard.service';
 
-
 export const routes: Routes = [
   {
     path: '',
@@ -20,95 +19,123 @@ export const routes: Routes = [
     path: '404',
     component: P404Component,
     data: {
-      title: 'Page 404'
-    }
+      title: 'Page 404',
+    },
   },
   {
     path: '500',
     component: P500Component,
     data: {
-      title: 'Page 500'
-    }
+      title: 'Page 500',
+    },
   },
   // authentication & authorization: login, signup ...
   {
     path: 'auth',
-    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () =>
+      import('./views/auth/auth.module').then((m) => m.AuthModule),
   },
-  // user: profile, payments, lock account, logout
-  {
-    path: 'user',
-    loadChildren: () => import('./views/user/user.module').then(m => m.UserModule), canActivate:[AuthenticationGuardService]
-  },
+
+  // ### DEFAULT VIEW ###
   {
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Home',
     },
     children: [
       {
         path: 'reports',
-        loadChildren: () => import('./views/reports/reports.module').then(m => m.ReportsModule), canActivate: [AuthenticationGuardService]
+        loadChildren: () =>
+          import('./views/reports/reports.module').then((m) => m.ReportsModule),
+        canActivate: [AuthenticationGuardService],
       },
       {
         path: 'add',
-        loadChildren: () => import('./views/add/add.module').then(m => m.AddModule), canActivate: [AuthenticationGuardService]
+        loadChildren: () =>
+          import('./views/add/add.module').then((m) => m.AddModule),
+        canActivate: [AuthenticationGuardService],
       },
       {
         path: 'debtors',
-        loadChildren: () => import('./views/debtors/debtors.module').then(m => m.DebtorsModule), canActivate: [AuthenticationGuardService]
+        loadChildren: () =>
+          import('./views/debtors/debtors.module').then((m) => m.DebtorsModule),
+        canActivate: [AuthenticationGuardService],
       },
       {
         path: 'debtor',
-        loadChildren: () => import('./views/debtor/debtor.module').then(m => m.DebtorModule), canActivate: [AuthenticationGuardService]
+        loadChildren: () =>
+          import('./views/debtor/debtor.module').then((m) => m.DebtorModule),
+        canActivate: [AuthenticationGuardService],
       },
       {
         path: 'calendar',
-        loadChildren: () => import('./views/calendar/calendar.module').then(m => m.CalendarModule), canActivate: [AuthenticationGuardService]
+        loadChildren: () =>
+          import('./views/calendar/calendar.module').then(
+            (m) => m.CalendarModule
+          ),
+        canActivate: [AuthenticationGuardService],
       },
-
+      // user: profile, payments, lock account, logout
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('./views/user/user.module').then((m) => m.UserModule),
+        canActivate: [AuthenticationGuardService],
+      },
       // ##################
 
       {
         path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        loadChildren: () =>
+          import('./views/base/base.module').then((m) => m.BaseModule),
       },
       {
         path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
+        loadChildren: () =>
+          import('./views/buttons/buttons.module').then((m) => m.ButtonsModule),
       },
       {
         path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
+        loadChildren: () =>
+          import('./views/chartjs/chartjs.module').then((m) => m.ChartJSModule),
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () =>
+          import('./views/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
+        loadChildren: () =>
+          import('./views/icons/icons.module').then((m) => m.IconsModule),
       },
       {
         path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
+        loadChildren: () =>
+          import('./views/notifications/notifications.module').then(
+            (m) => m.NotificationsModule
+          ),
       },
       {
         path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
+        loadChildren: () =>
+          import('./views/theme/theme.module').then((m) => m.ThemeModule),
       },
       {
         path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
-    ]
+        loadChildren: () =>
+          import('./views/widgets/widgets.module').then((m) => m.WidgetsModule),
+      },
+    ],
   },
-  { path: '**', component: P404Component }
+  { path: '**', component: P404Component },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
