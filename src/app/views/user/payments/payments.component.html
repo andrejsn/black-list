@@ -1,1 +1,32 @@
-<p>payments works!</p>
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" role="form">
+
+  <!--  -->
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          {{'user.payment.abo' | translate}}
+        </div>
+        <div class="card-body">
+          <div class="h4 m-0">50</div>
+          <div>Days left...</div>
+          <div class="progress progress-xs my-3">
+            <!-- bg-success | bg-info | bg-warning | bg-danger -->
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <!-- please renew the subscription | it's ok -->
+          <small class="text-muted">it's time renew the subscription</small>
+        </div>
+        <div class="card-footer">
+          <a routerLink="/user/payment/card"><i class="icon-credit-card icons font-2xl d-block mt-4"></i>{{'user.payment.card'}}</a>
+          <a routerLink="/user/payment/paypal"><i class="icon-paypal icons font-2xl d-block mt-4"></i>{{'user.payment.paypal'}}</a>
+
+          <a routerLink="/user/payment/token"><i class="icon-wallet icons font-2xl d-block mt-4"></i>{{'user.payment.token'}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</form>
