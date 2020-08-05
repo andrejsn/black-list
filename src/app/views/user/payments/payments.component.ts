@@ -19,6 +19,14 @@ export class PaymentsComponent implements OnInit {
   submitted: boolean = false;
   loading: boolean = false;
 
+  // TODO: read from server?
+  periods = ['month', 'half_year', 'year'];
+  selectedPeriod: string;
+  pays = [50, 250, 500];
+  selectedPay: number;
+  saves = [0, 50, 100];
+  selectedSave: number;
+
   paymentForm: FormGroup = new FormGroup({});
 
   constructor(
@@ -48,6 +56,23 @@ export class PaymentsComponent implements OnInit {
     }
 
     // this.loading = true;
+  }
+
+  selectPaymentFor(period: string) {
+    if (this.periods.includes(period)) {
+      this.selectedPeriod = period;
+      // find index
+      const i = this.periods.indexOf(this.selectedPeriod);
+      // get pay and saved $
+      this.selectedPay = this.pays[i];
+      this.selectedSave = this.saves[i];
+
+      // console.log(this.selectedPeriod );
+      // console.log(this.selectedPay);
+      // console.log(this.selectedSave);
+    } else {
+      // TODO: period contains not in arrays? Who?... hack :-/
+    }
   }
 
   // convenience getter for easy access to form fields
