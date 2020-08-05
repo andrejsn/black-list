@@ -1,7 +1,7 @@
 import { TemplateStatus } from './template_status';
 
 export interface Template {
-  id: number
+  id: number;
   name: string;
   status: TemplateStatus;
   note: string;

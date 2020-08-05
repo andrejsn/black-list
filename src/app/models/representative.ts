@@ -1,5 +1,5 @@
 export interface Representative {
-  id: number
+  id: number;
   created_by: number;
   contract_id: number;
   name: string;
