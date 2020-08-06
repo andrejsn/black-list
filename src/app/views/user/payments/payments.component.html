@@ -54,10 +54,12 @@
           </div>
 
           <!-- calculation -->
-          <div class="h4 m-0" *ngIf="selectedPay">{{selectedPay}}€ to pay
-            <span *ngIf="selectedSave > 0">and saved {{selectedSave}}€</span>
+          <div class="h4 m-0">&nbsp;
+            <span *ngIf="selectedPay"> {{selectedPay}}€ to pay</span>
+            <span *ngIf="selectedSave > 0"> and saved {{selectedSave}}€</span>
           </div>
         </div>
+        
         <div class="card-footer">
           <a routerLink="/user/payment/card"><i
               class="icon-credit-card icons font-2xl d-block mt-4"></i>{{'user.payment.card'}}</a>
