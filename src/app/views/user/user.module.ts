@@ -9,6 +9,9 @@ import { LogoutComponent } from './logout/logout.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { CardComponent } from './payment/card/card.component';
+import { PaypalComponent } from './payment/paypal/paypal.component';
+import { TokenComponent } from './payment/token/token.component';
 
 @NgModule({
   imports: [
@@ -23,6 +26,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
     PaymentsComponent,
     ProfileComponent,
     NotificationsComponent,
+    CardComponent,
+    PaypalComponent,
+    TokenComponent,
   ],
 })
 export class UserModule {}
