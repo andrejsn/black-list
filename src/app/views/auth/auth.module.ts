@@ -5,18 +5,18 @@ import { AppFooterModule } from '@coreui/angular';
 
 import { AuthRoutingModule } from './auth-routing.module';
 
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { ForgotComponent } from './forgot/forgot.component';
-import { ResetComponent } from './reset/reset.component';
-
-
-
+import {
+  LoginComponent,
+  LogoutComponent,
+  SignupComponent,
+  ForgotComponent,
+  ResetComponent,
+} from '.';
 
 @NgModule({
-  declarations:
-  [
+  declarations: [
     LoginComponent,
+    LogoutComponent,
     SignupComponent,
     ForgotComponent,
     ResetComponent,
@@ -26,7 +26,7 @@ import { ResetComponent } from './reset/reset.component';
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-    AppFooterModule
-  ]
+    AppFooterModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}
