@@ -37,6 +37,9 @@ export class PaymentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    localStorage.removeItem('pay');
+
     // // TODO: unused
     // this.paymentForm = this.formBuilder.group({});
   }
