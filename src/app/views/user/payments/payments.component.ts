@@ -30,14 +30,15 @@ export class PaymentsComponent implements OnInit {
   paymentForm: FormGroup = new FormGroup({});
 
   constructor(
-    private formBuilder: FormBuilder,
+    // private formBuilder: FormBuilder,
     private translate: TranslateService,
-    private http: HttpClient,
+    // private http: HttpClient,
     private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
-    this.paymentForm = this.formBuilder.group({});
+    // // TODO: unused
+    // this.paymentForm = this.formBuilder.group({});
   }
 
   /**
@@ -47,15 +48,25 @@ export class PaymentsComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.paymentForm.invalid) {
+    // TODO: unused
+    // if (this.paymentForm.invalid) {
+    //   this.translate.get('toast.error.payment').subscribe((error: string) => {
+    //     this.snotifyService.error(error);
+    //   });
+
+    //   return;
+    // }
+
+    // stop here is period nas no value
+    if (!this.selectedPeriod) {
       this.translate.get('toast.error.payment').subscribe((error: string) => {
         this.snotifyService.error(error);
       });
 
-      return;
-    }
+      this.loading = true;
 
-    // this.loading = true;
+
+    }
   }
 
   selectPaymentFor(period: string) {
@@ -67,6 +78,8 @@ export class PaymentsComponent implements OnInit {
       this.selectedPay = this.pays[i];
       this.selectedSave = this.saves[i];
 
+      localStorage.setItem('pay', JSON.stringify(this.selectedPay));
+
       // console.log(this.selectedPeriod );
       // console.log(this.selectedPay);
       // console.log(this.selectedSave);
@@ -76,7 +89,8 @@ export class PaymentsComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() {
-    return this.paymentForm.controls;
-  }
+  // TODO: unused?
+  // get f() {
+  //   return this.paymentForm.controls;
+  // }
 }

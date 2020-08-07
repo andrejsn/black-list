@@ -2,9 +2,9 @@
 
   <!--  -->
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header"><i class="fa fa-usd fa-2x" aria-hidden="true"></i>
           {{'user.payment.abo' | translate}}
         </div>
         <div class="card-body">
@@ -54,19 +54,48 @@
           </div>
 
           <!-- calculation -->
-          <div class="h4 m-0">&nbsp;
+          <div class="h6 m-0">&nbsp;
             <span *ngIf="selectedPay"> {{selectedPay}}€ to pay</span>
             <span *ngIf="selectedSave > 0"> and saved {{selectedSave}}€</span>
           </div>
         </div>
-        
-        <div class="card-footer">
-          <a routerLink="/user/payment/card"><i
-              class="icon-credit-card icons font-2xl d-block mt-4"></i>{{'user.payment.card'}}</a>
-          <a routerLink="/user/payment/paypal"><i
-              class="icon-paypal icons font-2xl d-block mt-4"></i>{{'user.payment.paypal'}}</a>
-          <a routerLink="/user/payment/token"><i
-              class="icon-wallet icons font-2xl d-block mt-4"></i>{{'user.payment.token'}}</a>
+
+        <div class="card-footer navbar" *ngIf="selectedPay">
+
+          <a routerLink="/user/payment/card">
+            <i class="icon-credit-card icons font-2xl d-block mt-4"></i>
+            {{'user.payment.card' | translate}}
+          </a>
+
+          <a routerLink="/user/payment/paypal">
+            <i class="icon-paypal icons font-2xl d-block mt-4"></i>
+            {{'user.payment.paypal' | translate}}
+          </a>
+
+          <a routerLink="/user/payment/token">
+            <i class="icon-wallet icons font-2xl d-block mt-4"></i>
+            {{'user.payment.token' | translate}}
+          </a>
+
+          <!-- <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
+              class="icon-credit-card icons font-2xl d-block mt-4"></i>{{'user.payment.card' | translate}}</button>
+          <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
+              class="icon-paypal icons font-2xl d-block mt-4"></i>{{'user.payment.paypal' | translate}}</button>
+          <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
+              class="icon-wallet icons font-2xl d-block mt-4"></i>{{'user.payment.paypal' | translate}}</button> -->
+
+
+
+
+          <!-- <div class="list-group">
+            <a [ngClass]="{'is-disabled': !selectedPay}" routerLink="/user/payment/card"><i
+              class="fa fa-home fa-fw" aria-hidden="true"></i>{{'user.payment.card'}}</a>
+            <a routerLink="/user/payment/paypal"><i
+              class="fa fa-home fa-fw" aria-hidden="true"></i>{{'user.payment.paypal'}}</a>
+            <a routerLink="/user/payment/token"><i
+              class="fa fa-home fa-fw" aria-hidden="true"></i>{{'user.payment.token'}}</a>
+          </div> -->
+
         </div>
       </div>
     </div>
