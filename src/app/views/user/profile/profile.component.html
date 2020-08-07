@@ -103,9 +103,10 @@
           <div class="form-group">
             <label for="legal_address">{{ 'user.legal_address' | translate}}</label>
             <input formControlName="legal_address" autocomplete="address-level1" class="form-control" id="legal_address"
-            [ngClass]="{'is-invalid': submitted && f.legal_address.errors, 'is-valid': submitted && !f.legal_address.errors}"
-            type="text" placeholder="{{ 'placeholder.user.legal_address' | translate}}">
-            <div *ngIf="submitted && f.legal_address.errors && f.legal_address.errors.required" class="invalid-feedback">
+              [ngClass]="{'is-invalid': submitted && f.legal_address.errors, 'is-valid': submitted && !f.legal_address.errors}"
+              type="text" placeholder="{{ 'placeholder.user.legal_address' | translate}}">
+            <div *ngIf="submitted && f.legal_address.errors && f.legal_address.errors.required"
+              class="invalid-feedback">
               {{'user.error.legal_address.required' | translate}}</div>
           </div>
 
@@ -113,26 +114,26 @@
             <div class="form-group col-sm-8">
               <label for="city">{{ 'user.city' | translate}}</label>
               <input formControlName="city" class="form-control" id="city" type="text"
-              [ngClass]="{'is-invalid': submitted && f.city.errors, 'is-valid': submitted && !f.city.errors}"
+                [ngClass]="{'is-invalid': submitted && f.city.errors, 'is-valid': submitted && !f.city.errors}"
                 placeholder="{{ 'placeholder.user.city' | translate}}">
-                <div *ngIf="submitted && f.city.errors && f.city.errors.required" class="invalid-feedback">
-                  {{'user.error.city.required' | translate}}</div>
+              <div *ngIf="submitted && f.city.errors && f.city.errors.required" class="invalid-feedback">
+                {{'user.error.city.required' | translate}}</div>
             </div>
             <div class="form-group col-sm-4">
               <label for="postal_code">{{ 'user.postal_code' | translate}}</label>
               <input formControlName="postal_code" autocomplete="postal-code" class="form-control" id="postal_code"
-              [ngClass]="{'is-invalid': submitted && f.postal_code.errors, 'is-valid': submitted && !f.postal_code.errors}"
+                [ngClass]="{'is-invalid': submitted && f.postal_code.errors, 'is-valid': submitted && !f.postal_code.errors}"
                 type="text" placeholder="{{ 'placeholder.user.postal_code' | translate}}">
-                <div *ngIf="submitted && f.postal_code.errors && f.postal_code.errors.required" class="invalid-feedback">
-                  {{'user.error.postal_code.required' | translate}}</div>
+              <div *ngIf="submitted && f.postal_code.errors && f.postal_code.errors.required" class="invalid-feedback">
+                {{'user.error.postal_code.required' | translate}}</div>
             </div>
           </div>
 
           <div class="form-group">
             <label for="country">{{ 'user.country' | translate}}</label>
             <input formControlName="country" autocomplete="country-name" class="form-control" id="country" type="text"
-            [ngClass]="{'is-invalid': submitted && f.country.errors, 'is-valid': submitted && !f.country.errors}"
-            placeholder="{{ 'placeholder.user.country' | translate}}">
+              [ngClass]="{'is-invalid': submitted && f.country.errors, 'is-valid': submitted && !f.country.errors}"
+              placeholder="{{ 'placeholder.user.country' | translate}}">
             <div *ngIf="submitted && f.country.errors && f.country.errors.required" class="invalid-feedback">
               {{'user.error.country.required' | translate}}</div>
           </div>
@@ -186,35 +187,38 @@
           <div class="form-group">
             <label for="bank">{{ 'user.bank_name' | translate}}</label>
             <input formControlName="bank_name" class="form-control" id="bank" type="text"
-            [ngClass]="{'is-invalid': submitted && f.bank_name.errors, 'is-valid': submitted && !f.bank_name.errors}"
+              [ngClass]="{'is-invalid': submitted && f.bank_name.errors, 'is-valid': submitted && !f.bank_name.errors}"
               placeholder="{{ 'placeholder.user.bank_name' | translate}}">
-              <div *ngIf="submitted && f.bank_name.errors && f.bank_name.errors.required"
-              class="invalid-feedback">
+            <div *ngIf="submitted && f.bank_name.errors && f.bank_name.errors.required" class="invalid-feedback">
               {{'user.error.bank_name.required' | translate}}</div>
           </div>
 
           <div class="form-group">
             <label for="bank_account_number">{{ 'user.bank_account_number' | translate}}</label>
             <input formControlName="bank_account_number" class="form-control" id="bank_account_number" type="text"
-            [ngClass]="{'is-invalid': submitted && f.bank_account_number.errors, 'is-valid': submitted && !f.bank_account_number.errors}"
-            placeholder="{{ 'placeholder.user.bank_account_number' | translate}}">
+              [ngClass]="{'is-invalid': submitted && f.bank_account_number.errors, 'is-valid': submitted && !f.bank_account_number.errors}"
+              placeholder="{{ 'placeholder.user.bank_account_number' | translate}}">
             <div *ngIf="submitted && f.bank_account_number.errors && f.bank_account_number.errors.required"
               class="invalid-feedback">
               {{'user.error.bank_account_number.required' | translate}}</div>
           </div>
         </div>
-
-        <div class="card-footer">
-          <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-            {{ 'user.submit' | translate}}</button>
-          <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">
-            {{ 'user.reset' | translate}}</button>
-        </div>
       </div>
     </div>
   </div>
 
-
+  <!-- footer -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card"></div>
+      <div class="card-footer">
+        <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+          {{ 'user.submit' | translate}}</button>
+        <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">
+          {{ 'user.reset' | translate}}</button>
+      </div>
+    </div>
+  </div>
 
 
 </form>
