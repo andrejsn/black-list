@@ -42,7 +42,8 @@ export class CalendarComponent implements OnInit {
     'November',
     'December',
   ];
-  public namesOfDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // public namesOfDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  public namesOfDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
   public selectedDate;
 
@@ -59,6 +60,13 @@ export class CalendarComponent implements OnInit {
   constructor(private eRef: ElementRef) {}
 
   ngOnInit(): void {
+    moment.updateLocale('en', {
+      week: {
+        dow: 1, // First day of week is Monday
+        // doy: 7, // First week of year must contain 1 January (7 + 1 - 1)
+      },
+    });
+
     // this.currentDate = moment();
     // this.selectedDate = moment(this.currentDate).format('DD/MM/YYYY');
     // this.generateCalendar();
@@ -71,7 +79,7 @@ export class CalendarComponent implements OnInit {
       while (dates.length > 0) {
         weeks.push(dates.splice(0, 7));
       }
-      console.log(weeks);
+      // console.log(weeks);
       this.months.push({ name: this.namesOfMonths[i], weeks: weeks });
     }
   }
@@ -86,8 +94,15 @@ export class CalendarComponent implements OnInit {
   }
 
   private fillDates(currentMoment: moment.Moment) {
-    const firstOfMonth = moment(currentMoment).startOf('month').day();
-    const lastOfMonth = moment(currentMoment).endOf('month').day();
+    const firstOfMonth = moment(currentMoment)
+      .startOf('month')
+      ./*set monday as week start*/ subtract(1, 'days')
+      .day();
+
+    const lastOfMonth = moment(currentMoment)
+      .endOf('month')
+      ./*set monday as week start*/ subtract(1, 'days')
+      .day();
 
     const firstDayOfGrid = moment(currentMoment)
       .startOf('month')
@@ -96,10 +111,7 @@ export class CalendarComponent implements OnInit {
       .endOf('month')
       .subtract(lastOfMonth, 'days')
       .add(7, 'days');
-
     const startCalendar = firstDayOfGrid.date();
-
-    // console.log(startCalendar);
 
     return range(
       startCalendar,
@@ -154,9 +166,11 @@ export class CalendarComponent implements OnInit {
   }
 
   public selectDate(date: CalendarDate) {
-    this.selectedDate = moment(date.mDate).format('DD/MM/YYYY');
+    // this.selectedDate = moment(date.mDate).format('DD/MM/YYYY');
 
-    this.generateCalendar();
+    // this.generateCalendar();
     // this.show = !this.show;
+
+    console.log(moment(date.mDate).format('DD/MM/YYYY'));
   }
 }

@@ -62,9 +62,8 @@
           <div class="calendar__weeks">
             <div class="calendar__week" *ngFor="let week of month.weeks">
               <ng-container *ngFor="let day of week">
-                <div class="calendar__date"
-
-                  (click)="selectDate(day)">
+                <div class="calendar__date" [ngClass]="{'today': day.today}"
+                  (click)=" selectDate(day)">
                   <span class="calendar__number">{{day.mDate.date()}}</span>
                 </div>
               </ng-container>
