@@ -50,7 +50,7 @@ export class GuarantorsComponent implements OnInit {
   toggle(guarantorsList: GuarantorTableElement[], index: number) {
     for (let i = 0; i < guarantorsList.length; i++) {
       const debtor = guarantorsList[i];
-      let selector = `.row-num-${i}-guarantor`;
+      const selector = `.row-num-${i}-guarantor`;
 
       if (i === index) {
         document.querySelector(selector).classList.toggle('d-none');
