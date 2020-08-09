@@ -17,7 +17,7 @@ interface ContractWarningPreTrial extends Contract {
 @Component({
   selector: 'app-warning-pre-trial',
   templateUrl: './warning-pre-trial.component.html',
-  styleUrls: ['./warning-pre-trial.component.css']
+  styleUrls: ['./warning-pre-trial.component.scss']
 })
 export class WarningPreTrialComponent implements OnInit {
 

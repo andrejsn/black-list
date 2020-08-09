@@ -14,7 +14,7 @@ interface RepresentativeTableElement extends Representative {
 @Component({
   selector: 'app-representatives',
   templateUrl: './representatives.component.html',
-  styleUrls: ['./representatives.component.css'],
+  styleUrls: ['./representatives.component.scss'],
   animations: [inOutAnimation()],
 })
 export class RepresentativesComponent implements OnInit {

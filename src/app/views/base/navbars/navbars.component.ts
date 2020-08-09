@@ -4,7 +4,7 @@ import {CollapseDirective} from 'ngx-bootstrap/collapse';
 @Component({
   selector: 'app-navbars',
   templateUrl: './navbars.component.html',
-  styleUrls: ['./navbars.component.css']
+  styleUrls: ['./navbars.component.scss']
 })
 export class NavbarsComponent implements OnInit, AfterViewChecked {
 

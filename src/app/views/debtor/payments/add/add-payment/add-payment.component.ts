@@ -14,7 +14,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-add-payment',
   templateUrl: './add-payment.component.html',
-  styleUrls: ['./add-payment.component.css']
+  styleUrls: ['./add-payment.component.scss']
 })
 export class AddPaymentComponent implements OnInit {
 

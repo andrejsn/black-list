@@ -17,7 +17,7 @@ interface DebtorTableElement extends Debtor {
 @Component({
   selector: 'app-debtors',
   templateUrl: './debtors.component.html',
-  styleUrls: ['./debtors.component.css'],
+  styleUrls: ['./debtors.component.scss'],
 })
 export class DebtorsComponent implements OnInit {
   rawDebtorsList: DebtorTableElement[];

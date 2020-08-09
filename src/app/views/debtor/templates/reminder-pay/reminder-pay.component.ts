@@ -18,7 +18,7 @@ interface ContractRemindPay extends Contract {
 @Component({
   selector: 'app-reminder-pay',
   templateUrl: './reminder-pay.component.html',
-  styleUrls: ['./reminder-pay.component.css']
+  styleUrls: ['./reminder-pay.component.scss']
 })
 export class ReminderPayComponent implements OnInit {
 

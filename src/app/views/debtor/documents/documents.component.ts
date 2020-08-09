@@ -5,7 +5,7 @@ import { inOutAnimation } from '@shared/helpers';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css'],
+  styleUrls: ['./documents.component.scss'],
   animations: [inOutAnimation()],
 })
 export class DocumentsComponent implements OnInit {

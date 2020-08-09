@@ -17,7 +17,7 @@ import { environment } from '@environments/environment';
 @Component({
   selector: 'app-debtor',
   templateUrl: './debtor.component.html',
-  styleUrls: ['./debtor.component.css'],
+  styleUrls: ['./debtor.component.scss'],
 })
 export class DebtorComponent implements OnInit {
   company_name: string;

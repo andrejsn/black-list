@@ -41,7 +41,7 @@ interface ContractClaimToCourt extends Contract {
 @Component({
   selector: 'app-claim-to-court',
   templateUrl: './claim-to-court.component.html',
-  styleUrls: ['./claim-to-court.component.css'],
+  styleUrls: ['./claim-to-court.component.scss'],
 })
 export class ClaimToCourtComponent implements OnInit {
   @Input() contract: ContractClaimToCourt;

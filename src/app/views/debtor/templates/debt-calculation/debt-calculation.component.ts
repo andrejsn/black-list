@@ -18,7 +18,7 @@ interface ContractCalcPay extends Contract {
 @Component({
   selector: 'app-debt-calculation',
   templateUrl: './debt-calculation.component.html',
-  styleUrls: ['./debt-calculation.component.css']
+  styleUrls: ['./debt-calculation.component.scss']
 })
 export class DebtCalculationComponent implements OnInit {
 

@@ -16,7 +16,7 @@ interface TemplateTableElement extends Template {
 @Component({
   selector: 'app-templates',
   templateUrl: './templates.component.html',
-  styleUrls: ['./templates.component.css'],
+  styleUrls: ['./templates.component.scss'],
   animations: [inOutAnimation()]
 })
 export class TemplateComponent implements OnInit {

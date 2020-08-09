@@ -14,38 +14,40 @@ interface GuarantorTableElement extends Guarantor {
 @Component({
   selector: 'app-guarantors',
   templateUrl: './guarantors.component.html',
-  styleUrls: ['./guarantors.component.css'],
+  styleUrls: ['./guarantors.component.scss'],
   animations: [inOutAnimation()],
 })
 export class GuarantorsComponent implements OnInit {
-
   @Input() contract: Contract;
   guarantorsList: GuarantorTableElement[];
   visible: boolean = false;
   count: number;
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/guarantors`,
-      {}
-    ).pipe(first())
+    this.http
+      .get<any>(
+        `${environment.apiUrl}/get/contract/` +
+          this.contract.id +
+          `/guarantors`,
+        {}
+      )
+      .pipe(first())
       .subscribe(
-        data => {
-
+        (data) => {
           this.guarantorsList = data;
           this.count = this.guarantorsList.length;
           // console.log(this.guarantorsList);
         },
-        error => {
+        (error) => {
           console.log(error);
-
         }
       );
   }
 
-  toggle (guarantorsList: GuarantorTableElement[], index:number){
+  toggle(guarantorsList: GuarantorTableElement[], index: number) {
     for (let i = 0; i < guarantorsList.length; i++) {
       const debtor = guarantorsList[i];
       let selector = `.row-num-${i}-guarantor`;

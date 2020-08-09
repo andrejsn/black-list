@@ -18,7 +18,7 @@ interface ContractWarningPay extends Contract {
 @Component({
   selector: 'app-warning-pay',
   templateUrl: './warning-pay.component.html',
-  styleUrls: ['./warning-pay.component.css']
+  styleUrls: ['./warning-pay.component.scss']
 })
 export class WarningPayComponent implements OnInit {
 

@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { first } from "rxjs/operators";
+import { first } from 'rxjs/operators';
 
-import { environment } from "@environments/environment";
-import { Debtor, Contract } from "@app/models";
-import { DebtorCachedService } from "@shared/services";
+import { environment } from '@environments/environment';
+import { Debtor, Contract } from '@app/models';
+import { DebtorCachedService } from '@shared/services';
 
 interface ContractTableElement extends Contract {
   visible: boolean;
 }
 
 @Component({
-  selector: "app-contracts",
-  templateUrl: "./contracts.component.html",
-  styleUrls: ["./contracts.component.css"],
+  selector: 'app-contracts',
+  templateUrl: './contracts.component.html',
+  styleUrls: ['./contracts.component.scss'],
 })
 export class ContractsComponent implements OnInit {
   debtor: Debtor;
@@ -31,7 +31,7 @@ export class ContractsComponent implements OnInit {
   ngOnInit(): void {
     if (!this.debtorCachedService.debtor) {
       // no debtor cached
-      this.router.navigate(["/debtors"]);
+      this.router.navigate(['/debtors']);
 
       return;
     }

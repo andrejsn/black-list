@@ -16,7 +16,7 @@ enum ShowSubMenu {payments, add_payment, edit, delete}
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.css'],
+  styleUrls: ['./invoices.component.scss'],
   animations: [inOutAnimation()],
 })
 export class InvoicesComponent implements OnInit {
