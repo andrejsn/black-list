@@ -1,4 +1,90 @@
-<div class="calendar__wrapper">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i> Reminders calendar
+        (?length of reminds?)
+        <span class="float-right">
+          <button class="btn" (click)="prevYear()">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          2020
+          <button class="btn" (click)="nextYear()">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        Month
+      </div>
+      <div class="card-body">
+        <div class="calendar__month">
+          <div class="calendar__day-names">
+            <div class="calendar__day-name" *ngFor="let name of namesOfDays">{{name}}</div>
+          </div>
+          <div class="calendar__weeks">
+            <div class="calendar__week" *ngFor="let week of weeks">
+              <ng-container *ngFor="let day of week">
+                <div class="calendar__date"
+                  [ngClass]="{'today': day.today, 'selected': day.selected, 'disabled': !isSelectedMonth(day.mDate)}"
+                  (click)="selectDate(day)">
+                  <span class="calendar__number">{{day.mDate.date()}}</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        reminders for month
+      </div>
+    </div>
+  </div> -->
+
+  <div class="col-lg-4" *ngFor="let month of months; let i = index">
+    <div class="card">
+      <div class="card-header">
+        {{month.name}}
+      </div>
+      <div class="card-body">
+        <div class="calendar__month">
+          <div class="calendar__day-names">
+            <div class="calendar__day-name" *ngFor="let name of namesOfDays">
+              {{name}}
+            </div>
+          </div>
+          <div class="calendar__weeks">
+            <div class="calendar__week" *ngFor="let week of month.weeks">
+              <ng-container *ngFor="let day of week">
+                <div class="calendar__date"
+
+                  (click)="selectDate(day)">
+                  <span class="calendar__number">{{day.mDate.date()}}</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="card-footer">
+        reminders for month
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<!-- <div class="calendar__wrapper">
   <div class="calendar__input-wrapper" (click)="show = !show">
     <input readonly class="calendar__input" [(ngModel)]="selectedDate">
     <img class="icon_calendar" [src]="'assets/calendar-icon.png'" alt="calendar icon" />
@@ -7,7 +93,7 @@
     <div class="calendar__navs">
       <div class="calendar__month-nav">
         <button class="calendar__nav-btn" (click)="prevMonth()">&lt;</button>
-        <span>{{currentDate.format('MMMM').toUpperCase()}}  {{currentDate.format('YYYY')}}</span>
+        <span>{{currentDate.format('MMMM').toUpperCase()}} {{currentDate.format('YYYY')}}</span>
         <button class="calendar__nav-btn" [disabled]="!isDisabledMonth(currentDate)" (click)="nextMonth()">&gt;</button>
       </div>
     </div>
@@ -19,8 +105,8 @@
         <div class="calendar__week" *ngFor="let week of weeks">
           <ng-container *ngFor="let day of week">
             <div class="calendar__date"
-                 [ngClass]="{'today': day.today, 'selected': day.selected, 'disabled': !isSelectedMonth(day.mDate)}"
-                 (click)="selectDate(day)">
+              [ngClass]="{'today': day.today, 'selected': day.selected, 'disabled': !isSelectedMonth(day.mDate)}"
+              (click)="selectDate(day)">
               <span class="calendar__number">{{day.mDate.date()}}</span>
             </div>
           </ng-container>
@@ -28,4 +114,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

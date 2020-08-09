@@ -8,6 +8,11 @@ import {
 import * as moment from 'moment';
 import * as range from 'lodash.range';
 
+export interface Month {
+  name: string;
+  weeks: Array<CalendarDate[]>;
+}
+
 export interface CalendarDate {
   mDate: moment.Moment;
   selected?: boolean;
@@ -21,27 +26,54 @@ export interface CalendarDate {
 })
 export class CalendarComponent implements OnInit {
   public currentDate: moment.Moment;
+
+  public months: Month[] = [];
+  public namesOfMonths = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   public namesOfDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  public weeks: Array<CalendarDate[]> = [];
 
   public selectedDate;
-  public show: boolean;
 
   @ViewChild('calendar', { static: true }) calendar;
 
   @HostListener('document:click', ['$event'])
   clickOut(event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
-      this.show = false;
+      // this.show = false;
+      console.log('hello+++');
     }
   }
 
   constructor(private eRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.currentDate = moment();
-    this.selectedDate = moment(this.currentDate).format('DD/MM/YYYY');
-    this.generateCalendar();
+    // this.currentDate = moment();
+    // this.selectedDate = moment(this.currentDate).format('DD/MM/YYYY');
+    // this.generateCalendar();
+
+    // create months for current year
+    for (let i = 0; i < this.namesOfMonths.length; i++) {
+      const dates = this.fillDates(moment([2020, i, 1]));
+
+      const weeks = [];
+      while (dates.length > 0) {
+        weeks.push(dates.splice(0, 7));
+      }
+      console.log(weeks);
+      this.months.push({ name: this.namesOfMonths[i], weeks: weeks });
+    }
   }
 
   private generateCalendar(): void {
@@ -50,19 +82,29 @@ export class CalendarComponent implements OnInit {
     while (dates.length > 0) {
       weeks.push(dates.splice(0, 7));
     }
-    this.weeks = weeks;
+    // this.weeks = weeks;
   }
 
   private fillDates(currentMoment: moment.Moment) {
     const firstOfMonth = moment(currentMoment).startOf('month').day();
     const lastOfMonth = moment(currentMoment).endOf('month').day();
 
-    const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
-    const lastDayOfGrid = moment(currentMoment).endOf('month').subtract(lastOfMonth, 'days').add(7, 'days');
+    const firstDayOfGrid = moment(currentMoment)
+      .startOf('month')
+      .subtract(firstOfMonth, 'days');
+    const lastDayOfGrid = moment(currentMoment)
+      .endOf('month')
+      .subtract(lastOfMonth, 'days')
+      .add(7, 'days');
 
     const startCalendar = firstDayOfGrid.date();
 
-    return range(startCalendar, startCalendar + lastDayOfGrid.diff(firstDayOfGrid, 'days')).map((date) => {
+    // console.log(startCalendar);
+
+    return range(
+      startCalendar,
+      startCalendar + lastDayOfGrid.diff(firstDayOfGrid, 'days')
+    ).map((date) => {
       const newDate = moment(firstDayOfGrid).date(date);
       return {
         today: this.isToday(newDate),
@@ -70,6 +112,14 @@ export class CalendarComponent implements OnInit {
         mDate: newDate,
       };
     });
+  }
+
+  public prevYear(): void {
+    console.log('get to preview year');
+  }
+
+  public nextYear(): void {
+    console.log('get to next year');
   }
 
   public prevMonth(): void {
@@ -97,14 +147,16 @@ export class CalendarComponent implements OnInit {
 
   public isSelectedMonth(date: moment.Moment): boolean {
     const today = moment();
-    return moment(date).isSame(this.currentDate, 'month') && moment(date).isSameOrBefore(today);
+    return (
+      moment(date).isSame(this.currentDate, 'month') &&
+      moment(date).isSameOrBefore(today)
+    );
   }
 
   public selectDate(date: CalendarDate) {
     this.selectedDate = moment(date.mDate).format('DD/MM/YYYY');
 
     this.generateCalendar();
-    this.show = !this.show;
+    // this.show = !this.show;
   }
-
 }
