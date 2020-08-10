@@ -1,22 +1,30 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit } from '@angular/core';
+
+import { Calendar, CalendarStatus } from '@app/models';
+import { environment } from '@environments/environment';
+
 import * as moment from 'moment';
 import * as range from 'lodash.range';
+import { first } from 'rxjs/operators';
 
-export interface Month {
+interface Month {
   firstDay: moment.Moment;
   weeks: Array<CalendarDate[]>;
 }
 
-export interface CalendarDate {
+interface CalendarDate {
   mDate: moment.Moment;
   selected?: boolean;
   today?: boolean;
+}
+
+interface Remind {
+  debtor_id: number;
+  date: moment.Moment;
+  done: number;
+  note: string;
+  status: CalendarStatus;
 }
 
 @Component({
@@ -28,8 +36,9 @@ export class CalendarComponent implements OnInit {
   public selectedYear: number;
   public months: Month[] = [];
   public namesOfDays: string[] = [];
+  public reminds: Remind[] = [];
 
-  constructor(private eRef: ElementRef) {}
+  constructor(private eRef: ElementRef, private http: HttpClient) {}
 
   ngOnInit(): void {
     moment.locale('lv');
@@ -38,6 +47,30 @@ export class CalendarComponent implements OnInit {
     this.namesOfDays.push(
       /*set monday as week start*/ this.namesOfDays.shift()
     );
+
+    // get reminders
+    this.http
+      .get<any>(`${environment.apiUrl}/get/user/reminds`, {})
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const tmp = data as Calendar[];
+          this.reminds = tmp.slice(0, 10).map((date) => {
+            return {
+              debtor_id: date.debtor_id,
+              date: moment(date.remind_date, 'YYYY-MM-DD'),
+              done: date.remind_done,
+              note: date.remind_note,
+              status: date.remind_status,
+            };
+          });
+
+          console.log(this.reminds);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
 
     this.selectedYear = moment().year();
     this.generateCalendarOfYear();
