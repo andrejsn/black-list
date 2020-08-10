@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import * as range from 'lodash.range';
 
 export interface Month {
-  name: string;
+  firstDay: moment.Moment;
   weeks: Array<CalendarDate[]>;
 }
 
@@ -28,22 +28,24 @@ export class CalendarComponent implements OnInit {
   public currentDate: moment.Moment;
 
   public months: Month[] = [];
-  public namesOfMonths = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  // public namesOfMonths = [
+  //   'January',
+  //   'February',
+  //   'March',
+  //   'April',
+  //   'May',
+  //   'June',
+  //   'July',
+  //   'August',
+  //   'September',
+  //   'October',
+  //   'November',
+  //   'December',
+  // ];
   // public namesOfDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  public namesOfDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+  // public namesOfDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+
+  public namesOfDays: string[] = [];
 
   public selectedDate;
 
@@ -60,27 +62,34 @@ export class CalendarComponent implements OnInit {
   constructor(private eRef: ElementRef) {}
 
   ngOnInit(): void {
-    moment.updateLocale('en', {
-      week: {
-        dow: 1, // First day of week is Monday
-        // doy: 7, // First week of year must contain 1 January (7 + 1 - 1)
-      },
-    });
+    moment.locale('lv');
+    this.namesOfDays = moment.weekdaysShort();
+    this.namesOfDays.push(
+      /*set monday as week start*/ this.namesOfDays.shift()
+    );
+
+    // moment.updateLocale('en', {
+    //   week: {
+    //     dow: 1, // First day of week is Monday
+    //     // doy: 7, // First week of year must contain 1 January (7 + 1 - 1)
+    //   },
+    // });
 
     // this.currentDate = moment();
     // this.selectedDate = moment(this.currentDate).format('DD/MM/YYYY');
     // this.generateCalendar();
 
     // create months for current year
-    for (let i = 0; i < this.namesOfMonths.length; i++) {
-      const dates = this.fillDates(moment([2020, i, 1]));
+    for (let i = 0; i < 12; i++) {
+      const firstDay = moment([2020, i, 1]);
+      const dates = this.fillDates(firstDay);
 
       const weeks = [];
       while (dates.length > 0) {
         weeks.push(dates.splice(0, 7));
       }
       // console.log(weeks);
-      this.months.push({ name: this.namesOfMonths[i], weeks: weeks });
+      this.months.push({ firstDay: firstDay, weeks: weeks });
     }
   }
 
@@ -163,6 +172,12 @@ export class CalendarComponent implements OnInit {
       moment(date).isSame(this.currentDate, 'month') &&
       moment(date).isSameOrBefore(today)
     );
+  }
+
+  public isDayOfThisMonth(month: Month, date: moment.Moment) {
+
+
+    return moment(month.firstDay).isSame(date, 'month');
   }
 
   public selectDate(date: CalendarDate) {
