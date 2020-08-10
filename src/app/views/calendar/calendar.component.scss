@@ -149,7 +149,7 @@
     }
     &.today {
       font-weight: bold;
-      background-color: #e7e36780
+      background-color: #e7e36780;
     }
   }
   &__number {
@@ -166,4 +166,14 @@
   position: absolute;
   top: 8px;
   right: 10px;
+}
+
+.prevYear {
+  color: rgba(32, 168, 216, 0.5);
+  padding-right: 10px;
+}
+
+.nextYear {
+  color: rgba(32, 168, 216, 0.5);
+  padding-left: 10px;
 }

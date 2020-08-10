@@ -7,7 +7,7 @@
           <button class="btn" (click)="prevYear()">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </button>
-          2020
+          <span class="prevYear">{{(selectedYear-1)}}</span>{{selectedYear}} <span class="nextYear">{{(selectedYear+1)}}</span>
           <button class="btn" (click)="nextYear()">
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </button>
@@ -18,36 +18,8 @@
 </div>
 
 <div class="row">
-  <!-- <div class="col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        Month
-      </div>
-      <div class="card-body">
-        <div class="calendar__month">
-          <div class="calendar__day-names">
-            <div class="calendar__day-name" *ngFor="let name of namesOfDays">{{name}}</div>
-          </div>
-          <div class="calendar__weeks">
-            <div class="calendar__week" *ngFor="let week of weeks">
-              <ng-container *ngFor="let day of week">
-                <div class="calendar__date"
-                  [ngClass]="{'today': day.today, 'selected': day.selected, 'disabled': !isSelectedMonth(day.mDate)}"
-                  (click)="selectDate(day)">
-                  <span class="calendar__number">{{day.mDate.date()}}</span>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-footer">
-        reminders for month
-      </div>
-    </div>
-  </div> -->
-
   <div class="col-lg-4" *ngFor="let month of months; let i = index">
+
     <div class="card">
       <div class="card-header">
         {{month.firstDay.format('MMMM')}}
@@ -63,7 +35,7 @@
             <div class="calendar__week" *ngFor="let week of month.weeks">
               <ng-container *ngFor="let day of week">
                 <div class="calendar__date"
-                [ngClass]="{'today': day.today, 'disabled': !isDayOfThisMonth(month, day.mDate)}"
+                  [ngClass]="{'today': day.today, 'disabled': !isDayOfThisMonth(month, day.mDate)}"
                   (click)=" selectDate(day)">
                   <span class="calendar__number">{{day.mDate.date()}}</span>
                 </div>
@@ -77,10 +49,8 @@
         reminders for month
       </div>
     </div>
+
   </div>
-
-
-
 </div>
 
 
