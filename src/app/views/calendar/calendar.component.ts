@@ -15,7 +15,7 @@ interface Month {
 
 interface CalendarDate {
   mDate: moment.Moment;
-  selected?: boolean;
+  remind?: boolean;
   today?: boolean;
 }
 
@@ -42,6 +42,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     moment.locale('lv');
+    this.selectedYear = moment().year();
 
     this.namesOfDays = moment.weekdaysShort();
     this.namesOfDays.push(
@@ -64,7 +65,7 @@ export class CalendarComponent implements OnInit {
               status: date.remind_status,
             };
           });
-
+          this.generateCalendarOfYear();
           console.log(this.reminds);
         },
         (error) => {
@@ -72,8 +73,7 @@ export class CalendarComponent implements OnInit {
         }
       );
 
-    this.selectedYear = moment().year();
-    this.generateCalendarOfYear();
+
   }
 
   /**
@@ -126,9 +126,9 @@ export class CalendarComponent implements OnInit {
     ).map((date) => {
       const newDate = moment(firstDayOfGrid).date(date);
       return {
-        today: this.isToday(newDate),
-        selected: this.isSelected(newDate),
         mDate: newDate,
+        remind: this.isRemind(newDate),
+        today: this.isToday(newDate),
       };
     });
   }
@@ -143,7 +143,14 @@ export class CalendarComponent implements OnInit {
     this.generateCalendarOfYear();
   }
 
-  public isSelected(date: moment.Moment) {
+  public isRemind(date: moment.Moment): boolean {
+    for (let i = 0; i < this.reminds.length; i++) {
+      const remind = this.reminds[i];
+
+      if (remind.date.isSame(moment(date), 'day')) {
+        return true;
+      }
+    }
     return false;
   }
 

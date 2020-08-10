@@ -7,7 +7,8 @@
           <button class="btn" (click)="prevYear()">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </button>
-          <span class="prevYear">{{(selectedYear-1)}}</span>{{selectedYear}} <span class="nextYear">{{(selectedYear+1)}}</span>
+          <span class="prevYear">{{(selectedYear-1)}}</span>{{selectedYear}} <span
+            class="nextYear">{{(selectedYear+1)}}</span>
           <button class="btn" (click)="nextYear()">
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
           </button>
@@ -35,7 +36,7 @@
             <div class="calendar__week" *ngFor="let week of month.weeks">
               <ng-container *ngFor="let day of week">
                 <div class="calendar__date"
-                  [ngClass]="{'today': day.today, 'disabled': !isDayOfThisMonth(month, day.mDate)}"
+                  [ngClass]="{'today': day.today, 'selected': (day.remind && isDayOfThisMonth(month, day.mDate)), 'disabled': !isDayOfThisMonth(month, day.mDate)}"
                   (click)=" selectDate(day)">
                   <span class="calendar__number">{{day.mDate.date()}}</span>
                 </div>
