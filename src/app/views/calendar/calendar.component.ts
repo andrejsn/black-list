@@ -15,14 +15,14 @@ interface Month {
 
 interface CalendarDate {
   mDate: moment.Moment;
-  remind?: boolean;
+  remind?: Remind;
   today?: boolean;
 }
 
 interface Remind {
   debtor_id: number;
   date: moment.Moment;
-  done: number;
+  done: string;
   note: string;
   status: CalendarStatus;
 }
@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit {
       .subscribe(
         (data) => {
           const tmp = data as Calendar[];
-          this.reminds = tmp.slice(0, 10).map((date) => {
+          this.reminds = tmp.map((date) => {
             return {
               debtor_id: date.debtor_id,
               date: moment(date.remind_date, 'YYYY-MM-DD'),
@@ -127,7 +127,7 @@ export class CalendarComponent implements OnInit {
       const newDate = moment(firstDayOfGrid).date(date);
       return {
         mDate: newDate,
-        remind: this.isRemind(newDate),
+        remind: this.goRemind(newDate),
         today: this.isToday(newDate),
       };
     });
@@ -143,15 +143,15 @@ export class CalendarComponent implements OnInit {
     this.generateCalendarOfYear();
   }
 
-  public isRemind(date: moment.Moment): boolean {
+  public goRemind(date: moment.Moment): Remind {
     for (let i = 0; i < this.reminds.length; i++) {
       const remind = this.reminds[i];
 
       if (remind.date.isSame(moment(date), 'day')) {
-        return true;
+        return remind;
       }
     }
-    return false;
+    return null;
   }
 
   private isToday(date: moment.Moment): boolean {

@@ -35,9 +35,16 @@
           <div class="calendar__weeks">
             <div class="calendar__week" *ngFor="let week of month.weeks">
               <ng-container *ngFor="let day of week">
-                <div class="calendar__date"
-                  [ngClass]="{'today': day.today, 'selected': (day.remind && isDayOfThisMonth(month, day.mDate)), 'disabled': !isDayOfThisMonth(month, day.mDate)}"
-                  (click)=" selectDate(day)">
+                <div class="calendar__date" [ngClass]="{
+                    'today': day.today,
+                    'selected_important': (day.remind && day.remind.status.toString() === 'important' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
+                    'selected_important_done': (day.remind && day.remind.status.toString() === 'important' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
+                    'selected_unimportant': (day.remind && day.remind.status.toString() === 'unimportant' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
+                    'selected_unimportant_done': (day.remind && day.remind.status.toString() === 'unimportant' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
+                    'selected_regular': (day.remind && day.remind.status.toString() === 'regular' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
+                    'selected_regular_done': (day.remind && day.remind.status.toString() === 'regular' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
+                    'disabled': !isDayOfThisMonth(month, day.mDate)
+                  }" (click)=" selectDate(day)">
                   <span class="calendar__number">{{day.mDate.date()}}</span>
                 </div>
               </ng-container>
