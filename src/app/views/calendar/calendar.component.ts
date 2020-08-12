@@ -15,7 +15,7 @@ interface Month {
 
 interface CalendarDate {
   mDate: moment.Moment;
-  remind?: Remind;
+  reminds?: Remind[];
   today?: boolean;
 }
 
@@ -66,14 +66,21 @@ export class CalendarComponent implements OnInit {
             };
           });
           this.generateCalendarOfYear();
-          console.log(this.reminds);
+
+          this.reminds.forEach((remind) => {
+            console.log(
+              remind.date.format('DD-MM-YYYY') +
+                ' -> ' +
+                remind.status +
+                ' done? ' +
+                remind.done
+            );
+          });
         },
         (error) => {
           console.log(error);
         }
       );
-
-
   }
 
   /**
@@ -127,37 +134,61 @@ export class CalendarComponent implements OnInit {
       const newDate = moment(firstDayOfGrid).date(date);
       return {
         mDate: newDate,
-        remind: this.goRemind(newDate),
+        reminds: this.goReminds(newDate),
         today: this.isToday(newDate),
       };
     });
   }
 
+  /**
+   * get preview year
+   */
   public prevYear(): void {
     this.selectedYear--;
     this.generateCalendarOfYear();
   }
 
+  /**
+   * get next year
+   */
   public nextYear(): void {
     this.selectedYear++;
     this.generateCalendarOfYear();
   }
 
-  public goRemind(date: moment.Moment): Remind {
+  /**
+   * go reminds to the date
+   *
+   *
+   * @param date
+   */
+  public goReminds(date: moment.Moment): Remind[] {
+    const reminds: Remind[] = [];
     for (let i = 0; i < this.reminds.length; i++) {
       const remind = this.reminds[i];
-
+      // TODO: use map(key, value) ?
       if (remind.date.isSame(moment(date), 'day')) {
-        return remind;
+        reminds.push(remind);
       }
     }
-    return null;
+
+    return reminds;
   }
 
+  /**
+   * is date is today?
+   * @param date - current date
+   * @returns - true if date is today
+   */
   private isToday(date: moment.Moment): boolean {
     return moment().isSame(moment(date), 'day');
   }
 
+  /**
+   * is the day of this month?
+   * @param month - month
+   * @param date - date
+   */
   public isDayOfThisMonth(month: Month, date: moment.Moment) {
     return moment(month.firstDay).isSame(date, 'month');
   }
@@ -169,5 +200,84 @@ export class CalendarComponent implements OnInit {
     // this.show = !this.show;
 
     console.log(moment(date.mDate).format('DD/MM/YYYY'));
+  }
+
+  // SWITCH SCSS FUNKTIONS
+  /****************************************************** */
+  private isOnlyOneRemind(month: Month, day: CalendarDate): boolean {
+    return this.isDayOfThisMonth(month, day.mDate) && day.reminds.length === 1;
+  }
+
+  isImportant(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].status.toString() === 'important' &&
+      day.reminds[0].done === '0'
+    );
+  }
+
+  isImportantDone(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].status.toString() === 'important' &&
+      day.reminds[0].done === '1'
+    );
+  }
+
+  isUnImportant(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].status.toString() === 'unimportant' &&
+      day.reminds[0].done === '0'
+    );
+  }
+
+  isUnImportantDone(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].done === '1' &&
+      day.reminds[0].status.toString() === 'unimportant'
+    );
+  }
+
+  isRegular(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].status.toString() === 'regular' &&
+      day.reminds[0].done === '0'
+    );
+  }
+
+  isRegularDone(month: Month, day: CalendarDate): boolean {
+    return (
+      this.isOnlyOneRemind(month, day) &&
+      day.reminds[0].status.toString() === 'regular' &&
+      day.reminds[0].done === '1'
+    );
+  }
+
+  isMixed(month: Month, day: CalendarDate): boolean {
+    if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
+      for (let i = 0; i < day.reminds.length; i++) {
+        const remind = day.reminds[i];
+        if (remind.done === '0') {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  isMixedAllDone(month: Month, day: CalendarDate): boolean {
+    if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
+      for (let i = 0; i < day.reminds.length; i++) {
+        const remind = day.reminds[i];
+        if (remind.done !== '1') {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 }

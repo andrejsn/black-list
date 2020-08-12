@@ -37,12 +37,14 @@
               <ng-container *ngFor="let day of week">
                 <div class="calendar__date" [ngClass]="{
                     'today': day.today,
-                    'selected_important': (day.remind && day.remind.status.toString() === 'important' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
-                    'selected_important_done': (day.remind && day.remind.status.toString() === 'important' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
-                    'selected_unimportant': (day.remind && day.remind.status.toString() === 'unimportant' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
-                    'selected_unimportant_done': (day.remind && day.remind.status.toString() === 'unimportant' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
-                    'selected_regular': (day.remind && day.remind.status.toString() === 'regular' && day.remind.done === '0'  && isDayOfThisMonth(month, day.mDate)),
-                    'selected_regular_done': (day.remind && day.remind.status.toString() === 'regular' && day.remind.done === '1'  && isDayOfThisMonth(month, day.mDate)),
+                    'important': isImportant(month, day),
+                    'important_done': isImportantDone(month, day),
+                    'unimportant': isUnImportant(month, day),
+                    'unimportant_done': isUnImportantDone(month, day),
+                    'regular': isRegular(month, day),
+                    'regular_done': isRegularDone(month, day),
+                    'mixed': isMixed(month, day),
+                    'mixed_all_done': isMixedAllDone(month, day),
                     'disabled': !isDayOfThisMonth(month, day.mDate)
                   }" (click)=" selectDate(day)">
                   <span class="calendar__number">{{day.mDate.date()}}</span>
