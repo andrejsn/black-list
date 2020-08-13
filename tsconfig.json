@@ -29,5 +29,10 @@
         "environments/*"
       ],
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true
   }
+
 }
