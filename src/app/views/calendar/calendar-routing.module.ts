@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CalendarComponent } from './calendar.component';
+import { CalendarComponent } from './calendar2/calendar/calendar.component';
 
 
 const routes: Routes = [
