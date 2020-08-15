@@ -217,7 +217,7 @@ export class CalendarComponent implements OnInit {
   /**
    * is date is today?
    * @param date - calendar date
-   * @returns - true if date is today
+   * @returns - true, if date is today
    */
   isToday(date: moment.Moment): boolean {
     return moment(date).isSame(moment(), 'day');
@@ -233,11 +233,20 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
+   * is date in future?
+   * @param date - calendar date
+   * @returns - true, if date in future
+   */
+  isInFuture(date: CalendarDate): boolean {
+    return moment().isBefore(moment(date.mDate), 'day');
+  }
+
+  /**
    * is the day off weekend?
    */
   public isWeekend(date: CalendarDate): boolean {
     const day = date.mDate.isoWeekday();
-    return (day === 6 || day === 7);
+    return day === 6 || day === 7;
   }
 
   public selectDate(date: CalendarDate) {
