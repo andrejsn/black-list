@@ -24,7 +24,7 @@ interface Remind {
   date: moment.Moment;
   done: string;
   note: string;
-  status: CalendarStatus;
+  // status: CalendarStatus;
 }
 
 @Component({
@@ -33,21 +33,23 @@ interface Remind {
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  public selectedYear: number;
+  selectedMonth: moment.Moment;
+  calendarMonth: Month = { firstDay: null, weeks: [] };
+
   public months: Month[] = [];
-  public namesOfDays: string[] = [];
+  // public namesOfDays: string[] = [];
   public reminds: Remind[] = [];
 
   constructor(private eRef: ElementRef, private http: HttpClient) {}
 
   ngOnInit(): void {
     moment.locale('lv');
-    this.selectedYear = moment().year();
+    this.selectedMonth = moment();
 
-    this.namesOfDays = moment.weekdaysShort();
-    this.namesOfDays.push(
-      /*set monday as week start*/ this.namesOfDays.shift()
-    );
+    // this.namesOfDays = moment.weekdaysShort();
+    // this.namesOfDays.push(
+    //   /*set monday as week start*/ this.namesOfDays.shift()
+    // );
 
     // get reminders
     this.http
@@ -62,16 +64,18 @@ export class CalendarComponent implements OnInit {
               date: moment(date.remind_date, 'YYYY-MM-DD'),
               done: date.remind_done,
               note: date.remind_note,
-              status: date.remind_status,
+              // status: date.remind_status,
             };
           });
-          this.generateCalendarOfYear();
+
+          // this.generateCalendarOfYear();
+          this.generateCalendarOfMonth();
 
           this.reminds.forEach((remind) => {
             console.log(
               remind.date.format('DD-MM-YYYY') +
                 ' -> ' +
-                remind.status +
+                // remind.status +
                 ' done? ' +
                 remind.done
             );
@@ -83,25 +87,44 @@ export class CalendarComponent implements OnInit {
       );
   }
 
+  // /**
+  //  * generate full calendar
+  //  * @param year -  current year
+  //  */
+  // generateCalendarOfYear() {
+  //   // clear months
+  //   this.months = [];
+  //   // create for 12 months
+  //   for (let i = 0; i < 12; i++) {
+  //     const firstDay = moment([this.selectedYear, i, 1]);
+  //     const dates = this.fillDates(firstDay);
+
+  //     const weeks = [];
+  //     while (dates.length > 0) {
+  //       weeks.push(dates.splice(0, 7));
+  //     }
+
+  //     this.months.push({ firstDay: firstDay, weeks: weeks });
+  //   }
+  // }
+
   /**
-   * generate full calendar
-   * @param year -  current year
+   * generate calendar of month
    */
-  generateCalendarOfYear() {
-    // clear months
-    this.months = [];
-    // create for 12 months
-    for (let i = 0; i < 12; i++) {
-      const firstDay = moment([this.selectedYear, i, 1]);
-      const dates = this.fillDates(firstDay);
+  generateCalendarOfMonth() {
+    const firstDay = moment([
+      this.selectedMonth.year(),
+      this.selectedMonth.month(),
+      1,
+    ]);
+    const dates = this.fillDates(firstDay);
 
-      const weeks = [];
-      while (dates.length > 0) {
-        weeks.push(dates.splice(0, 7));
-      }
-
-      this.months.push({ firstDay: firstDay, weeks: weeks });
+    const weeks = [];
+    while (dates.length > 0) {
+      weeks.push(dates.splice(0, 7));
     }
+
+    this.calendarMonth = { firstDay: firstDay, weeks: weeks };
   }
 
   /**
@@ -140,20 +163,36 @@ export class CalendarComponent implements OnInit {
     });
   }
 
+  // /**
+  //  * get preview year
+  //  */
+  // public prevYear(): void {
+  //   this.selectedYear--;
+  //   this.generateCalendarOfYear();
+  // }
+
+  // /**
+  //  * get next year
+  //  */
+  // public nextYear(): void {
+  //   this.selectedYear++;
+  //   this.generateCalendarOfYear();
+  // }
+
   /**
-   * get preview year
+   * get preview month
    */
-  public prevYear(): void {
-    this.selectedYear--;
-    this.generateCalendarOfYear();
+  public prevMonth(): void {
+    this.selectedMonth.subtract(1, 'months');
+    this.generateCalendarOfMonth();
   }
 
   /**
-   * get next year
+   * get next month
    */
-  public nextYear(): void {
-    this.selectedYear++;
-    this.generateCalendarOfYear();
+  public nextMonth(): void {
+    this.selectedMonth.add(1, 'months');
+    this.generateCalendarOfMonth();
   }
 
   /**
@@ -177,11 +216,11 @@ export class CalendarComponent implements OnInit {
 
   /**
    * is date is today?
-   * @param date - current date
+   * @param date - calendar date
    * @returns - true if date is today
    */
-  private isToday(date: moment.Moment): boolean {
-    return moment().isSame(moment(date), 'day');
+  isToday(date: moment.Moment): boolean {
+    return moment(date).isSame(moment(), 'day');
   }
 
   /**
@@ -189,8 +228,16 @@ export class CalendarComponent implements OnInit {
    * @param month - month
    * @param date - date
    */
-  public isDayOfThisMonth(month: Month, date: moment.Moment) {
-    return moment(month.firstDay).isSame(date, 'month');
+  public isDayOfThisMonth(month: Month, day: CalendarDate): boolean {
+    return moment(month.firstDay).isSame(day.mDate, 'month');
+  }
+
+  /**
+   * is the day off weekend?
+   */
+  public isWeekend(date: CalendarDate): boolean {
+    const day = date.mDate.isoWeekday();
+    return (day === 6 || day === 7);
   }
 
   public selectDate(date: CalendarDate) {
@@ -204,80 +251,80 @@ export class CalendarComponent implements OnInit {
 
   // SWITCH SCSS FUNKTIONS
   /****************************************************** */
-  private isOnlyOneRemind(month: Month, day: CalendarDate): boolean {
-    return this.isDayOfThisMonth(month, day.mDate) && day.reminds.length === 1;
-  }
+  // private isOnlyOneRemind(month: Month, day: CalendarDate): boolean {
+  //   return this.isDayOfThisMonth(month, day.mDate) && day.reminds.length === 1;
+  // }
 
-  isImportant(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].status.toString() === 'important' &&
-      day.reminds[0].done === '0'
-    );
-  }
+  // isImportant(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].status.toString() === 'important' &&
+  //     day.reminds[0].done === '0'
+  //   );
+  // }
 
-  isImportantDone(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].status.toString() === 'important' &&
-      day.reminds[0].done === '1'
-    );
-  }
+  // isImportantDone(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].status.toString() === 'important' &&
+  //     day.reminds[0].done === '1'
+  //   );
+  // }
 
-  isUnImportant(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].status.toString() === 'unimportant' &&
-      day.reminds[0].done === '0'
-    );
-  }
+  // isUnImportant(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].status.toString() === 'unimportant' &&
+  //     day.reminds[0].done === '0'
+  //   );
+  // }
 
-  isUnImportantDone(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].done === '1' &&
-      day.reminds[0].status.toString() === 'unimportant'
-    );
-  }
+  // isUnImportantDone(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].done === '1' &&
+  //     day.reminds[0].status.toString() === 'unimportant'
+  //   );
+  // }
 
-  isRegular(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].status.toString() === 'regular' &&
-      day.reminds[0].done === '0'
-    );
-  }
+  // isRegular(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].status.toString() === 'regular' &&
+  //     day.reminds[0].done === '0'
+  //   );
+  // }
 
-  isRegularDone(month: Month, day: CalendarDate): boolean {
-    return (
-      this.isOnlyOneRemind(month, day) &&
-      day.reminds[0].status.toString() === 'regular' &&
-      day.reminds[0].done === '1'
-    );
-  }
+  // isRegularDone(month: Month, day: CalendarDate): boolean {
+  //   return (
+  //     this.isOnlyOneRemind(month, day) &&
+  //     day.reminds[0].status.toString() === 'regular' &&
+  //     day.reminds[0].done === '1'
+  //   );
+  // }
 
-  isMixed(month: Month, day: CalendarDate): boolean {
-    if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
-      for (let i = 0; i < day.reminds.length; i++) {
-        const remind = day.reminds[i];
-        if (remind.done === '0') {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  // isMixed(month: Month, day: CalendarDate): boolean {
+  //   if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
+  //     for (let i = 0; i < day.reminds.length; i++) {
+  //       const remind = day.reminds[i];
+  //       if (remind.done === '0') {
+  //         return true;
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // }
 
-  isMixedAllDone(month: Month, day: CalendarDate): boolean {
-    if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
-      for (let i = 0; i < day.reminds.length; i++) {
-        const remind = day.reminds[i];
-        if (remind.done !== '1') {
-          return false;
-        }
-      }
-      return true;
-    }
-    return false;
-  }
+  // isMixedAllDone(month: Month, day: CalendarDate): boolean {
+  //   if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
+  //     for (let i = 0; i < day.reminds.length; i++) {
+  //       const remind = day.reminds[i];
+  //       if (remind.done !== '1') {
+  //         return false;
+  //       }
+  //     }
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }

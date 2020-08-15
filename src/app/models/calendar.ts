@@ -10,7 +10,7 @@ export interface Calendar {
 
   remind_date: Date;
   remind_note: string;
-  remind_status: CalendarStatus;
+  // remind_status: CalendarStatus;
   remind_done: string;
 
   created_at: Date;
