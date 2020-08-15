@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 
-import { Calendar, CalendarStatus } from '@app/models';
-import { environment } from '@environments/environment';
-
 import * as moment from 'moment';
 import * as range from 'lodash.range';
 import { first } from 'rxjs/operators';
+
+import { Calendar, CalendarStatus } from '@app/models';
+import { environment } from '@environments/environment';
+import { inOutAnimation } from '@shared/helpers';
 
 interface Month {
   firstDay: moment.Moment;
@@ -31,20 +32,24 @@ interface Remind {
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
+  animations: [inOutAnimation()],
 })
 export class CalendarComponent implements OnInit {
+  selectedDate: CalendarDate;
+  remindsVisible: boolean;
   selectedMonth: moment.Moment;
   calendarMonth: Month = { firstDay: null, weeks: [] };
 
-  public months: Month[] = [];
+  months: Month[] = [];
   // public namesOfDays: string[] = [];
-  public reminds: Remind[] = [];
+  reminds: Remind[] = [];
 
   constructor(private eRef: ElementRef, private http: HttpClient) {}
 
   ngOnInit(): void {
     moment.locale('lv');
     this.selectedMonth = moment();
+    this.remindsVisible = false;
 
     // this.namesOfDays = moment.weekdaysShort();
     // this.namesOfDays.push(
@@ -86,27 +91,6 @@ export class CalendarComponent implements OnInit {
         }
       );
   }
-
-  // /**
-  //  * generate full calendar
-  //  * @param year -  current year
-  //  */
-  // generateCalendarOfYear() {
-  //   // clear months
-  //   this.months = [];
-  //   // create for 12 months
-  //   for (let i = 0; i < 12; i++) {
-  //     const firstDay = moment([this.selectedYear, i, 1]);
-  //     const dates = this.fillDates(firstDay);
-
-  //     const weeks = [];
-  //     while (dates.length > 0) {
-  //       weeks.push(dates.splice(0, 7));
-  //     }
-
-  //     this.months.push({ firstDay: firstDay, weeks: weeks });
-  //   }
-  // }
 
   /**
    * generate calendar of month
@@ -163,22 +147,6 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  // /**
-  //  * get preview year
-  //  */
-  // public prevYear(): void {
-  //   this.selectedYear--;
-  //   this.generateCalendarOfYear();
-  // }
-
-  // /**
-  //  * get next year
-  //  */
-  // public nextYear(): void {
-  //   this.selectedYear++;
-  //   this.generateCalendarOfYear();
-  // }
-
   /**
    * get preview month
    */
@@ -228,7 +196,7 @@ export class CalendarComponent implements OnInit {
    * @param month - month
    * @param date - date
    */
-  public isDayOfThisMonth(month: Month, day: CalendarDate): boolean {
+  isDayOfThisMonth(month: Month, day: CalendarDate): boolean {
     return moment(month.firstDay).isSame(day.mDate, 'month');
   }
 
@@ -242,98 +210,52 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
-   * is the day off weekend?
+   * is the date off weekend?
+   * @param date - calendar date
+   * @returns - true, if date of weekend
    */
-  public isWeekend(date: CalendarDate): boolean {
+  isWeekend(date: CalendarDate): boolean {
     const day = date.mDate.isoWeekday();
     return day === 6 || day === 7;
   }
 
-  public selectDate(date: CalendarDate) {
-    // this.selectedDate = moment(date.mDate).format('DD/MM/YYYY');
-
-    // this.generateCalendar();
-    // this.show = !this.show;
-
-    console.log(moment(date.mDate).format('DD/MM/YYYY'));
+  /**
+   * has day reminds?
+   * @param date - calendar date
+   * @returns - true, if date has reminds
+   */
+  hasReminds(date: CalendarDate): boolean {
+    return date.reminds.length > 0;
   }
 
-  // SWITCH SCSS FUNKTIONS
-  /****************************************************** */
-  // private isOnlyOneRemind(month: Month, day: CalendarDate): boolean {
-  //   return this.isDayOfThisMonth(month, day.mDate) && day.reminds.length === 1;
-  // }
+  isDateInWeek(week: CalendarDate[], date: CalendarDate) {
+    return (
+      week.filter(function (e) {
+        return e === date;
+      }).length > 0
+    );
+  }
 
-  // isImportant(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].status.toString() === 'important' &&
-  //     day.reminds[0].done === '0'
-  //   );
-  // }
+  selectDate(date: CalendarDate) {
+    if (this.hasReminds(date)) {
+      if (date === this.selectedDate || !this.remindsVisible) {
+        // invert visible reminds
+        this.remindsVisible = !this.remindsVisible;
+      }
+      // set selected date
+      this.selectedDate = date;
+      console.log(this.selectedDate.mDate.format('DD/MM/YYYY'));
+    } else {
+      // clicked date has no reminds
+      this.selectedDate = null;
+    }
+  }
 
-  // isImportantDone(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].status.toString() === 'important' &&
-  //     day.reminds[0].done === '1'
-  //   );
-  // }
-
-  // isUnImportant(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].status.toString() === 'unimportant' &&
-  //     day.reminds[0].done === '0'
-  //   );
-  // }
-
-  // isUnImportantDone(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].done === '1' &&
-  //     day.reminds[0].status.toString() === 'unimportant'
-  //   );
-  // }
-
-  // isRegular(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].status.toString() === 'regular' &&
-  //     day.reminds[0].done === '0'
-  //   );
-  // }
-
-  // isRegularDone(month: Month, day: CalendarDate): boolean {
-  //   return (
-  //     this.isOnlyOneRemind(month, day) &&
-  //     day.reminds[0].status.toString() === 'regular' &&
-  //     day.reminds[0].done === '1'
-  //   );
-  // }
-
-  // isMixed(month: Month, day: CalendarDate): boolean {
-  //   if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
-  //     for (let i = 0; i < day.reminds.length; i++) {
-  //       const remind = day.reminds[i];
-  //       if (remind.done === '0') {
-  //         return true;
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
-
-  // isMixedAllDone(month: Month, day: CalendarDate): boolean {
-  //   if (this.isDayOfThisMonth(month, day.mDate) && day.reminds.length > 1) {
-  //     for (let i = 0; i < day.reminds.length; i++) {
-  //       const remind = day.reminds[i];
-  //       if (remind.done !== '1') {
-  //         return false;
-  //       }
-  //     }
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  showReminds(week: CalendarDate[]): boolean {
+    return (
+      this.selectedDate &&
+      this.hasReminds(this.selectedDate) &&
+      this.isDateInWeek(week, this.selectedDate)
+    );
+  }
 }

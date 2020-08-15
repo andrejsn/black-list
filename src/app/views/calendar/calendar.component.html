@@ -38,15 +38,14 @@
 
       <div class="cal-row-fluid cal-before-eventlist" *ngFor="let week of calendarMonth.weeks">
         <ng-container *ngFor="let day of week">
-
+          <!-- days of week -->
           <div class="cal-cell1 cal-cell" data-cal-row="-day1">
             <div [ngClass]="{
               'cal-day-outmonth': !isDayOfThisMonth(calendarMonth, day),
               'cal-day-inmonth': isDayOfThisMonth(calendarMonth, day),
               'is-today': day.today,
               'cal-day-weekend': isWeekend(day),
-              'has-remind': (day.reminds.length > 0)}" class="cal-month-day cal-month-first-row"
-              (click)=" selectDate(day)">
+              'has-remind': hasReminds(day)}" class="cal-month-day cal-month-first-row" (click)="selectDate(day)">
               <span class="pull-right" data-cal-date="2013-02-25" data-cal-view="day" data-toggle="tooltip" title=""
                 data-original-title="">{{day.mDate.date()}}</span>
 
@@ -61,6 +60,15 @@
           </div>
 
         </ng-container>
+
+        <!-- weekly reminds details -->
+        <div *ngIf="remindsVisible && showReminds(week)" [@inOutAnimation]>
+          <br>
+          <br>
+          {{selectedDate.mDate.format('DD-MMMM-YYYY')}}<br>
+          <br>
+          <br>
+        </div>
       </div>
     </div>
   </div>
