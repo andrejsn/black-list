@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i> Reminders calendar
-        (?length of reminds?)
-        <span class="float-right">
-          {{selectedMonth.format('MMMM YYYY')}}
+      <div class="card-header"><i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+        Reminders calendar
 
+        <span class="select-month">{{selectedMonth.format('MMMM YYYY')}}
           <button class="btn" (click)="prevMonth()">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </button>
@@ -20,102 +19,56 @@
 
 
 <div class="row">
+  <div class="col-lg-12">
+    <div id="calendar" class="cal-context" style="width: 100%;">
+      <!-- name days of week -->
+      <div class="cal-row-fluid cal-row-head">
+        <div class="cal-cell1" *ngFor="let nameOfDay of namesOfDays">{{nameOfDay}}</div>
+      </div>
 
-  <div id="calendar" class="cal-context" style="width: 100%;">
-    <!-- name days of week -->
-    <div class="cal-row-fluid cal-row-head">
-      <div class="cal-cell1">Понедельник</div>
-      <div class="cal-cell1">Вторник</div>
-      <div class="cal-cell1">Среда</div>
-      <div class="cal-cell1">Четверг</div>
-      <div class="cal-cell1">Пятница</div>
-      <div class="cal-cell1">Суббота</div>
-      <div class="cal-cell1">Воскресенье</div>
-    </div>
+      <!-- month box -->
+      <div class="cal-month-box">
 
-    <!-- month box -->
-    <div class="cal-month-box">
-
-      <div class="cal-row-fluid cal-before-eventlist" *ngFor="let week of calendarMonth.weeks">
-        <ng-container *ngFor="let day of week">
-          <!-- days of week -->
-          <div class="cal-cell1 cal-cell" data-cal-row="-day1">
-            <div [ngClass]="{
+        <div class="cal-row-fluid cal-before-eventlist" *ngFor="let week of calendarMonth.weeks">
+          <ng-container *ngFor="let day of week">
+            <!-- days of week -->
+            <div class="cal-cell1 cal-cell" data-cal-row="-day1">
+              <div [ngClass]="{
               'cal-day-outmonth': !isDayOfThisMonth(calendarMonth, day),
               'cal-day-inmonth': isDayOfThisMonth(calendarMonth, day),
               'is-today': day.today,
               'cal-day-weekend': isWeekend(day),
               'has-remind': hasReminds(day)}" class="cal-month-day cal-month-first-row" (click)="selectDate(day)">
-              <span class="pull-right" data-cal-date="2013-02-25" data-cal-view="day" data-toggle="tooltip" title=""
-                data-original-title="">{{day.mDate.date()}}</span>
+                <span class="pull-right" data-cal-date="2013-02-25" data-cal-view="day" data-toggle="tooltip" title=""
+                  data-original-title="">{{day.mDate.date()}}</span>
 
-              <div class="events-list">
+                <div class="events-list">
 
-                <div *ngFor="let remind of day.reminds" class="pull-right event"
-                  [ngClass]="{'event-info': isInFuture(day), 'event-warning': isToday(day.mDate), 'event-important': !isToday(day.mDate) && !isInFuture(day)}">
+                  <div *ngFor="let remind of day.reminds" class="pull-right event"
+                    [ngClass]="{'event-info': isInFuture(day.mDate), 'event-warning': isToday(day.mDate), 'event-important': !isToday(day.mDate) && !isInFuture(day)}">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+
+          <!-- weekly reminds details -->
+          <div *ngIf="remindsVisible && showReminds(week)" [@inOutAnimation]>
+            <div class="card">
+              <div class="card-body">
+                <span>{{selectedDate.mDate.format('DD.MMMM YYYY')}}</span>
+                <div *ngFor="let remind of selectedDate.reminds">
+                  <alert [type]="remind.type" [dismissible]="true">{{ remind.note }}</alert>
                 </div>
 
               </div>
             </div>
-          </div>
 
-        </ng-container>
-
-        <!-- weekly reminds details -->
-        <div *ngIf="remindsVisible && showReminds(week)" [@inOutAnimation]>
-          <br>
-          <br>
-          {{selectedDate.mDate.format('DD-MMMM-YYYY')}}<br>
-          <br>
-          <br>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- <div class="row">
-  <div class="col-lg-4" *ngFor="let month of months; let i = index">
-
-    <div class="card">
-      <div class="card-header">
-        {{month.firstDay.format('MMMM')}}
-      </div>
-      <div class="card-body">
-        <div class="calendar__month">
-          <div class="calendar__day-names">
-            <div class="calendar__day-name" *ngFor="let name of namesOfDays">
-              {{name}}
-            </div>
-          </div>
-          <div class="calendar__weeks">
-            <div class="calendar__week" *ngFor="let week of month.weeks">
-              <ng-container *ngFor="let day of week">
-                <div class="calendar__date" [ngClass]="{
-                    'today': day.today,
-                    'important': isImportant(month, day),
-                    'important_done': isImportantDone(month, day),
-                    'unimportant': isUnImportant(month, day),
-                    'unimportant_done': isUnImportantDone(month, day),
-                    'regular': isRegular(month, day),
-                    'regular_done': isRegularDone(month, day),
-                    'mixed': isMixed(month, day),
-                    'mixed_all_done': isMixedAllDone(month, day),
-                    'disabled': !isDayOfThisMonth(month, day.mDate)
-                  }" (click)=" selectDate(day)">
-                  <span class="calendar__number">{{day.mDate.date()}}</span>
-                </div>
-              </ng-container>
-            </div>
           </div>
 
         </div>
       </div>
-      <div class="card-footer">
-        reminders for month
-      </div>
     </div>
-
   </div>
-</div> -->

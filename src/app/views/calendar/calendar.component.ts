@@ -25,6 +25,7 @@ interface Remind {
   date: moment.Moment;
   done: string;
   note: string;
+  type: string;
   // status: CalendarStatus;
 }
 
@@ -41,20 +42,20 @@ export class CalendarComponent implements OnInit {
   calendarMonth: Month = { firstDay: null, weeks: [] };
 
   months: Month[] = [];
-  // public namesOfDays: string[] = [];
+  public namesOfDays: string[] = [];
   reminds: Remind[] = [];
 
   constructor(private eRef: ElementRef, private http: HttpClient) {}
 
   ngOnInit(): void {
-    moment.locale('lv');
-    this.selectedMonth = moment();
     this.remindsVisible = false;
+    this.selectedMonth = moment();
 
-    // this.namesOfDays = moment.weekdaysShort();
-    // this.namesOfDays.push(
-    //   /*set monday as week start*/ this.namesOfDays.shift()
-    // );
+    moment.locale('lv'); // TODO: read locale from storage
+    this.namesOfDays = moment.weekdays();
+    this.namesOfDays.push(
+      /*set monday as week start*/ this.namesOfDays.shift()
+    );
 
     // get reminders
     this.http
@@ -69,6 +70,7 @@ export class CalendarComponent implements OnInit {
               date: moment(date.remind_date, 'YYYY-MM-DD'),
               done: date.remind_done,
               note: date.remind_note,
+              type: this.remindType(moment(date.remind_date, 'YYYY-MM-DD')),
               // status: date.remind_status,
             };
           });
@@ -80,7 +82,7 @@ export class CalendarComponent implements OnInit {
             console.log(
               remind.date.format('DD-MM-YYYY') +
                 ' -> ' +
-                // remind.status +
+                remind.type +
                 ' done? ' +
                 remind.done
             );
@@ -90,6 +92,15 @@ export class CalendarComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  remindType(date: moment.Moment): string {
+    if (this.isToday(date)) {
+      return 'warning';
+    } else if (this.isInFuture(date)) {
+      return 'info';
+    }
+    return 'danger';
   }
 
   /**
@@ -205,8 +216,8 @@ export class CalendarComponent implements OnInit {
    * @param date - calendar date
    * @returns - true, if date in future
    */
-  isInFuture(date: CalendarDate): boolean {
-    return moment().isBefore(moment(date.mDate), 'day');
+  isInFuture(date: moment.Moment): boolean {
+    return moment().isBefore(moment(date), 'day');
   }
 
   /**
