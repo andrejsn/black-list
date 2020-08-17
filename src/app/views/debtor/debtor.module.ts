@@ -20,6 +20,7 @@ import { ShortenTextPipe } from '@shared/helpers';
 import { TranslateModule } from '@ngx-translate/core';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { ReminderPayComponent } from './templates/reminder-pay/reminder-pay.component';
 import { WarningPayComponent } from './templates/warning-pay/warning-pay.component';
@@ -63,6 +64,7 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     CollapseModule,
     BsDatepickerModule,
     TranslateModule,
+    AlertModule.forRoot(),
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
   ],
 })

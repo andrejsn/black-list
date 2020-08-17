@@ -16,6 +16,7 @@ import { Debtor } from '@app/models';
 import { Calendar } from '@app/models/calendar';
 import { environment } from '@environments/environment';
 import { DebtorCachedService } from '@shared/services';
+import { inOutAnimation } from '@shared/helpers';
 
 interface CalendarTableElement extends Calendar {
   visible: boolean;
@@ -24,16 +25,17 @@ interface CalendarTableElement extends Calendar {
 
 interface Task {
   debtor_id: number;
-  taskDate: Date;
-  taskNote: string;
-  reminderDate?: Date;
-  reminderNote?: string;
+  date: Date;
+  note: string;
+  remind_date?: Date;
+  remind_note?: string;
 }
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
+  animations: [inOutAnimation()],
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
@@ -79,7 +81,7 @@ export class TasksComponent implements OnInit {
       taskDate: ['', [Validators.required]],
       taskNote: ['', [Validators.required]],
       reminderNote: ['', [Validators.required]],
-      reminderDate: ['', [Validators.required]],
+      reminderDate: ['', [Validators.required]], // TODO: Validator reminderDate > today
     });
 
     // get data
@@ -162,7 +164,8 @@ export class TasksComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
+          this.calendarList = data;
+          console.log(this.calendarList );
         },
         (error) => {
           this.loading = false;
@@ -179,13 +182,13 @@ export class TasksComponent implements OnInit {
   private initNewTask(): Task {
     const task: Task = {
       debtor_id: this.debtor.id,
-      taskDate: this.addTaskForm.controls['taskDate'].value,
-      taskNote: this.addTaskForm.controls['taskNote'].value,
+      date: this.addTaskForm.controls['taskDate'].value,
+      note: this.addTaskForm.controls['taskNote'].value,
     };
     // add reminder?
     if (this.isCreateReminder) {
-      task.reminderDate = this.addTaskForm.controls['reminderDate'].value;
-      task.reminderNote = this.addTaskForm.controls['reminderNote'].value;
+      task.remind_date = this.addTaskForm.controls['reminderDate'].value;
+      task.remind_note = this.addTaskForm.controls['reminderNote'].value;
     }
 
     return task;

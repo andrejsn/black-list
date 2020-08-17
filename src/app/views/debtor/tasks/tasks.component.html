@@ -85,6 +85,7 @@
 <div *ngIf="!addMode" class="row">
   <div class="col-lg-12">
     <div class="card">
+      <!-- card header -->
       <div class="card-header">
         <i class="fa fa-tasks fa-2x" aria-hidden="true"></i> Tasks (%count all|
         active%)
@@ -95,6 +96,9 @@
           </button>
         </span>
       </div>
+      <!-- card body -->
+
+
       <div class="card-body">
         <table class="table table-responsive-sm table-sm">
           <thead>
@@ -119,15 +123,16 @@
 
                 <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td>{{calendar.note}}</td>
-                <td><button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button></td>
+                <td><button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+                  <button class="btn"><i class="fa fa-trash" aria-hidden="true"></i> Trash</button></td>
               </tr>
+              <!-- reminds details -->
               <tr class="d-none row-num-{{ i }}">
-                <td *ngIf="calendar.visible" colspan="4">
-                  <div class="card"
-                    [ngClass]="{'border-danger': calendar.remind_status.toString() === 'important', 'border-info': calendar.remind_status.toString() === 'unimportant', 'border-warning': calendar.remind_status.toString() === 'regular'}">
-                    <div class="card-header">
-                      the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}}
+                <td *ngIf="calendar.visible" colspan="3" [@inOutAnimation]>
+                  <!-- [ngClass]="{'border-danger': calendar.remind_status.toString() === 'important', 'border-info': calendar.remind_status.toString() === 'unimportant', 'border-warning': calendar.remind_status.toString() === 'regular'}"> -->
+                  <!-- <div class="card"> -->
+                    <!-- the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}} -->
+                    <!-- <div class="card-header">
                       <div class="card-header-actions" style="height: 21px;">
                         <label class="switch switch-sm switch-label switch-info">
                           <input type="checkbox" class="switch-input" [checked]="calendar.remind_done == '0'"
@@ -135,11 +140,14 @@
                           <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                         </label>
                       </div>
-                    </div>
-                    <div class="card-body">
-                      {{calendar.remind_note}}
-                    </div>
-                  </div>
+                    </div> -->
+                    <!-- <div class="card-body"> -->
+                      <alert [type]="'info'" [dismissible]="false">{{ calendar.remind_note }}</alert>
+                    <!-- </div> -->
+                  <!-- </div> -->
+                </td>
+                <td>
+                  <button class="btn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Check</button>
                 </td>
               </tr>
             </ng-container>
