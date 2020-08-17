@@ -21,6 +21,15 @@ interface CalendarTableElement extends Calendar {
   visible: boolean;
   isChecked: boolean;
 }
+
+interface Task {
+  debtor_id: number;
+  taskDate: Date;
+  taskNote: string;
+  reminderDate?: Date;
+  reminderNote?: string;
+}
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -28,10 +37,11 @@ interface CalendarTableElement extends Calendar {
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
+  today: Date;
+
   calendarList: CalendarTableElement[];
   addMode: boolean;
   isCreateReminder: boolean;
-  today: Date;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -148,13 +158,7 @@ export class TasksComponent implements OnInit {
     this.addMode = false;
     // this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/add/task`, {
-        debtor_id: this.debtor.id,
-        taskDate: this.addTaskForm.controls['taskDate'].value,
-        taskNote: this.addTaskForm.controls['taskNote'].value,
-        reminderDate: this.addTaskForm.controls['reminderDate'].value,
-        reminderNote: this.addTaskForm.controls['reminderNote'].value,
-      })
+      .post<any>(`${environment.apiUrl}/add/task`, this.initNewTask())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -170,6 +174,21 @@ export class TasksComponent implements OnInit {
             });
         }
       );
+  }
+
+  private initNewTask(): Task {
+    const task: Task = {
+      debtor_id: this.debtor.id,
+      taskDate: this.addTaskForm.controls['taskDate'].value,
+      taskNote: this.addTaskForm.controls['taskNote'].value,
+    };
+    // add reminder?
+    if (this.isCreateReminder) {
+      task.reminderDate = this.addTaskForm.controls['reminderDate'].value;
+      task.reminderNote = this.addTaskForm.controls['reminderNote'].value;
+    }
+
+    return task;
   }
 
   changedCreateReminder() {
