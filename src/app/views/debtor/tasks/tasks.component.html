@@ -128,7 +128,7 @@
               </tr>
               <!-- reminds details -->
               <tr class="d-none row-num-{{ i }}">
-                <td *ngIf="calendar.visible" colspan="3" [@inOutAnimation]>
+                <td *ngIf="calendar.visible" colspan="3">
                   <!-- [ngClass]="{'border-danger': calendar.remind_status.toString() === 'important', 'border-info': calendar.remind_status.toString() === 'unimportant', 'border-warning': calendar.remind_status.toString() === 'regular'}"> -->
                   <!-- <div class="card"> -->
                     <!-- the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}} -->

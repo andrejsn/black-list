@@ -35,7 +35,7 @@ interface Task {
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
-  animations: [inOutAnimation()],
+  // animations: [inOutAnimation()],
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
