@@ -144,7 +144,32 @@ export class TasksComponent implements OnInit {
 
       return;
     }
+
     this.addMode = false;
+    // this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/add/task`, {
+        debtor_id: this.debtor.id,
+        taskDate: this.addTaskForm.controls['taskDate'].value,
+        taskNote: this.addTaskForm.controls['taskNote'].value,
+        reminderDate: this.addTaskForm.controls['reminderDate'].value,
+        reminderNote: this.addTaskForm.controls['reminderNote'].value,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 
   changedCreateReminder() {
