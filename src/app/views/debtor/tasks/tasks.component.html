@@ -49,7 +49,7 @@
               <input id="reminderDate" class="form-control" bsDatepicker formControlName="reminderDate" placement="auto"
                 placeholder="{{ 'placeholder.task.date' | translate}}"
                 [ngClass]="{'is-invalid': submitted && f.reminderDate.errors, 'is-valid': submitted && !f.reminderDate.errors}"
-                [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue', minDate: today }">
               <div *ngIf="submitted && f.reminderDate.errors && f.reminderDate.errors.required"
                 class="invalid-feedback">
                 {{'template.error.reminderDate.required' | translate}}</div>

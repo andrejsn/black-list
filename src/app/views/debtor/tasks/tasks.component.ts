@@ -31,6 +31,7 @@ export class TasksComponent implements OnInit {
   calendarList: CalendarTableElement[];
   addMode: boolean;
   isCreateReminder: boolean;
+  today: Date;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -59,6 +60,7 @@ export class TasksComponent implements OnInit {
       return;
     }
 
+    this.today = new Date();
     this.debtor = this.debtorCachedService.debtor;
     this.addMode = false;
 
