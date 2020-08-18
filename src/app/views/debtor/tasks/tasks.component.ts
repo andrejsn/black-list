@@ -77,12 +77,18 @@ export class TasksComponent implements OnInit {
     this.addMode = false;
 
     // create validators
-    this.addTaskForm = this.formBuilder.group({
-      taskDate: ['', [Validators.required]],
-      taskNote: ['', [Validators.required]],
-      reminderNote: ['', [Validators.required]],
-      reminderDate: ['', [Validators.required]], // TODO: Validator reminderDate > today
-    });
+    this.addTaskForm = this.formBuilder.group(
+      {
+        taskDate: ['', [Validators.required]],
+        taskNote: ['', [Validators.required]],
+        reminderNote: ['', [Validators.required]],
+        reminderDate: ['', [Validators.required]],
+      },
+      { validator: this.remindDateAfterOrEqualTaskDate }
+    );
+    // this.addTaskForm.valueChanges.subscribe((form: any) => {
+    //   console.log('form changed to: ' + form);
+    // });
 
     // get data
     this.http
@@ -101,6 +107,28 @@ export class TasksComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  /**
+   * Validator: remind Date after or equal task date
+   */
+  private remindDateAfterOrEqualTaskDate(formGroup: FormGroup): any {
+    console.log('VALIDATOR RUN');
+
+    let taskDateTimestamp, remindDateTimestamp;
+    // tslint:disable-next-line: forin
+    for (const controlName in formGroup.controls) {
+      if (controlName.indexOf('taskDate') !== -1) {
+        taskDateTimestamp = Date.parse(formGroup.controls[controlName].value);
+      }
+      if (controlName.indexOf('reminderDate') !== -1) {
+        remindDateTimestamp = Date.parse(formGroup.controls[controlName].value);
+      }
+    }
+
+    return remindDateTimestamp < taskDateTimestamp
+      ? { remindDateLessTaskDate: true }
+      : null;
   }
 
   /**
@@ -148,6 +176,9 @@ export class TasksComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.addTaskForm.invalid) {
+      // console.log('###');
+      // console.log(this.addTaskForm.hasError('remindDateLessTaskDate'));
+
       this.translate
         .get('toast.error.template.form')
         .subscribe((error: string) => {
@@ -165,7 +196,7 @@ export class TasksComponent implements OnInit {
       .subscribe(
         (data) => {
           this.calendarList = data;
-          console.log(this.calendarList );
+          // console.log(this.calendarList);
         },
         (error) => {
           this.loading = false;
