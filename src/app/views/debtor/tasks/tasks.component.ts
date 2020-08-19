@@ -23,42 +23,18 @@ interface CalendarTableElement extends Calendar {
   isChecked: boolean;
 }
 
-interface Task {
-  debtor_id: number;
-  date: Date;
-  note: string;
-  remind_date?: Date;
-  remind_note?: string;
-}
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss'],
-  // animations: [inOutAnimation()],
+  styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
-  today: Date;
-
   calendarList: CalendarTableElement[];
-  addMode: boolean;
-  isCreateReminder: boolean;
-
-  submitted: boolean = false;
-  loading: boolean = false;
-
-  addTaskForm = new FormGroup({
-    taskDate: new FormControl(new Date()),
-    taskNote: new FormControl(),
-    reminderNote: new FormControl(),
-    reminderDate: new FormControl(new Date()),
-  });
 
   constructor(
     private debtorCachedService: DebtorCachedService,
     private router: Router,
-    private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService
@@ -72,23 +48,7 @@ export class TasksComponent implements OnInit {
       return;
     }
 
-    this.today = new Date();
     this.debtor = this.debtorCachedService.debtor;
-    this.addMode = false;
-
-    // create validators
-    this.addTaskForm = this.formBuilder.group(
-      {
-        taskDate: ['', [Validators.required]],
-        taskNote: ['', [Validators.required]],
-        reminderNote: ['', [Validators.required]],
-        reminderDate: ['', [Validators.required]],
-      },
-      { validator: this.remindDateAfterOrEqualTaskDate }
-    );
-    // this.addTaskForm.valueChanges.subscribe((form: any) => {
-    //   console.log('form changed to: ' + form);
-    // });
 
     // get data
     this.http
@@ -107,28 +67,6 @@ export class TasksComponent implements OnInit {
           console.log(error);
         }
       );
-  }
-
-  /**
-   * Validator: remind Date after or equal task date
-   */
-  private remindDateAfterOrEqualTaskDate(formGroup: FormGroup): any {
-    console.log('VALIDATOR RUN');
-
-    let taskDateTimestamp, remindDateTimestamp;
-    // tslint:disable-next-line: forin
-    for (const controlName in formGroup.controls) {
-      if (controlName.indexOf('taskDate') !== -1) {
-        taskDateTimestamp = Date.parse(formGroup.controls[controlName].value);
-      }
-      if (controlName.indexOf('reminderDate') !== -1) {
-        remindDateTimestamp = Date.parse(formGroup.controls[controlName].value);
-      }
-    }
-
-    return remindDateTimestamp < taskDateTimestamp
-      ? { remindDateLessTaskDate: true }
-      : null;
   }
 
   /**
@@ -159,87 +97,20 @@ export class TasksComponent implements OnInit {
   }
 
   /**
-   * add new task
+   * delete task with id
+   * @param id - calendar id
    */
-  addTask() {
-    this.addMode = true;
-    this.isCreateReminder = false;
-    this.addTaskForm.get('reminderDate').disable();
-    this.addTaskForm.get('reminderNote').disable();
-  }
-
-  /**
-   * submit form
-   */
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.addTaskForm.invalid) {
-      // console.log('###');
-      // console.log(this.addTaskForm.hasError('remindDateLessTaskDate'));
-
-      this.translate
-        .get('toast.error.template.form')
-        .subscribe((error: string) => {
-          this.snotifyService.error(error);
-        });
-
-      return;
-    }
-
-    this.addMode = false;
-    // this.loading = true;
-    this.http
-      .post<any>(`${environment.apiUrl}/add/task`, this.initNewTask())
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.calendarList = data;
-          // console.log(this.calendarList);
-        },
-        (error) => {
-          this.loading = false;
-          this.submitted = false;
-          this.translate
-            .get('toast.error.response')
-            .subscribe((error: string) => {
-              this.snotifyService.error(error);
-            });
-        }
-      );
-  }
-
-  private initNewTask(): Task {
-    const task: Task = {
-      debtor_id: this.debtor.id,
-      date: this.addTaskForm.controls['taskDate'].value,
-      note: this.addTaskForm.controls['taskNote'].value,
-    };
-    // add reminder?
-    if (this.isCreateReminder) {
-      task.remind_date = this.addTaskForm.controls['reminderDate'].value;
-      task.remind_note = this.addTaskForm.controls['reminderNote'].value;
-    }
-
-    return task;
-  }
-
-  changedCreateReminder() {
-    this.isCreateReminder = !this.isCreateReminder;
-    console.log(this.isCreateReminder);
-
-    if (this.isCreateReminder) {
-      this.addTaskForm.get('reminderDate').enable();
-      this.addTaskForm.get('reminderNote').enable();
-    } else {
-      this.addTaskForm.get('reminderDate').disable();
-      this.addTaskForm.get('reminderNote').disable();
-    }
-  }
-
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.addTaskForm.controls;
+  deleteTask(calendar: CalendarTableElement) {
+    console.log('delete id: ' + calendar.id);
+    this.snotifyService.confirm('Example body content', 'Example title', {
+      timeout: 5000,
+      showProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      buttons: [
+        { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
+        { text: 'No', action: () => console.log('Clicked: No') },
+      ],
+    });
   }
 }
