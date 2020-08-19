@@ -1,22 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { SnotifyService } from 'ng-snotify';
+import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
 import { Debtor } from '@app/models';
 import { Calendar } from '@app/models/calendar';
 import { environment } from '@environments/environment';
 import { DebtorCachedService } from '@shared/services';
-import { inOutAnimation } from '@shared/helpers';
 
 interface CalendarTableElement extends Calendar {
   visible: boolean;
@@ -31,6 +25,7 @@ interface CalendarTableElement extends Calendar {
 export class TasksComponent implements OnInit {
   debtor: Debtor;
   calendarList: CalendarTableElement[];
+  loading: boolean;
 
   constructor(
     private debtorCachedService: DebtorCachedService,
@@ -49,6 +44,7 @@ export class TasksComponent implements OnInit {
     }
 
     this.debtor = this.debtorCachedService.debtor;
+    this.loading = false;
 
     // get data
     this.http
@@ -101,27 +97,64 @@ export class TasksComponent implements OnInit {
    * @param id - calendar id
    */
   notifyDeleteTask(calendar: CalendarTableElement, index: number) {
+    this.loading = true;
     const selector = `.note-num-${index}`;
-    document.querySelector(selector).classList.toggle('to-delete');
+    document.querySelector(selector).classList.add('to-delete');
 
-    this.snotifyService.confirm('The task will be deleted', 'Are you sure?', {
-      timeout: 5000,
-      showProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      buttons: [
-        { text: 'Yes', action: () => this.deleteTask(calendar), bold: false },
-        { text: 'No', action: () => this.cancelDeleteTask(index) },
-      ],
-    });
+    this.snotifyService
+      .confirm('The task will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          { text: 'Yes', action: () => this.deleteTask(calendar), bold: false },
+          { text: 'No', action: () => this.cancelDeleteTask(index) },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeleteTask(index);
+      });
   }
 
   private cancelDeleteTask(index: number) {
+    this.loading = false;
     const selector = `.note-num-${index}`;
-    document.querySelector(selector).classList.toggle('to-delete');
+    document.querySelector(selector).classList.remove('to-delete');
   }
 
   private deleteTask(calendar: CalendarTableElement) {
+    this.http
+      .post<any>(`${environment.apiUrl}/destroy/task`, { id: calendar.id })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          if (data.deleted) {
+            // this.calendarList = this.calendarList.filter( //this.calendarList.slice(1);
+            //   (element) => element.id !== data.deleted
+            // );
 
+            this.calendarList = reject(this.calendarList, function (
+              calendarElement
+            ) {
+              // console.log(calendarElement.id);
+              // console.log(data.deleted);
+              // console.log(calendarElement.id as number !== data.deleted as number);
+
+              return calendarElement.id as number === data.deleted as number;
+            });
+
+            console.log(this.calendarList);
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 }

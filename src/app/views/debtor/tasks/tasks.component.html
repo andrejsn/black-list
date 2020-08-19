@@ -45,7 +45,7 @@
                 <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td class="note-num-{{ i }}">{{calendar.note}}</td>
                 <td><button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                  <button class="btn" (click)="notifyDeleteTask(calendar, i)"><i class="fa fa-trash" aria-hidden="true"></i>
+                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(calendar, i)"><i class="fa fa-trash" aria-hidden="true"></i>
                     Trash</button></td>
               </tr>
               <!-- reminds details -->

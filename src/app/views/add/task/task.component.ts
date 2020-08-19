@@ -58,17 +58,35 @@ export class TaskComponent implements OnInit {
     this.debtor = this.debtorCachedService.debtor;
     this.today = new Date();
     this.isCreateReminder = false;
+    this.loading = false;
 
     // create validation
     this.addTaskForm = this.formBuilder.group(
       {
         taskDate: ['', [Validators.required]],
         taskNote: ['', [Validators.required]],
-        reminderNote: ['', [Validators.required]],
-        reminderDate: ['', [Validators.required]],
+        reminderDate: ['', []],
+        reminderNote: ['', []],
       },
       { validator: this.remindDateAfterOrEqualTaskDate }
     );
+  }
+
+  changedCreateReminder() {
+    this.isCreateReminder = !this.isCreateReminder;
+
+    const reminderDateControl = this.addTaskForm.controls['reminderDate'];
+    const reminderNoteControl = this.addTaskForm.controls['reminderNote'];
+    if (this.isCreateReminder) {
+      reminderDateControl.setValidators(Validators.required);
+      reminderNoteControl.setValidators(Validators.required);
+    } else {
+      reminderDateControl.clearValidators();
+      reminderDateControl.updateValueAndValidity();
+
+      reminderNoteControl.clearValidators();
+      reminderNoteControl.updateValueAndValidity();
+    }
   }
 
   /**
@@ -89,34 +107,6 @@ export class TaskComponent implements OnInit {
     return remindDateTimestamp < taskDateTimestamp
       ? { remindDateLessTaskDate: true }
       : null;
-  }
-
-  private initNewTask(): Task {
-    const task: Task = {
-      debtor_id: this.debtor.id,
-      date: this.addTaskForm.controls['taskDate'].value,
-      note: this.addTaskForm.controls['taskNote'].value,
-    };
-    // add reminder?
-    if (this.isCreateReminder) {
-      task.remind_date = this.addTaskForm.controls['reminderDate'].value;
-      task.remind_note = this.addTaskForm.controls['reminderNote'].value;
-    }
-
-    return task;
-  }
-
-  changedCreateReminder() {
-    this.isCreateReminder = !this.isCreateReminder;
-    console.log(this.isCreateReminder);
-
-    if (this.isCreateReminder) {
-      this.addTaskForm.get('reminderDate').enable();
-      this.addTaskForm.get('reminderNote').enable();
-    } else {
-      this.addTaskForm.get('reminderDate').disable();
-      this.addTaskForm.get('reminderNote').disable();
-    }
   }
 
   /**
@@ -143,8 +133,6 @@ export class TaskComponent implements OnInit {
       .subscribe(
         (data) => {
           this.router.navigate(['/debtor/tasks']);
-
-          console.log(data);
         },
         (error) => {
           this.loading = false;
@@ -158,6 +146,20 @@ export class TaskComponent implements OnInit {
       );
   }
 
+  private initNewTask(): Task {
+    const task: Task = {
+      debtor_id: this.debtor.id,
+      date: this.addTaskForm.controls['taskDate'].value,
+      note: this.addTaskForm.controls['taskNote'].value,
+    };
+    // add reminder?
+    if (this.isCreateReminder) {
+      task.remind_date = this.addTaskForm.controls['reminderDate'].value;
+      task.remind_note = this.addTaskForm.controls['reminderNote'].value;
+    }
+
+    return task;
+  }
   // convenience getter for easy access to form fields
   get f() {
     return this.addTaskForm.controls;
