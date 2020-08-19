@@ -26,7 +26,7 @@ interface CalendarTableElement extends Calendar {
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
@@ -100,17 +100,28 @@ export class TasksComponent implements OnInit {
    * delete task with id
    * @param id - calendar id
    */
-  deleteTask(calendar: CalendarTableElement) {
-    console.log('delete id: ' + calendar.id);
-    this.snotifyService.confirm('Example body content', 'Example title', {
+  notifyDeleteTask(calendar: CalendarTableElement, index: number) {
+    const selector = `.note-num-${index}`;
+    document.querySelector(selector).classList.toggle('to-delete');
+
+    this.snotifyService.confirm('The task will be deleted', 'Are you sure?', {
       timeout: 5000,
       showProgressBar: true,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: true,
       buttons: [
-        { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
-        { text: 'No', action: () => console.log('Clicked: No') },
+        { text: 'Yes', action: () => this.deleteTask(calendar), bold: false },
+        { text: 'No', action: () => this.cancelDeleteTask(index) },
       ],
     });
+  }
+
+  private cancelDeleteTask(index: number) {
+    const selector = `.note-num-${index}`;
+    document.querySelector(selector).classList.toggle('to-delete');
+  }
+
+  private deleteTask(calendar: CalendarTableElement) {
+
   }
 }
