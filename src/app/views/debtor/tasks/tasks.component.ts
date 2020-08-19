@@ -24,7 +24,7 @@ interface CalendarTableElement extends Calendar {
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
-  calendarList: CalendarTableElement[];
+  calendarList: CalendarTableElement[] = [];
   loading: boolean;
 
   constructor(
@@ -141,7 +141,9 @@ export class TasksComponent implements OnInit {
               // console.log(data.deleted);
               // console.log(calendarElement.id as number !== data.deleted as number);
 
-              return calendarElement.id as number === data.deleted as number;
+              return (
+                (calendarElement.id as number) === (data.deleted as number)
+              );
             });
 
             console.log(this.calendarList);

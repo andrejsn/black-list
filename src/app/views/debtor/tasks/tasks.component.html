@@ -21,7 +21,18 @@
 
 
       <div class="card-body">
-        <table class="table table-responsive-sm table-sm">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div *ngIf="calendarList.length === 0" >
+              Not Found
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <!-- not in use -->
+          </div>
+        </div>
+
+        <table *ngIf="calendarList.length > 0" class="table table-responsive-sm table-sm">
           <thead>
             <tr>
               <th></th>
