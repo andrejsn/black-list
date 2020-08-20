@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AddRoutingModule } from './add-routing.module';
+import { EditRoutingModule } from './edit-routing.module';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyModule } from 'ngx-currency';
@@ -10,12 +10,14 @@ import { customCurrencyMaskConfig } from '@app/app.module';
 import { SharingModule } from '@shared/shareModule';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-import { DebtorComponent, TaskComponent } from '.';
+
+import { TaskComponent } from '.';
+
 @NgModule({
-  declarations: [DebtorComponent, TaskComponent],
+  declarations: [TaskComponent],
   imports: [
     CommonModule,
-    AddRoutingModule,
+    EditRoutingModule,
     //
     SharingModule,
     FormsModule,
@@ -23,6 +25,6 @@ import { DebtorComponent, TaskComponent } from '.';
     TranslateModule,
     BsDatepickerModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-  ],
+  ]
 })
-export class AddModule {}
+export class EditModule { }

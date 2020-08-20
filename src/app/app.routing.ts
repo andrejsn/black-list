@@ -57,6 +57,12 @@ export const routes: Routes = [
         canActivate: [AuthenticationGuardService],
       },
       {
+        path: 'edit',
+        loadChildren: () =>
+          import('./views/_edit/edit.module').then((m) => m.EditModule),
+        canActivate: [AuthenticationGuardService],
+      },
+      {
         path: 'debtors',
         loadChildren: () =>
           import('./views/debtors/debtors.module').then((m) => m.DebtorsModule),
