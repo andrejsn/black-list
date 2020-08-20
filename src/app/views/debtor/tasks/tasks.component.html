@@ -4,26 +4,19 @@
     <div class="card">
       <!-- card header -->
       <div class="card-header">
-        <i class="fa fa-tasks fa-2x" aria-hidden="true"></i> Tasks (%count all|
-        active%)
+        <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
+        Tasks (%count all|active%)
+        <!-- add Task -->
         <span class="float-right">
-          <!-- <button class="btn" (click)="addTask()">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add Task
-          </button> -->
-
           <a class="btn btn-default btn-sm" [routerLink]="'/add/task'">
             <i class="fa fa-plus"></i> Add Task</a>
-
         </span>
       </div>
-      <!-- card body -->
-
 
       <div class="card-body">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <div *ngIf="calendarList.length === 0" >
+            <div *ngIf="calendarList.length === 0">
               Not Found
             </div>
           </div>
@@ -55,8 +48,11 @@
 
                 <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td class="note-num-{{ i }}">{{calendar.note}}</td>
-                <td><button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
-                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(calendar, i)"><i class="fa fa-trash" aria-hidden="true"></i>
+                <td>
+                  <a class="btn btn-default btn-sm" [routerLink]="'/edit/task'">
+                    <i class="fa fa-pencil-square-o"></i> Edit</a>
+                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(calendar, i)"><i
+                      class="fa fa-trash" aria-hidden="true"></i>
                     Trash</button></td>
               </tr>
               <!-- reminds details -->
@@ -64,22 +60,7 @@
                 <td> {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td><i class="fa fa-chevron-right" aria-hidden="true"></i></td>
                 <td *ngIf="calendar.visible">
-                  <!-- [ngClass]="{'border-danger': calendar.remind_status.toString() === 'important', 'border-info': calendar.remind_status.toString() === 'unimportant', 'border-warning': calendar.remind_status.toString() === 'regular'}"> -->
-                  <!-- <div class="card"> -->
-                  <!-- the task at {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}} is {{calendar.remind_status}} -->
-                  <!-- <div class="card-header">
-                      <div class="card-header-actions" style="height: 21px;">
-                        <label class="switch switch-sm switch-label switch-info">
-                          <input type="checkbox" class="switch-input" [checked]="calendar.remind_done == '0'"
-                            [(ngModel)]="calendar.isChecked" (change)="onChecked(calendar)">
-                          <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
-                        </label>
-                      </div>
-                    </div> -->
-                  <!-- <div class="card-body"> -->
                   <alert [type]="'info'" [dismissible]="false">{{ calendar.remind_note }}</alert>
-                  <!-- </div> -->
-                  <!-- </div> -->
                 </td>
                 <td>
                   <button class="btn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Check</button>
