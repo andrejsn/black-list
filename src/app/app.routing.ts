@@ -53,7 +53,7 @@ export const routes: Routes = [
       {
         path: 'add',
         loadChildren: () =>
-          import('./views/add/add.module').then((m) => m.AddModule),
+          import('./views/_add/add.module').then((m) => m.AddModule),
         canActivate: [AuthenticationGuardService],
       },
       {
