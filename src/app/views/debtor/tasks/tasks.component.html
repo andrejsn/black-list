@@ -49,11 +49,15 @@
                 <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td class="note-num-{{ i }}">{{calendar.note}}</td>
                 <td>
-                  <a class="btn btn-default btn-sm" [routerLink]="'/edit/task'">
-                    <i class="fa fa-pencil-square-o"></i> Edit</a>
+                  <!-- <a class="btn btn-default btn-sm" [routerLink]="'/edit/task'">
+                    <i class="fa fa-pencil-square-o"></i> Edit</a> -->
+                    <button [disabled]="loading" class="btn" (click)="editTask(calendar)"><i
+                      class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    Edit</button>
                   <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(calendar, i)"><i
                       class="fa fa-trash" aria-hidden="true"></i>
-                    Trash</button></td>
+                    Trash</button>
+                </td>
               </tr>
               <!-- reminds details -->
               <tr class="d-none row-num-{{ i }}">

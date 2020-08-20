@@ -10,7 +10,7 @@ import * as reject from 'lodash.reject';
 import { Debtor } from '@app/models';
 import { Calendar } from '@app/models/calendar';
 import { environment } from '@environments/environment';
-import { DebtorCachedService } from '@shared/services';
+import { DebtorCachedService, TaskCachedService } from '@shared/services';
 
 interface CalendarTableElement extends Calendar {
   visible: boolean;
@@ -29,6 +29,7 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private debtorCachedService: DebtorCachedService,
+    private taskCachedService: TaskCachedService,
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
@@ -90,6 +91,14 @@ export class TasksComponent implements OnInit {
     console.log(calendar.isChecked); // {}, true || false
 
     // TODO get to server - change done
+  }
+
+  /**
+   * edit task
+   */
+  editTask(calendar: CalendarTableElement) {
+    this.taskCachedService.task = calendar;
+    this.router.navigate(['/edit/task']);
   }
 
   /**

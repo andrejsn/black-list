@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Debtor } from '@app/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DebtorCachedService {
+  debtor: Debtor;
 
-  debtor:Debtor;
-
-  constructor() { }
+  constructor() {}
 }
