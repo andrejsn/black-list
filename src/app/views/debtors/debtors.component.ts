@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
-import { DebtorCachedService, CurrentlyTitleService } from '@shared/services';
+import { CurrentlyTitleService, CachedObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 interface DebtorTableElement extends Debtor {
@@ -40,10 +40,10 @@ export class DebtorsComponent implements OnInit {
 
   constructor(
     private currentlyTitleService: CurrentlyTitleService,
+    private cachedObjectsService: CachedObjectsService,
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
-    private debtorCachedService: DebtorCachedService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -94,7 +94,7 @@ export class DebtorsComponent implements OnInit {
    * go to contracts
    */
   contracts(selectesDebtor: Debtor) {
-    this.debtorCachedService.debtor = selectesDebtor;
+    this.cachedObjectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/contracts']);
   }
 
@@ -102,7 +102,7 @@ export class DebtorsComponent implements OnInit {
    * go to contracts
    */
   details(selectesDebtor: Debtor) {
-    this.debtorCachedService.debtor = selectesDebtor;
+    this.cachedObjectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/details']);
   }
 
@@ -110,7 +110,7 @@ export class DebtorsComponent implements OnInit {
    * go to tasks
    */
   tasks(selectesDebtor: Debtor) {
-    this.debtorCachedService.debtor = selectesDebtor;
+    this.cachedObjectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/tasks']);
   }
 

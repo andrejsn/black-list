@@ -11,6 +11,4 @@ export * from './representative';
 export * from './guarantor';
 export * from './template';
 export * from './template_status';
-export * from './calendar';
-export * from './calendar_status';
 export * from './task';

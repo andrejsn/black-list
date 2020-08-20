@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TaskCachedService } from './task-cached.service';
+import { CachedObjectsService } from './cached-objects.service';
 
-describe('TaskCachedService', () => {
-  let service: TaskCachedService;
+describe('CachedObjectsService', () => {
+  let service: CachedObjectsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TaskCachedService);
+    service = TestBed.inject(CachedObjectsService);
   });
 
   it('should be created', () => {

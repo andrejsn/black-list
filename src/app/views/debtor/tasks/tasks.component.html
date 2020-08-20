@@ -16,7 +16,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <div *ngIf="calendarList.length === 0">
+            <div *ngIf="taskList.length === 0">
               Not Found
             </div>
           </div>
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <table *ngIf="calendarList.length > 0" class="table table-responsive-sm table-sm">
+        <table *ngIf="taskList.length > 0" class="table table-responsive-sm table-sm">
           <thead>
             <tr>
               <th></th>
@@ -35,36 +35,36 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let calendar of calendarList; let i = index">
+            <ng-container *ngFor="let task of taskList; let i = index">
               <tr>
-                <td *ngIf="calendar.remind_date" class="toggle"
-                  (click)="toggle(calendarList, i); isTemplateCollapsed = true">
+                <td *ngIf="task.remind_date" class="toggle"
+                  (click)="toggle(taskList, i); isTemplateCollapsed = true">
                   <i aria-hidden="true" class="fa" [ngClass]="{
-                      'fa-expand': !calendar.visible,
-                      'fa-compress': calendar.visible
+                      'fa-expand': !task.visible,
+                      'fa-compress': task.visible
                     }"></i>
                 </td>
-                <td *ngIf="!calendar.remind_date"></td>
+                <td *ngIf="!task.remind_date"></td>
 
-                <td>{{calendar.date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                <td class="note-num-{{ i }}">{{calendar.note}}</td>
+                <td>{{task.date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                <td class="note-num-{{ i }}">{{task.note}}</td>
                 <td>
                   <!-- <a class="btn btn-default btn-sm" [routerLink]="'/edit/task'">
                     <i class="fa fa-pencil-square-o"></i> Edit</a> -->
-                    <button [disabled]="loading" class="btn" (click)="editTask(calendar)"><i
+                    <button [disabled]="loading" class="btn" (click)="editTask(task)"><i
                       class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Edit</button>
-                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(calendar, i)"><i
+                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(task, i)"><i
                       class="fa fa-trash" aria-hidden="true"></i>
                     Trash</button>
                 </td>
               </tr>
               <!-- reminds details -->
               <tr class="d-none row-num-{{ i }}">
-                <td> {{calendar.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                <td> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td><i class="fa fa-chevron-right" aria-hidden="true"></i></td>
-                <td *ngIf="calendar.visible">
-                  <alert [type]="'info'" [dismissible]="false">{{ calendar.remind_note }}</alert>
+                <td *ngIf="task.visible">
+                  <alert [type]="'info'" [dismissible]="false">{{ task.remind_note }}</alert>
                 </td>
                 <td>
                   <button class="btn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Check</button>

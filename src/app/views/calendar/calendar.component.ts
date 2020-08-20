@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as range from 'lodash.range';
 import { first } from 'rxjs/operators';
 
-import { Calendar, CalendarStatus } from '@app/models';
+import { Task  } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 
@@ -26,7 +26,6 @@ interface Remind {
   done: string;
   note: string;
   type: string;
-  // status: CalendarStatus;
 }
 
 @Component({
@@ -63,7 +62,7 @@ export class CalendarComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          const tmp = data as Calendar[];
+          const tmp = data as Task[];
           this.reminds = tmp.map((date) => {
             return {
               debtor_id: date.debtor_id,

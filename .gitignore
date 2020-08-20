@@ -43,7 +43,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-src/assets/img/calendar/dark_wood.png
-src/assets/img/calendar/slide-bg.png
-src/assets/img/calendar/tick.png

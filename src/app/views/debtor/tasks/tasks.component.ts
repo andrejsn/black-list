@@ -7,12 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { Debtor } from '@app/models';
-import { Calendar } from '@app/models/calendar';
+import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
-import { DebtorCachedService, TaskCachedService } from '@shared/services';
+import { CachedObjectsService } from '@shared/services';
 
-interface CalendarTableElement extends Calendar {
+interface CalendarTaskElement extends Task {
   visible: boolean;
   isChecked: boolean;
 }
@@ -24,12 +23,11 @@ interface CalendarTableElement extends Calendar {
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
-  calendarList: CalendarTableElement[] = [];
+  taskList: CalendarTaskElement[] = [];
   loading: boolean;
 
   constructor(
-    private debtorCachedService: DebtorCachedService,
-    private taskCachedService: TaskCachedService,
+    private cachedObjectsService: CachedObjectsService,
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
@@ -37,14 +35,14 @@ export class TasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.debtorCachedService.debtor) {
+    if (!this.cachedObjectsService.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
       return;
     }
 
-    this.debtor = this.debtorCachedService.debtor;
+    this.debtor = this.cachedObjectsService.debtor;
     this.loading = false;
 
     // get data
@@ -56,9 +54,9 @@ export class TasksComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.calendarList = data;
+          this.taskList = data;
 
-          console.log(this.calendarList);
+          console.log(this.taskList);
         },
         (error) => {
           console.log(error);
@@ -69,9 +67,9 @@ export class TasksComponent implements OnInit {
   /**
    * toggle row
    */
-  toggle(calendarList: CalendarTableElement[], index: number) {
-    for (let i = 0; i < calendarList.length; i++) {
-      const debtor = calendarList[i];
+  toggle(taskList: CalendarTaskElement[], index: number) {
+    for (let i = 0; i < taskList.length; i++) {
+      const debtor = taskList[i];
       const selector = `.row-num-${i}`;
 
       if (i === index) {
@@ -87,7 +85,7 @@ export class TasksComponent implements OnInit {
   /**
    * on check done
    */
-  onChecked(calendar: CalendarTableElement) {
+  onChecked(calendar: CalendarTaskElement) {
     console.log(calendar.isChecked); // {}, true || false
 
     // TODO get to server - change done
@@ -96,8 +94,8 @@ export class TasksComponent implements OnInit {
   /**
    * edit task
    */
-  editTask(calendar: CalendarTableElement) {
-    this.taskCachedService.task = calendar;
+  editTask(calendar: CalendarTaskElement) {
+    this.cachedObjectsService.task = calendar;
     this.router.navigate(['/edit/task']);
   }
 
@@ -105,7 +103,7 @@ export class TasksComponent implements OnInit {
    * delete task with id
    * @param id - calendar id
    */
-  notifyDeleteTask(calendar: CalendarTableElement, index: number) {
+  notifyDeleteTask(calendar: CalendarTaskElement, index: number) {
     this.loading = true;
     const selector = `.note-num-${index}`;
     document.querySelector(selector).classList.add('to-delete');
@@ -132,18 +130,18 @@ export class TasksComponent implements OnInit {
     document.querySelector(selector).classList.remove('to-delete');
   }
 
-  private deleteTask(calendar: CalendarTableElement) {
+  private deleteTask(task: CalendarTaskElement) {
     this.http
-      .post<any>(`${environment.apiUrl}/destroy/task`, { id: calendar.id })
+      .post<any>(`${environment.apiUrl}/destroy/task`, { id: task.id })
       .pipe(first())
       .subscribe(
         (data) => {
           if (data.deleted) {
-            // this.calendarList = this.calendarList.filter( //this.calendarList.slice(1);
+            // this.taskList = this.taskList.filter( //this.taskList.slice(1);
             //   (element) => element.id !== data.deleted
             // );
 
-            this.calendarList = reject(this.calendarList, function (
+            this.taskList = reject(this.taskList, function (
               calendarElement
             ) {
               // console.log(calendarElement.id);
@@ -155,7 +153,7 @@ export class TasksComponent implements OnInit {
               );
             });
 
-            console.log(this.calendarList);
+            console.log(this.taskList);
           }
         },
         (error) => {

@@ -12,8 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 
-import { Task, Debtor, Calendar } from '@app/models';
-import { TaskCachedService } from '@shared/services';
+import { Task } from '@app/models';
+import { CachedObjectsService } from '@shared/services';
 import { inOutAnimation } from '@shared/helpers';
 import { environment } from '@environments/environment';
 
@@ -23,7 +23,7 @@ import { environment } from '@environments/environment';
   animations: [inOutAnimation()],
 })
 export class TaskComponent implements OnInit {
-  calendar: Calendar;
+  task: Task;
   today: Date;
   isCreateReminder: boolean;
 
@@ -38,7 +38,7 @@ export class TaskComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private taskCachedService: TaskCachedService,
+    private cachedObjectsService: CachedObjectsService,
     private router: Router,
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -47,7 +47,7 @@ export class TaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.taskCachedService.task) {
+    if (!this.cachedObjectsService.task) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
@@ -147,7 +147,8 @@ export class TaskComponent implements OnInit {
 
   private initNewTask(): Task {
     const task: Task = {
-      debtor_id: -1, //this.debtor.id,
+      id: null,
+      debtor_id: -1, // this.debtor.id,
       date: this.editTaskForm.controls['taskDate'].value,
       note: this.editTaskForm.controls['taskNote'].value,
     };
