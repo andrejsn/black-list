@@ -11,7 +11,7 @@ import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
 import { CachedObjectsService } from '@shared/services';
 
-interface CalendarTaskElement extends Task {
+interface TableTaskElement extends Task {
   visible: boolean;
   isChecked: boolean;
 }
@@ -23,7 +23,7 @@ interface CalendarTaskElement extends Task {
 })
 export class TasksComponent implements OnInit {
   debtor: Debtor;
-  taskList: CalendarTaskElement[] = [];
+  taskList: TableTaskElement[] = [];
   loading: boolean;
 
   constructor(
@@ -67,7 +67,7 @@ export class TasksComponent implements OnInit {
   /**
    * toggle row
    */
-  toggle(taskList: CalendarTaskElement[], index: number) {
+  toggle(taskList: TableTaskElement[], index: number) {
     for (let i = 0; i < taskList.length; i++) {
       const debtor = taskList[i];
       const selector = `.row-num-${i}`;
@@ -85,8 +85,8 @@ export class TasksComponent implements OnInit {
   /**
    * on check done
    */
-  onChecked(calendar: CalendarTaskElement) {
-    console.log(calendar.isChecked); // {}, true || false
+  onChecked(task: TableTaskElement) {
+    console.log(task.isChecked); // {}, true || false
 
     // TODO get to server - change done
   }
@@ -94,8 +94,8 @@ export class TasksComponent implements OnInit {
   /**
    * edit task
    */
-  editTask(calendar: CalendarTaskElement) {
-    this.cachedObjectsService.task = calendar;
+  editTask(task: TableTaskElement) {
+    this.cachedObjectsService.task = task;
     this.router.navigate(['/edit/task']);
   }
 
@@ -103,7 +103,7 @@ export class TasksComponent implements OnInit {
    * delete task with id
    * @param id - calendar id
    */
-  notifyDeleteTask(calendar: CalendarTaskElement, index: number) {
+  notifyDeleteTask(calendar: TableTaskElement, index: number) {
     this.loading = true;
     const selector = `.note-num-${index}`;
     document.querySelector(selector).classList.add('to-delete');
@@ -130,7 +130,7 @@ export class TasksComponent implements OnInit {
     document.querySelector(selector).classList.remove('to-delete');
   }
 
-  private deleteTask(task: CalendarTaskElement) {
+  private deleteTask(task: TableTaskElement) {
     this.http
       .post<any>(`${environment.apiUrl}/destroy/task`, { id: task.id })
       .pipe(first())
