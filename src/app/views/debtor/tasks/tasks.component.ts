@@ -48,7 +48,7 @@ export class TasksComponent implements OnInit {
     // get data
     this.http
       .get<any>(
-        `${environment.apiUrl}/get/debtor/` + this.debtor.id + `/calendars`,
+        `${environment.apiUrl}/get/debtor/` + this.debtor.id + `/tasks`,
         {}
       )
       .pipe(first())
@@ -141,9 +141,7 @@ export class TasksComponent implements OnInit {
             //   (element) => element.id !== data.deleted
             // );
 
-            this.taskList = reject(this.taskList, function (
-              calendarElement
-            ) {
+            this.taskList = reject(this.taskList, function (calendarElement) {
               // console.log(calendarElement.id);
               // console.log(data.deleted);
               // console.log(calendarElement.id as number !== data.deleted as number);
