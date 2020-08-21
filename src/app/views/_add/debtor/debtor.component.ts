@@ -99,7 +99,7 @@ export class DebtorComponent implements OnInit {
     this.loading = true;
 
     this.http
-      .post<any>(`${environment.apiUrl}/add/debtor`, {
+      .post<any>(`${environment.apiUrl}/store/debtor`, {
         company: this.addDebtorForm.controls['company'].value,
         reg_number: this.addDebtorForm.controls['reg_number'].value,
         debt: this.addDebtorForm.controls['debt'].value,

@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit {
 
     // get reminders
     this.http
-      .get<any>(`${environment.apiUrl}/get/user/reminds`, {})
+      .get<any>(`${environment.apiUrl}/get/user/tasks`, {})
       .pipe(first())
       .subscribe(
         (data) => {
@@ -70,7 +70,6 @@ export class CalendarComponent implements OnInit {
               done: date.remind_done,
               note: date.remind_note,
               type: this.remindType(moment(date.remind_date, 'YYYY-MM-DD')),
-              // status: date.remind_status,
             };
           });
 
