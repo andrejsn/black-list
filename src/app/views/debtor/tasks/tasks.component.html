@@ -5,7 +5,8 @@
       <!-- card header -->
       <div class="card-header">
         <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
-        Tasks ({{taskList.length}}) | Reminds (<span class="remind-important"></span>X<span class="remind-warning"></span>Y<span class="remind-info"></span>Z)
+        Tasks ({{taskList.length}}) | Reminds (<span class="remind-important"></span>{{remind_important_count}}<span
+          class="remind-warning"></span>{{remind_warning_count}}<span class="remind-info"></span>{{remind_info_count}})
         <!-- add Task -->
         <span class="float-right">
           <a class="btn btn-default btn-sm" [routerLink]="'/add/task'">

@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
+import * as moment from 'moment';
 
 import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
@@ -13,8 +14,16 @@ import { CachedObjectsService } from '@shared/services';
 
 interface TableTaskElement extends Task {
   visible: boolean;
-  isChecked: boolean;
+  // isChecked: boolean;
+  remind_status?: string;
 }
+
+const statuses = {
+  DONE: 'done',
+  INFO: 'info',
+  WARNING: 'warning',
+  IMPORTANT: 'important',
+};
 
 @Component({
   selector: 'app-tasks',
@@ -22,8 +31,13 @@ interface TableTaskElement extends Task {
   styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
+  today: moment.Moment;
   debtor: Debtor;
   taskList: TableTaskElement[] = [];
+  remind_important_count: number;
+  remind_warning_count: number;
+  remind_info_count: number;
+
   loading: boolean;
 
   constructor(
@@ -42,6 +56,11 @@ export class TasksComponent implements OnInit {
       return;
     }
 
+    Object.freeze(statuses);
+    this.remind_important_count = 0;
+    this.remind_warning_count = 0;
+    this.remind_info_count = 0;
+    this.today = moment();
     this.debtor = this.cachedObjectsService.debtor;
     this.loading = false;
 
@@ -54,7 +73,20 @@ export class TasksComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.taskList = data;
+          const tmp = data as Task[];
+          this.taskList = tmp.map((task: Task) => {
+            return {
+              visible: false,
+              id: task.id,
+              debtor_id: task.debtor_id,
+              date: task.date,
+              note: task.note,
+              remind_date: task.remind_date,
+              remind_note: task.remind_note,
+              remind_done: task.remind_done,
+              remind_status: this.remindStatus(task),
+            };
+          });
 
           console.log(this.taskList);
         },
@@ -62,6 +94,32 @@ export class TasksComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  private remindStatus(task: Task): string {
+    // has in the task a reminder?
+    if (task.remind_date) {
+      // is remind done?
+      if (task.remind_done === '1') {
+        return statuses.DONE;
+      }
+
+      const date: moment.Moment = moment(new Date(task.remind_date));
+      // is remind for today?
+      if (this.today.isSame(date, 'day')) {
+        this.remind_warning_count++;
+        return statuses.WARNING;
+      }
+      // is a reminder in the future?
+      if (this.today.isBefore(moment(date), 'day')) {
+        this.remind_info_count++;
+        return statuses.INFO;
+      }
+      // important reminder!
+      this.remind_important_count++;
+      return statuses.IMPORTANT;
+    }
+    return null;
   }
 
   /**
@@ -86,8 +144,7 @@ export class TasksComponent implements OnInit {
    * on check done
    */
   onChecked(task: TableTaskElement) {
-    console.log(task.isChecked); // {}, true || false
-
+    // console.log(task.isChecked); // {}, true || false
     // TODO get to server - change done
   }
 
@@ -142,7 +199,7 @@ export class TasksComponent implements OnInit {
             // );
 
             this.taskList = reject(this.taskList, function (calendarElement) {
-              // console.log(calendarElement.id);
+              // console.log(calendarElement.id);isChecked
               // console.log(data.deleted);
               // console.log(calendarElement.id as number !== data.deleted as number);
 
