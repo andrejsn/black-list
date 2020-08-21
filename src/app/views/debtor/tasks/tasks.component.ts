@@ -19,10 +19,10 @@ interface TableTaskElement extends Task {
 }
 
 const statuses = {
-  DONE: 'done',
+  DONE: 'success',
   INFO: 'info',
   WARNING: 'warning',
-  IMPORTANT: 'important',
+  IMPORTANT: 'danger',
 };
 
 @Component({

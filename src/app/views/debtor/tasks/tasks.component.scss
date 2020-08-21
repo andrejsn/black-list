@@ -7,6 +7,13 @@
 }
 
 // TODO: class & subclass
+.remind-success:before {
+  content: '\25CF';
+  padding-left: 2px;
+  font-size: large;
+  color: #cdedd8;
+}
+
 .remind-info:before {
   content: '\25CF';
   padding-left: 2px;

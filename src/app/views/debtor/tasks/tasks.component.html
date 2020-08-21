@@ -39,10 +39,18 @@
             <ng-container *ngFor="let task of taskList; let i = index">
               <tr>
                 <td *ngIf="task.remind_date" class="toggle" (click)="toggle(taskList, i); isTemplateCollapsed = true">
-                  <i aria-hidden="true" class="fa" [ngClass]="{
+                  <div>
+                    <i aria-hidden="true" class="fa" [ngClass]="{
                       'fa-expand': !task.visible,
                       'fa-compress': task.visible
                     }"></i>
+                  </div>
+                  <div [ngClass]="{
+                    'remind-success': task.remind_status === 'success',
+                    'remind-info': task.remind_status === 'info',
+                    'remind-warning': task.remind_status === 'warning',
+                    'remind-important': task.remind_status === 'danger'
+                }"></div>
                 </td>
                 <td *ngIf="!task.remind_date"></td>
 
@@ -62,9 +70,8 @@
               <!-- reminds details -->
               <tr class="d-none row-num-{{ i }}">
                 <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                <!-- <td><i class="fa fa-chevron-right" aria-hidden="true"></i></td> -->
                 <td *ngIf="task.visible" class="no-top-border">
-                  <alert [type]="'info'" [dismissible]="false">{{ task.remind_note }}</alert>
+                  <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
                 </td>
                 <td class="no-top-border">
                   <button class="btn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Check</button>
