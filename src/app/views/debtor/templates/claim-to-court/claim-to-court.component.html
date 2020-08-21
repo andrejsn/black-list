@@ -34,7 +34,7 @@
                 <div class="form-group">
                   <label for="claimToCourtDate">Date of the document</label>
                   <input id="claimToCourtDate" class="form-control" bsDatepicker formControlName="claimToCourtDate"
-                    placement="top"
+                    autocomplete="off" placement="top"
                     [ngClass]="{'is-invalid': submitted && f.claimToCourtDate.errors, 'is-valid': submitted && !f.claimToCourtDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
                   <div *ngIf="submitted && f.claimToCourtDate.errors && f.claimToCourtDate.errors.required"
@@ -76,7 +76,8 @@
                     {{'debtor.error.court.required' | translate}}</div>
                 </div>
 
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
+                <div class="form-group"
+                  *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
                   <label for="claimToCourtName">Name of court</label>
                   <input class="form-control" id="claimToCourtName" formControlName="courtName" type="text"
                     placeholder="Enter court name" pattern="[^' ']+"
@@ -85,7 +86,8 @@
                     {{'template.error.courtName.required' | translate}}</div>
                 </div>
 
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
+                <div class="form-group"
+                  *ngIf="(selectedCourt + '') === 'state' || (contract.with_agreement + '') == '0'">
                   <label for="claimToCourtAddress">Address of court</label>
                   <input class="form-control" id="claimToCourtAddress" formControlName="courtAddress" type="text"
                     placeholder="Enter court address" pattern="[^' ']+"
@@ -100,7 +102,8 @@
 
             <div class="col-lg-4">
               <div class="card-body">
-                <div class="form-group" *ngIf="(selectedCourt + '') === 'arbitration' && (contract.with_agreement + '') == '1'">
+                <div class="form-group"
+                  *ngIf="(selectedCourt + '') === 'arbitration' && (contract.with_agreement + '') == '1'">
                   <label for="claimToCourtJudgesNumber">Number of judges</label>
                   <input class="form-control" id="claimToCourtJudgesNumber" formControlName="judgesNumber" type="number"
                     placeholder="Enter number"
@@ -131,7 +134,8 @@
                     <input class="form-control" id="attachmentName-{{attachmentIndex}}" type="text"
                       placeholder="Enter attachment name" formControlName="name" pattern="[^' ']+"
                       [ngClass]="{'is-invalid': submitted && attachment.controls.name.errors, 'is-valid': submitted && !attachment.controls.name.errors}">
-                    <div *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
+                    <div
+                      *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
                       class="invalid-feedback">
                       {{'template.error.attachment.required' | translate}}</div>
                   </div>

@@ -35,7 +35,7 @@
                 <div class="form-group">
                   <label for="warningDate">Date of the document</label>
                   <input id="warningDate" class="form-control" bsDatepicker formControlName="warningDate"
-                    placement="top"
+                    placement="top" autocomplete="off"
                     [ngClass]="{'is-invalid': submitted && f.warningDate.errors, 'is-valid': submitted && !f.warningDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
                   <div *ngIf="submitted && f.warningDate.errors && f.warningDate.errors.required"

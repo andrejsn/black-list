@@ -35,6 +35,7 @@
                 <div class="form-group">
                   <label for="remindDate">Date of the document</label>
                   <input id="remindDate" class="form-control" bsDatepicker formControlName="remindDate" placement="top"
+                    autocomplete="off"
                     [ngClass]="{'is-invalid': submitted && f.remindDate.errors, 'is-valid': submitted && !f.remindDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
                   <div *ngIf="submitted && f.remindDate.errors && f.remindDate.errors.required"

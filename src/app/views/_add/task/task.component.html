@@ -18,7 +18,7 @@
             <label class="col-md-3 col-form-label" for="taskDate">Date of the new task</label>
             <div class="col-md-8">
               <input id="taskDate" class="form-control" bsDatepicker formControlName="taskDate" placement="auto"
-                placeholder="{{ 'placeholder.task.date' | translate}}"
+                autocomplete="off" placeholder="{{ 'placeholder.task.date' | translate}}"
                 [ngClass]="{'is-invalid': submitted && f.taskDate.errors, 'is-valid': submitted && !f.taskDate.errors}"
                 [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
               <div *ngIf="submitted && f.taskDate.errors && f.taskDate.errors.required" class="invalid-feedback">
@@ -54,7 +54,7 @@
               <label class="col-md-3 col-form-label" for="reminderDate">Date of reminder</label>
               <div class="col-md-8">
                 <input id="reminderDate" class="form-control" bsDatepicker formControlName="reminderDate"
-                  placement="auto" placeholder="{{ 'placeholder.task.date' | translate}}"
+                  autocomplete="off" placement="auto" placeholder="{{ 'placeholder.task.date' | translate}}"
                   [ngClass]="{'is-invalid': submitted && f.reminderDate.errors || submitted && addTaskForm.hasError('remindDateLessTaskDate'), 'is-valid': submitted && !f.reminderDate.errors && !addTaskForm.hasError('remindDateLessTaskDate')}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue', minDate: today }">
                 <div *ngIf="submitted && f.reminderDate.errors && f.reminderDate.errors.required"

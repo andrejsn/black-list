@@ -11,6 +11,7 @@
           <div class="form-group">
             <label for="calcDate">Date of the document</label>
             <input id="calcDate" class="form-control" bsDatepicker formControlName="calcDate" placement="top"
+              autocomplete="off"
               [ngClass]="{'is-invalid': submitted && f.calcDate.errors, 'is-valid': submitted && !f.calcDate.errors}"
               [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
             <div *ngIf="submitted && f.calcDate.errors && f.calcDate.errors.required" class="invalid-feedback">

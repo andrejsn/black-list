@@ -10,8 +10,8 @@
           <div class="form-group">
             <!-- TODO i18n >>> https://stackoverflow.com/questions/50415568/how-to-change-message-invalid-date-in-ngx-bootstrap-datepicker-without-being-i -->
             <label for="date">{{ 'payment.date' | translate}}</label>
-            <input id="date" class="form-control" bsDatepicker formControlName="date" placement="top"
-            [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+            <input id="date" class="form-control" bsDatepicker formControlName="date" placement="top" autocomplete="off"
+              [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
               [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
             <div *ngIf="submitted && f.date.errors && f.date.errors.required" class="invalid-feedback">
               {{'payment.error.date.required' | translate}}</div>

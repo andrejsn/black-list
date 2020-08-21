@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="insolvencyDate">Date of the insolvency</label>
                   <input id="insolvencyDate" class="form-control" bsDatepicker formControlName="insolvencyDate"
-                    placement="top"
+                    placement="top" autocomplete="off"
                     [ngClass]="{'is-invalid': submitted && f.insolvencyDate.errors, 'is-valid': submitted && !f.insolvencyDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
                   <div *ngIf="submitted && f.insolvencyDate.errors && f.insolvencyDate.errors.required"
@@ -47,11 +47,12 @@
 
                 <div class="form-group">
                   <label for="creditorToAdministratorDate">Date of the document</label>
-                  <input id="creditorToAdministratorDate" class="form-control" bsDatepicker formControlName="creditorToAdministratorDate"
-                    placement="top"
+                  <input id="creditorToAdministratorDate" class="form-control" bsDatepicker
+                    formControlName="creditorToAdministratorDate" placement="top" autocomplete="off"
                     [ngClass]="{'is-invalid': submitted && f.creditorToAdministratorDate.errors, 'is-valid': submitted && !f.creditorToAdministratorDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                  <div *ngIf="submitted && f.creditorToAdministratorDate.errors && f.creditorToAdministratorDate.errors.required"
+                  <div
+                    *ngIf="submitted && f.creditorToAdministratorDate.errors && f.creditorToAdministratorDate.errors.required"
                     class="invalid-feedback">
                     {{'template.error.creditorToAdministratorDate.required' | translate}}</div>
                 </div>
@@ -72,11 +73,12 @@
 
                 <div class="form-group">
                   <label for="insolvencyRegisterEntryDate">Date of entry in the Register</label>
-                  <input id="insolvencyRegisterEntryDate" class="form-control" bsDatepicker formControlName="insolvencyRegisterEntryDate"
-                    placement="top"
+                  <input id="insolvencyRegisterEntryDate" class="form-control" bsDatepicker
+                    formControlName="insolvencyRegisterEntryDate" placement="top" autocomplete="off"
                     [ngClass]="{'is-invalid': submitted && f.insolvencyRegisterEntryDate.errors, 'is-valid': submitted && !f.insolvencyRegisterEntryDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                  <div *ngIf="submitted && f.insolvencyRegisterEntryDate.errors && f.insolvencyRegisterEntryDate.errors.required"
+                  <div
+                    *ngIf="submitted && f.insolvencyRegisterEntryDate.errors && f.insolvencyRegisterEntryDate.errors.required"
                     class="invalid-feedback">
                     {{'template.error.insolvencyRegisterEntryDate.required' | translate}}</div>
                 </div>
@@ -88,7 +90,7 @@
           <div class="row">
             <div class="col-lg-2">
               <div class="card-body">
-<label>Administrator</label>
+                <label>Administrator</label>
 
 
               </div>
@@ -102,7 +104,8 @@
                   <input class="form-control" id="administratorName" formControlName="administratorName" type="text"
                     placeholder="Enter administrator name" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.administratorName.errors, 'is-valid': submitted && !f.administratorName.errors}">
-                  <div *ngIf="submitted && f.administratorName.errors && f.administratorName.errors.required" class="invalid-feedback">
+                  <div *ngIf="submitted && f.administratorName.errors && f.administratorName.errors.required"
+                    class="invalid-feedback">
                     {{'template.error.administratorName.required' | translate}}</div>
                 </div>
 
@@ -111,16 +114,18 @@
                   <input class="form-control" id="administratorNumber" formControlName="administratorNumber" type="text"
                     placeholder="Enter administrator number" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.administratorNumber.errors, 'is-valid': submitted && !f.administratorNumber.errors}">
-                  <div *ngIf="submitted && f.administratorNumber.errors && f.administratorNumber.errors.required" class="invalid-feedback">
+                  <div *ngIf="submitted && f.administratorNumber.errors && f.administratorNumber.errors.required"
+                    class="invalid-feedback">
                     {{'template.error.administratorNumber.required' | translate}}</div>
                 </div>
 
                 <div class="form-group">
                   <label for="administratorAddress">Address</label>
-                  <input class="form-control" id="administratorAddress" formControlName="administratorAddress" type="text"
-                    placeholder="Enter administrator address" pattern="[^' ']+"
+                  <input class="form-control" id="administratorAddress" formControlName="administratorAddress"
+                    type="text" placeholder="Enter administrator address" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.administratorAddress.errors, 'is-valid': submitted && !f.administratorAddress.errors}">
-                  <div *ngIf="submitted && f.administratorAddress.errors && f.administratorAddress.errors.required" class="invalid-feedback">
+                  <div *ngIf="submitted && f.administratorAddress.errors && f.administratorAddress.errors.required"
+                    class="invalid-feedback">
                     {{'template.error.administratorAddress.required' | translate}}</div>
                 </div>
 
@@ -144,7 +149,8 @@
                     <input class="form-control" id="attachmentName-{{attachmentIndex}}" type="text"
                       placeholder="Enter attachment name" formControlName="name" pattern="[^' ']+"
                       [ngClass]="{'is-invalid': submitted && attachment.controls.name.errors, 'is-valid': submitted && !attachment.controls.name.errors}">
-                    <div *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
+                    <div
+                      *ngIf="submitted && attachment.controls.name.errors && attachment.controls.name.errors.required"
                       class="invalid-feedback">
                       {{'template.error.attachment.required' | translate}}</div>
                   </div>
@@ -160,7 +166,8 @@
           <div class="card-footer">
             <div class="form-group">
               <div class="form-check checkbox">
-                <input class="form-check-input" id="saveCreditorToAdministratorDoc" formControlName="saveDoc" type="checkbox">
+                <input class="form-check-input" id="saveCreditorToAdministratorDoc" formControlName="saveDoc"
+                  type="checkbox">
                 <label class="form-check-label" for="saveCreditorToAdministratorDoc">Save to my docs</label>
               </div>
             </div>

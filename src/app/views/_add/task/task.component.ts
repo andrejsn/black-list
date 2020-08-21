@@ -29,10 +29,10 @@ export class TaskComponent implements OnInit {
   isCreateReminder: boolean;
 
   addTaskForm = new FormGroup({
-    taskDate: new FormControl(new Date()),
+    taskDate: new FormControl(),
     taskNote: new FormControl(),
     reminderNote: new FormControl(),
-    reminderDate: new FormControl(new Date()),
+    reminderDate: new FormControl(),
   });
 
   submitted: boolean = false;
