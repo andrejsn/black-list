@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as range from 'lodash.range';
 import { first } from 'rxjs/operators';
 
-import { Task  } from '@app/models';
+import { Task } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 
@@ -157,9 +157,13 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
+   * get first task
+   */
+  firstTask() {}
+  /**
    * get preview month
    */
-  public prevMonth(): void {
+  prevMonth(): void {
     this.selectedMonth.subtract(1, 'months');
     this.generateCalendarOfMonth();
   }
@@ -167,10 +171,15 @@ export class CalendarComponent implements OnInit {
   /**
    * get next month
    */
-  public nextMonth(): void {
+  nextMonth(): void {
     this.selectedMonth.add(1, 'months');
     this.generateCalendarOfMonth();
   }
+
+  /**
+   * get month with last task
+   */
+  lastTask() {}
 
   /**
    * go reminds to the date
