@@ -3,11 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AlertModule } from 'ngx-bootstrap/alert';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './calendar.component';
-
 
 @NgModule({
   declarations: [CalendarComponent],
@@ -15,8 +13,7 @@ import { CalendarComponent } from './calendar.component';
     FormsModule,
     CommonModule,
     AlertModule.forRoot(),
-    TooltipModule.forRoot(),
-    CalendarRoutingModule
+    CalendarRoutingModule,
   ],
 })
-export class CalendarModule { }
+export class CalendarModule {}
