@@ -22,6 +22,7 @@ interface CalendarDate {
 
 interface Remind {
   debtor_id: number;
+  debtor_company: string;
   date: moment.Moment;
   done: string;
   note: string;
@@ -66,8 +67,8 @@ export class CalendarComponent implements OnInit {
       .subscribe(
         (data) => {
           const tmp = data as Task[];
-          this.reminds = tmp.map((date) => {
-            const remindDate = moment(date.remind_date, 'YYYY-MM-DD');
+          this.reminds = tmp.map((remind) => {
+            const remindDate = moment(remind.remind_date, 'YYYY-MM-DD');
             // set first remind
             this.firstRemind = this.firstRemind.isBefore(remindDate)
               ? this.firstRemind
@@ -77,11 +78,12 @@ export class CalendarComponent implements OnInit {
               ? this.lastRemind
               : remindDate;
             return {
-              debtor_id: date.debtor_id,
+              debtor_id: remind.debtor_id,
+              debtor_company: remind.debtor_company,
               date: remindDate,
-              done: date.remind_done,
-              note: date.remind_note,
-              type: this.remindType(moment(date.remind_date, 'YYYY-MM-DD')),
+              done: remind.remind_done,
+              note: remind.remind_note,
+              type: this.remindType(moment(remind.remind_date, 'YYYY-MM-DD')),
             };
           });
 
@@ -278,7 +280,6 @@ export class CalendarComponent implements OnInit {
       }
       // set selected date
       this.selectedDate = date;
-      console.log(this.selectedDate.mDate.format('DD/MM/YYYY'));
     } else {
       // clicked date has no reminds
       this.selectedDate = null;
