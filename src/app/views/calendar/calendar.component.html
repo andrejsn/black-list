@@ -5,20 +5,12 @@
         Reminders calendar
 
         <span class="select-month">
-          <button type="button" class="btn" (click)="firstTask()">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-          </button>
           <button class="btn" (click)="prevMonth()">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <i class="fa fa-chevron-left" aria-hidden="true" [ngClass]="{'shift-left': hasTaskInPrevMonth()}"></i>
           </button>
           {{selectedMonth.format('MMMM YYYY')}}
           <button class="btn" (click)="nextMonth()">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-          </button>
-          <button class="btn" (click)="lastTask()">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <i class="fa fa-chevron-right" aria-hidden="true" [ngClass]="{'shift-right': hasTaskInNextMonth()}"></i>
           </button>
         </span>
       </div>
@@ -48,7 +40,7 @@
               'is-today': day.today,
               'cal-day-weekend': isWeekend(day),
               'has-remind': hasReminds(day)}" class="cal-month-day cal-month-first-row" (click)="selectDate(day)">
-                <span class="pull-right" data-cal-date="2013-02-25" data-cal-view="day" data-toggle="tooltip" title=""
+                <span class="pull-right" data-cal-date="" data-cal-view="day" data-toggle="tooltip" title=""
                   data-original-title="">{{day.mDate.date()}}</span>
 
                 <div class="events-list">

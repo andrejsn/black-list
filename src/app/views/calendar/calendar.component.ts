@@ -40,15 +40,18 @@ export class CalendarComponent implements OnInit {
   selectedMonth: moment.Moment;
   calendarMonth: Month = { firstDay: null, weeks: [] };
 
-  months: Month[] = [];
   public namesOfDays: string[] = [];
   reminds: Remind[] = [];
+  firstRemind: moment.Moment;
+  lastRemind: moment.Moment;
 
   constructor(private eRef: ElementRef, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.remindsVisible = false;
     this.selectedMonth = moment();
+    this.firstRemind = moment();
+    this.lastRemind = moment();
 
     moment.locale('lv'); // TODO: read locale from storage
     this.namesOfDays = moment.weekdays();
@@ -64,27 +67,35 @@ export class CalendarComponent implements OnInit {
         (data) => {
           const tmp = data as Task[];
           this.reminds = tmp.map((date) => {
+            const remindDate = moment(date.remind_date, 'YYYY-MM-DD');
+            // set first remind
+            this.firstRemind = this.firstRemind.isBefore(remindDate)
+              ? this.firstRemind
+              : remindDate;
+            // set last remind
+            this.lastRemind = this.lastRemind.isAfter(remindDate)
+              ? this.lastRemind
+              : remindDate;
             return {
               debtor_id: date.debtor_id,
-              date: moment(date.remind_date, 'YYYY-MM-DD'),
+              date: remindDate,
               done: date.remind_done,
               note: date.remind_note,
               type: this.remindType(moment(date.remind_date, 'YYYY-MM-DD')),
             };
           });
 
-          // this.generateCalendarOfYear();
           this.generateCalendarOfMonth();
 
-          this.reminds.forEach((remind) => {
-            console.log(
-              remind.date.format('DD-MM-YYYY') +
-                ' -> ' +
-                remind.type +
-                ' done? ' +
-                remind.done
-            );
-          });
+          // this.reminds.forEach((remind) => {
+          //   console.log(
+          //     remind.date.format('DD-MM-YYYY') +
+          //       ' -> ' +
+          //       remind.type +
+          //       ' done? ' +
+          //       remind.done
+          //   );
+          // });
         },
         (error) => {
           console.log(error);
@@ -92,7 +103,7 @@ export class CalendarComponent implements OnInit {
       );
   }
 
-  remindType(date: moment.Moment): string {
+  private remindType(date: moment.Moment): string {
     if (this.isToday(date)) {
       return 'warning';
     } else if (this.isInFuture(date)) {
@@ -104,7 +115,7 @@ export class CalendarComponent implements OnInit {
   /**
    * generate calendar of month
    */
-  generateCalendarOfMonth() {
+  private generateCalendarOfMonth() {
     const firstDay = moment([
       this.selectedMonth.year(),
       this.selectedMonth.month(),
@@ -157,9 +168,12 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
-   * get first task
+   * has task in prev month
    */
-  firstTask() {}
+  hasTaskInPrevMonth(): boolean {
+    return this.firstRemind.isBefore(this.selectedMonth, 'month');
+  }
+
   /**
    * get preview month
    */
@@ -177,9 +191,11 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
-   * get month with last task
+   * has task in next month
    */
-  lastTask() {}
+  hasTaskInNextMonth(): boolean {
+    return this.lastRemind.isAfter(this.selectedMonth, 'month');
+  }
 
   /**
    * go reminds to the date
