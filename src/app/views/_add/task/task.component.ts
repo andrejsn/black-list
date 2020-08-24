@@ -150,6 +150,7 @@ export class TaskComponent implements OnInit {
     const task: Task = {
       id: null,
       debtor_id: this.debtor.id,
+      debtor_company: 'xyz', // TODO: fix me please ?
       date: this.addTaskForm.controls['taskDate'].value,
       note: this.addTaskForm.controls['taskNote'].value,
     };

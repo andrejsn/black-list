@@ -79,6 +79,7 @@ export class TasksComponent implements OnInit {
               visible: false,
               id: task.id,
               debtor_id: task.debtor_id,
+              debtor_company: task.debtor_company,
               date: task.date,
               note: task.note,
               remind_date: task.remind_date,

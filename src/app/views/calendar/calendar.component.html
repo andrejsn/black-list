@@ -56,15 +56,15 @@
           </ng-container>
 
           <!-- weekly reminds details -->
-          <div *ngIf="remindsVisible && showReminds(week)" [@inOutAnimation]>
+          <div *ngIf="remindsVisible && isRemindsInWeek(week)" [@inOutAnimation]>
             <div class="card">
               <div class="card-body">
                 <span>{{selectedDate.mDate.format('DD.MMMM YYYY')}}</span>
                 <div *ngFor="let remind of selectedDate.reminds">
-                  <div class="card-header"><i class="fa fa-circle-thin " aria-hidden="true"></i>
+                  <div class="card-header"><i class="fa fa-user-o" aria-hidden="true"></i>
                     {{remind.debtor_company}}
                   </div>
-                  <alert [type]="remind.type" [dismissible]="false">{{ remind.note }}</alert>
+                  <alert [type]="remind.type" [dismissible]="true" (onClosed)="closeRemind(remind)">{{ remind.note }}</alert>
                 </div>
               </div>
             </div>

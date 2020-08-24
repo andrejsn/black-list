@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import * as moment from 'moment';
 import * as range from 'lodash.range';
+import * as reject from 'lodash.reject';
 import { first } from 'rxjs/operators';
 
 import { Task } from '@app/models';
@@ -46,7 +47,7 @@ export class CalendarComponent implements OnInit {
   firstRemind: moment.Moment;
   lastRemind: moment.Moment;
 
-  constructor(private eRef: ElementRef, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.remindsVisible = false;
@@ -286,11 +287,23 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  showReminds(week: CalendarDate[]): boolean {
+  isRemindsInWeek(week: CalendarDate[]): boolean {
     return (
       this.selectedDate &&
       this.hasReminds(this.selectedDate) &&
       this.isDateInWeek(week, this.selectedDate)
     );
+  }
+
+  closeRemind(remind: Remind) {
+    console.log(remind);
+    console.log(this.selectedDate);
+    this.removeRemind(remind);
+  }
+
+  private removeRemind(remind: Remind) {
+    this.selectedDate.reminds = reject(this.selectedDate.reminds, function (e) {
+      return e.debtor_id === remind.debtor_id;
+    });
   }
 }
