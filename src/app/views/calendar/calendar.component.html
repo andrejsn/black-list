@@ -64,7 +64,7 @@
                   <div class="card-header"><i class="fa fa-user-o" aria-hidden="true"></i>
                     {{remind.debtor_company}}
                   </div>
-                  <alert [type]="remind.type" [dismissible]="true" (onClosed)="closeRemind(remind)">{{ remind.note }}</alert>
+                  <alert [type]="remind.type" [dismissible]="true" (onClosed)="doneRemind(remind)">{{ remind.note }}</alert>
                 </div>
               </div>
             </div>

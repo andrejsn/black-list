@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import * as range from 'lodash.range';
 import * as reject from 'lodash.reject';
+import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 
 import { Task } from '@app/models';
@@ -22,6 +24,7 @@ interface CalendarDate {
 }
 
 interface Remind {
+  id: number;
   debtor_id: number;
   debtor_company: string;
   date: moment.Moment;
@@ -47,7 +50,11 @@ export class CalendarComponent implements OnInit {
   firstRemind: moment.Moment;
   lastRemind: moment.Moment;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private snotifyService: SnotifyService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.remindsVisible = false;
@@ -68,8 +75,8 @@ export class CalendarComponent implements OnInit {
       .subscribe(
         (data) => {
           const tmp = data as Task[];
-          this.reminds = tmp.map((remind) => {
-            const remindDate = moment(remind.remind_date, 'YYYY-MM-DD');
+          this.reminds = tmp.map((task) => {
+            const remindDate = moment(task.remind_date, 'YYYY-MM-DD');
             // set first remind
             this.firstRemind = this.firstRemind.isBefore(remindDate)
               ? this.firstRemind
@@ -79,26 +86,17 @@ export class CalendarComponent implements OnInit {
               ? this.lastRemind
               : remindDate;
             return {
-              debtor_id: remind.debtor_id,
-              debtor_company: remind.debtor_company,
+              id: task.id,
+              debtor_id: task.debtor_id,
+              debtor_company: task.debtor_company,
               date: remindDate,
-              done: remind.remind_done,
-              note: remind.remind_note,
-              type: this.remindType(moment(remind.remind_date, 'YYYY-MM-DD')),
+              done: task.remind_done,
+              note: task.remind_note,
+              type: this.remindType(moment(task.remind_date, 'YYYY-MM-DD')),
             };
           });
 
           this.generateCalendarOfMonth();
-
-          // this.reminds.forEach((remind) => {
-          //   console.log(
-          //     remind.date.format('DD-MM-YYYY') +
-          //       ' -> ' +
-          //       remind.type +
-          //       ' done? ' +
-          //       remind.done
-          //   );
-          // });
         },
         (error) => {
           console.log(error);
@@ -295,10 +293,28 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  closeRemind(remind: Remind) {
-    console.log(remind);
-    console.log(this.selectedDate);
-    this.removeRemind(remind);
+  /**
+   * set remind for task done
+   */
+  doneRemind(remind: Remind) {
+    this.http
+      .post<any>(`${environment.apiUrl}/task/done`, { id: remind.id })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          // TODO: data.error ?
+          if (data.done) {
+            this.removeRemind(remind);
+          }
+        },
+        (error) => {
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 
   private removeRemind(remind: Remind) {

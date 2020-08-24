@@ -45,7 +45,7 @@ export class TasksComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
-    private snotifyService: SnotifyService
+    private snotifyService: SnotifyService,
   ) {}
 
   ngOnInit(): void {
@@ -194,6 +194,7 @@ export class TasksComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          // TODO: data.error ?
           if (data.deleted) {
             // this.taskList = this.taskList.filter( //this.taskList.slice(1);
             //   (element) => element.id !== data.deleted
@@ -216,7 +217,7 @@ export class TasksComponent implements OnInit {
           this.loading = false;
           this.translate
             .get('toast.error.response')
-            .subscribe((error: string) => {
+            .subscribe((err: string) => {
               this.snotifyService.error(error);
             });
         }
