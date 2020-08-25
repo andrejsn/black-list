@@ -43,7 +43,7 @@
             <label class="col-md-3 col-form-label" for="createReminder">Reminder</label>
             <div class="col-md-8">
               <label class="switch switch-3d switch-secondary switch-lg">
-                <input id="createReminder" type="checkbox" class="switch-input" (change)="changedCreateReminder()">
+                <input id="createReminder" type="checkbox" class="switch-input" (change)="changedCreateReminder()" [checked]="isUpdateReminder">
                 <span class="switch-slider"></span>
               </label>
             </div>

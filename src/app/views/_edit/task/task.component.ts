@@ -26,6 +26,7 @@ import { environment } from '@environments/environment';
 export class TaskComponent implements OnInit {
   task: Task;
   isUpdateReminder: boolean;
+  today: Date;
 
   editTaskForm = new FormGroup({
     taskDate: new FormControl(),
@@ -55,6 +56,7 @@ export class TaskComponent implements OnInit {
     }
 
     this.task = this.cachedObjectsService.task;
+    this.today = new Date();
     this.isUpdateReminder = this.task.remind_date ? true : false;
 
     this.submitted = false;
@@ -165,6 +167,9 @@ export class TaskComponent implements OnInit {
     if (this.isUpdateReminder) {
       task.remind_date = this.editTaskForm.controls['reminderDate'].value;
       task.remind_note = this.editTaskForm.controls['reminderNote'].value;
+    } else {
+      task.remind_date = null;
+      task.remind_note = null;
     }
 
     return task;
