@@ -25,14 +25,13 @@ import { environment } from '@environments/environment';
 })
 export class TaskComponent implements OnInit {
   task: Task;
-  today: Date;
-  isCreateReminder: boolean;
+  isUpdateReminder: boolean;
 
   editTaskForm = new FormGroup({
-    taskDate: new FormControl(new Date()),
+    taskDate: new FormControl(),
     taskNote: new FormControl(),
     reminderNote: new FormControl(),
-    reminderDate: new FormControl(new Date()),
+    reminderDate: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -49,16 +48,16 @@ export class TaskComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.cachedObjectsService.task) {
-      // no debtor cached
+      // no task cached
       this.router.navigate(['/debtors']);
 
       return; // ~
     }
 
     this.task = this.cachedObjectsService.task;
-    console.log(this.task);
-    this.today = new Date();
-    this.isCreateReminder = false;
+    this.isUpdateReminder = this.task.remind_date ? true : false;
+
+    this.submitted = false;
     this.loading = false;
 
     // create validation
@@ -82,11 +81,11 @@ export class TaskComponent implements OnInit {
   }
 
   changedCreateReminder() {
-    this.isCreateReminder = !this.isCreateReminder;
+    this.isUpdateReminder = !this.isUpdateReminder;
 
     const reminderNoteControl = this.editTaskForm.controls['reminderNote'];
     const reminderDateControl = this.editTaskForm.controls['reminderDate'];
-    if (this.isCreateReminder) {
+    if (this.isUpdateReminder) {
       reminderDateControl.setValidators(Validators.required);
       reminderNoteControl.setValidators(Validators.required);
     } else {
@@ -157,14 +156,12 @@ export class TaskComponent implements OnInit {
 
   private initNewTask(): Task {
     const task: Task = {
-      id: null,
-      debtor_id: -1, // this.debtor.id,
-      debtor_company: 'xyz', // TODO: fixme please
+      id: this.task.id,
       date: this.editTaskForm.controls['taskDate'].value,
       note: this.editTaskForm.controls['taskNote'].value,
     };
     // add reminder?
-    if (this.isCreateReminder) {
+    if (this.isUpdateReminder) {
       task.remind_date = this.editTaskForm.controls['reminderDate'].value;
       task.remind_note = this.editTaskForm.controls['reminderNote'].value;
     }
