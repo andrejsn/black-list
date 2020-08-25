@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { Task } from '@app/models';
 import { CachedObjectsService } from '@shared/services';
@@ -54,7 +55,8 @@ export class TaskComponent implements OnInit {
       return; // ~
     }
 
-    // this.calendar = this.taskCachedService.task;
+    this.task = this.cachedObjectsService.task;
+    console.log(this.task);
     this.today = new Date();
     this.isCreateReminder = false;
     this.loading = false;
@@ -62,10 +64,18 @@ export class TaskComponent implements OnInit {
     // create validation
     this.editTaskForm = this.formBuilder.group(
       {
-        taskDate: ['', [Validators.required]],
-        taskNote: ['', [Validators.required]],
-        reminderDate: ['', []],
-        reminderNote: ['', []],
+        taskDate: [
+          moment(this.task.date).format('YYYY. DD. MMMM'),
+          [Validators.required],
+        ],
+        taskNote: [this.task.note, [Validators.required]],
+        reminderDate: [
+          this.task.remind_date
+            ? moment(this.task.remind_date).format('YYYY. DD. MMMM')
+            : '',
+          [],
+        ],
+        reminderNote: [this.task.remind_note, []],
       },
       { validator: this.remindDateAfterOrEqualTaskDate }
     );
@@ -125,7 +135,7 @@ export class TaskComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
+    // this.loading = true;
     this.http
       .post<any>(`${environment.apiUrl}/update/task`, this.initNewTask())
       .pipe(first())
