@@ -134,9 +134,9 @@ export class TaskComponent implements OnInit {
       return;
     }
 
-    // this.loading = true;
+    this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/update/task`, this.initNewTask())
+      .post<any>(`${environment.apiUrl}/update/task`, this.updateTask())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -145,6 +145,7 @@ export class TaskComponent implements OnInit {
         (error) => {
           this.loading = false;
           this.submitted = false;
+
           this.translate
             .get('toast.error.response')
             .subscribe((error: string) => {
@@ -154,7 +155,7 @@ export class TaskComponent implements OnInit {
       );
   }
 
-  private initNewTask(): Task {
+  private updateTask(): Task {
     const task: Task = {
       id: this.task.id,
       date: this.editTaskForm.controls['taskDate'].value,
