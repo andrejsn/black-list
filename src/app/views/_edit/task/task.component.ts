@@ -15,7 +15,7 @@ import * as moment from 'moment';
 
 import { Task } from '@app/models';
 import { CachedObjectsService } from '@shared/services';
-import { inOutAnimation } from '@shared/helpers';
+import { inOutAnimation, timezoneOffset } from '@shared/helpers';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -25,8 +25,9 @@ import { environment } from '@environments/environment';
 })
 export class TaskComponent implements OnInit {
   task: Task;
-  isUpdateReminder: boolean;
   today: Date;
+
+  isUpdateReminder: boolean;
 
   editTaskForm = new FormGroup({
     taskDate: new FormControl(),
@@ -160,12 +161,18 @@ export class TaskComponent implements OnInit {
   private updateTask(): Task {
     const task: Task = {
       id: this.task.id,
-      date: this.editTaskForm.controls['taskDate'].value,
+      date: timezoneOffset(
+        // moment(this.editTaskForm.controls['taskDate'].value).toDate()
+        new Date(this.editTaskForm.controls['taskDate'].value)
+      ),
       note: this.editTaskForm.controls['taskNote'].value,
     };
     // add reminder?
     if (this.isUpdateReminder) {
-      task.remind_date = this.editTaskForm.controls['reminderDate'].value;
+      task.remind_date = timezoneOffset(
+        // moment(this.editTaskForm.controls['reminderDate'].value).toDate()
+        new Date(this.editTaskForm.controls['reminderDate'].value)
+      );
       task.remind_note = this.editTaskForm.controls['reminderNote'].value;
     } else {
       task.remind_date = null;
