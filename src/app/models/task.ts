@@ -1,6 +1,6 @@
 export interface Task {
   id: number;
-  debtor_id: number;
+  debtor_id?: number;
   debtor_company?: string;
   date: Date;
   note: string;
