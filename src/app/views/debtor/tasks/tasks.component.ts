@@ -14,7 +14,6 @@ import { CachedObjectsService } from '@shared/services';
 
 interface TableTaskElement extends Task {
   visible: boolean;
-  // isChecked: boolean;
   remind_status?: string;
 }
 
@@ -45,7 +44,7 @@ export class TasksComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
-    private snotifyService: SnotifyService,
+    private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
@@ -142,11 +141,37 @@ export class TasksComponent implements OnInit {
   }
 
   /**
-   * on check done
+   * on check task as done
    */
-  onChecked(task: TableTaskElement) {
-    // console.log(task.isChecked); // {}, true || false
-    // TODO get to server - change done
+  changeDoneTask(task: TableTaskElement) {
+    let url: string;
+    if (parseInt(task.remind_done, 10) === 1) {
+      url = `${environment.apiUrl}/task/undone`;
+    } else {
+      url = `${environment.apiUrl}/task/done`;
+    }
+
+    this.http
+      .post<any>(url, { id: task.id })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const request = data;
+          // TODO: data.error ?
+          if (request.task_id) {
+            task.remind_done = '' + request.done;
+            task.remind_status = this.remindStatus(task);
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 
   /**
@@ -190,7 +215,7 @@ export class TasksComponent implements OnInit {
 
   private deleteTask(task: TableTaskElement) {
     this.http
-      .post<any>(`${environment.apiUrl}/destroy/task`, { id: task.id })
+      .post<any>(`${environment.apiUrl}/task/destroy`, { id: task.id })
       .pipe(first())
       .subscribe(
         (data) => {

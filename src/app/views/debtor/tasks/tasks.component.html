@@ -74,7 +74,10 @@
                   <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
                 </td>
                 <td class="no-top-border">
-                  <button class="btn"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Check</button>
+                  <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status === 'success'">
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Uncheck</button>
+                  <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status !== 'success'">
+                    <i class="fa fa-calendar-o" aria-hidden="true"></i> Check</button>
                 </td>
               </tr>
             </ng-container>

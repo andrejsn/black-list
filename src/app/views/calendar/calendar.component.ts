@@ -302,8 +302,13 @@ export class CalendarComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          const response = (data);
+          console.log(response);
+
           // TODO: data.error ?
-          if (data.done) {
+          if (response.done) {
+            console.log('remove');
+
             this.removeRemind(remind);
           }
         },
