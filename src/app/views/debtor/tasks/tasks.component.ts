@@ -56,9 +56,6 @@ export class TasksComponent implements OnInit {
     }
 
     Object.freeze(statuses);
-    this.remind_important_count = 0;
-    this.remind_warning_count = 0;
-    this.remind_info_count = 0;
     this.today = moment();
     this.debtor = this.cachedObjectsService.debtor;
     this.loading = false;
@@ -88,12 +85,28 @@ export class TasksComponent implements OnInit {
             };
           });
 
-          console.log(this.taskList);
+          this.refreshStatusesCount();
         },
         (error) => {
           console.log(error);
         }
       );
+  }
+
+  private refreshStatusesCount() {
+    this.remind_important_count = 0;
+    this.remind_warning_count = 0;
+    this.remind_info_count = 0;
+
+    this.taskList.forEach((task) => {
+      if (task.remind_status === statuses.IMPORTANT) {
+        this.remind_important_count++;
+      } else if (task.remind_status === statuses.WARNING) {
+        this.remind_warning_count++;
+      } else if (task.remind_status === statuses.INFO) {
+        this.remind_info_count++;
+      }
+    });
   }
 
   private remindStatus(task: Task): string {
@@ -107,16 +120,13 @@ export class TasksComponent implements OnInit {
       const date: moment.Moment = moment(new Date(task.remind_date));
       // is remind for today?
       if (this.today.isSame(date, 'day')) {
-        this.remind_warning_count++;
         return statuses.WARNING;
       }
       // is a reminder in the future?
       if (this.today.isBefore(moment(date), 'day')) {
-        this.remind_info_count++;
         return statuses.INFO;
       }
       // important reminder!
-      this.remind_important_count++;
       return statuses.IMPORTANT;
     }
     return null;
@@ -161,6 +171,8 @@ export class TasksComponent implements OnInit {
           if (request.task_id) {
             task.remind_done = '' + request.done;
             task.remind_status = this.remindStatus(task);
+
+            this.refreshStatusesCount();
           }
         },
         (error) => {
