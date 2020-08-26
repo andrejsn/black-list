@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
-import { CurrentlyTitleService, CachedObjectsService } from '@shared/services';
+import { CachedObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 interface DebtorTableElement extends Debtor {
@@ -34,14 +34,14 @@ export class DebtorsComponent implements OnInit {
   sortDebtDirection: 'asc' | 'desc' | '';
   sortStatusDirection: 'asc' | 'desc' | '';
 
-  // pagination
+  // pagination,
   maxSize: number = 5;
   currentPage: number = 1;
   numPages: number = 0;
 
   constructor(
     private title: Title,
-    private currentlyTitleService: CurrentlyTitleService,
+
     private cachedObjectsService: CachedObjectsService,
     private translate: TranslateService,
     private http: HttpClient,
@@ -53,11 +53,7 @@ export class DebtorsComponent implements OnInit {
     // set browser title
     this.title.setTitle('Debtors list');
     // set title
-    this.translate
-      .get('app-sidebar-nav-link.debtors')
-      .subscribe((res: string) => {
-        this.currentlyTitleService.title = res;
-      });
+
     // get data
     this.http
       .get<any>(`${environment.apiUrl}/get/debtors`, {})

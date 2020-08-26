@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
-import { CurrentlyTitleService } from '@shared/services';
+
 import { navI18n, navItems } from '@app/_nav';
 import { MenuItem } from '@app/models';
 
@@ -26,20 +26,20 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   active: string = '';
 
 
-  // use for CurrentlyTitleService
+  // use for
   title: string;
 
   breadcrumbItems: MenuItem[];
 
   constructor
     (
-      private currentlyTitleService: CurrentlyTitleService,
+
       private translate: TranslateService,
       private router: Router
     ) {
 
 
-     // currentlyTitleService.currentlyTitle$.subscribe((currentlyTitle: string) => { this.title = currentlyTitle });
+     // .currentlyTitle$.subscribe((currentlyTitle: string) => { this.title = currentlyTitle });
 
     // TODO : to delete
     this.router.events.subscribe((event) => {

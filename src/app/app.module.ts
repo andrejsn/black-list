@@ -69,7 +69,6 @@ import { ChartsModule } from 'ng2-charts';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 //
-import { CurrentlyTitleService } from '@shared/services';
 import { ShortenTextPipe } from './shared/helpers/pipes/shorten-text.pipe';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
@@ -126,7 +125,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   providers: [
     Title,
     AuthenticationService, // ?
-    CurrentlyTitleService,
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
