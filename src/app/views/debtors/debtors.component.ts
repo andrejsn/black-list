@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -39,6 +40,7 @@ export class DebtorsComponent implements OnInit {
   numPages: number = 0;
 
   constructor(
+    private title: Title,
     private currentlyTitleService: CurrentlyTitleService,
     private cachedObjectsService: CachedObjectsService,
     private translate: TranslateService,
@@ -48,6 +50,8 @@ export class DebtorsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // set browser title
+    this.title.setTitle('Debtors list');
     // set title
     this.translate
       .get('app-sidebar-nav-link.debtors')

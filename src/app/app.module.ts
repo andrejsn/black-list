@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NgHttpLoaderModule } from 'ng-http-loader';
@@ -17,7 +21,7 @@ import { AuthenticationInterceptor } from '@shared/helpers/interceptors/';
 import { ErrorInterceptor } from '@shared/helpers/interceptors/';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+  suppressScrollX: true,
 };
 
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
@@ -33,7 +37,7 @@ export const customCurrencyMaskConfig = {
   nullable: true,
   min: 0,
   max: 999999999.99,
-  inputMode: CurrencyMaskInputMode.FINANCIAL
+  inputMode: CurrencyMaskInputMode.FINANCIAL,
 };
 
 import { AppComponent } from './app.component';
@@ -44,9 +48,7 @@ import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 
-const APP_CONTAINERS = [
-  DefaultLayoutComponent
-];
+const APP_CONTAINERS = [DefaultLayoutComponent];
 
 import {
   AppAsideModule,
@@ -67,7 +69,7 @@ import { ChartsModule } from 'ng2-charts';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 //
-import { CurrentlyTitleService,  } from '@shared/services';
+import { CurrentlyTitleService } from '@shared/services';
 import { ShortenTextPipe } from './shared/helpers/pipes/shorten-text.pipe';
 import { EnumToArrayPipe } from '@shared/helpers/';
 
@@ -83,7 +85,6 @@ import localeLv from '@angular/common/locales/lv';
 
 registerLocaleData(localeLv);
 
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/');
@@ -96,7 +97,14 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SnotifyModule,
     NgHttpLoaderModule.forRoot(),
     // tslint:disable-next-line: max-line-length
-    TranslateModule.forRoot({ defaultLanguage: 'en', loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } }),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     BrowserAnimationsModule,
     AppRoutingModule,
     AppAsideModule,
@@ -113,35 +121,36 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
   ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    P404Component,
-    P500Component,
-  ],
+  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component],
   exports: [TranslateModule],
   providers: [
+    Title,
     AuthenticationService, // ?
-    // DebtorCachedService,
     CurrentlyTitleService,
     {
-      provide: LocationStrategy, useClass: HashLocationStrategy,
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
     },
     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
     },
     {
-      provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
     },
     SnotifyService,
     {
-      provide: 'SnotifyToastConfig', useValue: ToastDefaults
-    }
+      provide: 'SnotifyToastConfig',
+      useValue: ToastDefaults,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(private bsLocaleService: BsLocaleService) {
     this.bsLocaleService.use('lv');
-    }
+  }
 }
