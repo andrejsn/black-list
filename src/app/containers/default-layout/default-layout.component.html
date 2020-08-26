@@ -54,8 +54,8 @@
         <div class="divider"></div>
         <!-- <a class="dropdown-item" href="#"><i class="fa fa-shield" aria-hidden="true"></i> Lock account</a> -->
         <div class="dropdown-header text-center"><strong>
-          <!-- {{ 'dropdown-header.logout' | translate}} -->
-        </strong></div>
+            <!-- {{ 'dropdown-header.logout' | translate}} -->
+          </strong></div>
         <a class="dropdown-item" [routerLink]="['/auth/logout']">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
           Logout
@@ -73,16 +73,26 @@
   <!-- Main content -->
   <main class="main">
     <!-- Breadcrumb -->
+    <!-- Plan A -->
+    <ol class="breadcrumb">
+      <ng-container *ngFor="let item of breadcrumbItems">
+        <li class="breadcrumb-item" [ngClass]="{'active': item.active}">
+          <a *ngIf="!item.active" [routerLink]="item.route">{{item.name}}</a>
+          <span *ngIf="item.active">{{item.name}}</span>
+        </li>
+      </ng-container>
+    </ol>
+
     <!-- PLAN B -->
     <!-- #### -->
-    <ol class="breadcrumb">
+    <!-- <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a [routerLink]="['/']">Home</a>
       </li>
       <li class="breadcrumb-item active">
         <span tabindex="0">{{active}}</span>
       </li>
-    </ol>
+    </ol> -->
 
     <!-- PLAN C -->
     <!-- <span class="breadcrumb breadcrumb-item">{{title}}</span> -->

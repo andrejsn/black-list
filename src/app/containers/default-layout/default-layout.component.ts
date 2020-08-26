@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
-import { navI18n, navItems } from '@app/_nav';
-import { Router, NavigationEnd } from '@angular/router';
 import { CurrentlyTitleService } from '@shared/services';
+import { navI18n, navItems } from '@app/_nav';
+import { MenuItem } from '@app/models';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   // use for CurrentlyTitleService
   title: string;
 
+  breadcrumbItems: MenuItem[];
+
   constructor
     (
       private currentlyTitleService: CurrentlyTitleService,
@@ -47,6 +50,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
+    this.breadcrumbItems = [
+      {route: '/', name: 'Home', active: false},
+      {route: '/debtors', name: 'Debtors', active: true}
+    ];
   }
 
 

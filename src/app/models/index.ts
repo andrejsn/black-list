@@ -12,3 +12,4 @@ export * from './guarantor';
 export * from './template';
 export * from './template_status';
 export * from './task';
+export * from './menu_item';
