@@ -36,9 +36,9 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let task of taskList; let i = index">
+            <ng-container *ngFor="let task of taskList;">
               <tr>
-                <td *ngIf="task.remind_date" class="toggle" (click)="toggle(taskList, i); isTemplateCollapsed = true">
+                <td *ngIf="task.remind_date" class="toggle" (click)="toggle(task.id)">
                   <div>
                     <i aria-hidden="true" class="fa" [ngClass]="{
                       'fa-expand': !task.visible,
@@ -55,20 +55,18 @@
                 <td *ngIf="!task.remind_date"></td>
 
                 <td>{{task.date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                <td class="note-num-{{ i }}">{{task.note}}</td>
+                <td class="note-num-{{ task.id }}">{{task.note}}</td>
                 <td>
-                  <!-- <a class="btn btn-default btn-sm" [routerLink]="'/edit/task'">
-                    <i class="fa fa-pencil-square-o"></i> Edit</a> -->
-                  <button [disabled]="loading" class="btn" (click)="editTask(task)"><i class="fa fa-pencil-square-o"
-                      aria-hidden="true"></i>
+                  <button [disabled]="loading" class="btn" (click)="editTask(task)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Edit</button>
-                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(task, i)"><i class="fa fa-trash"
-                      aria-hidden="true"></i>
+                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(task)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
                     Trash</button>
                 </td>
               </tr>
               <!-- reminds details -->
-              <tr class="d-none row-num-{{ i }}">
+              <tr class="d-none row-num-{{ task.id }}">
                 <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
                 <td *ngIf="task.visible" class="no-top-border">
                   <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>

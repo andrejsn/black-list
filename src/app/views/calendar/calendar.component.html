@@ -61,10 +61,14 @@
               <div class="card-body">
                 <span>{{selectedDate.mDate.format('DD.MMMM YYYY')}}</span>
                 <div *ngFor="let remind of selectedDate.reminds">
-                  <div class="card-header"><i class="fa fa-user-o" aria-hidden="true"></i>
-                    {{remind.debtor_company}}
+                  <div class="card-header">
+                    <button class="btn" (click)="goTasksList(remind)">
+                      <i class="fa fa-user-o" aria-hidden="true" ></i>
+                      {{remind.debtor_company}}
+                    </button>
                   </div>
-                  <alert [type]="remind.type" [dismissible]="true" (onClosed)="doneRemind(remind)">{{ remind.note }}</alert>
+                  <alert [type]="remind.type" [dismissible]="true" (onClosed)="doneRemind(remind)">{{ remind.note }}
+                  </alert>
                 </div>
               </div>
             </div>

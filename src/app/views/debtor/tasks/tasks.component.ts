@@ -60,15 +60,18 @@ export class TasksComponent implements OnInit {
     this.debtor = this.objectsService.debtor;
 
     // set browser title
-    this.title.setTitle(this.debtor.company +  '- tasks list');
+    this.title.setTitle(this.debtor.company + '- tasks list');
     // set bread crumb menu
     this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: false },
-      { route: '/debtor', name: 'Debtor: ' + this.debtor.company, active: false },
+      {
+        route: '/debtor',
+        name: 'Debtor: ' + this.debtor.company,
+        active: false,
+      },
       { route: '/debtor/tasks', name: 'Tasks', active: true },
     ]);
-
 
     Object.freeze(statuses);
     this.today = moment();
@@ -88,8 +91,6 @@ export class TasksComponent implements OnInit {
             return {
               visible: false,
               id: task.id,
-              debtor_id: task.debtor_id,
-              debtor_company: task.debtor_company,
               date: task.date,
               note: task.note,
               remind_date: task.remind_date,
@@ -98,6 +99,12 @@ export class TasksComponent implements OnInit {
               remind_status: this.remindStatus(task),
             };
           });
+
+          // if (this.objectsService.task) {
+          //   console.log(this.objectsService.task.id);
+
+          //   this.toggle(this.objectsService.task.id);
+          // }
 
           this.refreshStatusesCount();
         },
@@ -149,19 +156,18 @@ export class TasksComponent implements OnInit {
   /**
    * toggle row
    */
-  toggle(taskList: TableTaskElement[], index: number) {
-    for (let i = 0; i < taskList.length; i++) {
-      const debtor = taskList[i];
-      const selector = `.row-num-${i}`;
+  toggle(id: number) {
+    this.taskList.forEach((task) => {
+      const selector = `.row-num-${task.id}`;
 
-      if (i === index) {
+      if (task.id === id) {
         document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
+        task.visible = !task.visible;
       } else {
         document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
+        task.visible = false;
       }
-    }
+    });
   }
 
   /**
@@ -210,11 +216,11 @@ export class TasksComponent implements OnInit {
 
   /**
    * delete task with id
-   * @param id - calendar id
+   * @param task - calendar task
    */
-  notifyDeleteTask(calendar: TableTaskElement, index: number) {
+  notifyDeleteTask(task: TableTaskElement) {
     this.loading = true;
-    const selector = `.note-num-${index}`;
+    const selector = `.note-num-${task.id}`;
     document.querySelector(selector).classList.add('to-delete');
 
     this.snotifyService
@@ -224,12 +230,12 @@ export class TasksComponent implements OnInit {
         closeOnClick: true,
         pauseOnHover: true,
         buttons: [
-          { text: 'Yes', action: () => this.deleteTask(calendar), bold: false },
-          { text: 'No', action: () => this.cancelDeleteTask(index) },
+          { text: 'Yes', action: () => this.deleteTask(task), bold: false },
+          { text: 'No', action: () => this.cancelDeleteTask(task.id) },
         ],
       })
       .on('beforeHide', (toast: Snotify) => {
-        this.cancelDeleteTask(index);
+        this.cancelDeleteTask(task.id);
       });
   }
 
@@ -239,29 +245,22 @@ export class TasksComponent implements OnInit {
     document.querySelector(selector).classList.remove('to-delete');
   }
 
-  private deleteTask(task: TableTaskElement) {
+  private deleteTask(taskToDestroy: TableTaskElement) {
     this.http
-      .post<any>(`${environment.apiUrl}/task/destroy`, { id: task.id })
+      .post<any>(`${environment.apiUrl}/task/destroy`, { id: taskToDestroy.id })
       .pipe(first())
       .subscribe(
         (data) => {
+          const response = data;
           // TODO: data.error ?
-          if (data.deleted) {
-            // this.taskList = this.taskList.filter( //this.taskList.slice(1);
-            //   (element) => element.id !== data.deleted
-            // );
-
-            this.taskList = reject(this.taskList, function (calendarElement) {
-              // console.log(calendarElement.id);isChecked
-              // console.log(data.deleted);
-              // console.log(calendarElement.id as number !== data.deleted as number);
-
-              return (
-                (calendarElement.id as number) === (data.deleted as number)
-              );
+          if (response.deleted) {
+            this.taskList = reject(this.taskList, function (
+              task: TableTaskElement
+            ) {
+              return (task.id as number) === (response.deleted as number);
             });
 
-            console.log(this.taskList);
+            this.refreshStatusesCount();
           }
         },
         (error) => {

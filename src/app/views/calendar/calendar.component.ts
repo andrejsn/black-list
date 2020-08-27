@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -9,7 +10,7 @@ import * as reject from 'lodash.reject';
 import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 
-import { Task } from '@app/models';
+import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
@@ -55,6 +56,7 @@ export class CalendarComponent implements OnInit {
   constructor(
     private title: Title,
     private objectsService: ObjectsService,
+    private router: Router,
     private http: HttpClient,
     private snotifyService: SnotifyService,
     private translate: TranslateService
@@ -338,5 +340,52 @@ export class CalendarComponent implements OnInit {
     this.selectedDate.reminds = reject(this.selectedDate.reminds, function (e) {
       return e.debtor_id === remind.debtor_id;
     });
+  }
+
+  goTasksList(remind: Remind) {
+    this.objectsService.debtor = this.fakeDebtor(
+      remind.debtor_id,
+      remind.debtor_company
+    );
+
+    this.objectsService.task = this.fakeTask(remind.id);
+
+    this.router.navigate(['/debtor/tasks']);
+  }
+
+  private fakeTask(id: number): Task {
+    return {
+      id: id,
+      date: null,
+      note: '',
+    };
+  }
+
+  /**
+   * @returns fake Debtor with id & company name
+   */
+  private fakeDebtor(id: number, company: string): Debtor {
+    return {
+      id: id,
+      created_by: 0,
+      company: company,
+      reg_number: '',
+      debt: 0,
+      legal_address: '',
+      city: '',
+      postal_code: '',
+      country: '',
+      phone: '',
+      fax: '',
+      email: '',
+      homepage: '',
+      bank_name: '',
+      bank_account_number: '',
+      status: null,
+      note: '',
+      created_at: null,
+      updated_at: null,
+      deleted_at: null,
+    };
   }
 }
