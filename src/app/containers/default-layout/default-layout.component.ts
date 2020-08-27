@@ -1,4 +1,9 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -33,11 +38,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   constructor(
     private objectsServices: ObjectsService,
+    private cdRef: ChangeDetectorRef,
     private translate: TranslateService,
     private router: Router
   ) {
-
-
     // TODO : to delete
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -47,9 +51,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
-    this.objectsServices
-      .getTitle()
-      .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
+    // this.objectsServices
+    //   .getTitle()
+    //   .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
+    // this.cdRef.detectChanges();
   }
 
   ngAfterViewInit(): void {
@@ -64,6 +69,11 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
     this.translate.use(this.translate.currentLang);
     this.translateTo(this.translate.currentLang);
+
+    this.objectsServices
+    .getTitle()
+    .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
+    this.cdRef.detectChanges();
   }
 
   /*

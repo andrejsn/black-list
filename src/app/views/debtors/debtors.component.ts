@@ -45,7 +45,7 @@ export class DebtorsComponent implements OnInit {
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -271,7 +271,7 @@ export class DebtorsComponent implements OnInit {
       ...this.rawDebtorsList.filter((e) => e.status === status),
     ];
 
-    this.cdr.detectChanges(); // fixed: Expression has changed after it was checked on
+    this.cdRef.detectChanges(); // fixed: Expression has changed after it was checked on
     this.pageChanged({ page: 1, itemsPerPage: 10 });
   }
 
@@ -287,7 +287,7 @@ export class DebtorsComponent implements OnInit {
       ),
     ];
 
-    this.cdr.detectChanges(); // fixed: Expression has changed after it was checked on
+    this.cdRef.detectChanges(); // fixed: Expression has changed after it was checked on
     // FIXME page:  Math.floor(this.debtorsList.length / 10 + 1),
     this.pageChanged({ page: 1, itemsPerPage: 10 });
   }
