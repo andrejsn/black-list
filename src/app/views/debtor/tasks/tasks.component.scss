@@ -9,28 +9,28 @@
 // TODO: class & subclass
 .remind-success:before {
   content: '\25CF';
-  padding-left: 2px;
+  padding-left: 5px;
   font-size: large;
   color: #cdedd8;
 }
 
 .remind-info:before {
   content: '\25CF';
-  padding-left: 2px;
+  padding-left: 5px;
   font-size: large;
   color: #1e90ff;
 }
 
 .remind-warning:before {
   content: '\25CF';
-  padding-left: 2px;
+  padding-left: 5px;
   font-size: large;
   color: #e3bc08;
 }
 
 .remind-important::before {
   content: '\25CF';
-  padding-left: 2px;
+  padding-left: 5px;
   font-size: large;
   color: #ad2121;
 }
