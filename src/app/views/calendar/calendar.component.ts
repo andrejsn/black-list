@@ -317,12 +317,8 @@ export class CalendarComponent implements OnInit {
       .subscribe(
         (data) => {
           const response = data;
-          console.log(response);
-
           // TODO: data.error ?
           if (response.done) {
-            console.log('remove');
-
             this.removeRemind(remind);
           }
         },
@@ -336,9 +332,11 @@ export class CalendarComponent implements OnInit {
       );
   }
 
-  private removeRemind(remind: Remind) {
-    this.selectedDate.reminds = reject(this.selectedDate.reminds, function (e) {
-      return e.debtor_id === remind.debtor_id;
+  private removeRemind(remindToRemove: Remind) {
+    this.selectedDate.reminds = reject(this.selectedDate.reminds, function (
+      remind: Remind
+    ) {
+      return remind.id === remindToRemove.id;
     });
   }
 
@@ -362,7 +360,7 @@ export class CalendarComponent implements OnInit {
   }
 
   /**
-   * @returns fake Debtor with id & company name
+   * @returns fake Debtor with only id & company name
    */
   private fakeDebtor(id: number, company: string): Debtor {
     return {
