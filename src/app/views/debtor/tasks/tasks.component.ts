@@ -32,7 +32,8 @@ const statuses = {
 })
 export class TasksComponent implements OnInit {
   today: moment.Moment;
-  debtor: Debtor;
+  selectedDebtor: Debtor;
+  selectedTask: Task;
   taskList: TableTaskElement[] = [];
   remind_important_count: number;
   remind_warning_count: number;
@@ -56,18 +57,21 @@ export class TasksComponent implements OnInit {
 
       return;
     }
+    this.selectedDebtor = this.objectsService.debtor;
 
-    this.debtor = this.objectsService.debtor;
+    if (this.objectsService.task) {
+      this.selectedTask = this.objectsService.task;
+    }
 
     // set browser title
-    this.title.setTitle(this.debtor.company + '- tasks list');
+    this.title.setTitle(this.selectedDebtor.company + '- tasks list');
     // set bread crumb menu
     this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: false },
       {
         route: '/debtor',
-        name: 'Debtor: ' + this.debtor.company,
+        name: 'Debtor: ' + this.selectedDebtor.company,
         active: false,
       },
       { route: '/debtor/tasks', name: 'Tasks', active: true },
@@ -80,7 +84,7 @@ export class TasksComponent implements OnInit {
     // get data
     this.http
       .get<any>(
-        `${environment.apiUrl}/get/debtor/` + this.debtor.id + `/tasks`,
+        `${environment.apiUrl}/get/debtor/` + this.selectedDebtor.id + `/tasks`,
         {}
       )
       .pipe(first())
@@ -89,7 +93,7 @@ export class TasksComponent implements OnInit {
           const tmp = data as Task[];
           this.taskList = tmp.map((task: Task) => {
             return {
-              visible: false,
+              visible: this.taskVisible(task),
               id: task.id,
               date: task.date,
               note: task.note,
@@ -130,6 +134,12 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  private taskVisible(task: Task): boolean {
+    return (
+      this.selectedTask && task.remind_date && this.selectedTask.id === task.id
+    );
+  }
+
   private remindStatus(task: Task): string {
     // has in the task a reminder?
     if (task.remind_date) {
@@ -150,6 +160,7 @@ export class TasksComponent implements OnInit {
       // important reminder!
       return statuses.IMPORTANT;
     }
+
     return null;
   }
 
@@ -158,15 +169,7 @@ export class TasksComponent implements OnInit {
    */
   toggle(id: number) {
     this.taskList.forEach((task) => {
-      const selector = `.row-num-${task.id}`;
-
-      if (task.id === id) {
-        document.querySelector(selector).classList.toggle('d-none');
-        task.visible = !task.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        task.visible = false;
-      }
+      task.visible = task.id === id ? !task.visible : false;
     });
   }
 
