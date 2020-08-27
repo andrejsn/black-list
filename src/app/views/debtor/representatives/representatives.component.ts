@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
 
 import { Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 interface RepresentativeTableElement extends Representative {
   visible: boolean;
@@ -18,13 +20,19 @@ interface RepresentativeTableElement extends Representative {
   animations: [inOutAnimation()],
 })
 export class RepresentativesComponent implements OnInit {
-
   @Input() contract: Contract;
   representativesList: RepresentativeTableElement[];
   visible: boolean = false;
   count: number;
 
-  constructor(private http: HttpClient,) { }
+  loading: boolean;
+
+  constructor(
+    private objectsService: ObjectsService,
+    private http: HttpClient,
+    private router: Router,
+
+    ) { }
 
   ngOnInit(): void {
     // get data
@@ -48,7 +56,7 @@ export class RepresentativesComponent implements OnInit {
   toggle (representativeList: RepresentativeTableElement[], index:number){
     for (let i = 0; i < representativeList.length; i++) {
       const debtor = representativeList[i];
-      let selector = `.row-num-${i}-representative`;
+      const selector = `.row-num-${i}-representative`;
 
       if (i === index) {
         document.querySelector(selector).classList.toggle('d-none');
@@ -58,6 +66,11 @@ export class RepresentativesComponent implements OnInit {
         debtor.visible = false;
       }
     }
+  }
+
+  editRepresentative(representative: RepresentativeTableElement){
+    this.objectsService.representative = representative;
+    this.router.navigate(['/edit/representative']);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Debtor, Task, MenuItem } from '@app/models';
+import { Debtor, Task, Representative, MenuItem } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -9,20 +9,21 @@ export class ObjectsService {
   // cached objekts here:
   debtor: Debtor;
   task: Task;
+  representative: Representative;
 
+  // breadCrumb
   menuItems: MenuItem[] = [{ route: '/', name: 'Home', active: true }];
 
-  // bread crumb title
-  private title = new BehaviorSubject<MenuItem[]>(this.menuItems);
-  private title$ = this.title.asObservable();
+  private breadCrumb = new BehaviorSubject<MenuItem[]>(this.menuItems);
+  private breadCrumb$ = this.breadCrumb.asObservable();
 
   constructor() {}
 
-  setTitle(title: MenuItem[]) {
-    this.title.next(title);
+  setBreadCrumb(breadCrumb: MenuItem[]) {
+    this.breadCrumb.next(breadCrumb);
   }
 
-  getTitle(): Observable<MenuItem[]> {
-    return this.title$;
+  getBreadCrumb(): Observable<MenuItem[]> {
+    return this.breadCrumb$;
   }
 }

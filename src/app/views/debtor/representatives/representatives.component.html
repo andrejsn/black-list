@@ -6,7 +6,7 @@
           [ngClass]="{'fa-expand': !visible,'fa-compress': visible}"></i>
         <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>Representatives ({{count}})
         <span class="float-right">
-          <button class="btn">
+          <button class="btn" [routerLink]="'/add/representative'">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Add representative
           </button>
@@ -42,7 +42,7 @@
               <tr class="d-none row-num-{{i}}-representative">
                 <td *ngIf="representative.visible" colspan="7">
                   <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                  <button class="btn" (click)="editRepresentative(representative)"><i class="fa fa-pencil-square-o"></i> Edit</button>
                 </td>
               </tr>
             </ng-container>

@@ -12,9 +12,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 import { TaskComponent } from '.';
+import { RepresentativeComponent } from './representative/representative.component';
 
 @NgModule({
-  declarations: [TaskComponent],
+  declarations: [TaskComponent, RepresentativeComponent],
   imports: [
     CommonModule,
     EditRoutingModule,

@@ -76,7 +76,7 @@ export class DefaultLayoutComponent
 
   ngAfterContentChecked(): void {
     this.objectsServices
-      .getTitle()
+      .getBreadCrumb()
       .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
     this.cdRef.detectChanges();
   }

@@ -31,7 +31,7 @@ export class DebtorComponent implements OnInit {
     // set browser title
     this.title.setTitle(this.debtor.company +  '- details');
     // set bread crumb menu
-    this.objectsService.setTitle([
+    this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: false },
       { route: '/debtor', name: 'Debtor: ' + this.debtor.company, active: true },

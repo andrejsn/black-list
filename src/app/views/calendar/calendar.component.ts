@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit {
     // set browser title
     this.title.setTitle('Calendar');
     // set breadcrumb menu
-    this.objectsService.setTitle([
+    this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
       { route: '/calendar', name: 'Calendar', active: true },
     ]);

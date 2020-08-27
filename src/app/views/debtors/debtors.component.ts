@@ -54,7 +54,7 @@ export class DebtorsComponent implements OnInit {
     // set browser title
     this.title.setTitle('Debtors list');
     // set breadcrumb menu
-    this.objectsService.setTitle([
+    this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: true },
     ]);

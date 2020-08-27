@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskComponent } from '.';
+import { TaskComponent, RepresentativeComponent } from '.';
 import { P404Component } from '../error/404.component';
 
 const routes: Routes = [
@@ -15,9 +15,10 @@ const routes: Routes = [
   {
     path: 'task',
     component: TaskComponent,
-    data: {
-      title: 'Add Task',
-    },
+  },
+  {
+    path: 'representative',
+    component: RepresentativeComponent,
   },
   { path: '**', component: P404Component },
 ];
