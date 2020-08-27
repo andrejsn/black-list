@@ -11,6 +11,7 @@ import { Debtor, DebtorStatus } from '@app/models';
 import { ObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
+
 interface DebtorTableElement extends Debtor {
   visible: boolean;
 }
@@ -42,6 +43,7 @@ export class DebtorsComponent implements OnInit {
   constructor(
     private title: Title,
     private objectsService: ObjectsService,
+
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
@@ -56,6 +58,8 @@ export class DebtorsComponent implements OnInit {
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: true },
     ]);
+
+
 
     // get data
     this.http

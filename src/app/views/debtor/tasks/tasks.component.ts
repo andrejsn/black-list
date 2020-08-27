@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
@@ -40,6 +41,7 @@ export class TasksComponent implements OnInit {
   loading: boolean;
 
   constructor(
+    private title: Title,
     private objectsService: ObjectsService,
     private router: Router,
     private translate: TranslateService,
@@ -54,6 +56,15 @@ export class TasksComponent implements OnInit {
 
       return;
     }
+
+    // set browser title
+    this.title.setTitle('Debtor list');
+    // set bread crumb menu
+    this.objectsService.setTitle([
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: true },
+    ]);
+
 
     Object.freeze(statuses);
     this.today = moment();
