@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   OnInit,
   ChangeDetectorRef,
+  AfterContentChecked,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -17,7 +18,8 @@ import { MenuItem } from '@app/models';
   styles: ['.xxx {font-size: xxx-large;} .i18n_click:hover {cursor:pointer;}'],
   templateUrl: './default-layout.component.html',
 })
-export class DefaultLayoutComponent implements OnInit, AfterViewInit {
+export class DefaultLayoutComponent
+  implements OnInit, AfterViewInit, AfterContentChecked {
   public sidebarMinimized = false;
   public navItems = navItems;
 
@@ -49,6 +51,7 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   ngOnInit(): void {
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
     // this.objectsServices
@@ -69,10 +72,12 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
     this.translate.use(this.translate.currentLang);
     this.translateTo(this.translate.currentLang);
+  }
 
+  ngAfterContentChecked(): void {
     this.objectsServices
-    .getTitle()
-    .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
+      .getTitle()
+      .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
     this.cdRef.detectChanges();
   }
 
