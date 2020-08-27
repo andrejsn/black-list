@@ -10,7 +10,7 @@ import * as moment from 'moment';
 
 import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 
 interface TableTaskElement extends Task {
   visible: boolean;
@@ -40,7 +40,7 @@ export class TasksComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
@@ -48,7 +48,7 @@ export class TasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.cachedObjectsService.debtor) {
+    if (!this.objectsService.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
@@ -57,7 +57,7 @@ export class TasksComponent implements OnInit {
 
     Object.freeze(statuses);
     this.today = moment();
-    this.debtor = this.cachedObjectsService.debtor;
+    this.debtor = this.objectsService.debtor;
     this.loading = false;
 
     // get data
@@ -190,7 +190,7 @@ export class TasksComponent implements OnInit {
    * edit task
    */
   editTask(task: TableTaskElement) {
-    this.cachedObjectsService.task = task;
+    this.objectsService.task = task;
     this.router.navigate(['/edit/task']);
   }
 

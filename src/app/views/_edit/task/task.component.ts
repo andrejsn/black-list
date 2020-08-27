@@ -14,7 +14,7 @@ import { first } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { Task } from '@app/models';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 import { inOutAnimation, timezoneOffset } from '@shared/helpers';
 import { environment } from '@environments/environment';
 
@@ -40,7 +40,7 @@ export class TaskComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -49,14 +49,14 @@ export class TaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.cachedObjectsService.task) {
+    if (!this.objectsService.task) {
       // no task cached
       this.router.navigate(['/debtors']);
 
       return; // ~
     }
 
-    this.task = this.cachedObjectsService.task;
+    this.task = this.objectsService.task;
     this.today = new Date();
     this.isUpdateReminder = this.task.remind_date ? true : false;
 

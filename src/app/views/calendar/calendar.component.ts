@@ -11,6 +11,7 @@ import { first } from 'rxjs/operators';
 import { Task } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 interface Month {
   firstDay: moment.Moment;
@@ -53,10 +54,14 @@ export class CalendarComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private snotifyService: SnotifyService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private objectsService: ObjectsService,
   ) {}
 
   ngOnInit(): void {
+    // set title
+    this.objectsService.setTitle('Hello from calendar');
+
     this.remindsVisible = false;
     this.selectedMonth = moment();
     this.firstRemind = moment();

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 interface DebtorTableElement extends Debtor {
@@ -41,8 +41,7 @@ export class DebtorsComponent implements OnInit {
 
   constructor(
     private title: Title,
-
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
@@ -52,8 +51,12 @@ export class DebtorsComponent implements OnInit {
   ngOnInit(): void {
     // set browser title
     this.title.setTitle('Debtors list');
-    // set title
-
+    // set bread crumb menu
+    this.objectsService.setTitle('Hello from debtors');
+    this.objectsService.breadcrumbItems = [
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: true },
+    ];
     // get data
     this.http
       .get<any>(`${environment.apiUrl}/get/debtors`, {})
@@ -94,7 +97,7 @@ export class DebtorsComponent implements OnInit {
    * go to contracts
    */
   contracts(selectesDebtor: Debtor) {
-    this.cachedObjectsService.debtor = selectesDebtor;
+    this.objectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/contracts']);
   }
 
@@ -102,7 +105,7 @@ export class DebtorsComponent implements OnInit {
    * go to contracts
    */
   details(selectesDebtor: Debtor) {
-    this.cachedObjectsService.debtor = selectesDebtor;
+    this.objectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/details']);
   }
 
@@ -110,7 +113,7 @@ export class DebtorsComponent implements OnInit {
    * go to tasks
    */
   tasks(selectesDebtor: Debtor) {
-    this.cachedObjectsService.debtor = selectesDebtor;
+    this.objectsService.debtor = selectesDebtor;
     this.router.navigate(['/debtor/tasks']);
   }
 

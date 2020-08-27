@@ -1,1 +1,1 @@
-export * from './cached-objects.service';
+export * from './objects.service';

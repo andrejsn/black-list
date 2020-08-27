@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
+import { ObjectsService } from '@shared/services';
 import { navI18n, navItems } from '@app/_nav';
 import { MenuItem } from '@app/models';
 
@@ -29,11 +30,12 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   // use for
   title: string;
 
-  breadcrumbItems: MenuItem[];
+  breadcrumbItems:  MenuItem[];
+  breadcrumbTitle: String;
 
   constructor
     (
-
+      private objectsServices: ObjectsService,
       private translate: TranslateService,
       private router: Router
     ) {
@@ -50,10 +52,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
-    this.breadcrumbItems = [
-      {route: '/', name: 'Home', active: false},
-      {route: '/debtors', name: 'Debtors', active: true}
-    ];
+    this.objectsServices.getTitle().subscribe(currentTitle => this.breadcrumbTitle = currentTitle);
+
   }
 
 

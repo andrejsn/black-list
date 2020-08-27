@@ -13,7 +13,7 @@ import { SnotifyService } from 'ng-snotify';
 
 import { Contract, Debtor } from '@app/models';
 import { environment } from '@environments/environment';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 
 interface ContractCalcPay extends Contract {
   company: string;
@@ -40,7 +40,7 @@ export class DebtCalculationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService
@@ -72,8 +72,8 @@ export class DebtCalculationComponent implements OnInit {
 
     // this.loading = true;
 
-    this.contract.company = this.cachedObjectsService.debtor.company;
-    this.contract.reg_number = this.cachedObjectsService.debtor.reg_number;
+    this.contract.company = this.objectsService.debtor.company;
+    this.contract.reg_number = this.objectsService.debtor.reg_number;
     this.contract.calcDate = this.calcPayForm.controls['calcDate'].value;
     this.contract.saveDoc = this.calcPayForm.controls['saveDoc'].value;
 

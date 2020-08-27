@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { Debtor, Contract } from '@app/models';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 
 interface ContractTableElement extends Contract {
   visible: boolean;
@@ -25,18 +25,18 @@ export class ContractsComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private cachedObjectsService: CachedObjectsService
+    private objectsService: ObjectsService
   ) {}
 
   ngOnInit(): void {
-    if (!this.cachedObjectsService.debtor) {
+    if (!this.objectsService.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
       return;
     }
 
-    this.debtor = this.cachedObjectsService.debtor;
+    this.debtor = this.objectsService.debtor;
 
     // get data
     this.http

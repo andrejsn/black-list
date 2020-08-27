@@ -13,7 +13,7 @@ import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 
 import { Task, Debtor } from '@app/models';
-import { CachedObjectsService } from '@shared/services';
+import { ObjectsService } from '@shared/services';
 import { inOutAnimation } from '@shared/helpers';
 import { environment } from '@environments/environment';
 
@@ -39,7 +39,7 @@ export class TaskComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -48,14 +48,14 @@ export class TaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.cachedObjectsService.debtor) {
+    if (!this.objectsService.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
       return; // ~
     }
 
-    this.debtor = this.cachedObjectsService.debtor;
+    this.debtor = this.objectsService.debtor;
     this.today = new Date();
     this.isCreateReminder = false;
     this.loading = false;

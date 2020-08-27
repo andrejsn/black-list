@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CachedObjectsService } from '@app/shared/services';
+import { ObjectsService } from '@app/shared/services';
 import { Debtor } from '@app/models';
 
 @Component({
@@ -14,20 +14,20 @@ export class DetailsComponent implements OnInit {
   debtor: Debtor;
 
   constructor(
-    private cachedObjectsService: CachedObjectsService,
+    private objectsService: ObjectsService,
     private router: Router,
     ) { }
 
   ngOnInit(): void {
-    if(!this.cachedObjectsService.debtor) {
+    if(!this.objectsService.debtor) {
       // no debtor cached
       this.router.navigate(['/debtors']);
 
       return;
     }
 
-    this.debtor = this.cachedObjectsService.debtor;
-    // console.log(this.cachedObjectsService.debtor.company);
+    this.debtor = this.objectsService.debtor;
+    // console.log(this.objectsService.debtor.company);
 
   }
 
