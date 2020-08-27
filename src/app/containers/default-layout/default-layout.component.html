@@ -75,13 +75,6 @@
     <!-- Breadcrumb -->
     <!-- Plan A -->
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" >
-        Hello
-      </li>
-<li class="breadcrumb-item" >
-  {{breadcrumbTitle}}
-</li>
-
       <ng-container *ngFor="let item of breadcrumbItems">
         <li class="breadcrumb-item" [ngClass]="{'active': item.active}">
           <a *ngIf="!item.active" [routerLink]="item.route">{{item.name}}</a>

@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     // set title
-    this.objectsService.setTitle('Hello from calendar');
+    this.objectsService.setTitle([{route: '', name: 'calendar', active: true}]);
 
     this.remindsVisible = false;
     this.selectedMonth = moment();

@@ -52,11 +52,11 @@ export class DebtorsComponent implements OnInit {
     // set browser title
     this.title.setTitle('Debtors list');
     // set bread crumb menu
-    this.objectsService.setTitle('Hello from debtors');
-    this.objectsService.breadcrumbItems = [
+    this.objectsService.setTitle([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: true },
-    ];
+    ]);
+
     // get data
     this.http
       .get<any>(`${environment.apiUrl}/get/debtors`, {})

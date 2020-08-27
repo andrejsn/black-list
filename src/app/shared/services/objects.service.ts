@@ -3,28 +3,26 @@ import { Debtor, Task, MenuItem } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectsService {
   // cached objekts here:
   debtor: Debtor;
   task: Task;
 
-  // title
-  private title = new BehaviorSubject<String>('App title');
+  menuItems: MenuItem[] = [{ route: '/', name: 'Home', active: true }];
+
+  // bread crumb title
+  private title = new BehaviorSubject<MenuItem[]>(this.menuItems);
   private title$ = this.title.asObservable();
 
-  // bread crumb menu
-  breadcrumbItems: MenuItem[];
+  constructor() {}
 
-constructor() { }
+  setTitle(title: MenuItem[]) {
+    this.title.next(title);
+  }
 
-
-setTitle(title: String) {
-  this.title.next(title);
-}
-
-getTitle(): Observable<String> {
-  return this.title$;
-}
+  getTitle(): Observable<MenuItem[]> {
+    return this.title$;
+  }
 }

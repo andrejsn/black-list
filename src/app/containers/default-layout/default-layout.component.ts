@@ -10,7 +10,7 @@ import { MenuItem } from '@app/models';
 @Component({
   selector: 'app-dashboard',
   styles: ['.xxx {font-size: xxx-large;} .i18n_click:hover {cursor:pointer;}'],
-  templateUrl: './default-layout.component.html'
+  templateUrl: './default-layout.component.html',
 })
 export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   public sidebarMinimized = false;
@@ -26,22 +26,17 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   // breadcump menu active
   active: string = '';
 
-
   // use for
   title: string;
 
-  breadcrumbItems:  MenuItem[];
-  breadcrumbTitle: String;
+  breadcrumbItems: MenuItem[];
 
-  constructor
-    (
-      private objectsServices: ObjectsService,
-      private translate: TranslateService,
-      private router: Router
-    ) {
+  constructor(
+    private objectsServices: ObjectsService,
+    private translate: TranslateService,
+    private router: Router
+  ) {
 
-
-     // .currentlyTitle$.subscribe((currentlyTitle: string) => { this.title = currentlyTitle });
 
     // TODO : to delete
     this.router.events.subscribe((event) => {
@@ -52,13 +47,15 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.user_name = JSON.parse(localStorage.getItem('user')).name;
-    this.objectsServices.getTitle().subscribe(currentTitle => this.breadcrumbTitle = currentTitle);
-
+    this.objectsServices
+      .getTitle()
+      .subscribe((currentTitle) => (this.breadcrumbItems = currentTitle));
   }
 
-
   ngAfterViewInit(): void {
-    const elements = document.getElementsByTagName('app-sidebar-nav-link-content');
+    const elements = document.getElementsByTagName(
+      'app-sidebar-nav-link-content'
+    );
 
     this.reports = elements.item(0);
     this.debtors = elements.item(1);
@@ -75,10 +72,38 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   translateTo(language: string): void {
     this.translate.use(language);
     // translate menu
-    this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.reports.innerHTML = this.reports.innerHTML.replace(navI18n[0], res); })
-    this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.debtors.innerHTML = this.debtors.innerHTML.replace(navI18n[1], res); })
-    this.translate.get('app-sidebar-nav-link.add_debtor').subscribe((res: string) => { this.add_debtor.innerHTML = this.add_debtor.innerHTML.replace(navI18n[2], res); })
-    this.translate.get('app-sidebar-nav-link.calendar').subscribe((res: string) => { this.calendar.innerHTML = this.calendar.innerHTML.replace(navI18n[3], res); })
+    this.translate
+      .get('app-sidebar-nav-link.reports')
+      .subscribe((res: string) => {
+        this.reports.innerHTML = this.reports.innerHTML.replace(
+          navI18n[0],
+          res
+        );
+      });
+    this.translate
+      .get('app-sidebar-nav-link.debtors')
+      .subscribe((res: string) => {
+        this.debtors.innerHTML = this.debtors.innerHTML.replace(
+          navI18n[1],
+          res
+        );
+      });
+    this.translate
+      .get('app-sidebar-nav-link.add_debtor')
+      .subscribe((res: string) => {
+        this.add_debtor.innerHTML = this.add_debtor.innerHTML.replace(
+          navI18n[2],
+          res
+        );
+      });
+    this.translate
+      .get('app-sidebar-nav-link.calendar')
+      .subscribe((res: string) => {
+        this.calendar.innerHTML = this.calendar.innerHTML.replace(
+          navI18n[3],
+          res
+        );
+      });
 
     this.translateActiveBreadcrump(this.router.url);
   }
@@ -90,18 +115,33 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
    */
   translateActiveBreadcrump(url: string) {
     if (url === '/' || url === navItems[0].url) {
-      this.translate.get('app-sidebar-nav-link.reports').subscribe((res: string) => { this.active = res; });
+      this.translate
+        .get('app-sidebar-nav-link.reports')
+        .subscribe((res: string) => {
+          this.active = res;
+        });
     } else if (url === navItems[1].url) {
-      this.translate.get('app-sidebar-nav-link.debtors').subscribe((res: string) => { this.active = res; });
+      this.translate
+        .get('app-sidebar-nav-link.debtors')
+        .subscribe((res: string) => {
+          this.active = res;
+        });
     } else if (url === navItems[2].url) {
-      this.translate.get('app-sidebar-nav-link.add_debtor').subscribe((res: string) => { this.active = res; });
+      this.translate
+        .get('app-sidebar-nav-link.add_debtor')
+        .subscribe((res: string) => {
+          this.active = res;
+        });
     } else if (url === navItems[3].url) {
-      this.translate.get('app-sidebar-nav-link.calendar').subscribe((res: string) => { this.active = res; });
+      this.translate
+        .get('app-sidebar-nav-link.calendar')
+        .subscribe((res: string) => {
+          this.active = res;
+        });
     }
   }
 
   toggleMinimize(e: boolean) {
     this.sidebarMinimized = e;
   }
-
 }
