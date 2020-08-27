@@ -13,7 +13,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <div *ngIf="debtorsList.length === 0" >
+            <div *ngIf="debtorsList.length === 0">
               Not Found
             </div>
           </div>
@@ -21,9 +21,9 @@
             <section id="search">
               <label for="search-input"><i class="fa fa-search fa-lg" aria-hidden="true"></i><span
                   class="sr-only">Search:</span></label>
-              <input id="search-input" type="search" (input)="onSearchChange($event.target.value)" class="form-control input-lg"
-                placeholder="search by name or register number" autocomplete="off" spellcheck="false" autocorrect="off"
-                tabindex="1">
+              <input id="search-input" type="search" (input)="onSearchChange($event.target.value)"
+                class="form-control input-lg" placeholder="search by name or register number" autocomplete="off"
+                spellcheck="false" autocorrect="off" tabindex="1">
             </section>
           </div>
         </div>
@@ -69,10 +69,10 @@
               <tr class="d-none row-num-{{i}}">
                 <ng-container *ngIf="debtor.visible">
                   <td colspan="3">
-                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-                      Contracts</button>
                     <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i>
                       Details</button>
+                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                      Contracts</button>
                     <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i>
                       Tasks</button>
                   </td>
@@ -90,7 +90,8 @@
             class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
             [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event"></pagination>
         </nav>
-        <pre *ngIf="debtorsList.length > 0" class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre>
+        <pre *ngIf="debtorsList.length > 0"
+          class="card card-body card-header">Page: {{currentPage}} / {{numPages}}</pre>
       </div>
     </div>
   </div>

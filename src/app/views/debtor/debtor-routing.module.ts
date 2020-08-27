@@ -16,10 +16,10 @@ const routes: Routes = [
     path: 'contracts',
     component: ContractsComponent,
   },
-  {
-    path: 'details',
-    component: DetailsComponent,
-  },
+  // {
+  //   path: 'details',
+  //   component: DetailsComponent, // TOOD: remove DetailsComponent as unused
+  // },
   {
     path: 'tasks',
     component: TasksComponent,

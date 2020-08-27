@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -52,15 +53,21 @@ export class CalendarComponent implements OnInit {
   lastRemind: moment.Moment;
 
   constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
     private http: HttpClient,
     private snotifyService: SnotifyService,
-    private translate: TranslateService,
-    private objectsService: ObjectsService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    // set title
-    this.objectsService.setTitle([{route: '', name: 'calendar', active: true}]);
+    // set browser title
+    this.title.setTitle('Calendar');
+    // set breadcrumb menu
+    this.objectsService.setTitle([
+      { route: '/', name: 'Home', active: false },
+      { route: '/calendar', name: 'Calendar', active: true },
+    ]);
 
     this.remindsVisible = false;
     this.selectedMonth = moment();
@@ -307,7 +314,7 @@ export class CalendarComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          const response = (data);
+          const response = data;
           console.log(response);
 
           // TODO: data.error ?

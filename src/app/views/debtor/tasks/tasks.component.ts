@@ -57,18 +57,21 @@ export class TasksComponent implements OnInit {
       return;
     }
 
+    this.debtor = this.objectsService.debtor;
+
     // set browser title
-    this.title.setTitle('Debtor list');
+    this.title.setTitle(this.debtor.company +  '- tasks list');
     // set bread crumb menu
     this.objectsService.setTitle([
       { route: '/', name: 'Home', active: false },
-      { route: '/debtors', name: 'Debtors', active: true },
+      { route: '/debtors', name: 'Debtors', active: false },
+      { route: '/debtor', name: 'Debtor: ' + this.debtor.company, active: false },
+      { route: '/debtor/tasks', name: 'Tasks', active: true },
     ]);
 
 
     Object.freeze(statuses);
     this.today = moment();
-    this.debtor = this.objectsService.debtor;
     this.loading = false;
 
     // get data

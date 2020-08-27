@@ -53,7 +53,7 @@ export class DebtorsComponent implements OnInit {
   ngOnInit(): void {
     // set browser title
     this.title.setTitle('Debtors list');
-    // set bread crumb menu
+    // set breadcrumb menu
     this.objectsService.setTitle([
       { route: '/', name: 'Home', active: false },
       { route: '/debtors', name: 'Debtors', active: true },
@@ -110,7 +110,7 @@ export class DebtorsComponent implements OnInit {
    */
   details(selectesDebtor: Debtor) {
     this.objectsService.debtor = selectesDebtor;
-    this.router.navigate(['/debtor/details']);
+    this.router.navigate(['/debtor']);
   }
 
   /**
