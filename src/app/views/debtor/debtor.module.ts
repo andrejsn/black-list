@@ -6,6 +6,7 @@ import { DebtorRoutingModule } from './debtor-routing.module';
 import { DetailsComponent } from './details/details.component';
 import { TemplateComponent } from './templates/templates.component';
 import {
+  DebtorComponent,
   TasksComponent,
   ContractsComponent,
   InvoicesComponent,
@@ -33,8 +34,10 @@ import { SharingModule } from '@shared/shareModule';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
 
+
 @NgModule({
   declarations: [
+    DebtorComponent,
     DetailsComponent,
     ContractsComponent,
     InvoicesComponent,
