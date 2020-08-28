@@ -34,7 +34,7 @@ export class TasksComponent implements OnInit {
   today: moment.Moment;
   selectedDebtor: Debtor;
   selectedTask: Task;
-  taskList: TableTaskElement[] = [];
+  tasksList: TableTaskElement[] = [];
   remind_important_count: number;
   remind_warning_count: number;
   remind_info_count: number;
@@ -91,7 +91,7 @@ export class TasksComponent implements OnInit {
       .subscribe(
         (data) => {
           const tmp = data as Task[];
-          this.taskList = tmp.map((task: Task) => {
+          this.tasksList = tmp.map((task: Task) => {
             return {
               visible: this.taskVisible(task),
               id: task.id,
@@ -103,12 +103,6 @@ export class TasksComponent implements OnInit {
               remind_status: this.remindStatus(task),
             };
           });
-
-          // if (this.objectsService.task) {
-          //   console.log(this.objectsService.task.id);
-
-          //   this.toggle(this.objectsService.task.id);
-          // }
 
           this.refreshStatusesCount();
         },
@@ -123,7 +117,7 @@ export class TasksComponent implements OnInit {
     this.remind_warning_count = 0;
     this.remind_info_count = 0;
 
-    this.taskList.forEach((task) => {
+    this.tasksList.forEach((task) => {
       if (task.remind_status === statuses.IMPORTANT) {
         this.remind_important_count++;
       } else if (task.remind_status === statuses.WARNING) {
@@ -168,7 +162,7 @@ export class TasksComponent implements OnInit {
    * toggle row
    */
   toggle(id: number) {
-    this.taskList.forEach((task) => {
+    this.tasksList.forEach((task) => {
       task.visible = task.id === id ? !task.visible : false;
     });
   }
@@ -257,7 +251,7 @@ export class TasksComponent implements OnInit {
           const response = data;
           // TODO: data.error ?
           if (response.deleted) {
-            this.taskList = reject(this.taskList, function (
+            this.tasksList = reject(this.tasksList, function (
               task: TableTaskElement
             ) {
               return (task.id as number) === (response.deleted as number);

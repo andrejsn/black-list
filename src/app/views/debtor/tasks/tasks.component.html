@@ -5,7 +5,7 @@
       <!-- card header -->
       <div class="card-header">
         <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
-        Tasks ({{taskList.length}}) | Reminds
+        Tasks ({{tasksList.length}}) | Reminds
         <span class="remind-important" *ngIf="remind_important_count > 0">{{remind_important_count}}</span>
         <span class="remind-warning" *ngIf="remind_warning_count > 0">{{remind_warning_count}}</span>
         <span class="remind-info" *ngIf="remind_info_count > 0">{{remind_info_count}}</span>
@@ -19,7 +19,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <div *ngIf="taskList.length === 0">
+            <div *ngIf="tasksList.length === 0">
               Not Found
             </div>
           </div>
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <table *ngIf="taskList.length > 0" class="table table-responsive-sm table-sm">
+        <table *ngIf="tasksList.length > 0" class="table table-responsive-sm table-sm">
           <thead>
             <tr>
               <th></th>
@@ -38,7 +38,7 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let task of taskList;">
+            <ng-container *ngFor="let task of tasksList;">
               <tr>
                 <td *ngIf="task.remind_date" class="toggle" (click)="toggle(task.id)">
                   <div>

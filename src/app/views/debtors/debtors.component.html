@@ -50,11 +50,12 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let debtor of pagedDebtorsList; let i = index">
+            <ng-container *ngFor="let debtor of pagedDebtorsList">
               <tr>
-                <td class="toggle" (click)="toggle(pagedDebtorsList, i)">
-                  <i aria-hidden="true" class="fa"
-                    [ngClass]="{'fa-expand': !debtor.visible,'fa-compress': debtor.visible}"></i>
+                <td class="toggle" (click)="toggle(debtor.id)">
+                  <i aria-hidden="true" class="fa" [ngClass]="{
+                      'fa-expand': !debtor.visible,
+                      'fa-compress': debtor.visible}"></i>
                 </td>
                 <td>{{debtor.company}}</td>
                 <td>{{debtor.created_at | date: 'y. d MMMM':'IST':'lv'}}</td>
@@ -66,21 +67,20 @@
                   </span>
                 </td>
               </tr>
-              <tr class="d-none row-num-{{i}}">
-                <ng-container *ngIf="debtor.visible">
-                  <td colspan="3">
-                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i>
-                      Details</button>
-                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-                      Contracts</button>
-                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i>
-                      Tasks</button>
-                  </td>
-                  <td colspan="2">
-                    <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  </td>
-                </ng-container>
+              <!-- accordion for debtor -->
+              <tr [ngClass]="{'d-none': !debtor.visible}">
+                <td colspan="3">
+                  <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i>
+                    Details</button>
+                  <button class="btn" (click)="contracts(debtor)"><i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    Contracts</button>
+                  <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i>
+                    Tasks</button>
+                </td>
+                <td colspan="2">
+                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                </td>
               </tr>
             </ng-container>
           </tbody>

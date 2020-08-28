@@ -11,7 +11,6 @@ import { Debtor, DebtorStatus } from '@app/models';
 import { ObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-
 interface DebtorTableElement extends Debtor {
   visible: boolean;
 }
@@ -59,8 +58,6 @@ export class DebtorsComponent implements OnInit {
       { route: '/debtors', name: 'Debtors', active: true },
     ]);
 
-
-
     // get data
     this.http
       .get<any>(`${environment.apiUrl}/get/debtors`, {})
@@ -82,19 +79,10 @@ export class DebtorsComponent implements OnInit {
   /**
    * toggle table row
    */
-  toggle(rawDebtorsList: DebtorTableElement[], index: number) {
-    for (let i = 0; i < rawDebtorsList.length; i++) {
-      const debtor = rawDebtorsList[i];
-      const selector = `.row-num-${i}`;
-
-      if (i === index) {
-        document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
-      }
-    }
+  toggle(id: number) {
+    this.debtorsList.forEach((debtor) => {
+      debtor.visible = debtor.id === id ? !debtor.visible : false;
+    });
   }
 
   /**
