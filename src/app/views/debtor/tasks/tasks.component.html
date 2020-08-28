@@ -1,88 +1,90 @@
-<!-- show calendar tasks: -->
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <!-- card header -->
-      <div class="card-header">
-        <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
-        Tasks ({{tasksList.length}}) | Reminds
-        <span class="remind-important" *ngIf="remind_important_count > 0">{{remind_important_count}}</span>
-        <span class="remind-warning" *ngIf="remind_warning_count > 0">{{remind_warning_count}}</span>
-        <span class="remind-info" *ngIf="remind_info_count > 0">{{remind_info_count}}</span>
-        <!-- add Task -->
-        <span class="float-right">
-          <a class="btn btn-default btn-sm" [routerLink]="'/add/task'">
-            <i class="fa fa-plus"></i> Add Task</a>
-        </span>
-      </div>
-
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <div *ngIf="tasksList.length === 0">
-              Not Found
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6">
-            <!-- not in use -->
-          </div>
+<div class="animated fadeIn">
+  <!-- show all tasks for debtor: -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <!-- card header -->
+        <div class="card-header">
+          <i class="fa fa-tasks fa-2x" aria-hidden="true"></i>
+          Tasks ({{tasksList.length}}) | Reminds
+          <span class="remind-important" *ngIf="remind_important_count > 0">{{remind_important_count}}</span>
+          <span class="remind-warning" *ngIf="remind_warning_count > 0">{{remind_warning_count}}</span>
+          <span class="remind-info" *ngIf="remind_info_count > 0">{{remind_info_count}}</span>
+          <!-- add Task -->
+          <span class="float-right">
+            <a class="btn btn-default btn-sm" [routerLink]="'/add/task'">
+              <i class="fa fa-plus"></i> Add Task</a>
+          </span>
         </div>
 
-        <table *ngIf="tasksList.length > 0" class="table table-responsive-sm table-sm">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Date</th>
-              <th>Task</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let task of tasksList;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div *ngIf="tasksList.length === 0">
+                Not Found
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <!-- not in use -->
+            </div>
+          </div>
+
+          <table *ngIf="tasksList.length > 0" class="table table-responsive-sm table-sm">
+            <thead>
               <tr>
-                <td *ngIf="task.remind_date" class="toggle" (click)="toggle(task.id)">
-                  <div>
-                    <i aria-hidden="true" class="fa" [ngClass]="{
+                <th></th>
+                <th>Date</th>
+                <th>Task</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let task of tasksList;">
+                <tr>
+                  <td *ngIf="task.remind_date" class="toggle" (click)="toggle(task.id)">
+                    <div>
+                      <i aria-hidden="true" class="fa" [ngClass]="{
                       'fa-expand': !task.visible,
                       'fa-compress': task.visible
                     }"></i>
-                  </div>
-                  <div [ngClass]="{
+                    </div>
+                    <div [ngClass]="{
                     'remind-success': task.remind_status === 'success',
                     'remind-info': task.remind_status === 'info',
                     'remind-warning': task.remind_status === 'warning',
                     'remind-important': task.remind_status === 'danger'
                 }"></div>
-                </td>
-                <td *ngIf="!task.remind_date"></td>
+                  </td>
+                  <td *ngIf="!task.remind_date"></td>
 
-                <td>{{task.date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                <td class="note-num-{{ task.id }}">{{task.note}}</td>
-                <td>
-                  <button [disabled]="loading" class="btn" (click)="editTask(task)">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    Edit</button>
-                  <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(task)">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Trash</button>
-                </td>
-              </tr>
-              <!-- reminds details -->
-              <tr [ngClass]="{'d-none': !task.visible}">
-                <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                <td *ngIf="task.visible" class="no-top-border">
-                  <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
-                </td>
-                <td class="no-top-border">
-                  <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status === 'success'">
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Uncheck</button>
-                  <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status !== 'success'">
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i> Check</button>
-                </td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
+                  <td>{{task.date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                  <td class="note-num-{{ task.id }}">{{task.note}}</td>
+                  <td>
+                    <button [disabled]="loading" class="btn" (click)="editTask(task)">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      Edit</button>
+                    <button [disabled]="loading" class="btn" (click)="notifyDeleteTask(task)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                      Trash</button>
+                  </td>
+                </tr>
+                <!-- reminds details -->
+                <tr [ngClass]="{'d-none': !task.visible}">
+                  <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                  <td *ngIf="task.visible" class="no-top-border">
+                    <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
+                  </td>
+                  <td class="no-top-border">
+                    <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status === 'success'">
+                      <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Uncheck</button>
+                    <button class="btn" (click)="changeDoneTask(task)" *ngIf="task.remind_status !== 'success'">
+                      <i class="fa fa-calendar-o" aria-hidden="true"></i> Check</button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

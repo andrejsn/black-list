@@ -1,69 +1,72 @@
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-header"><i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i> Contracts ({{count}})
-        <span class="float-right">
-          <button class="btn">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Add contract
-          </button>
-        </span>
-      </div>
-      <div class="card-body">
-        <table class="table table-responsive-sm table-sm">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Date</th>
-              <th>Number</th>
-              <th>Pay term days</th>
-              <th>Fine per day</th>
-              <th>Max. percentage</th>
-              <th>Type of fine</th>
-              <!-- <th>Note</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let contract of contractsList; let i = index">
+<div class="animated fadeIn">
+  <!-- show all contracts -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header"><i class="fa fa-handshake-o fa-2x" aria-hidden="true"></i> Contracts ({{contractsList.length}})
+          <span class="float-right">
+            <button class="btn">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Add contract
+            </button>
+          </span>
+        </div>
+        <div class="card-body">
+          <table class="table table-responsive-sm table-sm">
+            <thead>
               <tr>
-                <td class="toggle" (click)="toggle(contractsList, i);isTemplateCollapsed = true">
-                  <i aria-hidden="true" class="fa"
-                    [ngClass]="{'fa-expand': !contract.visible,'fa-compress': contract.visible}"></i>
-                </td>
-
-                <!-- contract with agreement -->
-                <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
-                <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
-                <!-- contract without agreement -->
-                <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span
-                    class="badge badge-warning">without agreement</span></td>
-
-                <td>{{contract.pay_term_days}}</td>
-                <td>{{contract.fine_per_day}}</td>
-                <td>{{contract.max_fine_percent}}</td>
-                <td><span class="badge"
-                    [ngClass]="{'badge-warning': contract.type_of_fine.toString() === 'percent_law', 'badge-light': contract.type_of_fine.toString() === 'fine' || contract.type_of_fine.toString() === 'percent_debt' }">{{contract.type_of_fine}}</span>
-                </td>
-                <!-- <td>{{contract.note}}</td> -->
-
-
+                <th></th>
+                <th>Date</th>
+                <th>Number</th>
+                <th>Pay term days</th>
+                <th>Fine per day</th>
+                <th>Max. percentage</th>
+                <th>Type of fine</th>
+                <!-- <th>Note</th> -->
               </tr>
-              <tr class="d-none row-num-{{i}}">
-                <td *ngIf="contract.visible" colspan="7">
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                  <!--  -->
-                  <app-invoices [contract]="contract"></app-invoices>
-                  <app-representatives [contract]="contract"></app-representatives>
-                  <app-guarantors [contract]="contract"></app-guarantors>
-                  <app-documents [contract]="contract"></app-documents>
-                  <app-templates [contract]="contract"></app-templates>
-                </td>
-              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let contract of contractsList; let i = index">
+                <tr>
+                  <td class="toggle" (click)="toggle(contractsList, i);isTemplateCollapsed = true">
+                    <i aria-hidden="true" class="fa"
+                      [ngClass]="{'fa-expand': !contract.visible,'fa-compress': contract.visible}"></i>
+                  </td>
 
-            </ng-container>
-          </tbody>
-        </table>
+                  <!-- contract with agreement -->
+                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
+                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
+                  <!-- contract without agreement -->
+                  <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span
+                      class="badge badge-warning">without agreement</span></td>
+
+                  <td>{{contract.pay_term_days}}</td>
+                  <td>{{contract.fine_per_day}}</td>
+                  <td>{{contract.max_fine_percent}}</td>
+                  <td><span class="badge"
+                      [ngClass]="{'badge-warning': contract.type_of_fine.toString() === 'percent_law', 'badge-light': contract.type_of_fine.toString() === 'fine' || contract.type_of_fine.toString() === 'percent_debt' }">{{contract.type_of_fine}}</span>
+                  </td>
+                  <!-- <td>{{contract.note}}</td> -->
+
+
+                </tr>
+                <tr class="d-none row-num-{{i}}">
+                  <td *ngIf="contract.visible" colspan="7">
+                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                    <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                    <!--  -->
+                    <app-invoices [contract]="contract"></app-invoices>
+                    <app-representatives [contract]="contract"></app-representatives>
+                    <app-guarantors [contract]="contract"></app-guarantors>
+                    <app-documents [contract]="contract"></app-documents>
+                    <app-templates [contract]="contract"></app-templates>
+                  </td>
+                </tr>
+
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
