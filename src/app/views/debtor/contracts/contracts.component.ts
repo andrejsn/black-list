@@ -21,6 +21,7 @@ interface ContractTableElement extends Contract {
 export class ContractsComponent implements OnInit {
   selectedDebtor: Debtor;
   contractsList: ContractTableElement[];
+  count: number;
 
   constructor(
     private title: Title,
@@ -64,6 +65,7 @@ export class ContractsComponent implements OnInit {
       .subscribe(
         (data) => {
           this.contractsList = data;
+          this.count = this.contractsList.length;
         },
         (error) => {
           console.log(error);
@@ -74,18 +76,9 @@ export class ContractsComponent implements OnInit {
   /**
    * toggle row
    */
-  toggle(contractsList: ContractTableElement[], index: number) {
-    for (let i = 0; i < contractsList.length; i++) {
-      const debtor = contractsList[i];
-      const selector = `.row-num-${i}`;
-
-      if (i === index) {
-        document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
-      }
-    }
+  toggle(id: number) {
+    this.contractsList.forEach((contract) => {
+      contract.visible = contract.id === id ? !contract.visible : false;
+    });
   }
 }

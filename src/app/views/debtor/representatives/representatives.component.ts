@@ -34,6 +34,11 @@ export class RepresentativesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+
+console.log('############################ ' + this.contract.id);
+
+
     // get data
     this.http
       .get<any>(
