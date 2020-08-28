@@ -30,47 +30,44 @@ export class RepresentativesComponent implements OnInit {
   constructor(
     private objectsService: ObjectsService,
     private http: HttpClient,
-    private router: Router,
-
-    ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/representatives`,
-      {}
-    ).pipe(first())
+    this.http
+      .get<any>(
+        `${environment.apiUrl}/get/contract/` +
+          this.contract.id +
+          `/representatives`,
+        {}
+      )
+      .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this.representativesList = data;
           this.count = this.representativesList.length;
 
           // console.log(this.representativesList);
         },
-        error => {
+        (error) => {
           console.log(error);
-
         }
       );
   }
 
-  toggle (representativeList: RepresentativeTableElement[], index:number){
-    for (let i = 0; i < representativeList.length; i++) {
-      const debtor = representativeList[i];
-      const selector = `.row-num-${i}-representative`;
-
-      if (i === index) {
-        document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
-      }
-    }
+  /**
+   * toggle row
+   */
+  toggle(id: number) {
+    this.representativesList.forEach((representative) => {
+      representative.visible =
+        representative.id === id ? !representative.visible : false;
+    });
   }
 
-  editRepresentative(representative: RepresentativeTableElement){
+  editRepresentative(representative: RepresentativeTableElement) {
     this.objectsService.representative = representative;
     this.router.navigate(['/edit/representative']);
   }
-
 }

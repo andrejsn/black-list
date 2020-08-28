@@ -71,7 +71,7 @@
                 <!-- reminds details -->
                 <tr [ngClass]="{'d-none': !task.visible}">
                   <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
-                  <td *ngIf="task.visible" class="no-top-border">
+                  <td class="no-top-border">
                     <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
                   </td>
                   <td class="no-top-border">
