@@ -1,1 +1,88 @@
-<p>edit guarantor works!</p>
+<div class="animated fadeIn">
+  <!-- edit guarantor -->
+  <div class="row">
+    <div class="col-lg-11">
+      <form [formGroup]="editGuarantorForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+            Edit guarantor details
+            <span class="float-right">
+              <a class="btn btn-default btn-sm" [routerLink]="'/debtor/contracts'">
+                <i class="fa fa-chevron-left"></i> Return to Contracts</a>
+            </span>
+          </div>
+          <!-- card body -->
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="guarantorName">Guarantor name</label>
+              <div class="col-md-8">
+                <input id="guarantorName" formControlName="guarantorName" type="text"
+                  placeholder="enter guarantor name" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.guarantorName.errors, 'is-valid': submitted && !f.guarantorName.errors}">
+                <div *ngIf="submitted && f.guarantorName.errors && f.guarantorName.errors.required"
+                  class="invalid-feedback">
+                  {{'guarantor.error.name.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="guarantorCode">Guarantor code</label>
+              <div class="col-md-8">
+                <input id="guarantorCode" formControlName="guarantorCode" type="text"
+                  placeholder="enter guarantor code" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.guarantorCode.errors, 'is-valid': submitted && !f.guarantorCode.errors}">
+                <div *ngIf="submitted && f.guarantorCode.errors && f.guarantorCode.errors.required"
+                  class="invalid-feedback">
+                  {{'guarantor.error.code.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="guarantorPhone">Guarantor phone</label>
+              <div class="col-md-8">
+                <input id="guarantorPhone" formControlName="guarantorPhone" type="text"
+                  placeholder="enter guarantor phone" autocomplete="tel" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.guarantorPhone.errors, 'is-valid': submitted && !f.guarantorPhone.errors}">
+                <div *ngIf="submitted && f.guarantorPhone.errors && f.guarantorPhone.errors.required"
+                  class="invalid-feedback">
+                  {{'guarantor.error.phone.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="guarantorAddress">Guarantor address</label>
+              <div class="col-md-8">
+                <input id="guarantorAddress" formControlName="guarantorAddress" type="text"
+                  placeholder="enter guarantor address" autocomplete="street-address" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.guarantorAddress.errors, 'is-valid': submitted && !f.guarantorAddress.errors}">
+                <div *ngIf="submitted && f.guarantorAddress.errors && f.guarantorAddress.errors.required"
+                  class="invalid-feedback">
+                  {{'guarantor.error.address.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="guarantorEmail">Guarantor email</label>
+              <div class="col-md-8">
+                <input id="guarantorEmail" formControlName="guarantorEmail" type="text"
+                  placeholder="enter guarantor email" autocomplete="email" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.guarantorEmail.errors, 'is-valid': submitted && !f.guarantorEmail.errors}">
+                <div *ngIf="submitted && f.guarantorEmail.errors && f.guarantorEmail.errors.required"
+                  class="invalid-feedback">
+                  {{'guarantor.error.address.required' | translate}}</div>
+              </div>
+            </div>
+            <!-- card footer -->
+            <div class="card-footer">
+              <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+                Save</button>
+              <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
