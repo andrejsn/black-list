@@ -13,7 +13,7 @@ import { Debtor, Task } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
-interface TableTaskElement extends Task {
+interface TaskTableElement extends Task {
   toDelete: boolean;
   visible: boolean;
   remind_status?: string;
@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit {
   today: moment.Moment;
   selectedDebtor: Debtor;
   selectedTask: Task;
-  tasksList: TableTaskElement[] = [];
+  tasksList: TaskTableElement[] = [];
   remind_important_count: number;
   remind_warning_count: number;
   remind_info_count: number;
@@ -46,8 +46,8 @@ export class TasksComponent implements OnInit {
     private title: Title,
     private objectsService: ObjectsService,
     private router: Router,
-    private translate: TranslateService,
     private http: HttpClient,
+    private translate: TranslateService,
     private snotifyService: SnotifyService
   ) {}
 
@@ -172,7 +172,7 @@ export class TasksComponent implements OnInit {
   /**
    * on check task as done
    */
-  changeDoneTask(task: TableTaskElement) {
+  changeDoneTask(task: TaskTableElement) {
     let url: string;
     if (parseInt(task.remind_done, 10) === 1) {
       url = `${environment.apiUrl}/task/undone`;
@@ -208,7 +208,7 @@ export class TasksComponent implements OnInit {
   /**
    * edit task
    */
-  editTask(task: TableTaskElement) {
+  editTask(task: TaskTableElement) {
     this.objectsService.task = task;
     this.router.navigate(['/edit/task']);
   }
@@ -217,7 +217,7 @@ export class TasksComponent implements OnInit {
    * delete task with id
    * @param taskToDelete - calendar task
    */
-  notifyDeleteTask(taskToDelete: TableTaskElement) {
+  notifyDeleteTask(taskToDelete: TaskTableElement) {
     this.loading = true;
     taskToDelete.toDelete = true;
 
@@ -241,12 +241,12 @@ export class TasksComponent implements OnInit {
       });
   }
 
-  private cancelDeleteTask(taskToDelete: TableTaskElement) {
+  private cancelDeleteTask(taskToDelete: TaskTableElement) {
     this.loading = false;
     taskToDelete.toDelete = false;
   }
 
-  private deleteTask(taskToDestroy: TableTaskElement) {
+  private deleteTask(taskToDestroy: TaskTableElement) {
     this.http
       .post<any>(`${environment.apiUrl}/task/destroy`, { id: taskToDestroy.id })
       .pipe(first())
@@ -256,7 +256,7 @@ export class TasksComponent implements OnInit {
           // TODO: data.error ?
           if (response.deleted) {
             this.tasksList = reject(this.tasksList, function (
-              task: TableTaskElement
+              task: TaskTableElement
             ) {
               return (task.id as number) === (response.deleted as number);
             });

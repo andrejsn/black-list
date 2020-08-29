@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
 import { Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
@@ -33,6 +35,7 @@ export class RepresentativesComponent implements OnInit {
     private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
+    private translate: TranslateService,
     private snotifyService: SnotifyService,
   ) {}
 
@@ -106,8 +109,37 @@ export class RepresentativesComponent implements OnInit {
       });
   }
 
-  deleteRepresentative(representativeToDelete: RepresentativeTableElement) {
-    console.log('delete representative: ' + representativeToDelete.name);
+  deleteRepresentative(representativeToDestroy: RepresentativeTableElement) {
+    this.http
+      .post<any>(`${environment.apiUrl}/representative/destroy`, { id: representativeToDestroy.id })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.representativesList = reject(this.representativesList, function (
+              representative: RepresentativeTableElement
+            ) {
+              return (representative.id as number) === (response.deleted as number);
+            });
+
+            this.count--;
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+
+
+
+
   }
 
   cancelDeleteRepresentative(
