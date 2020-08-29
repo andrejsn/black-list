@@ -10,10 +10,20 @@ import { customCurrencyMaskConfig } from '@app/app.module';
 import { SharingModule } from '@shared/shareModule';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-import { DebtorComponent, TaskComponent, RepresentativeComponent } from '.';
+import {
+  DebtorComponent,
+  TaskComponent,
+  RepresentativeComponent,
+  GuarantorComponent,
+} from '.';
 
 @NgModule({
-  declarations: [DebtorComponent, TaskComponent, RepresentativeComponent],
+  declarations: [
+    DebtorComponent,
+    TaskComponent,
+    RepresentativeComponent,
+    GuarantorComponent,
+  ],
   imports: [
     CommonModule,
     AddRoutingModule,
