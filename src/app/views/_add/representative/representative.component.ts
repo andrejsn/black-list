@@ -15,7 +15,7 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Debtor, Task, Representative, Contract } from '@app/models';
+import { Debtor, Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
@@ -27,7 +27,6 @@ import { ObjectsService } from '@shared/services';
 export class RepresentativeComponent implements OnInit {
   selectedDebtor: Debtor;
   selectedContract: Contract;
-  selectedRepresentative: Representative;
 
   addRepresentativeForm = new FormGroup({
     representativeName: new FormControl(),
@@ -60,7 +59,6 @@ export class RepresentativeComponent implements OnInit {
     }
     this.selectedDebtor = this.objectsService.debtor;
     this.selectedContract = this.objectsService.contract;
-    this.selectedRepresentative = this.objectsService.representative;
 
     // set browser title
     this.title.setTitle(this.selectedDebtor.company + '- add representative');
