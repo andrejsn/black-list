@@ -1,13 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
+import { SnotifyService, Snotify } from 'ng-snotify';
 
-import { Contract, Guarantor } from '@app/models';
+import { Contract,  Guarantor } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 interface GuarantorTableElement extends Guarantor {
+  toDelete: boolean;
   visible: boolean;
 }
 
@@ -23,7 +27,14 @@ export class GuarantorsComponent implements OnInit {
   visible: boolean = false;
   count: number;
 
-  constructor(private http: HttpClient) {}
+  loading: boolean;
+
+  constructor(
+    private objectsService: ObjectsService,
+    private router: Router,
+    private http: HttpClient,
+    private snotifyService: SnotifyService,
+  ) {}
 
   ngOnInit(): void {
     // get data
@@ -47,18 +58,59 @@ export class GuarantorsComponent implements OnInit {
       );
   }
 
-  toggle(guarantorsList: GuarantorTableElement[], index: number) {
-    for (let i = 0; i < guarantorsList.length; i++) {
-      const debtor = guarantorsList[i];
-      const selector = `.row-num-${i}-guarantor`;
+  /**
+   * toggle row
+   */
+  toggle(id: number) {
+    this.guarantorsList.forEach((guarantor) => {
+      guarantor.visible = guarantor.id === id ? !guarantor.visible : false;
+    });
+  }
 
-      if (i === index) {
-        document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
-      }
-    }
+  editGuarantor(guarantorToEdit: GuarantorTableElement) {
+    this.objectsService.guarantor = guarantorToEdit;
+    this.router.navigate(['/edit/guarantor']);
+  }
+
+  /**
+   * delete representative
+   * @param guarantorToDelete - representative
+   */
+  notifyDeleteGuarantor(guarantorToDelete: GuarantorTableElement) {
+    this.loading = true;
+    guarantorToDelete.toDelete = true;
+
+    this.snotifyService
+      .confirm('The guarantor will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Yes',
+            action: () => this.deleteGuarantor(guarantorToDelete),
+            bold: false,
+          },
+          {
+            text: 'No',
+            action: () =>
+              this.cancelDeleteGuarantor(guarantorToDelete),
+          },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeleteGuarantor(guarantorToDelete);
+      });
+  }
+
+  private deleteGuarantor(guarantorToDelete: GuarantorTableElement) {
+    console.log('delete guarantor: ' + guarantorToDelete.name);
+  }
+
+  private cancelDeleteGuarantor(
+    guarantorToDelete: GuarantorTableElement
+  ) {
+    guarantorToDelete.toDelete = false;
   }
 }

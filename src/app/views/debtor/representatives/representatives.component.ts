@@ -33,7 +33,7 @@ export class RepresentativesComponent implements OnInit {
     private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
-    private snotifyService: SnotifyService
+    private snotifyService: SnotifyService,
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +78,7 @@ export class RepresentativesComponent implements OnInit {
    * delete representative
    * @param representativeToDelete - representative
    */
-  notifyDeleteTask(representativeToDelete: RepresentativeTableElement) {
+  notifyDeleteRepresentative(representativeToDelete: RepresentativeTableElement) {
     this.loading = true;
     representativeToDelete.toDelete = true;
 

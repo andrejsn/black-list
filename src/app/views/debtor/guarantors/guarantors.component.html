@@ -6,7 +6,7 @@
           [ngClass]="{'fa-expand': !visible,'fa-compress': visible}"></i>
         <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> Guarantors ({{count}})
         <span class="float-right">
-          <button class="btn">
+          <button class="btn" [routerLink]="'/add/guarantor'">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Add guarantor
           </button>
@@ -25,22 +25,24 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let guarantor of guarantorsList; let i = index">
+            <ng-container *ngFor="let guarantor of guarantorsList">
               <tr>
-                <td class="toggle" (click)="toggle(guarantorsList, i)">
+                <td class="toggle" (click)="toggle(guarantor.id)">
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !guarantor.visible,'fa-compress': guarantor.visible}"></i>
                 </td>
-                <td>{{guarantor.name}}</td>
-                <td>{{guarantor.code}}</td>
-                <td>{{guarantor.phone}}</td>
-                <td>{{guarantor.address}}</td>
-                <td>{{guarantor.email}}</td>
+                <td [ngClass]="{'to-delete': guarantor.toDelete}">{{guarantor.name}}</td>
+                <td [ngClass]="{'to-delete': guarantor.toDelete}">{{guarantor.code}}</td>
+                <td [ngClass]="{'to-delete': guarantor.toDelete}">{{guarantor.phone}}</td>
+                <td [ngClass]="{'to-delete': guarantor.toDelete}">{{guarantor.address}}</td>
+                <td [ngClass]="{'to-delete': guarantor.toDelete}">{{guarantor.email}}</td>
               </tr>
-              <tr class="d-none row-num-{{i}}-guarantor">
-                <td *ngIf="guarantor.visible" colspan="7">
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
-                  <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+              <tr *ngIf="guarantor.visible">
+                <td class="no-top-border" colspan="7">
+                  <button class="btn" (click)="notifyDeleteGuarantor(guarantor)"><i class="fa fa-trash"></i>
+                    Trash</button>
+                  <button class="btn" (click)="editGuarantor(guarantor)"><i class="fa fa-pencil-square-o"></i>
+                    Edit</button>
                 </td>
               </tr>
             </ng-container>
