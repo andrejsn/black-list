@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { P404Component } from '../error/404.component';
-import { RepresentativeComponent, DebtorComponent, TaskComponent } from '.';
+import {
+  RepresentativeComponent,
+  DebtorComponent,
+  TaskComponent,
+  GuarantorComponent,
+} from '.';
 
 const routes: Routes = [
   {
@@ -16,6 +21,10 @@ const routes: Routes = [
   {
     path: 'representative',
     component: RepresentativeComponent,
+  },
+  {
+    path: 'guarantor',
+    component: GuarantorComponent,
   },
   { path: '**', component: P404Component },
 ];
