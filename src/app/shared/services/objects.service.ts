@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Debtor, Task, Representative, MenuItem, Contract } from '@app/models';
+import {
+  Debtor,
+  Task,
+  Representative,
+  MenuItem,
+  Contract,
+  Guarantor,
+} from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,6 +18,7 @@ export class ObjectsService {
   task: Task;
   contract: Contract;
   representative: Representative;
+  guarantor: Guarantor;
 
   // breadCrumb
   menuItems: MenuItem[] = [{ route: '/', name: 'Home', active: true }];
