@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskComponent, RepresentativeComponent } from '.';
+import { TaskComponent, RepresentativeComponent, GuarantorComponent } from '.';
 import { P404Component } from '../error/404.component';
 
 const routes: Routes = [
@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'representative',
     component: RepresentativeComponent,
+  },
+  {
+    path: 'guarantor',
+    component: GuarantorComponent,
   },
   { path: '**', component: P404Component },
 ];
