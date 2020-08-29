@@ -33,16 +33,16 @@
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !representative.visible,'fa-compress': representative.visible}"></i>
                 </td>
-                <td>{{representative.name}}</td>
-                <td>{{representative.code}}</td>
-                <td>{{representative.position}}</td>
-                <td>{{representative.phone}}</td>
-                <td>{{representative.address}}</td>
-                <td>{{representative.email}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.name}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.code}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.position}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.phone}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.address}}</td>
+                <td [ngClass]="{'to-delete': representative.toDelete}">{{representative.email}}</td>
               </tr>
-              <tr [ngClass]="{'d-none': !representative.visible}">
+              <tr *ngIf="representative.visible" >
                 <td class="no-top-border" colspan="7">
-                  <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <button class="btn" (click)="notifyDeleteTask(representative)"><i class="fa fa-trash"></i> Trash</button>
                   <button class="btn" (click)="editRepresentative(representative)"><i class="fa fa-pencil-square-o"></i>
                     Edit</button>
                 </td>

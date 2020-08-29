@@ -14,6 +14,7 @@ import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
 interface TableTaskElement extends Task {
+  toDelete: boolean;
   visible: boolean;
   remind_status?: string;
 }
@@ -93,6 +94,7 @@ export class TasksComponent implements OnInit {
           const tmp = data as Task[];
           this.tasksList = tmp.map((task: Task) => {
             return {
+              toDelete: false,
               visible: this.taskVisible(task),
               id: task.id,
               date: task.date,
@@ -213,12 +215,11 @@ export class TasksComponent implements OnInit {
 
   /**
    * delete task with id
-   * @param task - calendar task
+   * @param taskToDelete - calendar task
    */
-  notifyDeleteTask(task: TableTaskElement) {
+  notifyDeleteTask(taskToDelete: TableTaskElement) {
     this.loading = true;
-    const selector = `.note-num-${task.id}`;
-    document.querySelector(selector).classList.add('to-delete');
+    taskToDelete.toDelete = true;
 
     this.snotifyService
       .confirm('The task will be deleted', 'Are you sure?', {
@@ -227,19 +228,22 @@ export class TasksComponent implements OnInit {
         closeOnClick: true,
         pauseOnHover: true,
         buttons: [
-          { text: 'Yes', action: () => this.deleteTask(task), bold: false },
-          { text: 'No', action: () => this.cancelDeleteTask(task.id) },
+          {
+            text: 'Yes',
+            action: () => this.deleteTask(taskToDelete),
+            bold: false,
+          },
+          { text: 'No', action: () => this.cancelDeleteTask(taskToDelete) },
         ],
       })
       .on('beforeHide', (toast: Snotify) => {
-        this.cancelDeleteTask(task.id);
+        this.cancelDeleteTask(taskToDelete);
       });
   }
 
-  private cancelDeleteTask(index: number) {
+  private cancelDeleteTask(taskToDelete: TableTaskElement) {
     this.loading = false;
-    const selector = `.note-num-${index}`;
-    document.querySelector(selector).classList.remove('to-delete');
+    taskToDelete.toDelete = false;
   }
 
   private deleteTask(taskToDestroy: TableTaskElement) {
