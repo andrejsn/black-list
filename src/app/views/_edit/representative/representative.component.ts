@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
@@ -23,12 +29,25 @@ export class RepresentativeComponent implements OnInit {
   selectedContract: Contract;
   selectedRepresentative: Representative;
 
+  editRepresentativeForm = new FormGroup({
+    representativeName: new FormControl(),
+    representativeCode: new FormControl(),
+    representativePosition: new FormControl(),
+    representativePhone: new FormControl(),
+    representativeAddress: new FormControl(),
+    representativeEmail: new FormControl(),
+  });
+
+  submitted: boolean = false;
+  loading: boolean = false;
+
   constructor(
     private title: Title,
     private objectsService: ObjectsService,
     private router: Router,
     private translate: TranslateService,
     private http: HttpClient,
+    private formBuilder: FormBuilder,
     private snotifyService: SnotifyService
   ) {}
 
@@ -43,8 +62,9 @@ export class RepresentativeComponent implements OnInit {
 
       return;
     }
-    this.selectedRepresentative = this.objectsService.representative;
     this.selectedDebtor = this.objectsService.debtor;
+    this.selectedContract = this.objectsService.contract;
+    this.selectedRepresentative = this.objectsService.representative;
 
     // set browser title
     this.title.setTitle(this.selectedDebtor.company + '- edit representative');
@@ -58,10 +78,48 @@ export class RepresentativeComponent implements OnInit {
         active: false,
       },
       {
+        route: '/contract',
+        name: 'Contract: ' + this.selectedContract.number,
+        active: true,
+      },
+      {
         route: '/edit/representative',
-        name: 'Representative: ' + this.selectedRepresentative.name,
+        name: 'Edit representative: ' + this.selectedRepresentative.name,
         active: true,
       },
     ]);
+
+    // create validation
+    this.editRepresentativeForm = this.formBuilder.group({
+      representativeName: ['', [Validators.required]],
+      representativeCode: ['', [Validators.required]],
+      representativePosition: ['', [Validators.required]],
+      representativePhone: ['', [Validators.required]],
+      representativeAddress: ['', [Validators.required]],
+      representativeEmail: ['', [Validators.required]],
+    });
+  }
+
+  /**
+   * submit form
+   */
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.editRepresentativeForm.invalid) {
+      this.translate
+        .get('toast.error.template.form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
+
+      return;
+    }
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.editRepresentativeForm.controls;
   }
 }

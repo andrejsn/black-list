@@ -1,1 +1,101 @@
-<p>edit representative works!</p>
+<div class="animated fadeIn">
+  <!-- edit representative -->
+  <div class="row">
+    <div class="col-lg-11">
+      <form [formGroup]="editRepresentativeForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+            Edit representative details
+            <span class="float-right">
+              <a class="btn btn-default btn-sm" [routerLink]="'/debtor/contracts'">
+                <i class="fa fa-chevron-left"></i> Return to Contracts</a>
+            </span>
+          </div>
+          <!-- card body -->
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativeName">Representative name</label>
+              <div class="col-md-8">
+                <input id="representativeName" formControlName="representativeName" type="text"
+                  placeholder="enter representative name" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativeName.errors, 'is-valid': submitted && !f.representativeName.errors}">
+                <div *ngIf="submitted && f.representativeName.errors && f.representativeName.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.name.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativeCode">Representative code</label>
+              <div class="col-md-8">
+                <input id="representativeCode" formControlName="representativeCode" type="text"
+                  placeholder="enter representative name" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativeCode.errors, 'is-valid': submitted && !f.representativeCode.errors}">
+                <div *ngIf="submitted && f.representativeCode.errors && f.representativeCode.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.code.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativePosition">Representative position</label>
+              <div class="col-md-8">
+                <input id="representativePosition" formControlName="representativePosition" type="text"
+                  placeholder="enter representative position" autocomplete="work" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativePosition.errors, 'is-valid': submitted && !f.representativePosition.errors}">
+                <div *ngIf="submitted && f.representativePosition.errors && f.representativePosition.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.position.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativePhone">Representative phone</label>
+              <div class="col-md-8">
+                <input id="representativePhone" formControlName="representativePhone" type="text"
+                  placeholder="enter representative phone" autocomplete="tel" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativePhone.errors, 'is-valid': submitted && !f.representativePhone.errors}">
+                <div *ngIf="submitted && f.representativePhone.errors && f.representativePhone.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.phone.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativeAddress">Representative address</label>
+              <div class="col-md-8">
+                <input id="representativeAddress" formControlName="representativeAddress" type="text"
+                  placeholder="enter representative address" autocomplete="street-address" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativeAddress.errors, 'is-valid': submitted && !f.representativeAddress.errors}">
+                <div *ngIf="submitted && f.representativeAddress.errors && f.representativeAddress.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.address.required' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="representativeEmail">Representative address</label>
+              <div class="col-md-8">
+                <input id="representativeEmail" formControlName="representativeEmail" type="text"
+                  placeholder="enter representative email" autocomplete="email" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.representativeEmail.errors, 'is-valid': submitted && !f.representativeEmail.errors}">
+                <div *ngIf="submitted && f.representativeEmail.errors && f.representativeEmail.errors.required"
+                  class="invalid-feedback">
+                  {{'representative.error.address.required' | translate}}</div>
+              </div>
+            </div>
+            <!-- card footer -->
+            <div class="card-footer">
+              <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+                Create</button>
+              <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+            </div>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
