@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Debtor, Task, Representative, MenuItem } from '@app/models';
+import { Debtor, Task, Representative, MenuItem, Contract } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -9,6 +9,7 @@ export class ObjectsService {
   // cached objekts here:
   debtor: Debtor;
   task: Task;
+  contract: Contract;
   representative: Representative;
 
   // breadCrumb
