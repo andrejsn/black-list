@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
-import { Contract,  Guarantor } from '@app/models';
+import { Contract, Guarantor } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
@@ -33,7 +35,8 @@ export class GuarantorsComponent implements OnInit {
     private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
-    private snotifyService: SnotifyService,
+    private translate: TranslateService,
+    private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
@@ -94,8 +97,7 @@ export class GuarantorsComponent implements OnInit {
           },
           {
             text: 'No',
-            action: () =>
-              this.cancelDeleteGuarantor(guarantorToDelete),
+            action: () => this.cancelDeleteGuarantor(guarantorToDelete),
           },
         ],
       })
@@ -105,12 +107,37 @@ export class GuarantorsComponent implements OnInit {
   }
 
   private deleteGuarantor(guarantorToDelete: GuarantorTableElement) {
-    console.log('delete guarantor: ' + guarantorToDelete.name);
+    this.http
+      .post<any>(`${environment.apiUrl}/guarantor/destroy`, {
+        id: guarantorToDelete.id,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.guarantorsList = reject(this.guarantorsList, function (
+              guarantor: GuarantorTableElement
+            ) {
+              return (guarantor.id as number) === (response.deleted as number);
+            });
+
+            this.count--;
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 
-  private cancelDeleteGuarantor(
-    guarantorToDelete: GuarantorTableElement
-  ) {
+  private cancelDeleteGuarantor(guarantorToDelete: GuarantorTableElement) {
     guarantorToDelete.toDelete = false;
   }
 }

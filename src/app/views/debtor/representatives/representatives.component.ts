@@ -136,10 +136,6 @@ export class RepresentativesComponent implements OnInit {
             });
         }
       );
-
-
-
-
   }
 
   cancelDeleteRepresentative(
