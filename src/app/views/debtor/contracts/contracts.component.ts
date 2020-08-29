@@ -78,7 +78,14 @@ export class ContractsComponent implements OnInit {
    */
   toggle(id: number) {
     this.contractsList.forEach((contract) => {
-      contract.visible = contract.id === id ? !contract.visible : false;
+      if (contract.id === id) {
+        contract.visible = !contract.visible;
+        if (contract.visible) {
+          this.objectsService.contract = contract;
+        }
+      } else {
+        contract.visible = false;
+      }
     });
   }
 }

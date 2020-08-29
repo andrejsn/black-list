@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {
   FormGroup,
   FormControl,
@@ -24,7 +25,7 @@ import { environment } from '@environments/environment';
   animations: [inOutAnimation()],
 })
 export class TaskComponent implements OnInit {
-  debtor: Debtor;
+  selectedDebtor: Debtor;
   today: Date;
   isCreateReminder: boolean;
 
@@ -39,6 +40,7 @@ export class TaskComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private title: Title,
     private objectsService: ObjectsService,
     private router: Router,
     private http: HttpClient,
@@ -54,11 +56,28 @@ export class TaskComponent implements OnInit {
 
       return; // ~
     }
-
-    this.debtor = this.objectsService.debtor;
+    this.selectedDebtor = this.objectsService.debtor;
     this.today = new Date();
     this.isCreateReminder = false;
     this.loading = false;
+
+    // set browser title
+    this.title.setTitle(this.selectedDebtor.company + '- add new task');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: false },
+      {
+        route: '/debtor',
+        name: 'Debtor: ' + this.selectedDebtor.company,
+        active: false,
+      },
+      {
+        route: '/add/task',
+        name: 'Add new task',
+        active: true,
+      },
+    ]);
 
     // create validation
     this.addTaskForm = this.formBuilder.group(
@@ -149,7 +168,7 @@ export class TaskComponent implements OnInit {
   private initNewTask(): Task {
     const task: Task = {
       id: null,
-      debtor_id: this.debtor.id,
+      debtor_id: this.selectedDebtor.id,
       debtor_company: 'xyz', // TODO: fix me please ?
       date: this.addTaskForm.controls['taskDate'].value,
       note: this.addTaskForm.controls['taskNote'].value,
@@ -162,6 +181,7 @@ export class TaskComponent implements OnInit {
 
     return task;
   }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.addTaskForm.controls;

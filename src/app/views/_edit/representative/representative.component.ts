@@ -33,8 +33,12 @@ export class RepresentativeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.objectsService.representative && !this.objectsService.debtor) {
-      // no representative cached
+    if (
+      !this.objectsService.representative &&
+      !this.objectsService.contract &&
+      !this.objectsService.debtor
+    ) {
+      // no debtor&contract&representative cached
       this.router.navigate(['/debtors']);
 
       return;

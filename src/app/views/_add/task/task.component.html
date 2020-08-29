@@ -1,93 +1,94 @@
-<!-- add new calendar task: -->
-<div class="row">
-  <div class="col-lg-11">
-    <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()" role="form">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-thumb-tack fa-2x" aria-hidden="true"></i>
-          New Task details
-          <span class="float-right">
-            <a class="btn btn-default btn-sm" [routerLink]="'/debtor/tasks'">
-              <i class="fa fa-chevron-left"></i> Return to Tasks</a>
+<div class="animated fadeIn">
+  <!-- add new calendar task: -->
+  <div class="row">
+    <div class="col-lg-11">
+      <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-thumb-tack fa-2x" aria-hidden="true"></i>
+            New Task details
+            <span class="float-right">
+              <a class="btn btn-default btn-sm" [routerLink]="'/debtor/tasks'">
+                <i class="fa fa-chevron-left"></i> Return to Tasks</a>
 
-          </span>
-        </div>
-        <div class="card-body">
-
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="taskDate">Date of the new task</label>
-            <div class="col-md-8">
-              <input id="taskDate" class="form-control" bsDatepicker formControlName="taskDate" placement="auto"
-                autocomplete="off" placeholder="{{ 'placeholder.task.date' | translate}}"
-                [ngClass]="{'is-invalid': submitted && f.taskDate.errors, 'is-valid': submitted && !f.taskDate.errors}"
-                [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-              <div *ngIf="submitted && f.taskDate.errors && f.taskDate.errors.required" class="invalid-feedback">
-                {{'template.error.taskDate.required' | translate}}</div>
-            </div>
+            </span>
           </div>
-
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="taskNote">New task note</label>
-            <div class="col-md-8">
-              <textarea formControlName="taskNote" class="form-control" id="taskNote" name="taskNote" rows="9"
-                placeholder="{{ 'placeholder.task.note' | translate}}"
-                style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
-                [ngClass]="{'is-invalid': submitted && f.taskNote.errors, 'is-valid': submitted && !f.taskNote.errors}">
-              </textarea>
-              <div *ngIf="submitted && f.taskNote.errors && f.taskNote.errors.required" class="invalid-feedback">
-                {{'template.error.taskNote.required' | translate}}</div>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="createReminder">Create reminder</label>
-            <div class="col-md-8">
-              <label class="switch switch-3d switch-secondary switch-lg">
-                <input id="createReminder" type="checkbox" class="switch-input" (change)="changedCreateReminder()">
-                <span class="switch-slider"></span>
-              </label>
-            </div>
-          </div>
-
-          <div *ngIf="isCreateReminder" [@inOutAnimation]>
+          <!-- card body -->
+          <div class="card-body">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="reminderDate">Date of reminder</label>
+              <label class="col-md-3 col-form-label" for="taskDate">Date of the new task</label>
               <div class="col-md-8">
-                <input id="reminderDate" class="form-control" bsDatepicker formControlName="reminderDate"
-                  autocomplete="off" placement="auto" placeholder="{{ 'placeholder.task.date' | translate}}"
-                  [ngClass]="{'is-invalid': submitted && f.reminderDate.errors || submitted && addTaskForm.hasError('remindDateLessTaskDate'), 'is-valid': submitted && !f.reminderDate.errors && !addTaskForm.hasError('remindDateLessTaskDate')}"
-                  [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue', minDate: today }">
-                <div *ngIf="submitted && f.reminderDate.errors && f.reminderDate.errors.required"
-                  class="invalid-feedback">
-                  {{'template.error.reminderDate.required' | translate}}</div>
-                <div *ngIf="submitted && addTaskForm.hasError('remindDateLessTaskDate')" class="invalid-feedback">
-                  {{'template.error.reminderDate.lessTaskDate' | translate}}</div>
+                <input id="taskDate" class="form-control" bsDatepicker formControlName="taskDate" placement="auto"
+                  autocomplete="off" placeholder="{{ 'placeholder.task.date' | translate}}"
+                  [ngClass]="{'is-invalid': submitted && f.taskDate.errors, 'is-valid': submitted && !f.taskDate.errors}"
+                  [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                <div *ngIf="submitted && f.taskDate.errors && f.taskDate.errors.required" class="invalid-feedback">
+                  {{'template.error.taskDate.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="reminderNote">Reminder note</label>
+              <label class="col-md-3 col-form-label" for="taskNote">New task note</label>
               <div class="col-md-8">
-                <textarea formControlName="reminderNote" class="form-control" id="reminderNote" name="reminderNote"
-                  rows="9" placeholder="{{ 'placeholder.task.note' | translate}}"
+                <textarea formControlName="taskNote" class="form-control" id="taskNote" name="taskNote" rows="9"
+                  placeholder="{{ 'placeholder.task.note' | translate}}"
                   style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
-                  [ngClass]="{'is-invalid': submitted && f.reminderNote.errors, 'is-valid': submitted && !f.reminderNote.errors}">
+                  [ngClass]="{'is-invalid': submitted && f.taskNote.errors, 'is-valid': submitted && !f.taskNote.errors}">
               </textarea>
-                <div *ngIf="submitted && f.reminderNote.errors && f.reminderNote.errors.required"
-                  class="invalid-feedback">
-                  {{'template.error.reminderNote.required' | translate}}</div>
+                <div *ngIf="submitted && f.taskNote.errors && f.taskNote.errors.required" class="invalid-feedback">
+                  {{'template.error.taskNote.required' | translate}}</div>
               </div>
             </div>
-          </div>
 
-          <div class="card-footer">
-            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-              Create</button>
-            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
-          </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="createReminder">Create reminder</label>
+              <div class="col-md-8">
+                <label class="switch switch-3d switch-secondary switch-lg">
+                  <input id="createReminder" type="checkbox" class="switch-input" (change)="changedCreateReminder()">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+            </div>
 
+            <div *ngIf="isCreateReminder" [@inOutAnimation]>
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="reminderDate">Date of reminder</label>
+                <div class="col-md-8">
+                  <input id="reminderDate" class="form-control" bsDatepicker formControlName="reminderDate"
+                    autocomplete="off" placement="auto" placeholder="{{ 'placeholder.task.date' | translate}}"
+                    [ngClass]="{'is-invalid': submitted && f.reminderDate.errors || submitted && addTaskForm.hasError('remindDateLessTaskDate'), 'is-valid': submitted && !f.reminderDate.errors && !addTaskForm.hasError('remindDateLessTaskDate')}"
+                    [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue', minDate: today }">
+                  <div *ngIf="submitted && f.reminderDate.errors && f.reminderDate.errors.required"
+                    class="invalid-feedback">
+                    {{'template.error.reminderDate.required' | translate}}</div>
+                  <div *ngIf="submitted && addTaskForm.hasError('remindDateLessTaskDate')" class="invalid-feedback">
+                    {{'template.error.reminderDate.lessTaskDate' | translate}}</div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="reminderNote">Reminder note</label>
+                <div class="col-md-8">
+                  <textarea formControlName="reminderNote" class="form-control" id="reminderNote" name="reminderNote"
+                    rows="9" placeholder="{{ 'placeholder.task.note' | translate}}"
+                    style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
+                    [ngClass]="{'is-invalid': submitted && f.reminderNote.errors, 'is-valid': submitted && !f.reminderNote.errors}">
+              </textarea>
+                  <div *ngIf="submitted && f.reminderNote.errors && f.reminderNote.errors.required"
+                    class="invalid-feedback">
+                    {{'template.error.reminderNote.required' | translate}}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+                Create</button>
+              <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
