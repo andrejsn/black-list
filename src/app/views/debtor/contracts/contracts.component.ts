@@ -64,7 +64,23 @@ export class ContractsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.contractsList = data;
+          const tmp = data as Contract[];
+          this.contractsList = tmp.map((contract: Contract) => {
+            return {
+              id: contract.id,
+              with_agreement: contract.with_agreement,
+              number: contract.number,
+              date: contract.date,
+              fine_per_day: contract.fine_per_day,
+              fine_per_year: contract.fine_per_year,
+              type_of_fine: contract.type_of_fine,
+              max_fine_percent: contract.max_fine_percent,
+              pay_term_days: contract.pay_term_days,
+              note: contract.note,
+              visible: false,
+            };
+          });
+
           this.count = this.contractsList.length;
         },
         (error) => {
