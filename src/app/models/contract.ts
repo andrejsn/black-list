@@ -2,8 +2,6 @@ import { TypeOfFine } from './type_of_fine';
 
 export interface Contract {
   id: number;
-  created_by: number;
-  debtor_id: number;
 
   with_agreement: boolean;
   number: string;
@@ -14,8 +12,4 @@ export interface Contract {
   max_fine_percent: number;
   type_of_fine: TypeOfFine;
   note: string;
-
-  created_at: Date;
-  updated_at: Date;
-  deleted_at: Date;
 }
