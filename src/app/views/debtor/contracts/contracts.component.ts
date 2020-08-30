@@ -20,6 +20,7 @@ interface ContractTableElement extends Contract {
 })
 export class ContractsComponent implements OnInit {
   selectedDebtor: Debtor;
+  selectedContract: Contract;
   contractsList: ContractTableElement[];
   count: number;
 
@@ -38,6 +39,10 @@ export class ContractsComponent implements OnInit {
       return;
     }
     this.selectedDebtor = this.objectsService.debtor;
+
+    if (this.objectsService.contract) {
+      this.selectedContract = this.objectsService.contract;
+    }
 
     // set browser title
     this.title.setTitle(this.selectedDebtor.company + '- contracts list');
@@ -77,7 +82,7 @@ export class ContractsComponent implements OnInit {
               max_fine_percent: contract.max_fine_percent,
               pay_term_days: contract.pay_term_days,
               note: contract.note,
-              visible: false,
+              visible: this.isContractVisible(contract),
             };
           });
 
@@ -87,6 +92,10 @@ export class ContractsComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  private isContractVisible(contract: Contract): boolean {
+    return this.selectedContract && this.selectedContract.id === contract.id;
   }
 
   /**
