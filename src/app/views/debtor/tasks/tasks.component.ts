@@ -95,7 +95,7 @@ export class TasksComponent implements OnInit {
           this.tasksList = tmp.map((task: Task) => {
             return {
               toDelete: false,
-              visible: this.taskVisible(task),
+              visible: this.isTaskVisible(task),
               id: task.id,
               date: task.date,
               note: task.note,
@@ -130,7 +130,7 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  private taskVisible(task: Task): boolean {
+  private isTaskVisible(task: Task): boolean {
     return (
       this.selectedTask && task.remind_date && this.selectedTask.id === task.id
     );
