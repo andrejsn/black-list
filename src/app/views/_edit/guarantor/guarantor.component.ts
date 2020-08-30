@@ -30,11 +30,11 @@ export class GuarantorComponent implements OnInit {
   selectedGuarantor: Guarantor;
 
   editGuarantorForm = new FormGroup({
-    guarantorName: new FormControl(),
-    guarantorCode: new FormControl(),
-    guarantorPhone: new FormControl(),
-    guarantorAddress: new FormControl(),
-    guarantorEmail: new FormControl(),
+    name: new FormControl(),
+    code: new FormControl(),
+    phone: new FormControl(),
+    address: new FormControl(),
+    email: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -90,11 +90,11 @@ export class GuarantorComponent implements OnInit {
 
     // create validation
     this.editGuarantorForm = this.formBuilder.group({
-      guarantorName: ['', [Validators.required]],
-      guarantorCode: ['', [Validators.required]],
-      guarantorPhone: ['', [Validators.required]],
-      guarantorAddress: ['', [Validators.required]],
-      guarantorEmail: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      email: ['', [Validators.required]],
     });
   }
 

@@ -29,11 +29,11 @@ export class GuarantorComponent implements OnInit {
   selectedContract: Contract;
 
   addGuarantorForm = new FormGroup({
-    guarantorName: new FormControl(),
-    guarantorCode: new FormControl(),
-    guarantorPhone: new FormControl(),
-    guarantorAddress: new FormControl(),
-    guarantorEmail: new FormControl(),
+    name: new FormControl(),
+    code: new FormControl(),
+    phone: new FormControl(),
+    address: new FormControl(),
+    email: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -84,11 +84,31 @@ export class GuarantorComponent implements OnInit {
 
     // create validation
     this.addGuarantorForm = this.formBuilder.group({
-      guarantorName: ['', [Validators.required]],
-      guarantorCode: ['', [Validators.required]],
-      guarantorPhone: ['', [Validators.required]],
-      guarantorAddress: ['', [Validators.required]],
-      guarantorEmail: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      code: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      phone: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      address: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      email: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
     });
   }
 
@@ -108,6 +128,39 @@ export class GuarantorComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(
+        `${environment.apiUrl}/guarantor/store`,
+        this.initNewGuarantor()
+      )
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private initNewGuarantor() {
+    return {
+      contract_id: this.selectedContract.id,
+      name: this.addGuarantorForm.controls['name'].value,
+      code: this.addGuarantorForm.controls['code'].value,
+      phone: this.addGuarantorForm.controls['phone'].value,
+      address: this.addGuarantorForm.controls['address'].value,
+      email: this.addGuarantorForm.controls['email'].value,
+    };
   }
 
   // convenience getter for easy access to form fields

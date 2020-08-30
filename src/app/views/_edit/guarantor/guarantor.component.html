@@ -15,60 +15,60 @@
           <!-- card body -->
           <div class="card-body">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="guarantorName">Guarantor name</label>
+              <label class="col-md-3 col-form-label" for="name">Guarantor name</label>
               <div class="col-md-8">
-                <input id="guarantorName" formControlName="guarantorName" type="text"
+                <input id="name" formControlName="name" type="text"
                   placeholder="enter guarantor name" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.guarantorName.errors, 'is-valid': submitted && !f.guarantorName.errors}">
-                <div *ngIf="submitted && f.guarantorName.errors && f.guarantorName.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}">
+                <div *ngIf="submitted && f.name.errors && f.name.errors.required"
                   class="invalid-feedback">
                   {{'guarantor.error.name.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="guarantorCode">Guarantor code</label>
+              <label class="col-md-3 col-form-label" for="code">Guarantor code</label>
               <div class="col-md-8">
-                <input id="guarantorCode" formControlName="guarantorCode" type="text"
+                <input id="code" formControlName="code" type="text"
                   placeholder="enter guarantor code" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.guarantorCode.errors, 'is-valid': submitted && !f.guarantorCode.errors}">
-                <div *ngIf="submitted && f.guarantorCode.errors && f.guarantorCode.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.code.errors, 'is-valid': submitted && !f.code.errors}">
+                <div *ngIf="submitted && f.code.errors && f.code.errors.required"
                   class="invalid-feedback">
                   {{'guarantor.error.code.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="guarantorPhone">Guarantor phone</label>
+              <label class="col-md-3 col-form-label" for="phone">Guarantor phone</label>
               <div class="col-md-8">
-                <input id="guarantorPhone" formControlName="guarantorPhone" type="text"
+                <input id="phone" formControlName="phone" type="text"
                   placeholder="enter guarantor phone" autocomplete="tel" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.guarantorPhone.errors, 'is-valid': submitted && !f.guarantorPhone.errors}">
-                <div *ngIf="submitted && f.guarantorPhone.errors && f.guarantorPhone.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.phone.errors, 'is-valid': submitted && !f.phone.errors}">
+                <div *ngIf="submitted && f.phone.errors && f.phone.errors.required"
                   class="invalid-feedback">
                   {{'guarantor.error.phone.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="guarantorAddress">Guarantor address</label>
+              <label class="col-md-3 col-form-label" for="address">Guarantor address</label>
               <div class="col-md-8">
-                <input id="guarantorAddress" formControlName="guarantorAddress" type="text"
+                <input id="address" formControlName="address" type="text"
                   placeholder="enter guarantor address" autocomplete="street-address" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.guarantorAddress.errors, 'is-valid': submitted && !f.guarantorAddress.errors}">
-                <div *ngIf="submitted && f.guarantorAddress.errors && f.guarantorAddress.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.address.errors, 'is-valid': submitted && !f.address.errors}">
+                <div *ngIf="submitted && f.address.errors && f.address.errors.required"
                   class="invalid-feedback">
                   {{'guarantor.error.address.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="guarantorEmail">Guarantor email</label>
+              <label class="col-md-3 col-form-label" for="email">Guarantor email</label>
               <div class="col-md-8">
-                <input id="guarantorEmail" formControlName="guarantorEmail" type="text"
+                <input id="email" formControlName="email" type="text"
                   placeholder="enter guarantor email" autocomplete="email" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.guarantorEmail.errors, 'is-valid': submitted && !f.guarantorEmail.errors}">
-                <div *ngIf="submitted && f.guarantorEmail.errors && f.guarantorEmail.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.email.errors, 'is-valid': submitted && !f.email.errors}">
+                <div *ngIf="submitted && f.email.errors && f.email.errors.required"
                   class="invalid-feedback">
                   {{'guarantor.error.address.required' | translate}}</div>
               </div>

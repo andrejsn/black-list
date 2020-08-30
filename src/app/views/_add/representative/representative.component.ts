@@ -15,7 +15,7 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Debtor, Contract, Representative } from '@app/models';
+import { Debtor, Contract } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
