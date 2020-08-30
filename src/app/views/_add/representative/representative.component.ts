@@ -29,12 +29,12 @@ export class RepresentativeComponent implements OnInit {
   selectedContract: Contract;
 
   addRepresentativeForm = new FormGroup({
-    representativeName: new FormControl(),
-    representativeCode: new FormControl(),
-    representativePosition: new FormControl(),
-    representativePhone: new FormControl(),
-    representativeAddress: new FormControl(),
-    representativeEmail: new FormControl(),
+    name: new FormControl(),
+    code: new FormControl(),
+    position: new FormControl(),
+    phone: new FormControl(),
+    address: new FormControl(),
+    email: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -85,12 +85,37 @@ export class RepresentativeComponent implements OnInit {
 
     // create validation
     this.addRepresentativeForm = this.formBuilder.group({
-      representativeName: ['', [Validators.required]],
-      representativeCode: ['', [Validators.required]],
-      representativePosition: ['', [Validators.required]],
-      representativePhone: ['', [Validators.required]],
-      representativeAddress: ['', [Validators.required]],
-      representativeEmail: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      code: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      position: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      phone: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      address: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
+      email: [
+        '',
+        [
+          /*Validators.required*/
+        ],
+      ],
     });
   }
 
@@ -110,6 +135,40 @@ export class RepresentativeComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(
+        `${environment.apiUrl}/representative/store`,
+        this.initNewRepresentative()
+      )
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private initNewRepresentative() {
+    return {
+      contract_id: this.selectedContract.id,
+      name: this.addRepresentativeForm.controls['name'].value,
+      code: this.addRepresentativeForm.controls['code'].value,
+      position: this.addRepresentativeForm.controls['position'].value,
+      phone: this.addRepresentativeForm.controls['phone'].value,
+      address: this.addRepresentativeForm.controls['address'].value,
+      email: this.addRepresentativeForm.controls['email'].value,
+    };
   }
 
   // convenience getter for easy access to form fields

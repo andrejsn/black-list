@@ -15,60 +15,60 @@
           <!-- card body -->
           <div class="card-body">
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativeName">Representative name</label>
+              <label class="col-md-3 col-form-label" for="name">Representative name</label>
               <div class="col-md-8">
-                <input id="representativeName" formControlName="representativeName" type="text"
+                <input id="name" formControlName="name" type="text"
                   placeholder="enter representative name" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativeName.errors, 'is-valid': submitted && !f.representativeName.errors}">
-                <div *ngIf="submitted && f.representativeName.errors && f.representativeName.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}">
+                <div *ngIf="submitted && f.name.errors && f.name.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.name.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativeCode">Representative code</label>
+              <label class="col-md-3 col-form-label" for="code">Representative code</label>
               <div class="col-md-8">
-                <input id="representativeCode" formControlName="representativeCode" type="text"
+                <input id="code" formControlName="code" type="text"
                   placeholder="enter representative name" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativeCode.errors, 'is-valid': submitted && !f.representativeCode.errors}">
-                <div *ngIf="submitted && f.representativeCode.errors && f.representativeCode.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.code.errors, 'is-valid': submitted && !f.code.errors}">
+                <div *ngIf="submitted && f.code.errors && f.code.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.code.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativePosition">Representative position</label>
+              <label class="col-md-3 col-form-label" for="position">Representative position</label>
               <div class="col-md-8">
-                <input id="representativePosition" formControlName="representativePosition" type="text"
+                <input id="position" formControlName="position" type="text"
                   placeholder="enter representative position" autocomplete="work" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativePosition.errors, 'is-valid': submitted && !f.representativePosition.errors}">
-                <div *ngIf="submitted && f.representativePosition.errors && f.representativePosition.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.position.errors, 'is-valid': submitted && !f.position.errors}">
+                <div *ngIf="submitted && f.position.errors && f.position.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.position.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativePhone">Representative phone</label>
+              <label class="col-md-3 col-form-label" for="phone">Representative phone</label>
               <div class="col-md-8">
-                <input id="representativePhone" formControlName="representativePhone" type="text"
+                <input id="phone" formControlName="phone" type="text"
                   placeholder="enter representative phone" autocomplete="tel" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativePhone.errors, 'is-valid': submitted && !f.representativePhone.errors}">
-                <div *ngIf="submitted && f.representativePhone.errors && f.representativePhone.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.phone.errors, 'is-valid': submitted && !f.phone.errors}">
+                <div *ngIf="submitted && f.phone.errors && f.phone.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.phone.required' | translate}}</div>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativeAddress">Representative address</label>
+              <label class="col-md-3 col-form-label" for="address">Representative address</label>
               <div class="col-md-8">
-                <input id="representativeAddress" formControlName="representativeAddress" type="text"
+                <input id="address" formControlName="address" type="text"
                   placeholder="enter representative address" autocomplete="street-address" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativeAddress.errors, 'is-valid': submitted && !f.representativeAddress.errors}">
-                <div *ngIf="submitted && f.representativeAddress.errors && f.representativeAddress.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.address.errors, 'is-valid': submitted && !f.address.errors}">
+                <div *ngIf="submitted && f.address.errors && f.address.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.address.required' | translate}}</div>
               </div>
