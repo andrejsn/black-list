@@ -30,12 +30,12 @@ export class RepresentativeComponent implements OnInit {
   selectedRepresentative: Representative;
 
   editRepresentativeForm = new FormGroup({
-    representativeName: new FormControl(),
-    representativeCode: new FormControl(),
-    representativePosition: new FormControl(),
-    representativePhone: new FormControl(),
-    representativeAddress: new FormControl(),
-    representativeEmail: new FormControl(),
+    name: new FormControl(),
+    code: new FormControl(),
+    position: new FormControl(),
+    phone: new FormControl(),
+    address: new FormControl(),
+    email: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -91,12 +91,12 @@ export class RepresentativeComponent implements OnInit {
 
     // create validation
     this.editRepresentativeForm = this.formBuilder.group({
-      representativeName: ['', [Validators.required]],
-      representativeCode: ['', [Validators.required]],
-      representativePosition: ['', [Validators.required]],
-      representativePhone: ['', [Validators.required]],
-      representativeAddress: ['', [Validators.required]],
-      representativeEmail: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      code: ['', [Validators.required]],
+      position: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      email: ['', [Validators.required]],
     });
   }
 

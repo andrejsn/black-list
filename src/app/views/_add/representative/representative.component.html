@@ -75,12 +75,12 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="representativeEmail">Representative email</label>
+              <label class="col-md-3 col-form-label" for="email">Representative email</label>
               <div class="col-md-8">
-                <input id="representativeEmail" formControlName="representativeEmail" type="text"
+                <input id="email" formControlName="email" type="text"
                   placeholder="enter representative email" autocomplete="email" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.representativeEmail.errors, 'is-valid': submitted && !f.representativeEmail.errors}">
-                <div *ngIf="submitted && f.representativeEmail.errors && f.representativeEmail.errors.required"
+                  [ngClass]="{'is-invalid': submitted && f.email.errors, 'is-valid': submitted && !f.email.errors}">
+                <div *ngIf="submitted && f.email.errors && f.email.errors.required"
                   class="invalid-feedback">
                   {{'representative.error.address.required' | translate}}</div>
               </div>
