@@ -28,6 +28,9 @@ export class DebtorComponent implements OnInit {
     }
     this.debtor = this.objectsService.debtor;
 
+    this.objectsService.contract = null;
+    this.objectsService.task = null;
+
     // set browser title
     this.title.setTitle(this.debtor.company +  '- details');
     // set bread crumb menu

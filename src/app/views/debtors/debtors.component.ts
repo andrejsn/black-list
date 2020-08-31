@@ -50,6 +50,10 @@ export class DebtorsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.objectsService.debtor = null;
+    this.objectsService.contract = null;
+    this.objectsService.task = null;
+
     // set browser title
     this.title.setTitle('Debtors list');
     // set breadcrumb menu
@@ -94,7 +98,7 @@ export class DebtorsComponent implements OnInit {
   }
 
   /**
-   * go to contracts
+   * go to debtor
    */
   details(selectesDebtor: Debtor) {
     this.objectsService.debtor = selectesDebtor;
