@@ -11,7 +11,12 @@ interface InvoiceTableElement extends Invoice {
   visible: boolean;
 }
 
-enum ShowSubMenu {payments, add_payment, edit, delete}
+enum ShowSubMenu {
+  payments,
+  add_payment,
+  edit,
+  delete,
+}
 
 @Component({
   selector: 'app-invoices',
@@ -20,7 +25,6 @@ enum ShowSubMenu {payments, add_payment, edit, delete}
   animations: [inOutAnimation()],
 })
 export class InvoicesComponent implements OnInit {
-
   @Input() contract: Contract;
   invoicesList: InvoiceTableElement[];
   visible: boolean = false;
@@ -28,23 +32,24 @@ export class InvoicesComponent implements OnInit {
 
   showSubMenu: ShowSubMenu = ShowSubMenu.payments;
 
-
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     // get data
-    this.http.get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/invoices`,
-      {}
-    ).pipe(first())
+    this.http
+      .get<any>(
+        `${environment.apiUrl}/get/contract/` + this.contract.id + `/invoices`,
+        {}
+      )
+      .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           this.invoicesList = data;
           this.count = this.invoicesList.length;
           // console.log(this.invoicesList);
         },
-        error => {
+        (error) => {
           console.log(error);
-
         }
       );
   }
@@ -52,31 +57,21 @@ export class InvoicesComponent implements OnInit {
   /**
    *
    */
-  toggle(invoiceList: InvoiceTableElement[], index: number) {
-    for (let i = 0; i < invoiceList.length; i++) {
-      const debtor = invoiceList[i];
-      let selector = `.row-num-${i}-invoice`;
-
-      if (i === index) {
-        document.querySelector(selector).classList.toggle('d-none');
-        debtor.visible = !debtor.visible;
-      } else {
-        document.querySelector(selector).classList.add('d-none');
-        debtor.visible = false;
-      }
-    }
+  toggle(id: number) {
+    this.invoicesList.forEach((invoice) => {
+      invoice.visible = invoice.id === id ? !invoice.visible : false;
+    });
   }
 
   /**
    *
    */
-  invoicesSum():number {
-    let sum:number = 0;
-    this.invoicesList.forEach(invoice => {
-      sum += invoice.sum * 1.
+  invoicesSum(): number {
+    let sum: number = 0;
+    this.invoicesList.forEach((invoice) => {
+      sum += invoice.sum * 1;
     });
 
     return sum;
   }
-
 }

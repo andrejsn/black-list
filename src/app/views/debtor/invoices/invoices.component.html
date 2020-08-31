@@ -31,9 +31,9 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let invoice of invoicesList; let i = index;">
+            <ng-container *ngFor="let invoice of invoicesList">
               <tr>
-                <td class="toggle" (click)="toggle(invoicesList, i)">
+                <td class="toggle" (click)="toggle(invoice.id)">
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !invoice.visible,'fa-compress': invoice.visible}"></i>
                 </td>
@@ -47,8 +47,8 @@
                 <td>{{invoice.status}}</td>
                 <td>{{invoice.note}}</td>
               </tr>
-              <tr class="d-none row-num-{{i}}-invoice">
-                <td *ngIf="invoice.visible" colspan="11">
+              <tr *ngIf="invoice.visible">
+                <td  colspan="11">
                   <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'payments')?'payments':''"> <i
                       class="fa fa-eur" aria-hidden="true"></i>
                     Payments </button>
