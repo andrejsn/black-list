@@ -15,6 +15,7 @@ import {
   TaskComponent,
   RepresentativeComponent,
   GuarantorComponent,
+  InvoiceComponent,
 } from '.';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {
     TaskComponent,
     RepresentativeComponent,
     GuarantorComponent,
+    InvoiceComponent,
   ],
   imports: [
     CommonModule,

@@ -8,11 +8,16 @@ import {
   TaskComponent,
   GuarantorComponent,
 } from '.';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 const routes: Routes = [
   {
     path: 'debtor',
     component: DebtorComponent,
+  },
+  {
+    path: 'invoice',
+    component: InvoiceComponent,
   },
   {
     path: 'task',
