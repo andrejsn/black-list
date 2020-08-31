@@ -139,7 +139,7 @@ export class TaskComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/update/task`, this.updateTask())
+      .post<any>(`${environment.apiUrl}/task/update`, this.updateTask())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -181,6 +181,7 @@ export class TaskComponent implements OnInit {
 
     return task;
   }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.editTaskForm.controls;
