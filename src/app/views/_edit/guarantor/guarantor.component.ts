@@ -90,11 +90,31 @@ export class GuarantorComponent implements OnInit {
 
     // create validation
     this.editGuarantorForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      code: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      name: [this.selectedGuarantor.name, [Validators.required]],
+      code: [
+        this.selectedGuarantor.code,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      phone: [
+        this.selectedGuarantor.phone,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      address: [
+        this.selectedGuarantor.address,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      email: [
+        this.selectedGuarantor.email,
+        [
+          /*Validators.required*/
+        ],
+      ],
     });
   }
 
@@ -114,6 +134,38 @@ export class GuarantorComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/guarantor/update`, this.updateGuarantorValues())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private updateGuarantorValues() {
+    return {
+      id: this.selectedGuarantor.id,
+      contract_id: this.selectedContract.id,
+      name: this.editGuarantorForm.controls['name'].value,
+      code: this.editGuarantorForm.controls['code'].value,
+      phone: this.editGuarantorForm.controls['phone'].value,
+      address: this.editGuarantorForm.controls['address'].value,
+      email: this.editGuarantorForm.controls['email'].value,
+    };
   }
 
   // convenience getter for easy access to form fields
