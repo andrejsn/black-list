@@ -53,9 +53,9 @@ export class RepresentativeComponent implements OnInit {
 
   ngOnInit(): void {
     if (
-      !this.objectsService.representative &&
+      !this.objectsService.debtor &&
       !this.objectsService.contract &&
-      !this.objectsService.debtor
+      !this.objectsService.representative
     ) {
       // no debtor&contract&representative cached
       this.router.navigate(['/debtors']);
@@ -91,12 +91,37 @@ export class RepresentativeComponent implements OnInit {
 
     // create validation
     this.editRepresentativeForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      code: ['', [Validators.required]],
-      position: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      name: [this.selectedRepresentative.name, [Validators.required]],
+      code: [
+        this.selectedRepresentative.code,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      position: [
+        this.selectedRepresentative.position,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      phone: [
+        this.selectedRepresentative.phone,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      address: [
+        this.selectedRepresentative.address,
+        [
+          /*Validators.required*/
+        ],
+      ],
+      email: [
+        this.selectedRepresentative.email,
+        [
+          /*Validators.required*/
+        ],
+      ],
     });
   }
 
@@ -116,6 +141,39 @@ export class RepresentativeComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/representative/update`, this.updateRepresentative())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private updateRepresentative() {
+    return {
+      id: this.selectedRepresentative.id,
+      contract_id: this.selectedContract.id,
+      name: this.editRepresentativeForm.controls['name'].value,
+      code: this.editRepresentativeForm.controls['code'].value,
+      position: this.editRepresentativeForm.controls['position'].value,
+      phone: this.editRepresentativeForm.controls['phone'].value,
+      address: this.editRepresentativeForm.controls['address'].value,
+      email: this.editRepresentativeForm.controls['email'].value,
+    };
   }
 
   // convenience getter for easy access to form fields
