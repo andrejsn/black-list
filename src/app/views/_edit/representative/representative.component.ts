@@ -144,7 +144,7 @@ export class RepresentativeComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/representative/update`, this.updateRepresentative())
+      .post<any>(`${environment.apiUrl}/representative/update`, this.updateRepresentativeValues())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -163,7 +163,7 @@ export class RepresentativeComponent implements OnInit {
       );
   }
 
-  private updateRepresentative() {
+  private updateRepresentativeValues() {
     return {
       id: this.selectedRepresentative.id,
       contract_id: this.selectedContract.id,
