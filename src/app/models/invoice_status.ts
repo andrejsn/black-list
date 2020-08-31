@@ -1,3 +1,3 @@
 export enum InvoiceStatus {
-  'open', 'closed'
+  open, closed,
 }

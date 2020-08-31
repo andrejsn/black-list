@@ -1,4 +1,3 @@
-// TODO: change to enum?
 export enum DebtorStatus {
   awaiting, // badge-secondary
   in_work, // badge-primary

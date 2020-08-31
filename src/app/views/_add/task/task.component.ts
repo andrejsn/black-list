@@ -147,7 +147,7 @@ export class TaskComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/store/task`, this.initNewTask())
+      .post<any>(`${environment.apiUrl}/task/store`, this.initNewTask())
       .pipe(first())
       .subscribe(
         (data) => {

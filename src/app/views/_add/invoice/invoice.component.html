@@ -1,1 +1,122 @@
-<p>invoice works!</p>
+<div class="animated fadeIn">
+  <!-- add new invoice -->
+  <div class="row">
+    <div class="col-lg-11">
+      <form [formGroup]="addInvoiceForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
+            New invoice details
+            <span class="float-right">
+              <a class="btn btn-default btn-sm" [routerLink]="'/debtor/contracts'">
+                <i class="fa fa-chevron-left"></i> Return to Contracts</a>
+            </span>
+          </div>
+          <!-- card body -->
+          <!-- invoice number -->
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="number">Invoice number</label>
+              <div class="col-md-8">
+                <input id="number" formControlName="number" type="text" placeholder="enter invoice number"
+                  autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
+                <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
+                  {{'invoice.error.number.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- date of the invoice -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="date">Date of the invoice</label>
+              <div class="col-md-8">
+                <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
+                  autocomplete="off" placeholder="{{ 'placeholder.invoice.date' | translate}}"
+                  [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                  [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                <div *ngIf="submitted && f.date.errors && f.date.errors.required" class="invalid-feedback">
+                  {{'invoice.error.date.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- date_to of the invoice -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="date_to">Date to of the invoice</label>
+              <div class="col-md-8">
+                <input id="date_to" class="form-control" bsDatepicker formControlName="date_to" placement="auto"
+                  autocomplete="off" placeholder="{{ 'placeholder.invoice.date_to' | translate}}"
+                  [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                  [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                <div *ngIf="submitted && f.date_to.errors && f.date_to.errors.required" class="invalid-feedback">
+                  {{'invoice.error.date_to.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- invoice sum -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="sum">Invoice sum</label>
+              <div class="input-group col-md-8">
+                <input id="sum" formControlName="sum" autocomplete="off" class="form-control" type="text"
+                  [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
+                  placeholder="{{ 'placeholder.invoice.sum' | translate}}" currencyMask>
+                <div class="input-group-append"><span class="input-group-text">€</span></div>
+                <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
+                  {{'invoice.error.sum.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- invoice pay_in_days -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="pay_in_days">Invoice pay in days</label>
+              <div class="col-md-8">
+                <input id="pay_in_days" formControlName="pay_in_days" type="text" min="1" step="1"
+                  placeholder="enter invoice pays in days" autocomplete="off" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.pay_in_days.errors, 'is-valid': submitted && !f.pay_in_days.errors}">
+                <div *ngIf="submitted && f.pay_in_days.errors && f.pay_in_days.errors.required"
+                  class="invalid-feedback">
+                  {{'invoice.error.pay_in_days.required' | translate}}</div>
+                <div *ngIf="submitted && f.pay_in_days.errors && f.pay_in_days.errors.pattern" class="invalid-feedback">
+                  {{'invoice.error.pay_in_days.pattern' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- invoice status -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="status">Invoice status</label>
+              <div class="col-md-8">
+                <select formControlName="status" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
+                  id="status" name="status">
+                  <option [ngValue]="null" disabled>{{'invoice.select.status' | translate}}</option>
+                  <option [value]="status" *ngFor="let status of invoiceStatus | enumToArray">
+                    {{ 'status.invoice.'+status | translate}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.status.errors && f.status.errors.required" class="invalid-feedback">
+                  {{'invoice.error.status.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- invoice note -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="note">Invoice note</label>
+              <div class="col-md-8">
+                <textarea formControlName="note" class="form-control" id="note" name="note" rows="9"
+                  placeholder="{{ 'placeholder.invoice.note' | translate}}"
+                  style="margin-top: 0px; margin-bottom: 0px; height: 97px;"></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- card footer -->
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
