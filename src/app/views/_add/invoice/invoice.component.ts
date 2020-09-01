@@ -118,29 +118,16 @@ export class InvoiceComponent implements OnInit {
     // tslint:disable-next-line: forin
     for (const controlName in formGroup.controls) {
       if (controlName.indexOf('invoiceDate') !== -1) {
-
-console.log('invoiceDate');
-
-
         invoiceDateTimestamp = Date.parse(
           formGroup.controls[controlName].value
         );
       }
       if (controlName.indexOf('dateTo') !== -1) {
-
-
-console.log('dateTo');
-
         invoiceDateToTimestamp = Date.parse(
           formGroup.controls[controlName].value
         );
       }
     }
-
-    console.log(invoiceDateTimestamp);
-    console.log(invoiceDateToTimestamp);
-    console.log(invoiceDateToTimestamp < invoiceDateTimestamp);
-
     return invoiceDateToTimestamp < invoiceDateTimestamp
       ? { dateToLessInvoiceDate: true }
       : null;
