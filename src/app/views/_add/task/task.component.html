@@ -15,6 +15,7 @@
           </div>
           <!-- card body -->
           <div class="card-body">
+            <!-- new task date -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="taskDate">Date of the new task</label>
               <div class="col-md-8">
@@ -26,7 +27,7 @@
                   {{'template.error.taskDate.required' | translate}}</div>
               </div>
             </div>
-
+            <!-- new task note -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="taskNote">New task note</label>
               <div class="col-md-8">
@@ -39,7 +40,7 @@
                   {{'template.error.taskNote.required' | translate}}</div>
               </div>
             </div>
-
+            <!-- checkbox create reminder -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="createReminder">Create reminder</label>
               <div class="col-md-8">
@@ -49,7 +50,7 @@
                 </label>
               </div>
             </div>
-
+            <!-- new task reminder date -->
             <div *ngIf="isCreateReminder" [@inOutAnimation]>
               <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="reminderDate">Date of reminder</label>
@@ -65,7 +66,7 @@
                     {{'template.error.reminderDate.lessTaskDate' | translate}}</div>
                 </div>
               </div>
-
+              <!-- new task reminder note -->
               <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="reminderNote">Reminder note</label>
                 <div class="col-md-8">
@@ -73,7 +74,7 @@
                     rows="9" placeholder="{{ 'placeholder.task.note' | translate}}"
                     style="margin-top: 0px; margin-bottom: 0px; height: 97px;"
                     [ngClass]="{'is-invalid': submitted && f.reminderNote.errors, 'is-valid': submitted && !f.reminderNote.errors}">
-              </textarea>
+                  </textarea>
                   <div *ngIf="submitted && f.reminderNote.errors && f.reminderNote.errors.required"
                     class="invalid-feedback">
                     {{'template.error.reminderNote.required' | translate}}</div>

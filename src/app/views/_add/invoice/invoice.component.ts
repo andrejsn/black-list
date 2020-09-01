@@ -15,7 +15,13 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Debtor, Contract, Guarantor, InvoiceStatus } from '@app/models';
+import {
+  Debtor,
+  Contract,
+  Guarantor,
+  InvoiceStatus,
+  Invoice,
+} from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
@@ -31,8 +37,8 @@ export class InvoiceComponent implements OnInit {
 
   addInvoiceForm = new FormGroup({
     number: new FormControl(),
-    date: new FormControl(),
-    date_to: new FormControl(),
+    invoiceDate: new FormControl(),
+    dateTo: new FormControl(),
     sum: new FormControl(),
     pay_in_days: new FormControl(),
     status: new FormControl(),
@@ -87,18 +93,57 @@ export class InvoiceComponent implements OnInit {
 
     // create validation
     const regexPattern: RegExp = new RegExp('^[1-9]{1,5}d*$');
-    this.addInvoiceForm = this.formBuilder.group({
-      number: ['', [Validators.required]],
-      date: ['', [Validators.required]],
-      date_to: ['', [Validators.required]],
-      sum: ['', [Validators.required]],
-      pay_in_days: [
-        '',
-        [Validators.required, Validators.pattern(regexPattern)],
-      ],
-      status: [null, [Validators.required]],
-      note: ['', []],
-    });
+    this.addInvoiceForm = this.formBuilder.group(
+      {
+        number: ['', [Validators.required]],
+        invoiceDate: ['', [Validators.required]],
+        dateTo: ['', [Validators.required]],
+        sum: ['', [Validators.required]],
+        pay_in_days: [
+          '',
+          [Validators.required, Validators.pattern(regexPattern)],
+        ],
+        status: [null, [Validators.required]],
+        note: ['', []],
+      },
+      { validator: this.dateTo_less_invoiceDate }
+    );
+  }
+
+  /**
+   * Validator: DateTo after or equals InvoiceDate
+   */
+  private dateTo_less_invoiceDate(formGroup: FormGroup): any {
+    let invoiceDateTimestamp, invoiceDateToTimestamp;
+    // tslint:disable-next-line: forin
+    for (const controlName in formGroup.controls) {
+      if (controlName.indexOf('invoiceDate') !== -1) {
+
+console.log('invoiceDate');
+
+
+        invoiceDateTimestamp = Date.parse(
+          formGroup.controls[controlName].value
+        );
+      }
+      if (controlName.indexOf('dateTo') !== -1) {
+
+
+console.log('dateTo');
+
+        invoiceDateToTimestamp = Date.parse(
+          formGroup.controls[controlName].value
+        );
+      }
+    }
+
+    console.log(invoiceDateTimestamp);
+    console.log(invoiceDateToTimestamp);
+    console.log(invoiceDateToTimestamp < invoiceDateTimestamp);
+
+    return invoiceDateToTimestamp < invoiceDateTimestamp
+      ? { dateToLessInvoiceDate: true }
+      : null;
   }
 
   onSubmit() {
@@ -114,6 +159,38 @@ export class InvoiceComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/invoice/store`, this.initNewInvoice())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private initNewInvoice(): Invoice {
+    return {
+      contract_id: this.selectedContract.id,
+
+      number: this.addInvoiceForm.controls['number'].value,
+      date: this.addInvoiceForm.controls['invoiceDate'].value,
+      date_to: this.addInvoiceForm.controls['dateTo'].value,
+      sum: this.addInvoiceForm.controls['sum'].value,
+      status: this.addInvoiceForm.controls['status'].value,
+      note: this.addInvoiceForm.controls['note'].value,
+    };
   }
 
   // convenience getter for easy access to form fields

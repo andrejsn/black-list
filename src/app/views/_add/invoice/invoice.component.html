@@ -28,27 +28,29 @@
 
             <!-- date of the invoice -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="date">Date of the invoice</label>
+              <label class="col-md-3 col-form-label" for="invoiceDate">Date of the invoice</label>
               <div class="col-md-8">
-                <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
+                <input id="invoiceDate" class="form-control" bsDatepicker formControlName="invoiceDate" placement="auto"
                   autocomplete="off" placeholder="{{ 'placeholder.invoice.date' | translate}}"
-                  [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                  [ngClass]="{'is-invalid': submitted && f.invoiceDate.errors, 'is-valid': submitted && !f.invoiceDate.errors}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                <div *ngIf="submitted && f.date.errors && f.date.errors.required" class="invalid-feedback">
+                <div *ngIf="submitted && f.invoiceDate.errors && f.invoiceDate.errors.required" class="invalid-feedback">
                   {{'invoice.error.date.required' | translate}}</div>
               </div>
             </div>
 
-            <!-- date_to of the invoice -->
+            <!-- dateTo of the invoice -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="date_to">Date to of the invoice</label>
+              <label class="col-md-3 col-form-label" for="dateTo">Date to of the invoice</label>
               <div class="col-md-8">
-                <input id="date_to" class="form-control" bsDatepicker formControlName="date_to" placement="auto"
-                  autocomplete="off" placeholder="{{ 'placeholder.invoice.date_to' | translate}}"
-                  [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                <input id="dateTo" class="form-control" bsDatepicker formControlName="dateTo" placement="auto"
+                  autocomplete="off" placeholder="{{ 'placeholder.invoice.dateTo' | translate}}"
+                  [ngClass]="{'is-invalid': submitted && f.dateTo.errors, 'is-valid': submitted && !f.dateTo.errors}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                <div *ngIf="submitted && f.date_to.errors && f.date_to.errors.required" class="invalid-feedback">
-                  {{'invoice.error.date_to.required' | translate}}</div>
+                  <div *ngIf="submitted && f.dateTo.errors && f.dateTo.errors.required" class="invalid-feedback">
+                  {{'invoice.error.dateTo.required' | translate}}</div>
+                  <div *ngIf="submitted && addInvoiceForm.hasError('dateToLessInvoiceDate')" class="invalid-feedback">
+                    {{'invoice.error.dateTo.lessInvoiceDate' | translate}}</div>
               </div>
             </div>
 

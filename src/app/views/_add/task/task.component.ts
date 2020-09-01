@@ -91,23 +91,6 @@ export class TaskComponent implements OnInit {
     );
   }
 
-  changedCreateReminder() {
-    this.isCreateReminder = !this.isCreateReminder;
-
-    const reminderDateControl = this.addTaskForm.controls['reminderDate'];
-    const reminderNoteControl = this.addTaskForm.controls['reminderNote'];
-    if (this.isCreateReminder) {
-      reminderDateControl.setValidators(Validators.required);
-      reminderNoteControl.setValidators(Validators.required);
-    } else {
-      reminderDateControl.clearValidators();
-      reminderDateControl.updateValueAndValidity();
-
-      reminderNoteControl.clearValidators();
-      reminderNoteControl.updateValueAndValidity();
-    }
-  }
-
   /**
    * Validator: remind Date after or equal task date
    */
@@ -126,6 +109,23 @@ export class TaskComponent implements OnInit {
     return remindDateTimestamp < taskDateTimestamp
       ? { remindDateLessTaskDate: true }
       : null;
+  }
+
+  changedCreateReminder() {
+    this.isCreateReminder = !this.isCreateReminder;
+
+    const reminderDateControl = this.addTaskForm.controls['reminderDate'];
+    const reminderNoteControl = this.addTaskForm.controls['reminderNote'];
+    if (this.isCreateReminder) {
+      reminderDateControl.setValidators(Validators.required);
+      reminderNoteControl.setValidators(Validators.required);
+    } else {
+      reminderDateControl.clearValidators();
+      reminderDateControl.updateValueAndValidity();
+
+      reminderNoteControl.clearValidators();
+      reminderNoteControl.updateValueAndValidity();
+    }
   }
 
   /**
@@ -167,9 +167,8 @@ export class TaskComponent implements OnInit {
 
   private initNewTask(): Task {
     const task: Task = {
-      id: null,
       debtor_id: this.selectedDebtor.id,
-      debtor_company: 'xyz', // TODO: fix me please ?
+
       date: this.addTaskForm.controls['taskDate'].value,
       note: this.addTaskForm.controls['taskNote'].value,
     };
