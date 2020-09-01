@@ -34,7 +34,8 @@
                   autocomplete="off" placeholder="{{ 'placeholder.invoice.date' | translate}}"
                   [ngClass]="{'is-invalid': submitted && f.invoiceDate.errors, 'is-valid': submitted && !f.invoiceDate.errors}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                <div *ngIf="submitted && f.invoiceDate.errors && f.invoiceDate.errors.required" class="invalid-feedback">
+                <div *ngIf="submitted && f.invoiceDate.errors && f.invoiceDate.errors.required"
+                  class="invalid-feedback">
                   {{'invoice.error.date.required' | translate}}</div>
               </div>
             </div>
@@ -45,12 +46,12 @@
               <div class="col-md-8">
                 <input id="dateTo" class="form-control" bsDatepicker formControlName="dateTo" placement="auto"
                   autocomplete="off" placeholder="{{ 'placeholder.invoice.dateTo' | translate}}"
-                  [ngClass]="{'is-invalid': submitted && f.dateTo.errors, 'is-valid': submitted && !f.dateTo.errors}"
+                  [ngClass]="{'is-invalid': submitted && f.dateTo.errors || submitted && addInvoiceForm.hasError('dateToLessInvoiceDate'), 'is-valid': submitted && !f.dateTo.errors && !addInvoiceForm.hasError('remindDateLessTaskDate')}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                  <div *ngIf="submitted && f.dateTo.errors && f.dateTo.errors.required" class="invalid-feedback">
+                <div *ngIf="submitted && f.dateTo.errors && f.dateTo.errors.required" class="invalid-feedback">
                   {{'invoice.error.dateTo.required' | translate}}</div>
-                  <div *ngIf="submitted && addInvoiceForm.hasError('dateToLessInvoiceDate')" class="invalid-feedback">
-                    {{'invoice.error.dateTo.lessInvoiceDate' | translate}}</div>
+                <div *ngIf="submitted && addInvoiceForm.hasError('dateToLessInvoiceDate')" class="invalid-feedback">
+                  {{'invoice.error.dateTo.lessInvoiceDate' | translate}}</div>
               </div>
             </div>
 
