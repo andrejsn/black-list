@@ -24,7 +24,7 @@ import { environment } from '@environments/environment';
   animations: [inOutAnimation()],
 })
 export class TaskComponent implements OnInit {
-  task: Task;
+  selectedTask: Task;
   today: Date;
 
   isUpdateReminder: boolean;
@@ -56,9 +56,9 @@ export class TaskComponent implements OnInit {
       return; // ~
     }
 
-    this.task = this.objectsService.task;
+    this.selectedTask = this.objectsService.task;
     this.today = new Date();
-    this.isUpdateReminder = this.task.remind_date ? true : false;
+    this.isUpdateReminder = this.selectedTask.remind_date ? true : false;
 
     this.submitted = false;
     this.loading = false;
@@ -67,17 +67,17 @@ export class TaskComponent implements OnInit {
     this.editTaskForm = this.formBuilder.group(
       {
         taskDate: [
-          moment(this.task.date).format('YYYY. DD. MMMM'),
+          moment(this.selectedTask.date).format('YYYY. DD. MMMM'),
           [Validators.required],
         ],
-        taskNote: [this.task.note, [Validators.required]],
+        taskNote: [this.selectedTask.note, [Validators.required]],
         reminderDate: [
-          this.task.remind_date
-            ? moment(this.task.remind_date).format('YYYY. DD. MMMM')
+          this.selectedTask.remind_date
+            ? moment(this.selectedTask.remind_date).format('YYYY. DD. MMMM')
             : '',
           [],
         ],
-        reminderNote: [this.task.remind_note, []],
+        reminderNote: [this.selectedTask.remind_note, []],
       },
       { validator: this.remindDateAfterOrEqualTaskDate }
     );
@@ -160,7 +160,7 @@ export class TaskComponent implements OnInit {
 
   private updateTask(): Task {
     const task: Task = {
-      id: this.task.id,
+      id: this.selectedTask.id,
       date: timezoneOffset(
         // moment(this.editTaskForm.controls['taskDate'].value).toDate()
         new Date(this.editTaskForm.controls['taskDate'].value)
