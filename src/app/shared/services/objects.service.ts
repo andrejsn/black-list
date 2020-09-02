@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  Debtor,
-  Task,
-  Representative,
   MenuItem,
+  Debtor,
   Contract,
+  Task,
+  Invoice,
+  Representative,
   Guarantor,
 } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -17,6 +18,7 @@ export class ObjectsService {
   debtor: Debtor;
   task: Task;
   contract: Contract;
+  invoice: Invoice;
   representative: Representative;
   guarantor: Guarantor;
 
