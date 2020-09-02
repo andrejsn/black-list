@@ -70,8 +70,8 @@ export class GuarantorsComponent implements OnInit {
     });
   }
 
-  editGuarantor(guarantorToEdit: GuarantorTableElement) {
-    this.objectsService.guarantor = guarantorToEdit;
+  editGuarantor(selectedGuarantor: GuarantorTableElement) {
+    this.objectsService.guarantor = selectedGuarantor;
     this.router.navigate(['/edit/guarantor']);
   }
 

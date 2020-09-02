@@ -1,11 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
+import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
-import { Contract, Invoice } from '@app/models';
+import { Contract, Guarantor, Invoice } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 interface InvoiceTableElement extends Invoice {
   visible: boolean;
@@ -14,7 +19,7 @@ interface InvoiceTableElement extends Invoice {
 enum ShowSubMenu {
   payments,
   add_payment,
-  edit,
+  // edit,
   delete,
 }
 
@@ -32,7 +37,13 @@ export class InvoicesComponent implements OnInit {
 
   showSubMenu: ShowSubMenu = ShowSubMenu.payments;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private objectsService: ObjectsService,
+    private router: Router,
+    private http: HttpClient,
+    private translate: TranslateService,
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit(): void {
     // get data
@@ -61,6 +72,11 @@ export class InvoicesComponent implements OnInit {
     this.invoicesList.forEach((invoice) => {
       invoice.visible = invoice.id === id ? !invoice.visible : false;
     });
+  }
+
+  editInvoice(selectedInvoice: InvoiceTableElement) {
+    this.objectsService.invoice = selectedInvoice;
+    this.router.navigate(['/edit/invoice']);
   }
 
   /**

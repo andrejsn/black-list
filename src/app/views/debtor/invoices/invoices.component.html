@@ -56,7 +56,7 @@
                     (click)="showSubMenu = (showSubMenu.toString() !== 'add_payment')?'add_payment':''"><i
                       class="fa fa-plus" aria-hidden="true"></i> Add payment</button>
                   <span class="float-right">
-                    <button class="btn" [routerLink]="'/edit/invoice'"><i
+                    <button class="btn" (click)="editInvoice(invoice)"><i
                       class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
                     <!-- <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'edit')?'edit':''"><i
                         class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button> -->
