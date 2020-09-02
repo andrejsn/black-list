@@ -139,7 +139,7 @@ export class TaskComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/task/update`, this.updateTask())
+      .post<any>(`${environment.apiUrl}/task/update`, this.updatedTask())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -158,7 +158,7 @@ export class TaskComponent implements OnInit {
       );
   }
 
-  private updateTask(): Task {
+  private updatedTask(): Task {
     const task: Task = {
       id: this.selectedTask.id,
       date: timezoneOffset(
