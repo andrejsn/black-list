@@ -56,7 +56,7 @@ export class GuarantorComponent implements OnInit {
       !this.objectsService.contract &&
       !this.objectsService.guarantor
     ) {
-      // no debtor&contract&representative cached
+      // no debtor&contract&guarantor cached
       this.router.navigate(['/debtors']);
 
       return;
@@ -91,30 +91,10 @@ export class GuarantorComponent implements OnInit {
     // create validation
     this.editGuarantorForm = this.formBuilder.group({
       name: [this.selectedGuarantor.name, [Validators.required]],
-      code: [
-        this.selectedGuarantor.code,
-        [
-          /*Validators.required*/
-        ],
-      ],
-      phone: [
-        this.selectedGuarantor.phone,
-        [
-          /*Validators.required*/
-        ],
-      ],
-      address: [
-        this.selectedGuarantor.address,
-        [
-          /*Validators.required*/
-        ],
-      ],
-      email: [
-        this.selectedGuarantor.email,
-        [
-          /*Validators.required*/
-        ],
-      ],
+      code: [this.selectedGuarantor.code, []],
+      phone: [this.selectedGuarantor.phone, []],
+      address: [this.selectedGuarantor.address, []],
+      email: [this.selectedGuarantor.email, []],
     });
   }
 
@@ -137,7 +117,10 @@ export class GuarantorComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/guarantor/update`, this.updateGuarantorValues())
+      .post<any>(
+        `${environment.apiUrl}/guarantor/update`,
+        this.updateGuarantorValues()
+      )
       .pipe(first())
       .subscribe(
         (data) => {
