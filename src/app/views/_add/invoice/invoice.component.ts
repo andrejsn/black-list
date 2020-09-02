@@ -98,7 +98,7 @@ export class InvoiceComponent implements OnInit {
         number: ['', [Validators.required]],
         invoiceDate: ['', [Validators.required]],
         dateTo: ['', [Validators.required]],
-        sum: ['', [Validators.required]],
+        sum: ['', [Validators.required, Validators.min(0.01)]],
         pay_in_days: [
           '',
           [Validators.required, Validators.pattern(regexPattern)],
