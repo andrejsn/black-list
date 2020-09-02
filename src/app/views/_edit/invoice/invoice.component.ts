@@ -18,6 +18,7 @@ import * as moment from 'moment';
 import { Debtor, Contract, Invoice, InvoiceStatus } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
+import { timezoneOffset } from '@shared/helpers';
 
 @Component({
   selector: 'app-invoice',
@@ -156,6 +157,37 @@ export class InvoiceComponent implements OnInit {
 
       return;
     }
+
+    this.http
+    .post<any>(`${environment.apiUrl}/invoice/update`, this.updateInvoice())
+    .pipe(first())
+    .subscribe(
+      (data) => {
+        this.router.navigate(['/debtor/contracts']);
+      },
+      (error) => {
+        this.loading = false;
+        this.submitted = false;
+        this.translate
+          .get('toast.error.response')
+          .subscribe((error: string) => {
+            this.snotifyService.error(error);
+          });
+      }
+    );
+  }
+
+  private updateInvoice(): Invoice {
+    return {
+      id: this.selectedInvoice.id,
+      contract_id: this.selectedContract.id,
+      number: this.editInvoiceForm.controls['number'].value,
+      date: timezoneOffset(new Date(this.editInvoiceForm.controls['invoiceDate'].value)),
+      date_to: timezoneOffset(new Date(this.editInvoiceForm.controls['dateTo'].value)),
+      sum: this.editInvoiceForm.controls['sum'].value,
+      status: this.editInvoiceForm.controls['status'].value,
+      note: this.editInvoiceForm.controls['note'].value,
+    };
   }
 
   // convenience getter for easy access to form fields
