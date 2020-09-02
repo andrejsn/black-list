@@ -13,6 +13,7 @@ import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
 
 interface InvoiceTableElement extends Invoice {
+  toDelete: boolean;
   visible: boolean;
 }
 
@@ -20,7 +21,7 @@ enum ShowSubMenu {
   payments,
   add_payment,
   // edit,
-  delete,
+  // delete,
 }
 
 @Component({
@@ -34,6 +35,8 @@ export class InvoicesComponent implements OnInit {
   invoicesList: InvoiceTableElement[];
   visible: boolean = false;
   count: number;
+
+  loading: boolean;
 
   showSubMenu: ShowSubMenu = ShowSubMenu.payments;
 
@@ -78,6 +81,73 @@ export class InvoicesComponent implements OnInit {
     this.objectsService.invoice = selectedInvoice;
     this.router.navigate(['/edit/invoice']);
   }
+
+  /**
+   * delete invoice
+   * @param invoiceToDelete - invoice
+   */
+  notifyDeleteInvoice(invoiceToDelete: InvoiceTableElement) {
+    this.loading = true;
+    invoiceToDelete.toDelete = true;
+
+    this.snotifyService
+      .confirm('The invoice will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Yes',
+            action: () => this.deleteInvoice(invoiceToDelete),
+            bold: false,
+          },
+          {
+            text: 'No',
+            action: () => this.cancelDeleteInvoice(invoiceToDelete),
+          },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeleteInvoice(invoiceToDelete);
+      });
+  }
+
+  private cancelDeleteInvoice(invoiceToDelete: InvoiceTableElement) {
+    invoiceToDelete.toDelete = false;
+  }
+
+  private deleteInvoice(invoiceToDelete: InvoiceTableElement) {
+    this.http
+      .post<any>(`${environment.apiUrl}/invoice/destroy`, {
+        id: invoiceToDelete.id,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.invoicesList = reject(this.invoicesList, function (
+              invoice: InvoiceTableElement
+            ) {
+              return (invoice.id as number) === (response.deleted as number);
+            });
+
+            this.count--;
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
 
   /**
    *

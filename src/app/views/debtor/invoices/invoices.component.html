@@ -37,15 +37,15 @@
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !invoice.visible,'fa-compress': invoice.visible}"></i>
                 </td>
-                <td>{{invoice.number}}</td>
-                <td>{{invoice.date}}</td>
-                <td>{{invoice.date_to}}</td>
-                <td>{{invoice.sum}}</td>
-                <td>?Pay in days?</td>
-                <td>Penalty (interest per day)-<br>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.number}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date_to}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.sum}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}"> ?Pay in days?</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">Penalty (interest per day)-<br>
                   Contractual (Current) / Paid</td>
-                <td>{{invoice.status}}</td>
-                <td>{{invoice.note}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.status}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.note}}</td>
               </tr>
               <tr *ngIf="invoice.visible">
                 <td  colspan="11">
@@ -60,7 +60,7 @@
                       class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
                     <!-- <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'edit')?'edit':''"><i
                         class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button> -->
-                    <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'delete')?'delete':''"><i
+                    <button class="btn" (click)="notifyDeleteInvoice(invoice)"><i
                         class="fa fa-trash" aria-hidden="true"></i>Delete</button>
                   </span>
                   <div [ngSwitch]="showSubMenu">
@@ -73,9 +73,9 @@
                     <!-- <div *ngSwitchCase="'edit'">
                       +edit+
                     </div> -->
-                    <div *ngSwitchCase="'delete'">
+                    <!-- <div *ngSwitchCase="'delete'">
                       +delete+
-                    </div>
+                    </div> -->
                     <div *ngSwitchDefault></div>
                   </div>
 
