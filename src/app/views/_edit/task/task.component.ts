@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {
   FormGroup,
   FormControl,
@@ -13,7 +14,7 @@ import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { Task, Debtor } from '@app/models';
+import { Debtor, Contract, Task } from '@app/models';
 import { ObjectsService } from '@shared/services';
 import { inOutAnimation, timezoneOffset } from '@shared/helpers';
 import { environment } from '@environments/environment';
@@ -41,11 +42,12 @@ export class TaskComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private title: Title,
     private objectsService: ObjectsService,
     private router: Router,
+    private translate: TranslateService,
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private translate: TranslateService,
     private snotifyService: SnotifyService
   ) {}
 
@@ -64,6 +66,26 @@ export class TaskComponent implements OnInit {
 
     this.submitted = false;
     this.loading = false;
+
+    // set browser title
+    this.title.setTitle(this.selectedDebtor.company + '- edit guarantor');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: false },
+      {
+        route: '/debtor',
+        name: 'Debtor: ' + this.selectedDebtor.company,
+        active: false,
+      },
+      {
+        route: '/edit/task',
+        name:
+          'Edit task from: ' +
+          moment(this.selectedTask.date).format('YYYY. DD. MMMM'),
+        active: true,
+      },
+    ]);
 
     // create validation
     this.editTaskForm = this.formBuilder.group(
