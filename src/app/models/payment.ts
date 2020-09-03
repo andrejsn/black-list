@@ -7,7 +7,7 @@ export interface Payment {
   sum: number;
   status: PaymentStatus;
 
-  created_at: Date;
-  deleted_at: Date;
-  updated_at: Date;
+  // created_at: Date;
+  // deleted_at: Date;
+  // updated_at: Date;
 }

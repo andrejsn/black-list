@@ -17,13 +17,6 @@ interface InvoiceTableElement extends Invoice {
   visible: boolean;
 }
 
-enum ShowSubMenu {
-  payments,
-  add_payment,
-  // edit,
-  // delete,
-}
-
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
@@ -37,8 +30,6 @@ export class InvoicesComponent implements OnInit {
   count: number;
 
   loading: boolean;
-
-  showSubMenu: ShowSubMenu = ShowSubMenu.payments;
 
   constructor(
     private objectsService: ObjectsService,

@@ -1,8 +1,8 @@
 <div class="animated fadeIn">
   <!-- add new invoice -->
-  <div class="row">
-    <div class="col-lg-11">
-      <form [formGroup]="addInvoiceForm" (ngSubmit)="onSubmit()" role="form">
+  <form [formGroup]="addInvoiceForm" (ngSubmit)="onSubmit()" role="form">
+    <div class="row">
+      <div class="col-lg-11">
         <div class="card">
           <div class="card-header">
             <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
@@ -119,7 +119,7 @@
             <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

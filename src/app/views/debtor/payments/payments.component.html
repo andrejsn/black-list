@@ -1,42 +1,57 @@
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-header">
-        <!--  -->
-      </div>
-      <div class="card-body">
-        <table class="table table-responsive-sm table-sm">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Sum</th>
-              <th>Status</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let payment of payments">
-            <tr>
-              <td>{{payment.date}}</td>
-              <td>{{payment.sum}}</td>
-              <td>{{payment.status}}</td>
-              <td>
-                <button class="btn" (click)="changeMode(payment)">
-                  <i *ngIf="payment.mode === 'edit'" class="fa fa-pencil" aria-hidden="true"></i>
-                  <i *ngIf="payment.mode === 'save'" class="fa fa-times" aria-hidden="true"></i>
-                </button></td>
-              <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-            </tr>
-            <tr *ngIf="payment.mode === 'save'">
+<div class="animated fadeIn">
+  <!-- add & edit payments -->
+  <form [formGroup]="addEditPaymentForm" role="form">
+    <div class="row">
+      <div class="col-lg-11">
+        <div class="card">
+          <!-- <div class="card-header">
+
+      </div> -->
+          <div class="card-body">
+            <table class="table table-responsive-sm table-sm">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Sum</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let payment of payments">
+                  <tr>
+                    <td>{{payment.date}}</td>
+                    <td *ngIf="isEdit(payment)">{{payment.sum}}</td>
+                    <td *ngIf="isSaved(payment)">
+                      <div class="input-group col-md-8">
+                        <input id="sum" formControlName="sum" autocomplete="off" class="form-control" type="text"
+                          [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
+                          placeholder="{{ 'placeholder.invoice.sum' | translate}}" currencyMask>
+                        <div class="input-group-append"><span class="input-group-text">€</span></div>
+                        <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
+                          {{'invoice.error.sum.required' | translate}}</div>
+                      </div>
+                    </td>
+                    <td>{{payment.status}}</td>
+                    <td>
+                      <button class="btn" (click)="changeMode(payment)">
+                        <i *ngIf="isEdit(payment)" class="fa fa-pencil" aria-hidden="true"></i>
+                        <i *ngIf="isSaved(payment)" class="fa fa-save" aria-hidden="true"></i>
+                      </button></td>
+                    <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+                  </tr>
+                  <!-- <tr *ngIf="payment.mode === 'save'">
               <td colspan="5">
                 <app-add-payment [payment]="payment"></app-add-payment>
               </td>
-            </tr>
-          </ng-container>
-          </tbody>
-        </table>
+            </tr> -->
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
