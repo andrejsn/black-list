@@ -70,18 +70,25 @@
                   </td>
                 </tr>
                 <!-- accordion for debtor -->
-                <tr [ngClass]="{'d-none': !debtor.visible}">
-                  <td colspan="3">
-                    <button class="btn" (click)="details(debtor)"><i class="fa fa-eye" aria-hidden="true"></i>
-                      Details</button>
-                    <button class="btn" (click)="contracts(debtor)"><i class="fa fa-handshake-o" aria-hidden="true"></i>
-                      Contracts</button>
-                    <button class="btn" (click)="tasks(debtor)"><i class="fa fa-tasks" aria-hidden="true"></i>
-                      Tasks</button>
-                  </td>
-                  <td colspan="2">
-                    <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
-                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                <tr *ngIf="debtor.visible">
+                  <td class="no-top-border" colspan="5">
+                    <button class="btn">
+                      <i class="fa fa-pencil-square-o"></i>
+                      Edit</button>
+                    <button class="btn">
+                      <i class="fa fa-trash"></i>
+                      Trash</button>
+                    <span class="float-right">
+                      <button class="btn" (click)="details(debtor)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Details</button>
+                      <button class="btn" (click)="contracts(debtor)">
+                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                        Contracts</button>
+                      <button class="btn" (click)="tasks(debtor)">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        Tasks</button>
+                    </span>
                   </td>
                 </tr>
               </ng-container>
