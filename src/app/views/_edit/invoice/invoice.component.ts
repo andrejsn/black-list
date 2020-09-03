@@ -159,22 +159,22 @@ export class InvoiceComponent implements OnInit {
     }
 
     this.http
-    .post<any>(`${environment.apiUrl}/invoice/update`, this.updateInvoice())
-    .pipe(first())
-    .subscribe(
-      (data) => {
-        this.router.navigate(['/debtor/contracts']);
-      },
-      (error) => {
-        this.loading = false;
-        this.submitted = false;
-        this.translate
-          .get('toast.error.response')
-          .subscribe((error: string) => {
-            this.snotifyService.error(error);
-          });
-      }
-    );
+      .post<any>(`${environment.apiUrl}/invoice/update`, this.updateInvoice())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/debtor/contracts']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 
   private updateInvoice(): Invoice {
@@ -182,8 +182,18 @@ export class InvoiceComponent implements OnInit {
       id: this.selectedInvoice.id,
       contract_id: this.selectedContract.id,
       number: this.editInvoiceForm.controls['number'].value,
-      date: timezoneOffset(new Date(this.editInvoiceForm.controls['invoiceDate'].value)),
-      date_to: timezoneOffset(new Date(this.editInvoiceForm.controls['dateTo'].value)),
+      date: timezoneOffset(
+        moment(
+          this.editInvoiceForm.controls['invoiceDate'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      ),
+      date_to: timezoneOffset(
+        moment(
+          this.editInvoiceForm.controls['dateTo'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      ),
       sum: this.editInvoiceForm.controls['sum'].value,
       status: this.editInvoiceForm.controls['status'].value,
       note: this.editInvoiceForm.controls['note'].value,
