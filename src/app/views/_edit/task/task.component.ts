@@ -13,7 +13,7 @@ import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { Task } from '@app/models';
+import { Task, Debtor } from '@app/models';
 import { ObjectsService } from '@shared/services';
 import { inOutAnimation, timezoneOffset } from '@shared/helpers';
 import { environment } from '@environments/environment';
@@ -24,6 +24,7 @@ import { environment } from '@environments/environment';
   animations: [inOutAnimation()],
 })
 export class TaskComponent implements OnInit {
+  selectedDebtor: Debtor;
   selectedTask: Task;
   today: Date;
 
@@ -49,14 +50,15 @@ export class TaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.objectsService.task) {
+    if (!this.objectsService.debtor && !this.objectsService.task) {
       // no task cached
       this.router.navigate(['/debtors']);
 
       return; // ~
     }
-
     this.selectedTask = this.objectsService.task;
+    this.selectedDebtor = this.objectsService.debtor;
+
     this.today = new Date();
     this.isUpdateReminder = this.selectedTask.remind_date ? true : false;
 
@@ -161,19 +163,24 @@ export class TaskComponent implements OnInit {
   private updatedTask(): Task {
     const task: Task = {
       id: this.selectedTask.id,
+      debtor_id: this.selectedDebtor.id,
       date: timezoneOffset(
-        // moment(this.editTaskForm.controls['taskDate'].value).toDate()
-        new Date(this.editTaskForm.controls['taskDate'].value)
+        moment(
+          this.editTaskForm.controls['taskDate'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
       ),
       note: this.editTaskForm.controls['taskNote'].value,
     };
     // add reminder?
     if (this.isUpdateReminder) {
-      task.remind_date = timezoneOffset(
-        // moment(this.editTaskForm.controls['reminderDate'].value).toDate()
-        new Date(this.editTaskForm.controls['reminderDate'].value)
-      );
-      task.remind_note = this.editTaskForm.controls['reminderNote'].value;
+      (task.remind_date = timezoneOffset(
+        moment(
+          this.editTaskForm.controls['reminderDate'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      )),
+        (task.remind_note = this.editTaskForm.controls['reminderNote'].value);
     } else {
       task.remind_date = null;
       task.remind_note = null;
