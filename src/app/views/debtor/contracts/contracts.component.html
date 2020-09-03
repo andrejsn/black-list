@@ -52,9 +52,9 @@
                 </tr>
                 <!-- contracts details -->
                 <tr *ngIf="contract.visible">
-                  <td colspan="7">
-                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                  <td class="no-top-border" colspan="7">
                     <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
                     <!--  -->
                     <app-invoices [contract]="contract"></app-invoices>
                     <app-representatives [contract]="contract"></app-representatives>
