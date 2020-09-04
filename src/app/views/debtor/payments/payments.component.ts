@@ -40,11 +40,12 @@ export class PaymentsComponent implements OnInit {
   @Input() invoice: Invoice;
   payments: Payment[];
   selectedPayment: Payment;
-  deletePayment: Payment;
+  paymentToDelete: Payment;
   paymentStatus = PaymentStatus;
   mode: Mode;
 
   submitted: boolean;
+  loading: boolean;
 
   addEditPaymentForm = new FormGroup({
     sum: new FormControl(),
@@ -66,7 +67,7 @@ export class PaymentsComponent implements OnInit {
     this.mode = Mode.edit;
     this.payments = this.invoice.payments;
     this.selectedPayment = null;
-    this.deletePayment = null;
+    this.paymentToDelete = null;
     this.submitted = true; // TODO: change this
 
     // create validation
@@ -113,8 +114,40 @@ export class PaymentsComponent implements OnInit {
     this.mode = Mode.edit;
   }
 
-  notifyDeletePayment(paymentToDelete: Payment) {
-    this.deletePayment = paymentToDelete;
+  notifyDeletePayment(payment: Payment) {
+    this.paymentToDelete = payment;
+    this.loading = true;
+
+    this.snotifyService
+      .confirm('The payment will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Yes',
+            action: () => this.deletePayment(payment),
+            bold: false,
+          },
+          {
+            text: 'No',
+            action: () => this.cancelDeletePayment(payment),
+          },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeletePayment(payment);
+      });
+  }
+
+  private cancelDeletePayment(paymentToDelete: Payment) {
+    this.loading = false;
+    this.paymentToDelete = null;
+  }
+
+  private deletePayment(paymentToDelete: Payment) {
+
   }
 
   // convenience getter for easy access to form fields
