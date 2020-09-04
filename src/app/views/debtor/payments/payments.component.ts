@@ -118,6 +118,9 @@ export class PaymentsComponent implements OnInit {
   addPayment() {
     this.mode = Mode.add;
     this.submitted = false;
+    this.addEditPaymentForm.controls['date'].setValue(null);
+    this.addEditPaymentForm.controls['sum'].setValue(null);
+    this.addEditPaymentForm.controls['status'].setValue(null);
   }
 
   isAddPayment(): boolean {
@@ -127,6 +130,55 @@ export class PaymentsComponent implements OnInit {
   cancelAddPayment() {
     this.mode = Mode.edit;
     this.submitted = true;
+  }
+
+  savePayment() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.addEditPaymentForm.invalid) {
+      this.translate
+        .get('toast.error.template.form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
+
+      return;
+    }
+
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/payment/store`, this.initPayment())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.loading = false;
+          this.submitted = false;
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+
+    console.log(this.addEditPaymentForm.controls['date'].value);
+    console.log(this.addEditPaymentForm.controls['sum'].value);
+    console.log(this.addEditPaymentForm.controls['status'].value);
+  }
+
+  private initPayment(): Payment {
+    return {
+      invoice_id: this.invoice.id,
+      date: this.addEditPaymentForm.controls['date'].value,
+      sum: this.addEditPaymentForm.controls['sum'].value,
+      status: this.addEditPaymentForm.controls['status'].value,
+    };
   }
 
   notifyDeletePayment(payment: Payment) {
