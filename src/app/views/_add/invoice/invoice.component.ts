@@ -149,7 +149,7 @@ export class InvoiceComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .post<any>(`${environment.apiUrl}/invoice/store`, this.initNewInvoice())
+      .post<any>(`${environment.apiUrl}/invoice/store`, this.initInvoice())
       .pipe(first())
       .subscribe(
         (data) => {
@@ -167,7 +167,7 @@ export class InvoiceComponent implements OnInit {
       );
   }
 
-  private initNewInvoice(): Invoice {
+  private initInvoice(): Invoice {
     return {
       contract_id: this.selectedContract.id,
 
