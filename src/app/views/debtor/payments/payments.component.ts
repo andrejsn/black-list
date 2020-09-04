@@ -28,6 +28,7 @@ import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
 enum Mode {
+  add,
   edit,
   saved,
 }
@@ -114,6 +115,20 @@ export class PaymentsComponent implements OnInit {
     this.mode = Mode.edit;
   }
 
+  addPayment() {
+    this.mode = Mode.add;
+    this.submitted = false;
+  }
+
+  isAddPayment(): boolean {
+    return this.mode === Mode.add;
+  }
+
+  cancelAddPayment() {
+    this.mode = Mode.edit;
+    this.submitted = true;
+  }
+
   notifyDeletePayment(payment: Payment) {
     this.paymentToDelete = payment;
     this.loading = true;
@@ -146,9 +161,7 @@ export class PaymentsComponent implements OnInit {
     this.paymentToDelete = null;
   }
 
-  private deletePayment(paymentToDelete: Payment) {
-
-  }
+  private deletePayment(paymentToDelete: Payment) {}
 
   // convenience getter for easy access to form fields
   get f() {

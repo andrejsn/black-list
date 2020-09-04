@@ -23,7 +23,8 @@
                   <tr>
                     <!-- date -->
                     <td *ngIf="isEdit(payment)"
-                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.date}}</td>
+                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.date}}
+                    </td>
                     <td *ngIf="isSaved(payment)">
                       <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
                         autocomplete="off" placeholder="{{ 'placeholder.payment.date' | translate}}"
@@ -34,7 +35,8 @@
                     </td>
                     <!-- sum -->
                     <td *ngIf="isEdit(payment)"
-                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.sum}}</td>
+                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.sum}}
+                    </td>
                     <td *ngIf="isSaved(payment)">
                       <div class="input-group">
                         <input id="sum" formControlName="sum" autocomplete="off" class="form-control" type="text"
@@ -67,21 +69,76 @@
                       </button></td>
                     <!-- button trash  -->
                     <td *ngIf="isEdit(payment)">
-                      <button [disabled]="loading"  class="btn" (click)="notifyDeletePayment(payment)">
+                      <button [disabled]="loading" class="btn" (click)="notifyDeletePayment(payment)">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                       </button></td>
                     <td *ngIf="isSaved(payment)">
-                      <button [disabled]="loading"  class="btn" (click)="cancelEdit()">
+                      <button [disabled]="loading" class="btn" (click)="cancelEdit()">
                         <i class="fa fa-times" aria-hidden="true"></i>
                       </button>
                     </td>
                   </tr>
+
                   <!-- <tr *ngIf="payment.mode === 'save'">
               <td colspan="5">
                 <app-add-payment [payment]="payment"></app-add-payment>
               </td>
             </tr> -->
                 </ng-container>
+                <!-- add new payment -->
+                <tr *ngIf="isAddPayment()">
+                  <!-- date -->
+                  <td>
+                    <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
+                      autocomplete="off" placeholder="{{ 'placeholder.payment.date' | translate}}"
+                      [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                      [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                    <div *ngIf="submitted && f.date.errors && f.date.errors.required" class="invalid-feedback">
+                      {{'payment.error.date.required' | translate}}</div>
+                  </td>
+                  <!-- sum -->
+                  <td>
+                    <div class="input-group">
+                      <input id="sum" formControlName="sum" autocomplete="off" class="form-control" type="text"
+                        [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
+                        placeholder="{{ 'placeholder.payment.sum' | translate}}" currencyMask>
+                      <div class="input-group-append"><span class="input-group-text">€</span></div>
+                      <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
+                        {{'payment.error.sum.required' | translate}}</div>
+                    </div>
+                  </td>
+                  <!-- status -->
+                  <td>
+                    <select formControlName="status" class="form-control"
+                      [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
+                      id="status" name="status">
+                      <option [ngValue]="null" disabled>{{'payment.select.status' | translate}}</option>
+                      <option [value]="status" *ngFor="let status of paymentStatus | enumToArray">
+                        {{ 'status.payment.'+status | translate}}
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <!-- buttons saved -->
+                    <button [disabled]="loading" class="btn">
+                      <i class="fa fa-save" aria-hidden="true"></i>
+                    </button></td>
+                  <td>
+                  <td>
+                    <!-- button cancel  -->
+                    <button [disabled]="loading" class="btn" (click)="cancelAddPayment()">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+                <!-- button add payment -->
+                <tr *ngIf="!isAddPayment()">
+                  <td colspan="5">
+                    <button [disabled]="loading" class="btn" (click)="addPayment()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>Payment
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
