@@ -1,3 +1,3 @@
 export enum PaymentStatus {
-  'debt', 'fine'
+  debt, fine
 }
