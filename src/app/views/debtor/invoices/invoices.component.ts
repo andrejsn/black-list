@@ -105,6 +105,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   private cancelDeleteInvoice(invoiceToDelete: InvoiceTableElement) {
+    this.loading = false;
     invoiceToDelete.toDelete = false;
   }
 

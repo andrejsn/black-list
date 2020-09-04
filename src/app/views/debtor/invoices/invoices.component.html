@@ -49,9 +49,9 @@
               </tr>
               <tr *ngIf="invoice.visible">
                 <td class="no-top-border" colspan="11">
-                  <button class="btn" (click)="editInvoice(invoice)"><i class="fa fa-pencil-square-o"
+                  <button [disabled]="loading"  class="btn" (click)="editInvoice(invoice)"><i class="fa fa-pencil-square-o"
                       aria-hidden="true"></i>Edit</button>
-                  <button class="btn" (click)="notifyDeleteInvoice(invoice)"><i class="fa fa-trash"
+                  <button [disabled]="loading"  class="btn" (click)="notifyDeleteInvoice(invoice)"><i class="fa fa-trash"
                       aria-hidden="true"></i>Trash</button>
 
                   <!-- <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'payments')?'payments':''"> <i
