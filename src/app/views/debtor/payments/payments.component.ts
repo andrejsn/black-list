@@ -22,6 +22,7 @@ import {
   InvoiceStatus,
   Invoice,
   Payment,
+  PaymentStatus,
 } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
@@ -39,11 +40,16 @@ export class PaymentsComponent implements OnInit {
   @Input() invoice: Invoice;
   payments: Payment[];
   selectedPayment: Payment;
+  deletePayment: Payment;
+  paymentStatus = PaymentStatus;
   mode: Mode;
-  submitted:boolean;
+
+  submitted: boolean;
 
   addEditPaymentForm = new FormGroup({
     sum: new FormControl(),
+    date: new FormControl(),
+    status: new FormControl(),
   });
 
   constructor(
@@ -60,17 +66,31 @@ export class PaymentsComponent implements OnInit {
     this.mode = Mode.edit;
     this.payments = this.invoice.payments;
     this.selectedPayment = null;
+    this.deletePayment = null;
     this.submitted = true; // TODO: change this
 
     // create validation
     this.addEditPaymentForm = this.formBuilder.group({
       sum: ['', [Validators.required, Validators.min(0.01)]],
+      date: ['', [Validators.required]],
+      status: ['', [Validators.required]],
     });
   }
 
   changeMode(payment: Payment) {
     this.selectedPayment = payment;
     if (this.mode === Mode.edit) {
+      // set input fields
+      this.addEditPaymentForm.controls['date'].setValue(
+        moment(this.selectedPayment.date).format('YYYY. DD. MMMM')
+      );
+      this.addEditPaymentForm.controls['sum'].setValue(
+        this.selectedPayment.sum
+      );
+      this.addEditPaymentForm.controls['status'].setValue(
+        this.selectedPayment.status
+      );
+      // change mode to saved
       this.mode = Mode.saved;
     } else {
       this.mode = Mode.edit;
@@ -87,6 +107,14 @@ export class PaymentsComponent implements OnInit {
 
   isEdit(currentPayment: Payment): boolean {
     return !this.isSaved(currentPayment);
+  }
+
+  cancelEdit() {
+    this.mode = Mode.edit;
+  }
+
+  notifyDeletePayment(paymentToDelete: Payment) {
+    this.deletePayment = paymentToDelete;
   }
 
   // convenience getter for easy access to form fields

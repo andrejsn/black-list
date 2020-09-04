@@ -14,32 +14,67 @@
                   <th>Date</th>
                   <th>Sum</th>
                   <th>Status</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <ng-container *ngFor="let payment of payments">
                   <tr>
-                    <td>{{payment.date}}</td>
-                    <td *ngIf="isEdit(payment)">{{payment.sum}}</td>
+                    <!-- date -->
+                    <td *ngIf="isEdit(payment)"
+                      [ngClass]="{'to-delete': deletePayment && payment.id === deletePayment.id}">{{payment.date}}</td>
                     <td *ngIf="isSaved(payment)">
-                      <div class="input-group col-md-8">
+                      <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
+                        autocomplete="off" placeholder="{{ 'placeholder.payment.date' | translate}}"
+                        [ngClass]="{'is-invalid': submitted && f.date.errors, 'is-valid': submitted && !f.date.errors}"
+                        [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                      <div *ngIf="submitted && f.date.errors && f.date.errors.required" class="invalid-feedback">
+                        {{'payment.error.date.required' | translate}}</div>
+                    </td>
+                    <!-- sum -->
+                    <td *ngIf="isEdit(payment)"
+                      [ngClass]="{'to-delete': deletePayment && payment.id === deletePayment.id}">{{payment.sum}}</td>
+                    <td *ngIf="isSaved(payment)">
+                      <div class="input-group">
                         <input id="sum" formControlName="sum" autocomplete="off" class="form-control" type="text"
                           [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
-                          placeholder="{{ 'placeholder.invoice.sum' | translate}}" currencyMask>
+                          placeholder="{{ 'placeholder.payment.sum' | translate}}" currencyMask>
                         <div class="input-group-append"><span class="input-group-text">€</span></div>
                         <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
-                          {{'invoice.error.sum.required' | translate}}</div>
+                          {{'payment.error.sum.required' | translate}}</div>
                       </div>
                     </td>
-                    <td>{{payment.status}}</td>
+                    <!-- status -->
+                    <td *ngIf="isEdit(payment)"
+                      [ngClass]="{'to-delete': deletePayment && payment.id === deletePayment.id}">{{payment.status}}
+                    </td>
+                    <td *ngIf="isSaved(payment)">
+                      <select formControlName="status" class="form-control"
+                        [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
+                        id="status" name="status">
+                        <option [ngValue]="null" disabled>{{'payment.select.status' | translate}}</option>
+                        <option [value]="status" *ngFor="let status of paymentStatus | enumToArray">
+                          {{ 'status.payment.'+status | translate}}
+                        </option>
+                      </select>
+                    </td>
+                    <!-- buttons edit or saved -->
                     <td>
                       <button class="btn" (click)="changeMode(payment)">
                         <i *ngIf="isEdit(payment)" class="fa fa-pencil" aria-hidden="true"></i>
                         <i *ngIf="isSaved(payment)" class="fa fa-save" aria-hidden="true"></i>
                       </button></td>
-                    <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+                    <!-- button trash  -->
+                    <td *ngIf="isEdit(payment)">
+                      <button class="btn" (click)="notifyDeletePayment(payment)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button></td>
+                    <td *ngIf="isSaved(payment)">
+                      <button class="btn" (click)="cancelEdit()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>
+                    </td>
                   </tr>
                   <!-- <tr *ngIf="payment.mode === 'save'">
               <td colspan="5">
