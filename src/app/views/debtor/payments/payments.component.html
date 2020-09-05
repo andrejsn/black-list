@@ -23,7 +23,7 @@
                   <tr>
                     <!-- date -->
                     <td *ngIf="isEdit(payment)"
-                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.date}}
+                      [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">{{payment.date | momentjs: 'YYYY. DD. MMMM'}}
                     </td>
                     <td *ngIf="isSaved(payment)">
                       <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"

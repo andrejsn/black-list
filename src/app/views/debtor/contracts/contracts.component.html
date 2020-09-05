@@ -34,7 +34,7 @@
                   </td>
 
                   <!-- contract with agreement -->
-                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | date}}</td>
+                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | momentjs: 'YYYY. DD. MMMM'}}</td>
                   <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
                   <!-- contract without agreement -->
                   <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span

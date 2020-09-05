@@ -38,8 +38,8 @@
                     [ngClass]="{'fa-expand': !invoice.visible,'fa-compress': invoice.visible}"></i>
                 </td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.number}}</td>
-                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date}}</td>
-                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date_to}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date | momentjs: 'YYYY. DD. MMMM'}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date_to | momentjs: 'YYYY. DD. MMMM'}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.sum}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}"> ?Pay in days?</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">Penalty (interest per day)-<br>
