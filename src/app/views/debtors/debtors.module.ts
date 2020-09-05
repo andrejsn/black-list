@@ -6,11 +6,11 @@ import { DebtorsRoutingModule } from './debtors-routing.module';
 import { DebtorsComponent } from './debtors.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { DebtorFilterPipe } from '@shared/helpers';
+import { DebtorFilterPipe, MomentjsPipe } from '@shared/helpers';
 
 
 @NgModule({
-  declarations: [DebtorsComponent , DebtorFilterPipe],
+  declarations: [DebtorsComponent , DebtorFilterPipe, MomentjsPipe],
   imports: [
     CommonModule,
     DebtorsRoutingModule,

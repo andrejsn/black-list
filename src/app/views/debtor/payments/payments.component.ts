@@ -152,9 +152,22 @@ export class PaymentsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
-          this.loading = false;
           this.submitted = false;
+          this.loading = false;
+
+          const addedPayment = data as Payment;
+          if (addedPayment.id) {
+            // payment is added
+            this.payments.push({
+              id: addedPayment.id,
+              invoice_id: addedPayment.invoice_id,
+              date: addedPayment.date,
+              sum: addedPayment.sum,
+              status: addedPayment.status,
+            });
+          }
+
+          console.log(this.payments);
         },
         (error) => {
           this.loading = false;
@@ -166,10 +179,6 @@ export class PaymentsComponent implements OnInit {
             });
         }
       );
-
-    console.log(this.addEditPaymentForm.controls['date'].value);
-    console.log(this.addEditPaymentForm.controls['sum'].value);
-    console.log(this.addEditPaymentForm.controls['status'].value);
   }
 
   private initPayment(): Payment {

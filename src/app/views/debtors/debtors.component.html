@@ -60,7 +60,7 @@
                       'fa-compress': debtor.visible}"></i>
                   </td>
                   <td>{{debtor.company}}</td>
-                  <td>{{debtor.created_at | date: 'y. d MMMM':'IST':'lv'}}</td>
+                  <td>{{debtor.created_at | momentjs: 'YYYY. DD. MMMM' }}</td>
                   <td>{{debtor.debt}}</td>
                   <td (click)="selectStatuses(debtor.status)">
                     <span class="badge" style="cursor: pointer;"
