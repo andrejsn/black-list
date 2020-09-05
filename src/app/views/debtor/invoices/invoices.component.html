@@ -49,39 +49,10 @@
               </tr>
               <tr *ngIf="invoice.visible">
                 <td class="no-top-border" colspan="11">
-                  <button [disabled]="loading"  class="btn" (click)="editInvoice(invoice)"><i class="fa fa-pencil-square-o"
-                      aria-hidden="true"></i>Edit</button>
-                  <button [disabled]="loading"  class="btn" (click)="notifyDeleteInvoice(invoice)"><i class="fa fa-trash"
+                  <button [disabled]="loading" class="btn" (click)="editInvoice(invoice)"><i
+                      class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</button>
+                  <button [disabled]="loading" class="btn" (click)="notifyDeleteInvoice(invoice)"><i class="fa fa-trash"
                       aria-hidden="true"></i>Trash</button>
-
-                  <!-- <button class="btn" (click)="showSubMenu = (showSubMenu.toString() !== 'payments')?'payments':''"> <i
-                      class="fa fa-eur" aria-hidden="true"></i>
-                    Payments </button>
-                  <button class="btn"
-                    (click)="showSubMenu = (showSubMenu.toString() !== 'add_payment')?'add_payment':''"><i
-                      class="fa fa-plus" aria-hidden="true"></i> Add payment</button>
-                  <span class="float-right">
-
-
-
-                  </span> -->
-
-
-                  <!-- <div [ngSwitch]="showSubMenu">
-                    <div *ngSwitchCase="'payments'">
-
-                    </div>
-                    <div *ngSwitchCase="'add_payment'">
-                      <app-add-payment></app-add-payment>
-                    </div>
-                    <div *ngSwitchCase="'edit'">
-                      +edit+
-                    </div>
-                    <div *ngSwitchCase="'delete'">
-                      +delete+
-                    </div>
-                    <div *ngSwitchDefault></div>
-                  </div> -->
                   <app-payments [invoice]="invoice"></app-payments>
                 </td>
               </tr>

@@ -14,7 +14,6 @@ import {
   GuarantorsComponent,
   DocumentsComponent,
   PaymentsComponent,
-  AddPaymentComponent,
 } from '.';
 
 import { ShortenTextPipe } from '@shared/helpers';
@@ -33,7 +32,6 @@ import { SharingModule } from '@shared/shareModule';
 
 import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
-
 
 @NgModule({
   declarations: [
@@ -55,7 +53,6 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     ClaimToCourtComponent,
     CreditorToAdministratorComponent,
     PaymentsComponent,
-    AddPaymentComponent,
     TasksComponent,
   ],
   imports: [
