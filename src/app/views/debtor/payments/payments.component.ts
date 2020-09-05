@@ -26,6 +26,7 @@ import {
 } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
+import { timezoneOffset } from '@shared/helpers';
 
 enum Mode {
   add,
@@ -154,6 +155,8 @@ export class PaymentsComponent implements OnInit {
         (data) => {
           this.submitted = false;
           this.loading = false;
+          // reset mode
+          this.mode = Mode.edit;
 
           const addedPayment = data as Payment;
           if (addedPayment.id) {
@@ -184,7 +187,12 @@ export class PaymentsComponent implements OnInit {
   private initPayment(): Payment {
     return {
       invoice_id: this.invoice.id,
-      date: this.addEditPaymentForm.controls['date'].value,
+      date: timezoneOffset(
+        moment(
+          this.addEditPaymentForm.controls['date'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      ),
       sum: this.addEditPaymentForm.controls['sum'].value,
       status: this.addEditPaymentForm.controls['status'].value,
     };

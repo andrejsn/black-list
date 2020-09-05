@@ -12,10 +12,11 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { Task, Debtor } from '@app/models';
 import { ObjectsService } from '@shared/services';
-import { inOutAnimation } from '@shared/helpers';
+import { inOutAnimation, timezoneOffset } from '@shared/helpers';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -168,14 +169,23 @@ export class TaskComponent implements OnInit {
   private initNewTask(): Task {
     const task: Task = {
       debtor_id: this.selectedDebtor.id,
-
-      date: this.addTaskForm.controls['taskDate'].value,
+      date: timezoneOffset(
+        moment(
+          this.addTaskForm.controls['taskDate'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      ),
       note: this.addTaskForm.controls['taskNote'].value,
     };
     // add reminder?
     if (this.isCreateReminder) {
-      task.remind_date = this.addTaskForm.controls['reminderDate'].value;
-      task.remind_note = this.addTaskForm.controls['reminderNote'].value;
+      (task.remind_date = timezoneOffset(
+        moment(
+          this.addTaskForm.controls['reminderDate'].value,
+          'YYYY. DD. MMMM'
+        ).toDate()
+      )),
+        (task.remind_note = this.addTaskForm.controls['reminderNote'].value);
     }
 
     return task;
