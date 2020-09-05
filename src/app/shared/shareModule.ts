@@ -1,3 +1,4 @@
+import { MomentjsPipe } from '@shared/helpers/';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { EnumToArrayPipe } from './helpers';
 // import { appDirective } from './{your-path}';
@@ -14,10 +15,12 @@ declare module '@angular/core' {
 @NgModule({
   declarations: [
     EnumToArrayPipe,
+    MomentjsPipe,
     // appDirective
   ],
   exports: [
     EnumToArrayPipe,
+    MomentjsPipe,
     // appDirective
   ],
 })

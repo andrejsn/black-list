@@ -59,7 +59,7 @@
           <div *ngIf="remindsVisible && isRemindsInWeek(week)" [@inOutAnimation]>
             <div class="card">
               <div class="card-body">
-                <span>{{selectedDate.mDate.format('DD.MMMM YYYY')}}</span>
+                <span>{{selectedDate.mDate.format('YYYY. DD. MMMM')}}</span>
                 <div *ngFor="let remind of selectedDate.reminds">
                   <div class="card-header">
                     <button class="btn" (click)="goTasksList(remind)">

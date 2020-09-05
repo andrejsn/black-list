@@ -44,8 +44,6 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     DocumentsComponent,
     TemplateComponent,
 
-    ShortenTextPipe,
-
     ReminderPayComponent,
     WarningPayComponent,
     DebtCalculationComponent,
@@ -54,6 +52,7 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     CreditorToAdministratorComponent,
     PaymentsComponent,
     TasksComponent,
+    ShortenTextPipe,
   ],
   imports: [
     CommonModule,

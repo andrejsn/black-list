@@ -57,7 +57,7 @@
                   </td>
                   <td *ngIf="!task.remind_date"></td>
 
-                  <td [ngClass]="{'to-delete': task.toDelete}">{{task.date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                  <td [ngClass]="{'to-delete': task.toDelete}">{{task.date | momentjs: 'YYYY. DD. MMMM'}}</td>
                   <td [ngClass]="{'to-delete': task.toDelete}">{{task.note}}</td>
                   <td>
                     <button [disabled]="loading" class="btn" (click)="editTask(task)">
@@ -70,7 +70,7 @@
                 </tr>
                 <!-- reminds details -->
                 <tr *ngIf="task.visible">
-                  <td colspan="2" class="no-top-border"> {{task.remind_date | date: 'y. d MMMM':'IST':'lv'}}</td>
+                  <td colspan="2" class="no-top-border"> {{task.remind_date | momentjs: 'YYYY. DD. MMMM'}}</td>
                   <td class="no-top-border">
                     <alert [type]="task.remind_status" [dismissible]="false">{{ task.remind_note }}</alert>
                   </td>
