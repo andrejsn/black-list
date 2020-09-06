@@ -15,23 +15,15 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import {
-  Debtor,
-  Contract,
-  Guarantor,
-  InvoiceStatus,
-  Invoice,
-  Payment,
-  PaymentStatus,
-} from '@app/models';
+import { Invoice, Payment, PaymentStatus } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 import { timezoneOffset } from '@shared/helpers';
 
 enum Mode {
   add,
-  edit,
   saved,
+  editable,
 }
 @Component({
   selector: 'app-payments',
@@ -66,7 +58,7 @@ export class PaymentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.mode = Mode.edit;
+    this.mode = Mode.saved;
     this.payments = this.invoice.payments;
     this.selectedPayment = null;
     this.paymentToDelete = null;
@@ -76,44 +68,89 @@ export class PaymentsComponent implements OnInit {
     this.addEditPaymentForm = this.formBuilder.group({
       sum: ['', [Validators.required, Validators.min(0.01)]],
       date: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      status: [null, [Validators.required]],
     });
   }
 
   changeMode(payment: Payment) {
     this.selectedPayment = payment;
-    if (this.mode === Mode.edit) {
+
+    if (this.mode === Mode.saved) {
+      this.mode = Mode.editable;
+      this.submitted = false;
+
       // set input fields
       this.addEditPaymentForm.controls['date'].setValue(
-        moment(this.selectedPayment.date).format('YYYY. DD. MMMM')
+        moment(payment.date).format('YYYY. DD. MMMM')
       );
-      this.addEditPaymentForm.controls['sum'].setValue(
-        this.selectedPayment.sum
-      );
-      this.addEditPaymentForm.controls['status'].setValue(
-        this.selectedPayment.status
-      );
-      // change mode to saved
-      this.mode = Mode.saved;
+      this.addEditPaymentForm.controls['sum'].setValue(payment.sum);
+      this.addEditPaymentForm.controls['status'].setValue(payment.status);
     } else {
-      this.mode = Mode.edit;
+      this.updatePayment(payment.id);
     }
   }
 
-  isSaved(currentPayment: Payment): boolean {
+  private updatePayment(id: number) {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.addEditPaymentForm.invalid) {
+      this.translate
+        .get('toast.error.template.form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
+
+      return;
+    }
+
+    this.loading = true;
+    const updatePayment: Payment = this.initPayment();
+    updatePayment.id = id;
+    this.http
+      .post<any>(`${environment.apiUrl}/payment/update`, updatePayment)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          // TODO: error?
+          if (data) {
+            const index = this.payments.findIndex(
+              (payment) => payment.id === id
+            );
+            this.payments[index] = updatePayment;
+            this.invoice.payments = this.payments;
+            this.loading = false;
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+
+    this.mode = Mode.saved;
+  }
+
+  isEditable(currentPayment: Payment): boolean {
     return (
       this.selectedPayment &&
       this.selectedPayment.id === currentPayment.id &&
-      this.mode === Mode.saved
+      this.mode === Mode.editable
     );
   }
 
-  isEdit(currentPayment: Payment): boolean {
-    return !this.isSaved(currentPayment);
+  isSaved(currentPayment: Payment): boolean {
+    return !this.isEditable(currentPayment);
   }
 
   cancelEdit() {
-    this.mode = Mode.edit;
+    this.mode = Mode.saved;
   }
 
   addPayment() {
@@ -129,7 +166,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   cancelAddPayment() {
-    this.mode = Mode.edit;
+    this.mode = Mode.saved;
     this.submitted = true;
   }
 
@@ -156,7 +193,7 @@ export class PaymentsComponent implements OnInit {
           this.submitted = false;
           this.loading = false;
           // reset mode
-          this.mode = Mode.edit;
+          this.mode = Mode.saved;
 
           const addedPayment = data as Payment;
           if (addedPayment.id) {
