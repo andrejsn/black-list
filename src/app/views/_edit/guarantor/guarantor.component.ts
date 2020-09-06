@@ -124,6 +124,7 @@ export class GuarantorComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
+          // TODO: error?
           this.router.navigate(['/debtor/contracts']);
         },
         (error) => {
