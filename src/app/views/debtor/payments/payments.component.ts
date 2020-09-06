@@ -244,6 +244,7 @@ export class PaymentsComponent implements OnInit {
             this.payments = reject(this.payments, function (payment: Payment) {
               return (payment.id as number) === (response.deleted as number);
             });
+            this.invoice.payments = this.payments;
           }
         },
         (error) => {
