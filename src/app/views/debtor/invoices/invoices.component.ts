@@ -25,9 +25,8 @@ interface InvoiceTableElement extends Invoice {
 })
 export class InvoicesComponent implements OnInit {
   @Input() contract: Contract;
-  invoicesList: InvoiceTableElement[];
+  invoicesList: InvoiceTableElement[] = [];
   visible: boolean = false;
-  count: number;
 
   loading: boolean;
 
@@ -50,8 +49,6 @@ export class InvoicesComponent implements OnInit {
       .subscribe(
         (data) => {
           this.invoicesList = data;
-          this.count = this.invoicesList.length;
-          // console.log(this.invoicesList);
         },
         (error) => {
           console.log(error);
@@ -125,8 +122,6 @@ export class InvoicesComponent implements OnInit {
             ) {
               return (invoice.id as number) === (response.deleted as number);
             });
-
-            this.count--;
           }
         },
         (error) => {
@@ -139,7 +134,6 @@ export class InvoicesComponent implements OnInit {
         }
       );
   }
-
 
   /**
    *

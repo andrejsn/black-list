@@ -70,7 +70,7 @@ export class PaymentsComponent implements OnInit {
     this.payments = this.invoice.payments;
     this.selectedPayment = null;
     this.paymentToDelete = null;
-    this.submitted = true; // TODO: change this
+    this.submitted = false;
 
     // create validation
     this.addEditPaymentForm = this.formBuilder.group({
@@ -230,7 +230,32 @@ export class PaymentsComponent implements OnInit {
     this.paymentToDelete = null;
   }
 
-  private deletePayment(paymentToDelete: Payment) {}
+  private deletePayment(paymentToDelete: Payment) {
+    this.http
+      .post<any>(`${environment.apiUrl}/payment/destroy`, {
+        id: paymentToDelete.id,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.payments = reject(this.payments, function (payment: Payment) {
+              return (payment.id as number) === (response.deleted as number);
+            });
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
 
   // convenience getter for easy access to form fields
   get f() {

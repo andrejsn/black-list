@@ -5,7 +5,7 @@
         <i aria-hidden="true" class="toggle fa fa-2x" (click)="visible =!visible"
           [ngClass]="{'fa-expand': !visible,'fa-compress': visible}"></i>
         <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
-        Invoices ({{count}})
+        Invoices ({{invoicesList.length}})
         <span class="float-right">
           <button class="btn" [routerLink]="'/add/invoice'">
             <i class="fa fa-plus" aria-hidden="true"></i>
