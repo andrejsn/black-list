@@ -68,21 +68,6 @@
               </div>
             </div>
 
-            <!-- invoice pay_in_days -->
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="pay_in_days">Invoice pay in days</label>
-              <div class="col-md-8">
-                <input id="pay_in_days" formControlName="pay_in_days" type="text" min="1" step="1"
-                  placeholder="enter invoice pays in days" autocomplete="off" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.pay_in_days.errors, 'is-valid': submitted && !f.pay_in_days.errors}">
-                <div *ngIf="submitted && f.pay_in_days.errors && f.pay_in_days.errors.required"
-                  class="invalid-feedback">
-                  {{'invoice.error.pay_in_days.required' | translate}}</div>
-                <div *ngIf="submitted && f.pay_in_days.errors && f.pay_in_days.errors.pattern" class="invalid-feedback">
-                  {{'invoice.error.pay_in_days.pattern' | translate}}</div>
-              </div>
-            </div>
-
             <!-- invoice status -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="status">Invoice status</label>

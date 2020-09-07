@@ -36,7 +36,6 @@ export class InvoiceComponent implements OnInit {
     invoiceDate: new FormControl(),
     dateTo: new FormControl(),
     sum: new FormControl(),
-    pay_in_days: new FormControl(),
     status: new FormControl(),
     note: new FormControl(),
   });
@@ -93,7 +92,7 @@ export class InvoiceComponent implements OnInit {
     ]);
 
     // create validation
-    const regexPattern: RegExp = new RegExp('^[1-9]{1,5}d*$');
+    // const regexPattern: RegExp = new RegExp('^[1-9]{1,5}d*$');
     this.editInvoiceForm = this.formBuilder.group(
       {
         number: [this.selectedInvoice.number, [Validators.required]],
@@ -108,11 +107,6 @@ export class InvoiceComponent implements OnInit {
         sum: [
           this.selectedInvoice.sum,
           [Validators.required, Validators.min(0.01)],
-        ],
-        pay_in_days: [
-          // this.selectedInvoice.???,
-          12345,
-          [Validators.required, Validators.pattern(regexPattern)],
         ],
         status: [this.selectedInvoice.status, [Validators.required]],
         note: [this.selectedInvoice.note, []],
