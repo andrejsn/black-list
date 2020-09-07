@@ -21,7 +21,7 @@
               <div class="col-md-8">
                 <select formControlName="status" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.status.errors, 'is-valid': submitted && !f.status.errors}"
-                  id="status" name="status">
+                  id="status" name="status" (change)="onChange($event.target.value)">
                   <option [ngValue]="null" disabled>{{'contract.select.status' | translate}}</option>
                   <option [value]="status" *ngFor="let status of agreement | enumToArray">
                     {{ 'status.contract.'+status | translate}}
@@ -33,7 +33,7 @@
             </div>
 
             <!-- contract number -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected && isWithAgreement"  class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="number">Contract number</label>
               <div class="col-md-8">
                 <input id="number" formControlName="number" type="text" placeholder="{{'contract.number' | translate}}"
@@ -45,7 +45,7 @@
             </div>
 
             <!-- date of the contract -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected && isWithAgreement" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="contractDate">Date of the contract</label>
               <div class="col-md-8">
                 <input id="contractDate" class="form-control" bsDatepicker formControlName="contractDate"
@@ -59,7 +59,7 @@
             </div>
 
             <!-- contract pay_term_days -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="pay_term_days">Contract pay term days</label>
               <div class="col-md-8">
                 <input id="pay_term_days" formControlName="pay_term_days" type="text"
@@ -75,7 +75,7 @@
             </div>
 
             <!-- contract fine per year -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="fine_per_year">Contract fine per year</label>
               <div class="col-md-8">
                 <input id="fine_per_year" formControlName="fine_per_year" type="text"
@@ -88,7 +88,7 @@
             </div>
 
             <!-- contract fine per day -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="fine_per_day">Contract fine per day</label>
               <div class="col-md-8">
                 <input id="fine_per_day" formControlName="fine_per_day" type="text"
@@ -101,7 +101,7 @@
             </div>
 
             <!-- contract max fine percent -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="max_fine_percent">Contract max fine percent</label>
               <div class="col-md-8">
                 <input id="max_fine_percent" formControlName="max_fine_percent" type="text"
@@ -114,15 +114,15 @@
             </div>
 
             <!-- contract type of fine -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="type_of_fine">Contract type of fine</label>
               <div class="col-md-8">
                 <select formControlName="type_of_fine" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.type_of_fine.errors, 'is-valid': submitted && !f.type_of_fine.errors}"
                   id="type_of_fine" name="type_of_fine">
                   <option [ngValue]="null" disabled>{{'contract.select.type_of_fine' | translate}}</option>
-                  <option [value]="type" *ngFor="let type of typeOfFine | enumToArray">
-                    {{ 'status.contract.'+type | translate}}
+                  <option [value]="typeOfFine" *ngFor="let typeOfFine of typeOfFineWithAgreement | enumToArray">
+                    {{ 'status.contract.'+typeOfFine | translate}}
                   </option>
                 </select>
                 <div *ngIf="submitted && f.type_of_fine.errors && f.type_of_fine.errors.required" class="invalid-feedback">
@@ -131,7 +131,7 @@
             </div>
 
             <!-- contract note -->
-            <div class="form-group row">
+            <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="note">Contract note</label>
               <div class="col-md-8">
                 <textarea formControlName="note" class="form-control" id="note" name="note" rows="9"

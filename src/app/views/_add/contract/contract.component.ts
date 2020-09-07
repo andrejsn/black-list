@@ -15,23 +15,33 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Debtor, TypeOfFine } from '@app/models';
+import { Debtor } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
+import { inOutAnimation } from '@shared/helpers';
 
 enum Agreement {
   withAgreement,
   withOutAgreement,
 }
+
+enum TypeOfFineWithAgreement {
+  'fine',
+  'percent_debt',
+  // 'percent_law'
+}
 @Component({
   selector: 'app-contract',
   templateUrl: './contract.component.html',
   styleUrls: ['./contract.component.css'],
+  animations: [inOutAnimation()],
 })
 export class ContractComponent implements OnInit {
   selectedDebtor: Debtor;
   agreement = Agreement;
-  typeOfFine = TypeOfFine;
+  isWithAgreement: boolean;
+  isAgreementSelected: boolean;
+  typeOfFineWithAgreement = TypeOfFineWithAgreement;
 
   addContractForm = new FormGroup({
     status: new FormControl(),
@@ -67,6 +77,7 @@ export class ContractComponent implements OnInit {
       return;
     }
     this.selectedDebtor = this.objectsService.debtor;
+    this.isAgreementSelected = false;
 
     // set browser title
     this.title.setTitle(this.selectedDebtor.company + '- add contract');
@@ -105,6 +116,16 @@ export class ContractComponent implements OnInit {
       type_of_fine: [null, [Validators.required]],
       note: ['', []],
     });
+  }
+
+  onChange(agreement: string) {
+    this.isAgreementSelected = true;
+    if (agreement === Agreement[Agreement.withAgreement]) {
+      this.isWithAgreement = true;
+    } else {
+      this.isWithAgreement = false;
+    }
+    console.log('isWithAgreement: ' + this.isWithAgreement);
   }
 
   onSubmit() {
