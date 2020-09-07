@@ -26,17 +26,20 @@ import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
 enum Agreement {
-  with, without
+  withAgreement,
+  withOutAgreement,
 }
 @Component({
   selector: 'app-contract',
   templateUrl: './contract.component.html',
-  styleUrls: ['./contract.component.css']
+  styleUrls: ['./contract.component.css'],
 })
 export class ContractComponent implements OnInit {
   selectedDebtor: Debtor;
+  agreement = Agreement;
 
   addContractForm = new FormGroup({
+    status: new FormControl(),
     number: new FormControl(),
     date: new FormControl(),
     pay_term_days: new FormControl(),
@@ -47,9 +50,70 @@ export class ContractComponent implements OnInit {
     note: new FormControl(),
   });
 
-  constructor() { }
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
+    private router: Router,
+    private translate: TranslateService,
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit(): void {
+    if (!this.objectsService.debtor) {
+      // no debtor&contract cached
+      this.router.navigate(['/debtors']);
+
+      return;
+    }
+    this.selectedDebtor = this.objectsService.debtor;
+
+    // set browser title
+    this.title.setTitle(this.selectedDebtor.company + '- add contract');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: false },
+      {
+        route: '/debtor',
+        name: 'Debtor: ' + this.selectedDebtor.company,
+        active: false,
+      },
+      {
+        route: '/add/contract',
+        name: 'Add contract',
+        active: true,
+      },
+    ]);
+
+    this.addContractForm = this.formBuilder.group({
+      status: [null, [Validators.required]],
+    });
   }
 
+  onSubmit(){
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.addContractForm.invalid) {
+      this.translate
+        .get('toast.error.template.form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
+
+      return;
+    }
+
+  }
+
+
+// convenience getter for easy access to form fields
+get f() {
+  return this.addContractForm.controls;
+}
 }
