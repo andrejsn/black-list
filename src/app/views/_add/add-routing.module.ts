@@ -1,3 +1,4 @@
+import { ContractComponent } from './contract/contract.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'guarantor',
     component: GuarantorComponent,
+  },
+  {
+    path: 'contract',
+    component: ContractComponent,
   },
   { path: '**', component: P404Component },
 ];
