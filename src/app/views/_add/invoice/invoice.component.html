@@ -2,7 +2,7 @@
   <!-- add new invoice -->
   <form [formGroup]="addInvoiceForm" (ngSubmit)="onSubmit()" role="form">
     <div class="row">
-      <div class="col-lg-11">
+      <div class="col-lg-12">
         <div class="card">
           <div class="card-header">
             <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
@@ -13,8 +13,8 @@
             </span>
           </div>
           <!-- card body -->
-          <!-- invoice number -->
           <div class="card-body">
+            <!-- invoice number -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="number">Invoice number</label>
               <div class="col-md-8">
