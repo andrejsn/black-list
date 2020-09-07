@@ -15,13 +15,7 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import {
-  Debtor,
-  Contract,
-  Guarantor,
-  InvoiceStatus,
-  Invoice,
-} from '@app/models';
+import { Debtor, TypeOfFine } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
@@ -37,16 +31,18 @@ enum Agreement {
 export class ContractComponent implements OnInit {
   selectedDebtor: Debtor;
   agreement = Agreement;
+  typeOfFine = TypeOfFine;
 
   addContractForm = new FormGroup({
     status: new FormControl(),
     number: new FormControl(),
-    date: new FormControl(),
+    contractDate: new FormControl(),
     pay_term_days: new FormControl(),
     fine_per_year: new FormControl(),
     fine_per_day: new FormControl(),
     max_fine_percent: new FormControl(),
     type_of_fine: new FormControl(),
+
     note: new FormControl(),
   });
 
@@ -90,12 +86,28 @@ export class ContractComponent implements OnInit {
       },
     ]);
 
+    // create validation
+    const regexPattern: RegExp = new RegExp('^[1-9]{1,5}d*$');
     this.addContractForm = this.formBuilder.group({
       status: [null, [Validators.required]],
+      number: ['', [Validators.required]],
+      contractDate: ['', [Validators.required]],
+      pay_term_days: [
+        '',
+        [Validators.required, Validators.pattern(regexPattern)],
+      ],
+      fine_per_year: ['', [Validators.required]],
+      fine_per_day: ['', [Validators.required]],
+      max_fine_percent: [
+        '',
+        [Validators.required, Validators.pattern(regexPattern)],
+      ],
+      type_of_fine: [null, [Validators.required]],
+      note: ['', []],
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -108,12 +120,10 @@ export class ContractComponent implements OnInit {
 
       return;
     }
-
   }
 
-
-// convenience getter for easy access to form fields
-get f() {
-  return this.addContractForm.controls;
-}
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.addContractForm.controls;
+  }
 }

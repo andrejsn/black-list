@@ -2,7 +2,7 @@
   <!-- add new contract -->
   <form [formGroup]="addContractForm" (ngSubmit)="onSubmit()" role="form">
     <div class="row">
-      <div class="col-lg-11">
+      <div class="col-lg-12">
         <div class="card">
           <!-- card header -->
           <div class="card-header">
@@ -31,6 +31,115 @@
                   {{'contract.error.status.required' | translate}}</div>
               </div>
             </div>
+
+            <!-- contract number -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="number">Contract number</label>
+              <div class="col-md-8">
+                <input id="number" formControlName="number" type="text" placeholder="{{'contract.number' | translate}}"
+                  autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
+                <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
+                  {{'contract.error.number.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- date of the contract -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="contractDate">Date of the contract</label>
+              <div class="col-md-8">
+                <input id="contractDate" class="form-control" bsDatepicker formControlName="contractDate"
+                  placement="auto" autocomplete="off" placeholder="{{ 'placeholder.contract.date' | translate}}"
+                  [ngClass]="{'is-invalid': submitted && f.contractDate.errors, 'is-valid': submitted && !f.contractDate.errors}"
+                  [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                <div *ngIf="submitted && f.contractDate.errors && f.contractDate.errors.required"
+                  class="invalid-feedback">
+                  {{'contract.error.date.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract pay_term_days -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="pay_term_days">Contract pay term days</label>
+              <div class="col-md-8">
+                <input id="pay_term_days" formControlName="pay_term_days" type="text"
+                  placeholder="{{'contract.pay_term_days' | translate}}" autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.pay_term_days.errors, 'is-valid': submitted && !f.pay_term_days.errors}">
+                <div *ngIf="submitted && f.pay_term_days.errors && f.pay_term_days.errors.required"
+                  class="invalid-feedback">
+                  {{'contract.error.pay_term_days.required' | translate}}</div>
+                <div *ngIf="submitted && f.pay_term_days.errors && f.pay_term_days.errors.pattern"
+                  class="invalid-feedback">
+                  {{'invoice.error.pay_term_days.pattern' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract fine per year -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="fine_per_year">Contract fine per year</label>
+              <div class="col-md-8">
+                <input id="fine_per_year" formControlName="fine_per_year" type="text"
+                  placeholder="{{'contract.fine_per_year' | translate}}" autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.fine_per_year.errors, 'is-valid': submitted && !f.fine_per_year.errors}">
+                <div *ngIf="submitted && f.fine_per_year.errors && f.fine_per_year.errors.required"
+                  class="invalid-feedback">
+                  {{'contract.error.fine_per_year.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract fine per day -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="fine_per_day">Contract fine per day</label>
+              <div class="col-md-8">
+                <input id="fine_per_day" formControlName="fine_per_day" type="text"
+                  placeholder="{{'contract.fine_per_day' | translate}}" autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.fine_per_day.errors, 'is-valid': submitted && !f.fine_per_day.errors}">
+                <div *ngIf="submitted && f.fine_per_day.errors && f.fine_per_day.errors.required"
+                  class="invalid-feedback">
+                  {{'contract.error.fine_per_day.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract max fine percent -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="max_fine_percent">Contract max fine percent</label>
+              <div class="col-md-8">
+                <input id="max_fine_percent" formControlName="max_fine_percent" type="text"
+                  placeholder="{{'contract.max_fine_percent' | translate}}" autocomplete="nickname" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.max_fine_percent.errors, 'is-valid': submitted && !f.max_fine_percent.errors}">
+                <div *ngIf="submitted && f.max_fine_percent.errors && f.max_fine_percent.errors.required"
+                  class="invalid-feedback">
+                  {{'contract.error.max_fine_percent.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract type of fine -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="type_of_fine">Contract type of fine</label>
+              <div class="col-md-8">
+                <select formControlName="type_of_fine" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.type_of_fine.errors, 'is-valid': submitted && !f.type_of_fine.errors}"
+                  id="type_of_fine" name="type_of_fine">
+                  <option [ngValue]="null" disabled>{{'contract.select.type_of_fine' | translate}}</option>
+                  <option [value]="type" *ngFor="let type of typeOfFine | enumToArray">
+                    {{ 'status.contract.'+type | translate}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.type_of_fine.errors && f.type_of_fine.errors.required" class="invalid-feedback">
+                  {{'contract.error.type_of_fine.required' | translate}}</div>
+              </div>
+            </div>
+
+            <!-- contract note -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="note">Contract note</label>
+              <div class="col-md-8">
+                <textarea formControlName="note" class="form-control" id="note" name="note" rows="9"
+                  placeholder="{{ 'placeholder.contract.note' | translate}}"
+                  style="margin-top: 0px; margin-bottom: 0px; height: 97px;"></textarea>
+              </div>
+            </div>
+
           </div>
 
           <!-- card footer -->
