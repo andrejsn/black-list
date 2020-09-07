@@ -2,7 +2,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskComponent, RepresentativeComponent, GuarantorComponent } from '.';
+import { TaskComponent, RepresentativeComponent, GuarantorComponent, ContractComponent } from '.';
 import { P404Component } from '../error/404.component';
 
 const routes: Routes = [
@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: 'invoice',
     component: InvoiceComponent,
+  },
+  {
+    path: 'contract',
+    component: ContractComponent,
   },
   { path: '**', component: P404Component },
 ];

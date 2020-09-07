@@ -52,7 +52,8 @@
                 <!-- contracts details -->
                 <tr *ngIf="contract.visible">
                   <td class="no-top-border" colspan="7">
-                    <button class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
+                    <a class="btn btn-default btn-sm" [routerLink]="'/edit/contract'"><i
+                        class="fa fa-pencil-square-o"></i> Edit</a>
                     <button class="btn"><i class="fa fa-trash"></i> Trash</button>
                     <!--  -->
                     <app-invoices [contract]="contract"></app-invoices>

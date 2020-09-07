@@ -15,6 +15,7 @@ import {
   RepresentativeComponent,
   GuarantorComponent,
   InvoiceComponent,
+  ContractComponent,
 } from '.';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {
     RepresentativeComponent,
     GuarantorComponent,
     InvoiceComponent,
+    ContractComponent,
   ],
   imports: [
     CommonModule,
