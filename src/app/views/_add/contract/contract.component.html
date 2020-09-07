@@ -33,7 +33,7 @@
             </div>
 
             <!-- contract number -->
-            <div *ngIf="isAgreementSelected && isWithAgreement"  class="form-group row" [@inOutAnimation]>
+            <div *ngIf="isAgreementSelected && isWithAgreement" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="number">Contract number</label>
               <div class="col-md-8">
                 <input id="number" formControlName="number" type="text" placeholder="{{'contract.number' | translate}}"
@@ -116,7 +116,8 @@
             <!-- contract type of fine -->
             <div *ngIf="isAgreementSelected" class="form-group row" [@inOutAnimation]>
               <label class="col-md-3 col-form-label" for="type_of_fine">Contract type of fine</label>
-              <div class="col-md-8">
+              <!-- with agreement -->
+              <div *ngIf="isWithAgreement" class="col-md-8">
                 <select formControlName="type_of_fine" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.type_of_fine.errors, 'is-valid': submitted && !f.type_of_fine.errors}"
                   id="type_of_fine" name="type_of_fine">
@@ -125,8 +126,15 @@
                     {{ 'status.contract.'+typeOfFine | translate}}
                   </option>
                 </select>
-                <div *ngIf="submitted && f.type_of_fine.errors && f.type_of_fine.errors.required" class="invalid-feedback">
+                <div *ngIf="submitted && f.type_of_fine.errors && f.type_of_fine.errors.required"
+                  class="invalid-feedback">
                   {{'contract.error.type_of_fine.required' | translate}}</div>
+              </div>
+              <!-- without agreement -->
+              <div *ngIf="!isWithAgreement" class="col-md-8">
+                <input id="type_of_fine" formControlName="type_of_fine" type="text" class="form-control"
+                  [ngClass]="{'is-valid': submitted}" [readonly]=true
+                  placeholder="{{'status.contract.percent_law' | translate}}">
               </div>
             </div>
 
