@@ -68,7 +68,7 @@ export class InvoiceComponent implements OnInit {
     this.selectedContract = this.objectsService.contract;
 
     // set browser title
-    this.title.setTitle(this.selectedDebtor.company + '- add guarantor');
+    this.title.setTitle(this.selectedDebtor.company + '- add invoice');
     // set bread crumb menu
     this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },
