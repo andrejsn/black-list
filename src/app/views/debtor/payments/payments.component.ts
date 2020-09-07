@@ -37,6 +37,7 @@ export class PaymentsComponent implements OnInit {
   paymentToDelete: Payment;
   paymentStatus = PaymentStatus;
   mode: Mode;
+  isEditMode: boolean;
 
   submitted: boolean;
   loading: boolean;
@@ -59,6 +60,7 @@ export class PaymentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mode = Mode.saved;
+    this.isEditMode = false;
     this.payments = this.invoice.payments;
     this.selectedPayment = null;
     this.paymentToDelete = null;
@@ -77,6 +79,7 @@ export class PaymentsComponent implements OnInit {
 
     if (this.mode === Mode.saved) {
       this.mode = Mode.editable;
+      this.isEditMode = true;
       this.submitted = false;
 
       // set input fields
@@ -119,12 +122,15 @@ export class PaymentsComponent implements OnInit {
             );
             this.payments[index] = updatePayment;
             this.invoice.payments = this.payments;
+
+            this.isEditMode = false;
             this.loading = false;
           }
         },
         (error) => {
-          this.loading = false;
           this.submitted = false;
+          this.loading = false;
+          this.isEditMode = false;
 
           this.translate
             .get('toast.error.response')
@@ -151,6 +157,7 @@ export class PaymentsComponent implements OnInit {
 
   cancelEdit() {
     this.mode = Mode.saved;
+    this.isEditMode = false;
   }
 
   addPayment() {

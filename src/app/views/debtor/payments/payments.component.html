@@ -8,8 +8,8 @@
             <i class="fa fa-calculator fa-2x" aria-hidden="true"></i>
             Payments ({{payments.length}})
             <!-- add Payment -->
-            <span class="float-right" *ngIf="!isAddPayment()">
-              <button [disabled]="loading" class="btn" (click)="addPayment()">
+            <span class="float-right">
+              <button [disabled]="loading || isAddPayment() || isEditMode" class="btn" (click)="addPayment()">
                 <i class="fa fa-plus" aria-hidden="true"></i> Payment
               </button>
             </span>
@@ -126,13 +126,20 @@
                     </td>
                     <!-- buttons edit or saved -->
                     <td>
-                      <button [disabled]="loading" class="btn" (click)="changeMode(payment)">
-                        <i *ngIf="isSaved(payment)" class="fa fa-pencil" aria-hidden="true"></i>
-                        <i *ngIf="isEditable(payment)" class="fa fa-save" aria-hidden="true"></i>
-                      </button></td>
+                      <button *ngIf="isSaved(payment)" [disabled]="loading || isAddPayment() || isEditMode" class="btn"
+                        (click)="changeMode(payment)">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </button>
+                      <button *ngIf="isEditable(payment)" [disabled]="loading || isAddPayment()" class="btn"
+                        (click)="changeMode(payment)">
+                        <i class="fa fa-save" aria-hidden="true"></i>
+                      </button>
+
+                    </td>
                     <!-- button trash  -->
                     <td *ngIf="isSaved(payment)">
-                      <button [disabled]="loading" class="btn" (click)="notifyDeletePayment(payment)">
+                      <button [disabled]="loading || isAddPayment() || isEditMode" class="btn"
+                        (click)="notifyDeletePayment(payment)">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                       </button></td>
                     <td *ngIf="isEditable(payment)">
