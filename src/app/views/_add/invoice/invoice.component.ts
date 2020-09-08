@@ -143,16 +143,19 @@ export class InvoiceComponent implements OnInit {
     }
 
     this.loading = true;
+    const storedInvoice = this.initInvoice();
     this.http
-      .post<any>(`${environment.apiUrl}/invoice/store`, this.initInvoice())
+      .post<any>(`${environment.apiUrl}/invoice/store`, storedInvoice)
       .pipe(first())
       .subscribe(
         (data) => {
+          this.objectsService.invoice = storedInvoice;
           this.router.navigate(['/debtor/contracts']);
         },
         (error) => {
           this.loading = false;
           this.submitted = false;
+          this.objectsService.invoice = null;
           this.translate
             .get('toast.error.response')
             .subscribe((error: string) => {

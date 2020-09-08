@@ -26,7 +26,9 @@ interface InvoiceTableElement extends Invoice {
 export class InvoicesComponent implements OnInit {
   @Input() contract: Contract;
   invoicesList: InvoiceTableElement[] = [];
-  visible: boolean = false;
+  visibleList: boolean = false;
+
+  // selectedInvoice: InvoiceTableElement;
 
   loading: boolean;
 
@@ -39,6 +41,15 @@ export class InvoicesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // should be list visible?
+    if (this.objectsService.invoice) {
+      // this.selectedInvoice = this.objectsService.invoice as InvoiceTableElement;
+      this.visibleList = true;
+      // reset another
+      this.objectsService.representative = null;
+      this.objectsService.guarantor = null;
+    }
+
     // get data
     this.http
       .get<any>(
