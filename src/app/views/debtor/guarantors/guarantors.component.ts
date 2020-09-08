@@ -26,7 +26,7 @@ interface GuarantorTableElement extends Guarantor {
 export class GuarantorsComponent implements OnInit {
   @Input() contract: Contract;
   guarantorsList: GuarantorTableElement[] = [];
-  visible: boolean = false;
+  visibleList: boolean = false;
 
   loading: boolean;
 
@@ -39,6 +39,18 @@ export class GuarantorsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // should be list visible?
+    if (this.objectsService.guarantor) {
+      this.visibleList = true;
+
+console.log(this.visibleList);
+
+
+      // reset another
+      this.objectsService.representative = null;
+      this.objectsService.invoice = null;
+    }
+
     // get data
     this.http
       .get<any>(

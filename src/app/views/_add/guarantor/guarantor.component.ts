@@ -85,30 +85,10 @@ export class GuarantorComponent implements OnInit {
     // create validation
     this.addGuarantorForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      code: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      phone: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      address: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      email: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
+      code: ['', []],
+      phone: ['', []],
+      address: ['', []],
+      email: ['', []],
     });
   }
 
@@ -130,19 +110,19 @@ export class GuarantorComponent implements OnInit {
     }
 
     this.loading = true;
+    const storedGuarantor = this.initNewGuarantor();
     this.http
-      .post<any>(
-        `${environment.apiUrl}/guarantor/store`,
-        this.initNewGuarantor()
-      )
+      .post<any>(`${environment.apiUrl}/guarantor/store`, storedGuarantor)
       .pipe(first())
       .subscribe(
         (data) => {
+          this.objectsService.guarantor = storedGuarantor;
           this.router.navigate(['/debtor/contracts']);
         },
         (error) => {
           this.loading = false;
           this.submitted = false;
+          this.objectsService.guarantor = null;
           this.translate
             .get('toast.error.response')
             .subscribe((error: string) => {
@@ -152,7 +132,7 @@ export class GuarantorComponent implements OnInit {
       );
   }
 
-  private initNewGuarantor() {
+  private initNewGuarantor(): Guarantor {
     return {
       contract_id: this.selectedContract.id,
       name: this.addGuarantorForm.controls['name'].value,
