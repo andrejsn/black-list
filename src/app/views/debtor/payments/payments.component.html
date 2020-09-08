@@ -18,16 +18,28 @@
             <table class="table table-responsive-sm table-sm">
               <thead>
                 <tr>
+                  <th></th>
+                  <th></th>
                   <th>Date</th>
                   <th>Sum</th>
                   <th>Status</th>
-                  <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <!-- add new payment -->
                 <tr *ngIf="isAddPayment()">
+                  <td>
+                    <!-- buttons saved -->
+                    <button [disabled]="loading" class="btn" (click)="savePayment()">
+                      <i class="fa fa-save" aria-hidden="true"></i>Save
+                    </button></td>
+                  <td>
+                  <td>
+                    <!-- button cancel  -->
+                    <button [disabled]="loading" class="btn" (click)="cancelAddPayment()">
+                      <i class="fa fa-times" aria-hidden="true"></i>Cancel
+                    </button>
+                  </td>
                   <!-- date -->
                   <td>
                     <input id="date" class="form-control" bsDatepicker formControlName="date" placement="auto"
@@ -63,22 +75,32 @@
                         {{'payment.error.status.required' | translate}}</div>
                     </div>
                   </td>
-                  <td>
-                    <!-- buttons saved -->
-                    <button [disabled]="loading" class="btn" (click)="savePayment()">
-                      <i class="fa fa-save" aria-hidden="true"></i>
-                    </button></td>
-                  <td>
-                  <td>
-                    <!-- button cancel  -->
-                    <button [disabled]="loading" class="btn" (click)="cancelAddPayment()">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                  </td>
                 </tr>
                 <!-- foreach payments -->
                 <ng-container *ngFor="let payment of payments">
                   <tr>
+                    <!-- buttons edit or saved -->
+                    <td *ngIf="isSaved(payment)" colspan="2">
+                      <button *ngIf="isSaved(payment)" [disabled]="loading || isAddPayment() || isEditMode" class="btn"
+                        (click)="changeMode(payment)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
+                      </button>
+                      <button *ngIf="isEditable(payment)" [disabled]="loading || isAddPayment()" class="btn"
+                        (click)="changeMode(payment)">
+                        <i class="fa fa-save" aria-hidden="true"></i>Save
+                      </button>
+
+                      <!-- button trash or cancel -->
+                      <button [disabled]="loading || isAddPayment() || isEditMode" class="btn"
+                        (click)="notifyDeletePayment(payment)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>Trash
+                      </button>
+                    </td>
+                    <td *ngIf="isEditable(payment)">
+                      <button [disabled]="loading" class="btn" (click)="cancelEdit()">
+                        <i class="fa fa-times" aria-hidden="true"></i>Cancel
+                      </button>
+                    </td>
                     <!-- date -->
                     <td *ngIf="isSaved(payment)"
                       [ngClass]="{'to-delete': paymentToDelete && payment.id === paymentToDelete.id}">
@@ -124,29 +146,7 @@
                           {{'payment.error.status.required' | translate}}</div>
                       </div>
                     </td>
-                    <!-- buttons edit or saved -->
-                    <td>
-                      <button *ngIf="isSaved(payment)" [disabled]="loading || isAddPayment() || isEditMode" class="btn"
-                        (click)="changeMode(payment)">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                      </button>
-                      <button *ngIf="isEditable(payment)" [disabled]="loading || isAddPayment()" class="btn"
-                        (click)="changeMode(payment)">
-                        <i class="fa fa-save" aria-hidden="true"></i>
-                      </button>
 
-                    </td>
-                    <!-- button trash  -->
-                    <td *ngIf="isSaved(payment)">
-                      <button [disabled]="loading || isAddPayment() || isEditMode" class="btn"
-                        (click)="notifyDeletePayment(payment)">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                      </button></td>
-                    <td *ngIf="isEditable(payment)">
-                      <button [disabled]="loading" class="btn" (click)="cancelEdit()">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                      </button>
-                    </td>
                   </tr>
                 </ng-container>
               </tbody>
