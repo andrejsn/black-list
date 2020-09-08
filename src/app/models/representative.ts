@@ -1,6 +1,5 @@
 export interface Representative {
-  id: number;
-  created_by: number;
+  id?: number;
   contract_id: number;
   name: string;
   code: string;
@@ -8,8 +7,4 @@ export interface Representative {
   phone: string;
   address: string;
   email: string;
-
-  // created_at: Date;
-  // updated_at: Date;
-  // deleted_at: Date;
 }
