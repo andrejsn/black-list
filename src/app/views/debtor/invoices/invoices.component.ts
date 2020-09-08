@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { Contract, Guarantor, Invoice } from '@app/models';
+import { Contract, Invoice, InvoiceStatus } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
@@ -74,6 +74,13 @@ export class InvoicesComponent implements OnInit {
     this.invoicesList.forEach((invoice) => {
       invoice.visible = invoice.id === id ? !invoice.visible : false;
     });
+  }
+
+  isClosed(invoice: InvoiceTableElement): boolean {
+    return (
+      invoice.status.toString() ===
+      InvoiceStatus[InvoiceStatus.closed].toString()
+    );
   }
 
   editInvoice(selectedInvoice: InvoiceTableElement) {

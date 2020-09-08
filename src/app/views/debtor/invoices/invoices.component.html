@@ -19,6 +19,7 @@
             <tr>
               <th></th>
               <th>Number</th>
+              <th>Status</th>
               <th>Date</th>
               <th>Date to</th>
               <th>Amount- <br>
@@ -26,7 +27,6 @@
               <th>?Pay in days?</th>
               <th>Penalty (interest per day) -<br>
                 Contractual (Current) / Paid</th>
-              <th>Status</th>
               <th>Note</th>
             </tr>
           </thead>
@@ -38,13 +38,15 @@
                     [ngClass]="{'fa-expand': !invoice.visible,'fa-compress': invoice.visible}"></i>
                 </td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.number}}</td>
+                <td [ngClass]="{'to-delete': invoice.toDelete}"><i class="fa"
+                    [ngClass]="{'fa-lock': isClosed(invoice), 'fa-unlock': !isClosed(invoice)}" aria-hidden="true"></i>
+                </td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date | momentjs: 'YYYY. DD. MMMM'}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.date_to | momentjs: 'YYYY. DD. MMMM'}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.sum}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}"> ?Pay in days?</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">Penalty (interest per day)-<br>
                   Contractual (Current) / Paid</td>
-                <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.status}}</td>
                 <td [ngClass]="{'to-delete': invoice.toDelete}">{{invoice.note}}</td>
               </tr>
               <tr *ngIf="invoice.visible">
@@ -60,12 +62,12 @@
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="3"></th>
+              <th colspan="4"></th>
               <th>Debt sum</th>
               <th>{{invoicesSum()}}</th>
               <th>Sum2</th>
               <th>Sum2 - value</th>
-              <th colspan="2"></th>
+              <th></th>
             </tr>
           </tfoot>
         </table>
