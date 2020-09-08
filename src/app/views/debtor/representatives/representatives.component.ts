@@ -25,9 +25,8 @@ interface RepresentativeTableElement extends Representative {
 })
 export class RepresentativesComponent implements OnInit {
   @Input() contract: Contract;
-  representativesList: RepresentativeTableElement[];
+  representativesList: RepresentativeTableElement[] = [];
   visible: boolean = false;
-  count: number;
 
   loading: boolean;
 
@@ -36,7 +35,7 @@ export class RepresentativesComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private translate: TranslateService,
-    private snotifyService: SnotifyService,
+    private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
@@ -51,10 +50,8 @@ export class RepresentativesComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.representativesList = data;
-          this.count = this.representativesList.length;
-
-          // console.log(this.representativesList);
+          const tmp = data as RepresentativeTableElement[];
+          this.representativesList = tmp;
         },
         (error) => {
           console.log(error);
@@ -81,7 +78,9 @@ export class RepresentativesComponent implements OnInit {
    * delete representative
    * @param representativeToDelete - representative
    */
-  notifyDeleteRepresentative(representativeToDelete: RepresentativeTableElement) {
+  notifyDeleteRepresentative(
+    representativeToDelete: RepresentativeTableElement
+  ) {
     this.loading = true;
     representativeToDelete.toDelete = true;
 
@@ -111,20 +110,23 @@ export class RepresentativesComponent implements OnInit {
 
   deleteRepresentative(representativeToDestroy: RepresentativeTableElement) {
     this.http
-      .post<any>(`${environment.apiUrl}/representative/destroy`, { id: representativeToDestroy.id })
+      .post<any>(`${environment.apiUrl}/representative/destroy`, {
+        id: representativeToDestroy.id,
+      })
       .pipe(first())
       .subscribe(
         (data) => {
           const response = data;
           // TODO: data.error ?
           if (response.deleted) {
-            this.representativesList = reject(this.representativesList, function (
-              representative: RepresentativeTableElement
-            ) {
-              return (representative.id as number) === (response.deleted as number);
-            });
-
-            this.count--;
+            this.representativesList = reject(
+              this.representativesList,
+              function (representative: RepresentativeTableElement) {
+                return (
+                  (representative.id as number) === (response.deleted as number)
+                );
+              }
+            );
           }
         },
         (error) => {
