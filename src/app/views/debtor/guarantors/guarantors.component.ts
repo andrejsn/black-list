@@ -25,9 +25,8 @@ interface GuarantorTableElement extends Guarantor {
 })
 export class GuarantorsComponent implements OnInit {
   @Input() contract: Contract;
-  guarantorsList: GuarantorTableElement[];
+  guarantorsList: GuarantorTableElement[] = [];
   visible: boolean = false;
-  count: number;
 
   loading: boolean;
 
@@ -51,9 +50,8 @@ export class GuarantorsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.guarantorsList = data;
-          this.count = this.guarantorsList.length;
-          // console.log(this.guarantorsList);
+          const tmp = data as GuarantorTableElement[];
+          this.guarantorsList = tmp;
         },
         (error) => {
           console.log(error);
@@ -122,8 +120,6 @@ export class GuarantorsComponent implements OnInit {
             ) {
               return (guarantor.id as number) === (response.deleted as number);
             });
-
-            this.count--;
           }
         },
         (error) => {
