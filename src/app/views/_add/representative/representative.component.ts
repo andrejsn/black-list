@@ -127,6 +127,7 @@ export class RepresentativeComponent implements OnInit {
         (error) => {
           this.loading = false;
           this.submitted = false;
+          this.objectsService.representative = null;
           this.translate
             .get('toast.error.response')
             .subscribe((error: string) => {
