@@ -26,7 +26,7 @@ interface RepresentativeTableElement extends Representative {
 export class RepresentativesComponent implements OnInit {
   @Input() contract: Contract;
   representativesList: RepresentativeTableElement[] = [];
-  visible: boolean = false;
+  visibleList: boolean = false;
 
   loading: boolean;
 
@@ -39,6 +39,14 @@ export class RepresentativesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // should be list visible?
+    if (this.objectsService.representative) {
+      this.visibleList = true;
+      // reset another
+      this.objectsService.invoice = null;
+      this.objectsService.guarantor = null;
+    }
+
     // get data
     this.http
       .get<any>(

@@ -15,7 +15,7 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Debtor, Contract } from '@app/models';
+import { Debtor, Contract, Representative } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 
@@ -86,36 +86,11 @@ export class RepresentativeComponent implements OnInit {
     // create validation
     this.addRepresentativeForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      code: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      position: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      phone: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      address: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
-      email: [
-        '',
-        [
-          /*Validators.required*/
-        ],
-      ],
+      code: ['', []],
+      position: ['', []],
+      phone: ['', []],
+      address: ['', []],
+      email: ['', []],
     });
   }
 
@@ -137,14 +112,16 @@ export class RepresentativeComponent implements OnInit {
     }
 
     this.loading = true;
+    const storedRepresantive = this.initNewRepresentative();
     this.http
       .post<any>(
         `${environment.apiUrl}/representative/store`,
-        this.initNewRepresentative()
+        storedRepresantive
       )
       .pipe(first())
       .subscribe(
         (data) => {
+          this.objectsService.representative = storedRepresantive;
           this.router.navigate(['/debtor/contracts']);
         },
         (error) => {
@@ -159,7 +136,7 @@ export class RepresentativeComponent implements OnInit {
       );
   }
 
-  private initNewRepresentative() {
+  private initNewRepresentative(): Representative {
     return {
       contract_id: this.selectedContract.id,
       name: this.addRepresentativeForm.controls['name'].value,
