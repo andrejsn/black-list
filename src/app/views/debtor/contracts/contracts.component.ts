@@ -4,12 +4,16 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
 import { environment } from '@environments/environment';
 import { Debtor, Contract } from '@app/models';
 import { ObjectsService } from '@shared/services';
 
 interface ContractTableElement extends Contract {
+  toDelete: boolean;
   visible: boolean;
 }
 
@@ -24,11 +28,15 @@ export class ContractsComponent implements OnInit {
   contractsList: ContractTableElement[];
   count: number;
 
+  loading: boolean;
+
   constructor(
-    private title: Title,
     private objectsService: ObjectsService,
+    private title: Title,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslateService,
+    private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +94,7 @@ export class ContractsComponent implements OnInit {
               max_fine_percent: contract.max_fine_percent,
               pay_term_days: contract.pay_term_days,
               note: contract.note,
+              toDelete: false,
               visible: this.isContractVisible(contract),
             };
           });
@@ -116,5 +125,70 @@ export class ContractsComponent implements OnInit {
         contract.visible = false;
       }
     });
+  }
+
+  /**
+   * delete contract
+   * @param contractToDelete - delete
+   */
+  notifyDeleteContract(contractToDelete: ContractTableElement) {
+    this.loading = true;
+    contractToDelete.toDelete = true;
+
+    this.snotifyService
+      .confirm('The contract will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Yes',
+            action: () => this.deleteContract(contractToDelete),
+            bold: false,
+          },
+          {
+            text: 'No',
+            action: () => this.cancelDeleteContract(contractToDelete),
+          },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeleteContract(contractToDelete);
+      });
+  }
+
+  private cancelDeleteContract(contractToDelete: ContractTableElement) {
+    this.loading = false;
+    contractToDelete.toDelete = false;
+  }
+
+  private deleteContract(contractToDelete: ContractTableElement) {
+    this.http
+      .post<any>(`${environment.apiUrl}/contract/destroy`, {
+        id: contractToDelete.id,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.contractsList = reject(this.contractsList, function (
+              contract: ContractTableElement
+            ) {
+              return (contract.id as number) === (response.deleted as number);
+            });
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
   }
 }

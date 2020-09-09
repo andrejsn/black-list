@@ -54,7 +54,7 @@
                   <td class="no-top-border" colspan="7">
                     <a class="btn btn-default btn-sm" [routerLink]="'/edit/contract'"><i
                         class="fa fa-pencil-square-o"></i> Edit</a>
-                    <button class="btn"><i class="fa fa-trash"></i> Trash</button>
+                    <button class="btn" (click)="notifyDeleteContract(contract)"><i class="fa fa-trash"></i> Trash</button>
                     <!--  -->
                     <app-invoices [contract]="contract"></app-invoices>
                     <app-representatives [contract]="contract"></app-representatives>
