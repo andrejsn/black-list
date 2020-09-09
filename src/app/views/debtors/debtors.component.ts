@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
 import { TranslateService } from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
+import { SnotifyService, Snotify } from 'ng-snotify';
+import * as reject from 'lodash.reject';
 
 import { environment } from '@environments/environment';
 import { Debtor, DebtorStatus } from '@app/models';
@@ -12,6 +14,7 @@ import { ObjectsService } from '@shared/services';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 interface DebtorTableElement extends Debtor {
+  toDelete: boolean;
   visible: boolean;
 }
 
@@ -24,6 +27,8 @@ export class DebtorsComponent implements OnInit {
   rawDebtorsList: DebtorTableElement[];
   debtorsList: DebtorTableElement[] = [];
   pagedDebtorsList: DebtorTableElement[];
+
+  loading: boolean;
 
   //  search
   search: string;
@@ -42,11 +47,11 @@ export class DebtorsComponent implements OnInit {
   constructor(
     private title: Title,
     private objectsService: ObjectsService,
-
-    private translate: TranslateService,
     private http: HttpClient,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private translate: TranslateService,
+    private snotifyService: SnotifyService,
   ) {}
 
   ngOnInit(): void {
@@ -287,4 +292,70 @@ export class DebtorsComponent implements OnInit {
     // FIXME page:  Math.floor(this.debtorsList.length / 10 + 1),
     this.pageChanged({ page: 1, itemsPerPage: 10 });
   }
+
+  /**
+   * delete debtor
+   * @param guarantorToDelete - debtor
+   */
+  notifyDeleteDebtor(debtorToDelete: DebtorTableElement) {
+    this.loading = true;
+    debtorToDelete.toDelete = true;
+
+    this.snotifyService
+      .confirm('The debtor will be deleted', 'Are you sure?', {
+        timeout: 5000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        buttons: [
+          {
+            text: 'Yes',
+            action: () => this.deleteDebtor(debtorToDelete),
+            bold: false,
+          },
+          {
+            text: 'No',
+            action: () => this.cancelDeleteDebtor(debtorToDelete),
+          },
+        ],
+      })
+      .on('beforeHide', (toast: Snotify) => {
+        this.cancelDeleteDebtor(debtorToDelete);
+      });
+  }
+
+  private cancelDeleteDebtor(debtorToDelete: DebtorTableElement) {
+    debtorToDelete.toDelete = false;
+  }
+
+  private deleteDebtor(debtorToDelete: DebtorTableElement) {
+    this.http
+      .post<any>(`${environment.apiUrl}/debtor/destroy`, {
+        id: debtorToDelete.id,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          const response = data;
+          // TODO: data.error ?
+          if (response.deleted) {
+            this.debtorsList = reject(this.debtorsList, function (
+              debtor: DebtorTableElement
+            ) {
+              return (debtor.id as number) === (response.deleted as number);
+            });
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+
 }

@@ -59,9 +59,9 @@
                       'fa-expand': !debtor.visible,
                       'fa-compress': debtor.visible}"></i>
                   </td>
-                  <td>{{debtor.company}}</td>
-                  <td>{{debtor.created_at | momentjs: 'YYYY. DD. MMMM' }}</td>
-                  <td>{{debtor.debt}}</td>
+                  <td [ngClass]="{'to-delete': debtor.toDelete}">{{debtor.company}}</td>
+                  <td [ngClass]="{'to-delete': debtor.toDelete}">{{debtor.created_at | momentjs: 'YYYY. DD. MMMM' }}</td>
+                  <td [ngClass]="{'to-delete': debtor.toDelete}">{{debtor.debt}}</td>
                   <td (click)="selectStatuses(debtor.status)">
                     <span class="badge" style="cursor: pointer;"
                       [ngClass]="{'badge-light': debtor.status.toString() === 'awaiting', 'badge-primary': debtor.status.toString() === 'in_work', 'badge-success': debtor.status.toString() === 'debt_collected', 'badge-secondary': debtor.status.toString() === 'to_sue', 'badge-info': debtor.status.toString() === 'in_court', 'badge-warning': debtor.status.toString() === 'hopeless', 'badge-danger': debtor.status.toString() === 'insolvency'}">
@@ -75,7 +75,7 @@
                     <button class="btn">
                       <i class="fa fa-pencil-square-o"></i>
                       Edit</button>
-                    <button class="btn">
+                    <button class="btn" (click)="notifyDeleteDebtor(debtor)">
                       <i class="fa fa-trash"></i>
                       Trash</button>
                     <span class="float-right">
