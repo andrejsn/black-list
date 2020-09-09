@@ -82,11 +82,11 @@
                       <button class="btn" (click)="details(debtor)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                         Details</button>
-                      <button class="btn" (click)="contracts(debtor)">
-                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                      <button [ngClass]="{'to-delete': debtor.toDelete}" class="btn" (click)="contracts(debtor)">
+                        <i [ngClass]="{'fa-2x': debtor.toDelete}" class="fa fa-handshake-o" aria-hidden="true"></i>
                         Contracts</button>
-                      <button class="btn" (click)="tasks(debtor)">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                      <button [ngClass]="{'to-delete': debtor.toDelete}" class="btn" (click)="tasks(debtor)">
+                        <i [ngClass]="{'fa-2x': debtor.toDelete}" class="fa fa-tasks" aria-hidden="true"></i>
                         Tasks</button>
                     </span>
                   </td>
