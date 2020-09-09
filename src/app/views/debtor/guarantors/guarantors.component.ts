@@ -85,8 +85,8 @@ export class GuarantorsComponent implements OnInit {
   }
 
   /**
-   * delete representative
-   * @param guarantorToDelete - representative
+   * delete guarantor
+   * @param guarantorToDelete - guarantor
    */
   notifyDeleteGuarantor(guarantorToDelete: GuarantorTableElement) {
     this.loading = true;
