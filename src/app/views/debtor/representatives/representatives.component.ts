@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { Contract, Representative } from '@app/models';
+import { ContractTableElement, Representative } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
@@ -24,7 +24,7 @@ interface RepresentativeTableElement extends Representative {
   animations: [inOutAnimation()],
 })
 export class RepresentativesComponent implements OnInit {
-  @Input() contract: Contract;
+  @Input() contract: ContractTableElement;
   representativesList: RepresentativeTableElement[] = [];
   visibleList: boolean = false;
 

@@ -7,15 +7,10 @@ import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { Contract, Invoice, InvoiceStatus } from '@app/models';
+import { ContractTableElement, InvoiceTableElement, InvoiceStatus } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
-
-interface InvoiceTableElement extends Invoice {
-  toDelete: boolean;
-  visible: boolean;
-}
 
 @Component({
   selector: 'app-invoices',
@@ -24,7 +19,7 @@ interface InvoiceTableElement extends Invoice {
   animations: [inOutAnimation()],
 })
 export class InvoicesComponent implements OnInit {
-  @Input() contract: Contract;
+  @Input() contract: ContractTableElement;
   invoicesList: InvoiceTableElement[] = [];
   visibleList: boolean = false;
 

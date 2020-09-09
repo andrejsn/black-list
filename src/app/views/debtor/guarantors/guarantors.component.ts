@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { Contract, Guarantor } from '@app/models';
+import { ContractTableElement, Guarantor } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
@@ -24,7 +24,7 @@ interface GuarantorTableElement extends Guarantor {
   animations: [inOutAnimation()],
 })
 export class GuarantorsComponent implements OnInit {
-  @Input() contract: Contract;
+  @Input() contract: ContractTableElement;
   guarantorsList: GuarantorTableElement[] = [];
   visibleList: boolean = false;
 
@@ -43,8 +43,7 @@ export class GuarantorsComponent implements OnInit {
     if (this.objectsService.guarantor) {
       this.visibleList = true;
 
-console.log(this.visibleList);
-
+      console.log(this.visibleList);
 
       // reset another
       this.objectsService.representative = null;

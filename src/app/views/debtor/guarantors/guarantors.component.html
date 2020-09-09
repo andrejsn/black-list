@@ -3,10 +3,11 @@
     <div class="card">
       <div class="card-header">
         <i aria-hidden="true" class="toggle fa fa-2x" (click)="visibleList =!visibleList"
-          [ngClass]="{'fa-expand': !visibleList,'fa-compress': visibleList}"></i>
-        <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> Guarantors ({{guarantorsList.length}})
+          [ngClass]="{'fa-expand': !visibleList,'fa-compress': visibleList, 'to-delete': contract.toDelete}"></i>
+        <i [ngClass]="{'to-delete': contract.toDelete}" class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+        <span [ngClass]="{'to-delete': contract.toDelete}">Guarantors ({{guarantorsList.length}})</span>
         <span class="float-right">
-          <button class="btn" [routerLink]="'/add/guarantor'">
+          <button [ngClass]="{'to-delete': contract.toDelete}" class="btn" [routerLink]="'/add/guarantor'">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Guarantor
           </button>

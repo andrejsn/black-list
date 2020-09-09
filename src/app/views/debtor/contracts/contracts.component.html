@@ -33,15 +33,15 @@
                   </td>
 
                   <!-- contract with agreement -->
-                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | momentjs: 'YYYY. DD. MMMM'}}</td>
-                  <td *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
+                  <td [ngClass]="{'to-delete': contract.toDelete}" *ngIf="(contract.with_agreement + '') == '1'">{{contract.date | momentjs: 'YYYY. DD. MMMM'}}</td>
+                  <td [ngClass]="{'to-delete': contract.toDelete}" *ngIf="(contract.with_agreement + '') == '1'">{{contract.number}}</td>
                   <!-- contract without agreement -->
                   <td *ngIf="(contract.with_agreement + '') == '0'" colspan="2" class="text_center"><span
                       class="badge badge-warning">without agreement</span></td>
 
-                  <td>{{contract.pay_term_days}}</td>
-                  <td>{{contract.fine_per_day}}</td>
-                  <td>{{contract.max_fine_percent}}</td>
+                  <td [ngClass]="{'to-delete': contract.toDelete}">{{contract.pay_term_days}}</td>
+                  <td [ngClass]="{'to-delete': contract.toDelete}">{{contract.fine_per_day}}</td>
+                  <td [ngClass]="{'to-delete': contract.toDelete}">{{contract.max_fine_percent}}</td>
                   <td><span class="badge"
                       [ngClass]="{'badge-warning': contract.type_of_fine.toString() === 'percent_law', 'badge-light': contract.type_of_fine.toString() === 'fine' || contract.type_of_fine.toString() === 'percent_debt' }">{{contract.type_of_fine}}</span>
                   </td>

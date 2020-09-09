@@ -15,7 +15,7 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import { Invoice, Payment, PaymentStatus } from '@app/models';
+import { InvoiceTableElement, Payment, PaymentStatus } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
 import { timezoneOffset } from '@shared/helpers';
@@ -31,7 +31,7 @@ enum Mode {
   styleUrls: ['./payments.component.scss'],
 })
 export class PaymentsComponent implements OnInit {
-  @Input() invoice: Invoice;
+  @Input() invoice: InvoiceTableElement;
   payments: Payment[];
   selectedPayment: Payment;
   paymentToDelete: Payment;

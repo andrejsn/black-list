@@ -9,13 +9,8 @@ import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
 import { environment } from '@environments/environment';
-import { Debtor, Contract } from '@app/models';
+import { Debtor, Contract, ContractTableElement } from '@app/models';
 import { ObjectsService } from '@shared/services';
-
-interface ContractTableElement extends Contract {
-  toDelete: boolean;
-  visible: boolean;
-}
 
 @Component({
   selector: 'app-contracts',
