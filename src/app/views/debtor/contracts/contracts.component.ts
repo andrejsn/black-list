@@ -44,6 +44,10 @@ export class ContractsComponent implements OnInit {
       this.selectedContract = this.objectsService.contract;
     }
 
+    this.objectsService.invoice = null;
+    this.objectsService.representative = null;
+    this.objectsService.guarantor = null;
+
     // set browser title
     this.title.setTitle(this.selectedDebtor.company + '- contracts list');
     // set bread crumb menu
