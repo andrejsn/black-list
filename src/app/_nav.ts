@@ -5,7 +5,7 @@ import { INavData } from '@coreui/angular';
 export const navI18n: RegExp[] = [
   /Reports|Отчёты|Atskaites/g,
   /Debtors|Должники|Parādnieki/g,
-  /Add Debtor|добавить Должника|pievienot Parādnieku/g,
+  /\+Debtor|\+Должник|\+Parādnieku/g,
   /Calendar|Календарь|Kalendārs/g,
 ];
 
@@ -21,7 +21,7 @@ export const navItems: INavData[] = [
     icon: 'icon-people',
   },
   {
-    name: 'Add Debtor',
+    name: '+Debtor',
     url: '/add/debtor',
     icon: 'icon-user-follow',
   },

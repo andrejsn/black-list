@@ -2,7 +2,7 @@
   "app-sidebar-nav-link": {
     "reports": "Reports",
     "debtors": "Debtors",
-    "add_debtor": "Add Debtor",
+    "add_debtor": "+Debtor",
     "calendar": "Calendar"
   },
   "debtor": {
