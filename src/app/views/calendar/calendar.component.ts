@@ -340,6 +340,10 @@ export class CalendarComponent implements OnInit {
     });
   }
 
+  /**
+   * ... is remind cached, than open in the list
+   * TODO: refactoring?
+   */
   goTasksList(remind: Remind) {
     this.objectsService.debtor = this.fakeDebtor(
       remind.debtor_id,
@@ -381,9 +385,9 @@ export class CalendarComponent implements OnInit {
       bank_account_number: '',
       status: null,
       note: '',
-      created_at: null,
-      updated_at: null,
-      deleted_at: null,
+      // created_at: null,
+      // updated_at: null,
+      // deleted_at: null,
     };
   }
 }

@@ -6,6 +6,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,6 +15,7 @@ import { SnotifyService } from 'ng-snotify';
 
 import { DebtorStatus } from '@app/models';
 import { environment } from '@environments/environment';
+import { ObjectsService } from '@shared/services';
 
 @Component({
   selector: 'app-debtor',
@@ -29,7 +32,7 @@ export class DebtorComponent implements OnInit {
   addDebtorForm: FormGroup = new FormGroup({
     company: new FormControl(),
     reg_number: new FormControl(),
-    debt: new FormControl(),
+    // debt: new FormControl(),
 
     legal_address: new FormControl(),
     city: new FormControl(),
@@ -46,17 +49,33 @@ export class DebtorComponent implements OnInit {
   });
 
   constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
+    private router: Router,
     private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
+    // set browser title
+    this.title.setTitle('Add debtor');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/debtors', name: 'Debtors', active: false },
+      {
+        route: '/add/debtor',
+        name: 'add debtor',
+        active: true,
+      },
+    ]);
+
     this.addDebtorForm = this.formBuilder.group({
       company: ['', [Validators.required]],
       reg_number: ['', [Validators.required]],
-      debt: ['', [Validators.required]],
+      // debt: ['', [Validators.required]],
       legal_address: [],
       city: [],
       postal_code: [],
@@ -99,10 +118,10 @@ export class DebtorComponent implements OnInit {
     this.loading = true;
 
     this.http
-      .post<any>(`${environment.apiUrl}/store/debtor`, {
+      .post<any>(`${environment.apiUrl}/debtor/store`, {
         company: this.addDebtorForm.controls['company'].value,
         reg_number: this.addDebtorForm.controls['reg_number'].value,
-        debt: this.addDebtorForm.controls['debt'].value,
+        // debt: this.addDebtorForm.controls['debt'].value,
         legal_address: this.addDebtorForm.controls['legal_address'].value,
         city: this.addDebtorForm.controls['city'].value,
         postal_code: this.addDebtorForm.controls['postal_code'].value,
@@ -120,7 +139,12 @@ export class DebtorComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
+          // TODO error?
+          if (data.added) {
+            this.router.navigate(['/debtors']);
+          }
+
+          console.log(data.added);
         },
         (error) => {
           this.loading = false;
