@@ -143,8 +143,6 @@ export class DebtorComponent implements OnInit {
           if (data.added) {
             this.router.navigate(['/debtors']);
           }
-
-          console.log(data.added);
         },
         (error) => {
           this.loading = false;
