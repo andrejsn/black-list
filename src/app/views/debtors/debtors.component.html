@@ -63,10 +63,31 @@
                   <td [ngClass]="{'to-delete': debtor.toDelete}">{{debtor.created_at | momentjs: 'YYYY. DD. MMMM' }}</td>
                   <td [ngClass]="{'to-delete': debtor.toDelete}">{{debtor.debt}}</td>
                   <td (click)="selectStatuses(debtor.status)">
-                    <span class="badge" style="cursor: pointer;"
+                    <span *ngIf="debtor.status.toString() === 'awaiting'">
+                      <i class="fa fa-pause" aria-hidden="true" style="cursor: pointer;"></i> awaiting
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'debt_collected'">
+                      <i class="fa fa-check" aria-hidden="true" style="cursor: pointer;"></i> collected
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'in_work'">
+                      <i class="fa fa-cogs" aria-hidden="true" style="cursor: pointer;"></i> in work
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'to_sue'">
+                      <i class="fa fa-gavel" aria-hidden="true"></i> to sue
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'in_court'">
+                      <i class="fa fa-gavel fa-rotate-90" aria-hidden="true"></i> in court
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'hopeless'">
+                      <i class="fa fa-child" aria-hidden="true"></i> hopeless
+                    </span>
+                    <span *ngIf="debtor.status.toString() === 'insolvency'">
+                      <i class="fa fa-circle" aria-hidden="true"></i> insolvency
+                    </span>
+                    <!-- <span class="badge" style="cursor: pointer;"
                       [ngClass]="{'badge-light': debtor.status.toString() === 'awaiting', 'badge-primary': debtor.status.toString() === 'in_work', 'badge-success': debtor.status.toString() === 'debt_collected', 'badge-secondary': debtor.status.toString() === 'to_sue', 'badge-info': debtor.status.toString() === 'in_court', 'badge-warning': debtor.status.toString() === 'hopeless', 'badge-danger': debtor.status.toString() === 'insolvency'}">
                       {{ 'status.short.'+ debtor.status | translate}}
-                    </span>
+                    </span> -->
                   </td>
                 </tr>
                 <!-- accordion for debtor -->
