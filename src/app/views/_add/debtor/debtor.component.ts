@@ -72,6 +72,7 @@ export class DebtorComponent implements OnInit {
       },
     ]);
 
+    // init validators
     this.addDebtorForm = this.formBuilder.group({
       company: ['', [Validators.required]],
       reg_number: ['', [Validators.required]],

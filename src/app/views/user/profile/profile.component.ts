@@ -1,14 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormGroup,
   FormBuilder,
-  Validators,
+  FormGroup,
   FormControl,
+  Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
+import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
+
+import { User } from '@app/models';
+import { environment } from '@environments/environment';
+import { ObjectsService } from '@shared/services';
 
 @Component({
   selector: 'app-profile',
@@ -45,34 +52,47 @@ export class ProfileComponent implements OnInit {
   });
 
   constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
+    private router: Router,
     private snotifyService: SnotifyService
   ) {}
 
   ngOnInit(): void {
+    // set browser title
+    this.title.setTitle('edit user profile');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/user', name: 'User', active: true },
+      { route: '/user/profile', name: 'Profile', active: true },
+    ]);
+
+    // init validators
     this.userForm = this.formBuilder.group({
-      company: ['', [Validators.required]],
-      reg_number: ['', [Validators.required]],
-      user_post: ['', [Validators.required]],
+      company: ['', []],
+      reg_number: ['', []],
+      user_post: ['', []],
       user_name: ['', [Validators.required]],
 
-      contact_person_post: ['', [Validators.required]],
-      contact_person_name: ['', [Validators.required]],
+      contact_person_post: ['', []],
+      contact_person_name: ['', []],
 
-      legal_address: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      postal_code: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      legal_address: ['', []],
+      city: ['', []],
+      postal_code: ['', []],
+      country: ['', []],
 
-      phone: ['', [Validators.required]],
-      fax: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      homepage: ['', [Validators.required]],
+      phone: ['', []],
+      fax: ['', []],
+      email: ['', [Validators.required, Validators.email]],
+      homepage: ['', []],
 
-      bank_name: ['', [Validators.required]],
-      bank_account_number: ['', [Validators.required]],
+      bank_name: ['', []],
+      bank_account_number: ['', []],
     });
   }
 
@@ -91,16 +111,56 @@ export class ProfileComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.userForm.invalid) {
-      this.translate
-        .get('toast.error.user_form')
-        .subscribe((error: string) => {
-          this.snotifyService.error(error);
-        });
+      this.translate.get('toast.error.user_form').subscribe((error: string) => {
+        this.snotifyService.error(error);
+      });
 
       return;
     }
 
-    // this.loading = true;
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/user/update`, this.updatedUser())
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          console.log(data);
+this.loading = false;
+          this.submitted = false;
+          // TODO error?
+          // if (data.added) {
+          //   this.router.navigate(['/debtors']);
+          // }
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
+  private updatedUser(): User {
+    return {
+      name: 'hi',
+      company: this.f['company'].value,
+      reg_number: this.userForm.controls['reg_number'].value,
+      // debt: this.userForm.controls['debt'].value,
+      legal_address: this.userForm.controls['legal_address'].value,
+      city: this.userForm.controls['city'].value,
+      postal_code: this.userForm.controls['postal_code'].value,
+      country: this.userForm.controls['country'].value,
+      phone: this.userForm.controls['phone'].value,
+      fax: this.userForm.controls['fax'].value,
+      email: this.userForm.controls['email'].value,
+      homepage: this.userForm.controls['homepage'].value,
+      bank_name: this.userForm.controls['bank_name'].value,
+      bank_account_number: this.userForm.controls['bank_account_number'].value,
+    };
   }
 
   // convenience getter for easy access to form fields
