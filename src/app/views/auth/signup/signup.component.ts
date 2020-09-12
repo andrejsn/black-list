@@ -125,7 +125,7 @@ export class SignupComponent implements OnInit {
   /*
    * check password confirm
    */
-  checkPasswords(formGroup: FormGroup) {
+  private checkPasswords(formGroup: FormGroup) {
     //
     const pass = formGroup.get('password').value;
     const confirmPass = formGroup.get('password_confirmation').value;
