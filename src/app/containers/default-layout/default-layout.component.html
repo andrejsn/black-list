@@ -35,7 +35,7 @@
         <div class="dropdown-header text-center"><strong>Account</strong></div>
         <a class="dropdown-item" [routerLink]="['/user/notifications']"><i class="fa fa-bell-o"></i> Notifications<span
             class="badge badge-info">42</span></a>
-        <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span
+        <a class="dropdown-item" [routerLink]="['/user/messages']"><i class="fa fa-envelope-o"></i> Messages<span
             class="badge badge-success">42</span></a>
         <!-- <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span
             class="badge badge-danger">42</span></a> -->
@@ -44,7 +44,7 @@
 
         <div class="dropdown-header text-center"><strong>{{ 'dropdown-header.setting' | translate}}</strong></div>
         <a class="dropdown-item" [routerLink]="['/user/profile']"><i class="fa fa-user"></i> Profile</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
+        <a class="dropdown-item" [routerLink]="['/user/setting']"><i class="fa fa-wrench"></i> Setting</a>
         <a class="dropdown-item" [routerLink]="['/user/payments']"><i class="fa fa-usd"></i> Payments
           <!-- TODO set badge warning, if 30 days to end, set red if 5 days to end -->
           <span class="badge badge-success">&nbsp;&nbsp;</span></a>

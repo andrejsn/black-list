@@ -1,54 +1,53 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PaymentsComponent } from './payments/payments.component';
-import { CardComponent, PaypalComponent, TokenComponent } from './payment';
-import { ProfileComponent } from './profile/profile.component';
-import { NotificationsComponent } from './notifications/notifications.component';
+import { P404Component } from '../error/404.component';
+import {
+  NotificationsComponent,
+  MessagesComponent,
+  ProfileComponent,
+  SettingComponent,
+  PaymentsComponent,
+  CardComponent,
+  PaypalComponent,
+  TokenComponent,
+} from '.';
+
 
 const routes: Routes = [
   {
-    path: 'payments',
-    component: PaymentsComponent,
-    data: {
-      title: 'Payments',
-    },
+    path: 'notifications',
+    component: NotificationsComponent,
   },
   {
-    path: 'payment/card',
-    component: CardComponent,
-    data: {
-      title: 'Payments',
-    },
-  },
-  {
-    path: 'payment/paypal',
-    component: PaypalComponent,
-    data: {
-      title: 'Payments',
-    },
-  },
-  {
-    path: 'payment/token',
-    component: TokenComponent,
-    data: {
-      title: 'Payments',
-    },
+    path: 'messages',
+    component: MessagesComponent,
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    data: {
-      title: 'Profile',
-    },
   },
   {
-    path: 'notifications',
-    component: NotificationsComponent,
-    data: {
-      title: 'Notifications',
-    },
+    path: 'setting',
+    component: SettingComponent,
   },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
+  },
+  {
+    path: 'payment/card',
+    component: CardComponent,
+  },
+  {
+    path: 'payment/paypal',
+    component: PaypalComponent,
+  },
+  {
+    path: 'payment/token',
+    component: TokenComponent,
+  },
+  { path: '**', component: P404Component },
 ];
 
 @NgModule({
