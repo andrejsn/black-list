@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -10,26 +15,23 @@ import { SnotifyService } from 'ng-snotify';
 import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/shared/helpers';
 
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
   signupForm: FormGroup = new FormGroup({
     name: new FormControl(),
     email: new FormControl(),
     password: new FormControl(),
     password_confirmation: new FormControl(),
-    agree: new FormControl()
+    agree: new FormControl(),
   });
 
   returnUrl: string;
   submitted = false;
   loading = false;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,33 +39,31 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private snotifyService: SnotifyService,
-    private translate: TranslateService) { }
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group(
       {
-        name:
-          ['',
-            [
-              Validators.required, Validators.minLength(3), Validators.maxLength(32)
-            ]
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(32),
           ],
-        email:
-          ['',
-            [
-              Validators.required, Validators.email
-            ]
+        ],
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
           ],
-        password:
-          ['',
-            [
-              Validators.required, Validators.minLength(8), Validators.maxLength(32)
-            ]
-          ],
-        password_confirmation:
-          [''],
-        agree:
-          [false, Validators.required]
+        ],
+        password_confirmation: [''],
+        agree: [false, Validators.required],
       },
       { validator: this.checkPasswords }
     );
@@ -71,12 +71,13 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    console.log('submit +');
-
     // stop here if form is invalid
     if (this.signupForm.invalid) {
-      this.translate.get('toast.error.signup_form').subscribe((error: string) => { this.snotifyService.error(error) });
+      this.translate
+        .get('toast.error.signup_form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
 
       return;
     }
@@ -84,43 +85,46 @@ export class SignupComponent implements OnInit {
     const name = this.signupForm.controls['name'].value;
     const email = this.signupForm.controls['email'].value;
     const password = this.signupForm.controls['password'].value;
-    const password_confirmation = this.signupForm.controls['password_confirmation'].value;
+    const password_confirmation = this.signupForm.controls[
+      'password_confirmation'
+    ].value;
     const agree = this.signupForm.controls['agree'].value;
 
+    // this.loading = true;
 
-
-
-
-    //this.loading = true;
-
-    this.http.post<any>(`${environment.apiUrl}/auth/signup`,
-      {
-        'name': name,
-        'email': email,
-        'password': password,
-        'password_confirmation': password_confirmation,
-        'agree': agree
-      }
-    ).pipe(first())
+    this.http
+      .post<any>(`${environment.apiUrl}/auth/signup`, {
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+        agree: agree,
+      })
+      .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           // login in new account
-          this.authenticationService.login(email, password).subscribe(
-            response => {
+          this.authenticationService
+            .login(email, password)
+            .subscribe((response) => {
               this.authenticationService.setSession(response);
               this.router.navigate(['/']);
             });
         },
-        error => {
+        (error) => {
           // TODO: Http failure response error?
-          this.translate.get('toast.error.email_exist').subscribe((error: string) => { this.snotifyService.error(error) });
+          this.translate
+            .get('toast.error.email_exist')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
         }
       );
   }
 
   /*
-  * check password confirm
-  */
+   * check password confirm
+   */
   checkPasswords(formGroup: FormGroup) {
     //
     const pass = formGroup.get('password').value;
