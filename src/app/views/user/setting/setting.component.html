@@ -1,1 +1,65 @@
-<p>setting works!</p>
+<div class="animated fadeIn">
+  <!-- user setting  -->
+  <form [formGroup]="settingForm" (ngSubmit)="onSubmit()" role="form">
+    <div class="row">
+      <!-- user login data -->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <strong>My login data</strong><small>
+              -{{'user.login.data.change' | translate}}</small>
+          </div>
+          <div class="card-body">
+            <!-- user old password -->
+            <div class="form-group">
+              <label for="password_old">{{'user.password.old' | translate}}</label>
+              <input formControlName="password_old" autocomplete="off" class="form-control"
+                [ngClass]="{'is-invalid': submitted && f.password_old.errors, 'is-valid': submitted && !f.password_old.errors}"
+                id="password_old" type="password" placeholder="{{ 'placeholder.user.password.old' | translate}}">
+              <div *ngIf="submitted && f.password_old.errors && f.password_old.errors.required"
+                class="invalid-feedback">
+                {{'user.error.password.old.required' | translate}}</div>
+            </div>
+
+            <!-- user new password -->
+            <div class="form-group">
+              <label for="password_new">{{'user.password.new' | translate}}</label>
+              <input formControlName="password_new" autocomplete="new-password" class="form-control"
+                [ngClass]="{'is-invalid': submitted && f.password_new.errors, 'is-valid': submitted && !f.password_new.errors}"
+                id="password_new" type="password" placeholder="{{ 'placeholder.user.password.new' | translate}}">
+              <div *ngIf="submitted && f.password_new.errors && f.password_new.errors.required"
+                class="invalid-feedback">
+                {{'user.error.password.new.required' | translate}}</div>
+            </div>
+
+            <!-- user new password confirmation -->
+            <div class="form-group">
+              <label for="password_confirmation">{{'user.password.new' | translate}}</label>
+              <input formControlName="password_confirmation" autocomplete="new-password" class="form-control"
+                [ngClass]="{'is-invalid': submitted && f.password_confirmation.errors, 'is-valid': submitted && !f.password_confirmation.errors}"
+                id="password_confirmation" type="password"
+                placeholder="{{ 'placeholder.user.password.new' | translate}}">
+              <div *ngIf="submitted && f.password_confirmation.errors && f.password_confirmation.errors.required"
+                class="invalid-feedback">
+                {{'user.error.password.new.confirmation' | translate}}</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card"></div>
+        <div class="card-footer">
+          <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+            {{ 'setting.submit' | translate}}</button>
+          <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">
+            {{ 'setting.reset' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
