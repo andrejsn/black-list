@@ -41,7 +41,10 @@
                 placeholder="{{ 'placeholder.user.password.new' | translate}}">
               <div *ngIf="submitted && f.password_confirmation.errors && f.password_confirmation.errors.required"
                 class="invalid-feedback">
-                {{'user.error.password.new.confirmation' | translate}}</div>
+                {{'user.error.password.confirmation.required' | translate}}</div>
+              <div *ngIf="submitted && f.password_confirmation.errors && settingForm.hasError('notsame')"
+                class="invalid-feedback">
+                {{'user.error.password.confirmation.notsame' | translate}}</div>
             </div>
 
           </div>

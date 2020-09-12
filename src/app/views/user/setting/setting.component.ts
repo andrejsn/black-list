@@ -53,32 +53,46 @@ export class SettingComponent implements OnInit {
     ]);
 
     // init validators
-    this.settingForm = this.formBuilder.group({
-      password_old: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(32),
+    this.settingForm = this.formBuilder.group(
+      {
+        password_old: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
+          ],
         ],
-      ],
-      password_new: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(32),
+        password_new: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
+          ],
         ],
-      ],
-      password_confirmation: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(32),
+        password_confirmation: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
+          ],
         ],
-      ],
-    });
+      },
+      { validator: this.checkPasswords }
+    );
+  }
+
+  /*
+   * check password confirm
+   */
+  private checkPasswords(formGroup: FormGroup) {
+    //
+    const pass = formGroup.get('password_new').value;
+    const confirmPass = formGroup.get('password_confirmation').value;
+
+    return pass === confirmPass ? null : { notsame: true };
   }
 
   onSubmit() {
