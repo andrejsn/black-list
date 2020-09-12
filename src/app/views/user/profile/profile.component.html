@@ -2,6 +2,7 @@
   <!-- user profile  -->
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()" role="form">
     <div class="row">
+      <!-- user basic data -->
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
@@ -9,7 +10,7 @@
               -{{'user.basic.data' | translate}}</small>
           </div>
           <div class="card-body">
-
+            <!-- user company name -->
             <div class="form-group">
               <label for="company">{{'user.company' | translate}}</label>
               <input formControlName="company" autocomplete="organization" class="form-control"
@@ -19,7 +20,7 @@
               <div *ngIf="submitted && f.company.errors && f.company.errors.required" class="invalid-feedback">
                 {{'user.error.company.required' | translate}}</div>
             </div>
-
+            <!-- user company registration number -->
             <div class="form-group">
               <label for="reg_number">{{'user.reg_number' | translate}}</label>
               <input formControlName="reg_number" autocomplete="off" class="form-control" id="reg_number" type="text"
@@ -28,49 +29,53 @@
               <div *ngIf="submitted && f.reg_number.errors && f.reg_number.errors.required" class="invalid-feedback">
                 {{'user.error.reg_number.required' | translate}}</div>
             </div>
-
+            <!-- user position in company -->
             <div class="form-group">
               <label for="post">{{'user.post' | translate}}</label>
-              <input formControlName="user_post" autocomplete="nickname" class="form-control"
-                [ngClass]="{'is-invalid': submitted && f.user_post.errors, 'is-valid': submitted && !f.user_post.errors}"
+              <input formControlName="post" autocomplete="nickname" class="form-control"
+                [ngClass]="{'is-invalid': submitted && f.post.errors, 'is-valid': submitted && !f.post.errors}"
                 id="post" type="text" placeholder="{{ 'placeholder.user.post' | translate}}">
-              <div *ngIf="submitted && f.user_post.errors && f.user_post.errors.required" class="invalid-feedback">
-                {{'user.error.user_post.required' | translate}}</div>
+              <div *ngIf="submitted && f.post.errors && f.post.errors.required" class="invalid-feedback">
+                {{'user.error.post.required' | translate}}</div>
             </div>
-
+            <!-- user name -->
             <div class="form-group">
-              <label for="user_name">{{'user.name' | translate}}</label>
-              <input formControlName="user_name" autocomplete="name" class="form-control"
-                [ngClass]="{'is-invalid': submitted && f.user_name.errors, 'is-valid': submitted && !f.user_name.errors}"
-                id="user_name" type="text" placeholder="{{ 'placeholder.user.name' | translate}}">
-              <div *ngIf="submitted && f.user_name.errors && f.user_name.errors.required" class="invalid-feedback">
-                {{'user.error.user_name.required' | translate}}</div>
+              <label for="name">{{'user.name' | translate}}</label>
+              <input formControlName="name" autocomplete="name" class="form-control"
+                [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}"
+                id="name" type="text" placeholder="{{ 'placeholder.user.name' | translate}}">
+              <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
+                {{'user.error.name.required' | translate}}</div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- user contact -->
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header"><strong>{{company_name}}</strong><small> -{{ 'user.contact' | translate}}</small>
           </div>
           <div class="card-body">
+            <!-- user contact phone -->
             <div class="form-group">
               <label for="phone">{{ 'user.phone' | translate}}</label>
               <input formControlName="phone" class="form-control" id="phone" type="text"
-                [ngClass]="{'is-invalid': submitted && f.phone.errors, 'is-valid': submitted && !f.phone.errors}"
+                [ngClass]="{'is-invalid': submitted && f.phone.errors}"
                 placeholder="{{ 'placeholder.user.phone' | translate}}">
-              <div *ngIf="submitted && f.phone.errors && f.phone.errors.required" class="invalid-feedback">
-                {{'user.error.phone.required' | translate}}</div>
+              <!-- <div *ngIf="submitted && f.phone.errors && f.phone.errors.required" class="invalid-feedback">
+                {{'user.error.phone.required' | translate}}</div> ### from ngClass->, 'is-valid': submitted && !f.phone.errors -->
             </div>
+            <!-- user contact fax -->
             <div class="form-group">
               <label for="fax">{{ 'user.fax' | translate}}</label>
               <input formControlName="fax" class="form-control" id="fax" type="text"
-                [ngClass]="{'is-invalid': submitted && f.fax.errors, 'is-valid': submitted && !f.fax.errors}"
+                [ngClass]="{'is-invalid': submitted && f.fax.errors}"
                 placeholder="{{ 'placeholder.user.fax' | translate}}">
-              <div *ngIf="submitted && f.fax.errors && f.fax.errors.required" class="invalid-feedback">
-                {{'user.error.fax.required' | translate}}</div>
+              <!-- <div *ngIf="submitted && f.fax.errors && f.fax.errors.required" class="invalid-feedback">
+                {{'user.error.fax.required' | translate}}</div> ### from ngClass-> , 'is-valid': submitted && !f.fax.errors -->
             </div>
+            <!-- user contact email -->
             <div class="form-group">
               <label for="email">{{ 'user.email' | translate}}</label>
               <input formControlName="email" class="form-control" id="email" type="text"
@@ -78,24 +83,24 @@
                 placeholder="{{ 'placeholder.user.email' | translate}}">
               <div *ngIf="submitted && f.email.errors && f.email.errors.required" class="invalid-feedback">
                 {{'user.error.email.required' | translate}}</div>
-               <div *ngIf="submitted && f.email.errors && f.email.errors.email" class="invalid-feedback">
+              <div *ngIf="submitted && f.email.errors && f.email.errors.email" class="invalid-feedback">
                 {{'user.error.email.invalid' | translate}}</div>
             </div>
+            <!-- user homepage -->
             <div class="form-group">
               <label for="homepage">{{ 'user.homepage' | translate}}</label>
               <input formControlName="homepage" class="form-control" id="homepage" type="text"
-                [ngClass]="{'is-invalid': submitted && f.homepage.errors, 'is-valid': submitted && !f.homepage.errors}"
+                [ngClass]="{'is-invalid': submitted && f.homepage.errors}"
                 placeholder="{{ 'placeholder.user.homepage' | translate}}">
-              <div *ngIf="submitted && f.homepage.errors && f.homepage.errors.required" class="invalid-feedback">
-                {{'user.error.homepage.required' | translate}}</div>
+              <!-- <div *ngIf="submitted && f.homepage.errors && f.homepage.errors.required" class="invalid-feedback">
+                {{'user.error.homepage.required' | translate}}</div> ### from ngClass-> , 'is-valid': submitted && !f.homepage.errors -->
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
-    <!--  -->
+    <!-- user address -->
     <div class="row">
       <div class="col-sm-6">
         <div class="card">
@@ -103,6 +108,7 @@
               -{{ 'user.legal_address' | translate}}</small>
           </div>
           <div class="card-body">
+            <!-- user legal address -->
             <div class="form-group">
               <label for="legal_address">{{ 'user.legal_address' | translate}}</label>
               <input formControlName="legal_address" autocomplete="address-level1" class="form-control"
@@ -113,7 +119,7 @@
                 class="invalid-feedback">
                 {{'user.error.legal_address.required' | translate}}</div>
             </div>
-
+            <!-- user city -->
             <div class="row">
               <div class="form-group col-sm-8">
                 <label for="city">{{ 'user.city' | translate}}</label>
@@ -123,6 +129,7 @@
                 <div *ngIf="submitted && f.city.errors && f.city.errors.required" class="invalid-feedback">
                   {{'user.error.city.required' | translate}}</div>
               </div>
+              <!-- user postal code -->
               <div class="form-group col-sm-4">
                 <label for="postal_code">{{ 'user.postal_code' | translate}}</label>
                 <input formControlName="postal_code" autocomplete="postal-code" class="form-control" id="postal_code"
@@ -133,7 +140,7 @@
                   {{'user.error.postal_code.required' | translate}}</div>
               </div>
             </div>
-
+            <!-- user country -->
             <div class="form-group">
               <label for="country">{{ 'user.country' | translate}}</label>
               <input formControlName="country" autocomplete="country-name" class="form-control" id="country" type="text"
@@ -142,17 +149,18 @@
               <div *ngIf="submitted && f.country.errors && f.country.errors.required" class="invalid-feedback">
                 {{'user.error.country.required' | translate}}</div>
             </div>
-
           </div>
         </div>
       </div>
 
+      <!-- contact person -->
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header"><strong>{{company_name}}</strong><small>
               -{{ 'user.contact_person' | translate}}</small>
           </div>
           <div class="card-body">
+            <!-- contact person post -->
             <div class="form-group">
               <label for="contact_person_post">{{ 'user.contact_person_post' | translate}}</label>
               <input formControlName="contact_person_post" autocomplete="nickname" class="form-control"
@@ -163,7 +171,7 @@
                 class="invalid-feedback">
                 {{'user.error.contact_person_post.required' | translate}}</div>
             </div>
-
+            <!-- contact person name -->
             <div class="form-group">
               <label for="contact_person_name">{{ 'user.contact_person_name' | translate}}</label>
               <input formControlName="contact_person_name" autocomplete="name" class="form-control"
@@ -179,16 +187,14 @@
       </div>
     </div>
 
-    <!--  -->
+    <!-- bank -->
     <div class="row">
-
-
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header"><strong>{{company_name}}</strong><small>
               -{{ 'user.banking_information' | translate}}</small></div>
           <div class="card-body">
-
+            <!-- bank name -->
             <div class="form-group">
               <label for="bank">{{ 'user.bank_name' | translate}}</label>
               <input formControlName="bank_name" class="form-control" id="bank" type="text"
@@ -197,7 +203,7 @@
               <div *ngIf="submitted && f.bank_name.errors && f.bank_name.errors.required" class="invalid-feedback">
                 {{'user.error.bank_name.required' | translate}}</div>
             </div>
-
+            <!-- bank account number -->
             <div class="form-group">
               <label for="bank_account_number">{{ 'user.bank_account_number' | translate}}</label>
               <input formControlName="bank_account_number" class="form-control" id="bank_account_number" type="text"

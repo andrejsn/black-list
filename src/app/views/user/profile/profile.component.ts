@@ -24,6 +24,7 @@ import { ObjectsService } from '@shared/services';
 })
 export class ProfileComponent implements OnInit {
   company_name: string;
+  user: User;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -31,8 +32,8 @@ export class ProfileComponent implements OnInit {
   userForm: FormGroup = new FormGroup({
     company: new FormControl(),
     reg_number: new FormControl(),
-    user_post: new FormControl(),
-    user_name: new FormControl(),
+    post: new FormControl(),
+    name: new FormControl(),
 
     contact_person_post: new FormControl(),
     contact_person_name: new FormControl(),
@@ -71,28 +72,69 @@ export class ProfileComponent implements OnInit {
       { route: '/user/profile', name: 'Profile', active: true },
     ]);
 
+    // get user profile
+    this.http
+      .post<any>(`${environment.apiUrl}/auth/me`, {})
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.user = data as User;
+          this.initValidators(this.user);
+          // console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  private initValidators(user: User) {
     // init validators
     this.userForm = this.formBuilder.group({
-      company: ['', []],
-      reg_number: ['', []],
-      user_post: ['', []],
-      user_name: ['', [Validators.required]],
+      company: [user.company, [Validators.required, Validators.maxLength(255)]],
+      reg_number: [
+        user.reg_number,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      post: [user.post, [Validators.required, Validators.maxLength(255)]],
+      name: [user.name, [Validators.required, Validators.maxLength(255)]],
 
-      contact_person_post: ['', []],
-      contact_person_name: ['', []],
+      contact_person_post: [
+        user.contact_person_post,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      contact_person_name: [
+        user.contact_person_name,
+        [Validators.required, Validators.maxLength(255)],
+      ],
 
-      legal_address: ['', []],
-      city: ['', []],
-      postal_code: ['', []],
-      country: ['', []],
+      legal_address: [
+        user.legal_address,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      city: [user.city, [Validators.required, Validators.maxLength(255)]],
+      postal_code: [
+        user.postal_code,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      country: [user.country, [Validators.required, Validators.maxLength(255)]],
 
-      phone: ['', []],
-      fax: ['', []],
-      email: ['', [Validators.required, Validators.email]],
-      homepage: ['', []],
+      phone: [user.phone, [Validators.maxLength(255)]],
+      fax: [user.fax, [Validators.maxLength(255)]],
+      email: [
+        user.email,
+        [Validators.required, Validators.email, Validators.maxLength(255)],
+      ],
+      homepage: [user.homepage, [Validators.maxLength(255)]],
 
-      bank_name: ['', []],
-      bank_account_number: ['', []],
+      bank_name: [
+        user.bank_name,
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      bank_account_number: [
+        user.bank_account_number,
+        [Validators.required, Validators.maxLength(255)],
+      ],
     });
   }
 
@@ -124,8 +166,11 @@ export class ProfileComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
-this.loading = false;
+          if (data.updated && data.updated === true) {
+            this.snotifyService.info('Profile is updated');
+          }
+
+          this.loading = false;
           this.submitted = false;
           // TODO error?
           // if (data.added) {
@@ -146,20 +191,22 @@ this.loading = false;
 
   private updatedUser(): User {
     return {
-      name: 'hi',
       company: this.f['company'].value,
-      reg_number: this.userForm.controls['reg_number'].value,
-      // debt: this.userForm.controls['debt'].value,
-      legal_address: this.userForm.controls['legal_address'].value,
-      city: this.userForm.controls['city'].value,
-      postal_code: this.userForm.controls['postal_code'].value,
-      country: this.userForm.controls['country'].value,
-      phone: this.userForm.controls['phone'].value,
-      fax: this.userForm.controls['fax'].value,
-      email: this.userForm.controls['email'].value,
-      homepage: this.userForm.controls['homepage'].value,
-      bank_name: this.userForm.controls['bank_name'].value,
-      bank_account_number: this.userForm.controls['bank_account_number'].value,
+      reg_number: this.f['reg_number'].value,
+      name: this.f['name'].value,
+      post: this.f['post'].value,
+      legal_address: this.f['legal_address'].value,
+      city: this.f['city'].value,
+      postal_code: this.f['postal_code'].value,
+      country: this.f['country'].value,
+      phone: this.f['phone'].value,
+      fax: this.f['fax'].value,
+      email: this.f['email'].value,
+      homepage: this.f['homepage'].value,
+      bank_name: this.f['bank_name'].value,
+      bank_account_number: this.f['bank_account_number'].value,
+      contact_person_name: this.f['contact_person_name'].value,
+      contact_person_post: this.f['contact_person_post'].value,
     };
   }
 
