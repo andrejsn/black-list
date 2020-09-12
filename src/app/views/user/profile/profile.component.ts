@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // set browser title
-    this.title.setTitle('edit user profile');
+    this.title.setTitle('edit my profile');
     // set bread crumb menu
     this.objectsService.setBreadCrumb([
       { route: '/', name: 'Home', active: false },

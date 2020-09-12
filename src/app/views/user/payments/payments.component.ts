@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {
   FormGroup,
   FormBuilder,
@@ -9,6 +10,7 @@ import {
 
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
+import { ObjectsService } from '@shared/services';
 
 @Component({
   selector: 'app-payments',
@@ -30,6 +32,8 @@ export class PaymentsComponent implements OnInit {
   paymentForm: FormGroup = new FormGroup({});
 
   constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
     // private formBuilder: FormBuilder,
     private translate: TranslateService,
     // private http: HttpClient,
@@ -37,8 +41,16 @@ export class PaymentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     localStorage.removeItem('pay');
+
+    // set browser title
+    this.title.setTitle('my abonnement payments');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      { route: '/', name: 'Home', active: false },
+      { route: '/user', name: 'User', active: true },
+      { route: '/user/payments', name: 'Payments', active: true },
+    ]);
 
     // // TODO: unused
     // this.paymentForm = this.formBuilder.group({});

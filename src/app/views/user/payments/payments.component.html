@@ -1,83 +1,83 @@
-<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" role="form">
-
-  <!--  -->
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-header"><i class="fa fa-usd fa-2x" aria-hidden="true"></i>
-          {{'user.payment.abo' | translate}}
-        </div>
-        <div class="card-body">
-          <!-- info -->
-          <div class="h4 m-0">50</div>
-          <div>Days left...</div>
-          <div class="progress progress-xs my-3">
-            <!-- bg-success | bg-info | bg-warning | bg-danger -->
-            <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25"
-              aria-valuemin="0" aria-valuemax="100"></div>
+<div class="animated fadeIn">
+  <!-- user payments  -->
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" role="form">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+            {{'user.payment.abo' | translate}}
           </div>
-          <!-- please renew the subscription | it's ok -->
-          <small class="text-muted">it's time renew the subscription</small>
+          <div class="card-body">
+            <!-- info -->
+            <div class="h4 m-0">50</div>
+            <div>Days left...</div>
+            <div class="progress progress-xs my-3">
+              <!-- bg-success | bg-info | bg-warning | bg-danger -->
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <!-- please renew the subscription | it's ok -->
+            <small class="text-muted">it's time renew the subscription</small>
 
-          <!-- radios -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">{{'user.payment.subscription' | translate}}</label>
-            <div class="col-md-9 col-form-label">
+            <!-- radios -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">{{'user.payment.subscription' | translate}}</label>
+              <div class="col-md-9 col-form-label">
 
-              <!-- TODO: if read from server: then use ngFor please -->
+                <!-- TODO: if read from server: then use ngFor please -->
 
-              <div class="form-check">
-                <input type="radio" id="month" class="form-check-input" [checked]="selectedPeriod ==='month'"
-                  (change)="selectPaymentFor('month')">
-                <label for="month" class="form-check-label">
-                  {{'user.payment.subscription.month' | translate}}
-                </label>
+                <div class="form-check">
+                  <input type="radio" id="month" class="form-check-input" [checked]="selectedPeriod ==='month'"
+                    (change)="selectPaymentFor('month')">
+                  <label for="month" class="form-check-label">
+                    {{'user.payment.subscription.month' | translate}}
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio" id="half_year" class="form-check-input" [checked]="selectedPeriod ==='half_year'"
+                    (change)="selectPaymentFor('half_year')">
+                  <label for="half_year" class="form-check-label">
+                    {{'user.payment.subscription.half_year' | translate}}
+                  </label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio" id="year" class="form-check-input" [checked]="selectedPeriod ==='year'"
+                    (change)="selectPaymentFor('year')">
+                  <label for="year" class="form-check-label">
+                    {{'user.payment.subscription.year' | translate}}
+                  </label>
+                </div>
+
               </div>
+            </div>
 
-              <div class="form-check">
-                <input type="radio" id="half_year" class="form-check-input" [checked]="selectedPeriod ==='half_year'"
-                  (change)="selectPaymentFor('half_year')">
-                <label for="half_year" class="form-check-label">
-                  {{'user.payment.subscription.half_year' | translate}}
-                </label>
-              </div>
-
-              <div class="form-check">
-                <input type="radio" id="year" class="form-check-input" [checked]="selectedPeriod ==='year'"
-                  (change)="selectPaymentFor('year')">
-                <label for="year" class="form-check-label">
-                  {{'user.payment.subscription.year' | translate}}
-                </label>
-              </div>
-
+            <!-- calculation -->
+            <div class="h6 m-0">&nbsp;
+              <span *ngIf="selectedPay"> {{selectedPay}}€ to pay</span>
+              <span *ngIf="selectedSave > 0"> and saved {{selectedSave}}€</span>
             </div>
           </div>
 
-          <!-- calculation -->
-          <div class="h6 m-0">&nbsp;
-            <span *ngIf="selectedPay"> {{selectedPay}}€ to pay</span>
-            <span *ngIf="selectedSave > 0"> and saved {{selectedSave}}€</span>
-          </div>
-        </div>
+          <div class="card-footer navbar" *ngIf="selectedPay">
 
-        <div class="card-footer navbar" *ngIf="selectedPay">
+            <a class="deco_none" routerLink="/user/payment/card">
+              <i class="icon-credit-card icons font-2xl d-block mt-4"></i>
+              {{'user.payment.card' | translate}}
+            </a>
 
-          <a class="deco_none" routerLink="/user/payment/card">
-            <i class="icon-credit-card icons font-2xl d-block mt-4"></i>
-            {{'user.payment.card' | translate}}
-          </a>
+            <a class="deco_none" routerLink="/user/payment/paypal">
+              <i class="icon-paypal icons font-2xl d-block mt-4"></i>
+              {{'user.payment.paypal' | translate}}
+            </a>
 
-          <a class="deco_none" routerLink="/user/payment/paypal">
-            <i class="icon-paypal icons font-2xl d-block mt-4"></i>
-            {{'user.payment.paypal' | translate}}
-          </a>
+            <a class="deco_none" routerLink="/user/payment/token">
+              <i class="icon-wallet icons font-2xl d-block mt-4"></i>
+              {{'user.payment.token' | translate}}
+            </a>
 
-          <a class="deco_none" routerLink="/user/payment/token">
-            <i class="icon-wallet icons font-2xl d-block mt-4"></i>
-            {{'user.payment.token' | translate}}
-          </a>
-
-          <!-- <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
+            <!-- <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
               class="icon-credit-card icons font-2xl d-block mt-4"></i>{{'user.payment.card' | translate}}</button>
           <button [disabled]="!selectedPay || loading" type="submit" class="btn btn-ghost-primary"><i
               class="icon-paypal icons font-2xl d-block mt-4"></i>{{'user.payment.paypal' | translate}}</button>
@@ -87,7 +87,7 @@
 
 
 
-          <!-- <div class="list-group">
+            <!-- <div class="list-group">
             <a [ngClass]="{'is-disabled': !selectedPay}" routerLink="/user/payment/card"><i
               class="fa fa-home fa-fw" aria-hidden="true"></i>{{'user.payment.card'}}</a>
             <a routerLink="/user/payment/paypal"><i
@@ -96,10 +96,9 @@
               class="fa fa-home fa-fw" aria-hidden="true"></i>{{'user.payment.token'}}</a>
           </div> -->
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-
-</form>
+  </form>
+</div>
