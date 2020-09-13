@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppFooterModule } from '@coreui/angular';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AuthRoutingModule } from './auth-routing.module';
 
 import {
@@ -25,6 +27,7 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslateModule,
     AuthRoutingModule,
     AppFooterModule,
   ],
