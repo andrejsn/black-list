@@ -99,14 +99,49 @@ export class SettingComponent implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (this.settingForm.invalid) {
-      this.translate
-        .get('toast.error.signup_form')
-        .subscribe((error: string) => {
-          this.snotifyService.error(error);
-        });
+      this.translate.get('toast.error.').subscribe((error: string) => {
+        this.snotifyService.error(error);
+      });
 
       return;
     }
+
+    this.loading = true;
+
+    this.http
+      .post<any>(`${environment.apiUrl}/auth/change/pwd`, {
+        password_old: this.f['password_old'].value,
+        password_new: this.f['password_new'].value,
+        password_confirmation: this.f['password_confirmation'].value,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.loading = false;
+          this.submitted = false;
+          if (data && data.success) {
+            this.translate
+              .get('toast.user.pwd.changed')
+              .subscribe((info: string) => {
+                // this.snotifyService.info(info);
+                this.snotifyService.info('Password changed successfully !');
+              });
+          } else if (data && data.error) {
+            this.translate
+              .get('toast.user.pwd.changed')
+              .subscribe((error: string) => {
+                // this.snotifyService.info(error);
+                this.snotifyService.error(
+                  'Your current password does not matches with the password you provided. Please try again'
+                );
+              });
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+        }
+      );
   }
 
   // convenience getter for easy access to form fields

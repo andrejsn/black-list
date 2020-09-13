@@ -30,20 +30,25 @@
               <div *ngIf="submitted && f.password_new.errors && f.password_new.errors.required"
                 class="invalid-feedback">
                 {{'user.error.password.new.required' | translate}}</div>
+                <div *ngIf="submitted && f.password_new.errors && f.password_new.errors.minlength"
+                class="invalid-feedback">
+                {{'user.error.password.new.minlength' | translate}}</div>
             </div>
 
             <!-- user new password confirmation -->
             <div class="form-group">
               <label for="password_confirmation">{{'user.password.confirmation' | translate}}</label>
               <input formControlName="password_confirmation" autocomplete="new-password" class="form-control"
-                [ngClass]="{'is-invalid': submitted && f.password_confirmation.errors, 'is-valid': submitted && !f.password_confirmation.errors}"
+                [ngClass]="{'is-invalid': submitted && f.password_confirmation.errors || submitted && settingForm.hasError('notsame'), 'is-valid': submitted && !f.password_confirmation.errors && !settingForm.hasError('notsame')}"
                 id="password_confirmation" type="password"
                 placeholder="{{ 'placeholder.user.password.confirmation' | translate}}">
               <div *ngIf="submitted && f.password_confirmation.errors && f.password_confirmation.errors.required"
                 class="invalid-feedback">
                 {{'user.error.password.confirmation.required' | translate}}</div>
-              <div *ngIf="submitted && f.password_confirmation.errors && settingForm.hasError('notsame')"
+                <div *ngIf="submitted && f.password_confirmation.errors && f.password_confirmation.errors.minlength"
                 class="invalid-feedback">
+                {{'user.error.password.confirmation.minlength' | translate}}</div>
+              <div *ngIf="submitted && settingForm.hasError('notsame')" class="invalid-feedback">
                 {{'user.error.password.confirmation.notsame' | translate}}</div>
             </div>
 
