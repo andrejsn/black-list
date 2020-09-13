@@ -34,11 +34,11 @@
 
             <!-- user new password confirmation -->
             <div class="form-group">
-              <label for="password_confirmation">{{'user.password.new' | translate}}</label>
+              <label for="password_confirmation">{{'user.password.confirmation' | translate}}</label>
               <input formControlName="password_confirmation" autocomplete="new-password" class="form-control"
                 [ngClass]="{'is-invalid': submitted && f.password_confirmation.errors, 'is-valid': submitted && !f.password_confirmation.errors}"
                 id="password_confirmation" type="password"
-                placeholder="{{ 'placeholder.user.password.new' | translate}}">
+                placeholder="{{ 'placeholder.user.password.confirmation' | translate}}">
               <div *ngIf="submitted && f.password_confirmation.errors && f.password_confirmation.errors.required"
                 class="invalid-feedback">
                 {{'user.error.password.confirmation.required' | translate}}</div>
