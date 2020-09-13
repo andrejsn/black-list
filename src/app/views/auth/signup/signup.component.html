@@ -1,116 +1,116 @@
-<div class="app-body padding_top">
-  <main class="main d-flex align-items-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" role="form">
-            <div class="card mx-4">
-              <div class="card-body p-4">
+<div class="animated fadeIn">
+  <!-- register user account -->
+  <div class="app-body padding_top">
+    <main class="main d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" role="form">
+              <div class="card mx-4">
+                <div class="card-body p-4">
 
-                <h1>Register</h1>
-                <p class="text-muted">Create your account</p>
-                <!-- name -->
-                <small *ngIf="submitted && f.name.errors" class="text-danger">
-                  <div *ngIf="f.name.errors.required">
-                    Name is required
-                  </div>
-                  <div *ngIf="f.name.errors.minlength">
-                    Name is too short
-                  </div>
-                  <div *ngIf="f.name.errors.maxlength">
-                    Name is too long
-                  </div>
-                </small>
+                  <h1>Register</h1>
+                  <p class="text-muted">Create your account</p>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  <!-- name -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control"
+                      [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}"
+                      placeholder="{{'register.input.name' | translate}}" autocomplete="name" formControlName="name">
+                    <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
+                      {{'register.error.name.required' | translate}}</div>
+                    <div *ngIf="submitted && f.name.errors && f.name.errors.minlength" class="invalid-feedback">
+                      {{'register.error.name.minlength' | translate}}</div>
+                    <div *ngIf="submitted && f.name.errors && f.name.errors.maxlength" class="invalid-feedback">
+                      {{'register.error.name.maxlength' | translate}}</div>
                   </div>
-                  <input type="text" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}"
-                    placeholder="Name" autocomplete="name" formControlName="name">
+
+                  <!--email -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control"
+                      [ngClass]="{'is-invalid': submitted && f.email.errors, 'is-valid': submitted && !f.email.errors}"
+                      placeholder="{{'register.input.email' | translate}}" autocomplete="email" formControlName="email">
+                    <div *ngIf="submitted && f.email.errors && f.email.errors.required" class="invalid-feedback">
+                      {{'register.error.email.required' | translate}}</div>
+                    <div *ngIf="submitted && f.email.errors && f.email.errors.email" class="invalid-feedback">
+                      {{'register.error.email.notvalid' | translate}}</div>
+                  </div>
+
+                  <!-- password -->
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control"
+                      [ngClass]="{'is-invalid': submitted && f.password.errors, 'is-valid': submitted && !f.password.errors}"
+                      placeholder="{{'register.input.password' | translate}}" autocomplete="new-password"
+                      formControlName="password">
+                    <div *ngIf="submitted && f.password.errors && f.password.errors.required" class="invalid-feedback">
+                      {{'register.error.password.required' | translate}}</div>
+                    <div *ngIf="submitted && f.password.errors && f.password.errors.minlength" class="invalid-feedback">
+                      {{'register.error.password.minlength' | translate}}</div>
+                    <div *ngIf="submitted && f.password.errors && f.password.errors.maxlength" class="invalid-feedback">
+                      {{'register.error.password.maxlength' | translate}}</div>
+                  </div>
+
+                  <!-- repeat password -->
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control"
+                      [ngClass]="{'is-invalid': submitted && (signupForm.hasError('notsame') || f.password.errors), 'is-valid': submitted && !signupForm.hasError('notsame') && f.password.errors}"
+                      placeholder="Repeat password" autocomplete="new-password" formControlName="password_confirmation">
+                    <div *ngIf="submitted && signupForm.hasError('notsame')" class="invalid-feedback">
+                      {{'register.error.password.notsame' | translate}}</div>
+                  </div>
+
+                  <!-- submit -->
+                  <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Create Account</button>
+
                 </div>
-                <!--email -->
-                <small *ngIf="submitted && f.email.errors" class="text-danger">
-                  <div *ngIf="f.email.errors.required">
-                    Email is required
-                  </div>
-                  <div *ngIf="f.email.errors.email">
-                    Email is not valid
-                  </div>
-                </small>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
-                  </div>
-                  <input type="text" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.email.errors, 'is-valid': submitted && !f.email.errors}"
-                    placeholder="Email" autocomplete="email" formControlName="email">
-                </div>
-                <!-- password -->
-                <small *ngIf="submitted && f.password.errors" class="text-danger">
-                  <div *ngIf="f.password.errors.required">
-                    Password is required
-                  </div>
-                  <div *ngIf="f.password.errors.minlength">
-                    Password is too short
-                  </div>
-                  <div *ngIf="f.password.errors.maxlength">
-                    Password is too long
-                  </div>
-                </small>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.password.errors, 'is-valid': submitted && !f.password.errors}"
-                    placeholder="Password" autocomplete="new-password" formControlName="password">
-                </div>
-                <!-- repeat password -->
-                <small *ngIf="submitted && signupForm.hasError('notsame')" class="text-danger">
-                  Please make sure your passwords match
-                </small>
-
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" [ngClass]="{'is-invalid': submitted && (signupForm.hasError('notsame') || f.password.errors), 'is-valid': submitted && !signupForm.hasError('notsame') && f.password.errors}" placeholder="Repeat password" autocomplete="new-password"
-                    formControlName="password_confirmation">
-                </div>
-                <!-- submit -->
-                <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Create Account</button>
-
-              </div>
-              <!--agree -->
-              <div class="card-footer p-4">
-                <div class="form-group">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" formControlName="agree" id="invalidCheck" required>
-                    <label class="form-check-label form-control" [ngClass]="{'is-invalid': submitted && f.agree.errors, 'is-valid': submitted && !f.agree.errors}" for="invalidCheck">
-                      Agree to terms and conditions
-                    </label>
-                    <div class="invalid-feedback">
-                      You must agree before submitting.
+                <!--agree -->
+                <div class="card-footer p-4">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" formControlName="agree" id="invalidCheck"
+                        required>
+                      <label class="form-check-label form-control"
+                        [ngClass]="{'is-invalid': submitted && f.agree.errors, 'is-valid': submitted && !f.agree.errors}"
+                        for="invalidCheck">
+                        Agree to terms and conditions
+                      </label>
+                      <div class="invalid-feedback">
+                        You must agree before submitting.
+                      </div>
                     </div>
                   </div>
+
+                  <!-- <div class="row">
+                  <div class="col-6">
+                    <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
+                  </div>
+                  </div> -->
+
                 </div>
-                <!-- <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
+                <div class="row">
+                  <div class="col-6"> </div>
+                  <div class="col-6"><a [routerLink]="'/auth/login'">You have account?</a></div>
                 </div>
-                <div class="col-6">
-                  <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
-                </div>
-              </div> -->
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>

@@ -82,23 +82,18 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    const name = this.signupForm.controls['name'].value;
-    const email = this.signupForm.controls['email'].value;
-    const password = this.signupForm.controls['password'].value;
-    const password_confirmation = this.signupForm.controls[
-      'password_confirmation'
-    ].value;
-    const agree = this.signupForm.controls['agree'].value;
+    this.loading = true;
 
-    // this.loading = true;
+    const email = this.f['email'].value;
+    const password = this.f['password'].value;
 
     this.http
       .post<any>(`${environment.apiUrl}/auth/signup`, {
-        name: name,
+        name: this.f['name'].value,
         email: email,
         password: password,
-        password_confirmation: password_confirmation,
-        agree: agree,
+        password_confirmation: this.f['password_confirmation'].value,
+        agree: this.f['agree'].value,
       })
       .pipe(first())
       .subscribe(
@@ -112,10 +107,11 @@ export class SignupComponent implements OnInit {
             });
         },
         (error) => {
+          this.loading = false;
           // TODO: Http failure response error?
           this.translate
             .get('toast.error.email_exist')
-            .subscribe((error: string) => {
+            .subscribe((err: string) => {
               this.snotifyService.error(error);
             });
         }
