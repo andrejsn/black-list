@@ -10,8 +10,13 @@
                 <div class="card-body p-4">
 
                   <h1>Forgot password?</h1>
-                  <p class="text-muted">Reminder your password</p>
-
+                  <p class="text-muted">Change your password in three easy steps.</p>
+                  <ol class="list-unstyled">
+                    <li><span class="text-primary text-medium">1. </span>Enter your email address below.</li>
+                    <li><span class="text-primary text-medium">2. </span>Our system will send you a temporary link
+                    </li>
+                    <li><span class="text-primary text-medium">3. </span>Use the link to reset your password</li>
+                  </ol>
                   <!--email -->
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -19,7 +24,8 @@
                     </div>
                     <input type="text" class="form-control"
                       [ngClass]="{'is-invalid': submitted && f.email.errors, 'is-valid': submitted && !f.email.errors}"
-                      placeholder="{{'register.input.email' | translate}}" autocomplete="email" formControlName="email">
+                      placeholder="{{'register.input.email' | translate}}Enter your email address" autocomplete="email"
+                      formControlName="email">
                     <div *ngIf="submitted && f.email.errors && f.email.errors.required" class="invalid-feedback">
                       {{'register.error.email.required' | translate}}</div>
                     <div *ngIf="submitted && f.email.errors && f.email.errors.email" class="invalid-feedback">
@@ -27,10 +33,14 @@
                   </div>
 
                   <!-- submit -->
-                  <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Remind password</button>
+                  <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Get New Password</button>
                 </div>
                 <div class="card-footer p-4">
-                  this is message
+                  {{message_after_send}}
+                </div>
+                <div *ngIf="message_after_send"  class="row">
+                  <div class="col-6"> </div>
+                  <div class="col-6"><a [routerLink]="'/auth/login'">Go to login</a></div>
                 </div>
 
               </div>

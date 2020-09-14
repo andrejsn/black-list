@@ -27,6 +27,8 @@ export class ForgotComponent implements OnInit {
   submitted = false;
   loading = false;
 
+  message_after_send: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -37,6 +39,7 @@ export class ForgotComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.message_after_send = null;
     // init validator
     this.forgotForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -56,9 +59,29 @@ export class ForgotComponent implements OnInit {
       return;
     }
 
-
+    // send email to server
+    this.http
+      .post<any>(`${environment.apiUrl}/auth/forgot`, {
+        email: this.f['email'].value,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.submitted = false;
+          // this.loading = true;
+          this.message_after_send =
+            'The email with further instructions was sent to the submitted email address. If you don’t receive a message in 5 minutes, check the junk folder. ';
+        },
+        (error) => {
+          this.submitted = false;
+          this.loading = false;
+          // TODO: Http failure response error?
+          this.translate.get('toast.error.').subscribe((err: string) => {
+            this.snotifyService.error(error);
+          });
+        }
+      );
   }
-
 
   // convenience getter for easy access to form fields
   get f() {
