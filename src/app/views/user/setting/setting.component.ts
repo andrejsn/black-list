@@ -109,7 +109,7 @@ export class SettingComponent implements OnInit {
     this.loading = true;
 
     this.http
-      .post<any>(`${environment.apiUrl}/auth/change/pwd`, {
+      .post<any>(`${environment.apiUrl}/auth/change`, {
         password_old: this.f['password_old'].value,
         password_new: this.f['password_new'].value,
         password_confirmation: this.f['password_confirmation'].value,
