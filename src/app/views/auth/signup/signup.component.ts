@@ -43,6 +43,9 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    // TODO: set title ?
+
     this.signupForm = this.formBuilder.group(
       {
         name: [
