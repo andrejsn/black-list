@@ -83,8 +83,41 @@ export class ResetComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-  }
+    // stop here if form is invalid
+    if (this.resetForm.invalid) {
+      this.translate
+        .get('toast.error.reset_form')
+        .subscribe((error: string) => {
+          this.snotifyService.error(error);
+        });
 
+      return;
+    }
+
+    // this.loading = true;
+
+    this.http
+      .post<any>(`${environment.apiUrl}/auth/reset`, {
+        email: this.f['email'].value,
+        password: this.f['password'].value,
+        password_confirmation: this.f['password_confirmation'].value,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          this.loading = false;
+          // TODO: Http failure response error?
+          this.translate
+            .get('toast.password.reset.error')
+            .subscribe((err: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
 
   // convenience getter for easy access to form fields
   get f() {
