@@ -5,6 +5,7 @@ import {
   LoginComponent,
   LogoutComponent,
   ForgotComponent,
+  ResetComponent,
   SignupComponent,
 } from '.';
 
@@ -12,30 +13,22 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    data: {
-      title: 'Login',
-    },
   },
   {
     path: 'logout',
     component: LogoutComponent,
-    data: {
-      title: 'Logout',
-    },
   },
   {
     path: 'forgot',
     component: ForgotComponent,
-    data: {
-      title: 'Login',
-    },
+  },
+  {
+    path: 'reset/:token',
+    component: ResetComponent,
   },
   {
     path: 'signup',
     component: SignupComponent,
-    data: {
-      title: 'Signup',
-    },
   },
 ];
 
