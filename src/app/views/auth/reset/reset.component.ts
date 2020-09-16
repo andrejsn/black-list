@@ -23,6 +23,15 @@ export class ResetComponent implements OnInit {
   token: string;
   key: string;
 
+  submitted: boolean;
+  loading: boolean;
+
+  resetForm: FormGroup = new FormGroup({
+    email: new FormControl(),
+    password: new FormControl(),
+    password_confirmation: new FormControl(),
+  });
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -39,5 +48,46 @@ export class ResetComponent implements OnInit {
 
     // clear url string
     this.router.navigate(['/auth/reset/from?email']);
+
+    // TODO: set title?
+
+    // set Validators
+    this.resetForm = this.formBuilder.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
+          ],
+        ],
+        password_confirmation: [''],
+      },
+      { validator: this.checkPasswords }
+    );
+  }
+
+  /*
+   * check password confirm
+   // TODO: refactoring ? 3x!this function in components
+   */
+  private checkPasswords(formGroup: FormGroup) {
+    //
+    const pass = formGroup.get('password').value;
+    const confirmPass = formGroup.get('password_confirmation').value;
+
+    return pass === confirmPass ? null : { notsame: true };
+  }
+
+  onSubmit() {
+    this.submitted = true;
+  }
+
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.resetForm.controls;
   }
 }
