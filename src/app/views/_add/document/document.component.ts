@@ -19,6 +19,7 @@ export class DocumentComponent implements OnInit {
     selectedDebtor : Debtor;
     selectedContract : Contract;
 
+    maxFileSize = 5 * 1024 * 1024; // 5MB
     addDocumentForm = new FormGroup({name: new FormControl()});
 
     submitted : boolean = false;
@@ -70,7 +71,10 @@ export class DocumentComponent implements OnInit {
             name: [
                 '',
                 [Validators.required]
-            ]
+            ],
+            file: ['', Validators.compose([
+              // FileValidator.
+            ])]
 
         });
     }

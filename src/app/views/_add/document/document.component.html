@@ -22,6 +22,19 @@
                                 <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
                                     {{'document.error.name.required' | translate}}</div>
                             </div>
+
+                            <!--choose file
+                            https://stackoverflow.com/questions/47936183/angular-file-upload
+                            https://github.com/merlosy/ngx-material-file-input
+                            
+                            
+                            -->
+                            <label class="col-md-3 col-form-label" for="file">Choose file</label>
+                            <div class="col-md-8">
+                                <input id="file" formControlName="file" type="file" placeholder="{{'document.enter.name' | translate}}" autocomplete="off" class="form-control" [ngClass]="{'is-invalid': submitted && f.file.errors, 'is-valid': submitted && !f.file.errors}">
+                                <div *ngIf="submitted && f.file.errors && f.file.errors.required" class="invalid-feedback">
+                                    {{'document.error.file.required' | translate}}</div>
+                            </div>
                         </div>
                     </div>
 
