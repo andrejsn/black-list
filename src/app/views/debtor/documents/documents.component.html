@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <i aria-hidden="true" class="toggle fa fa-2x" (click)="visibleList =!visibleList" [ngClass]="{'fa-expand': !visibleList,'fa-compress': visibleList}"></i>
-                <i class="fa fa-paperclip fa-rotate-90 fa-2x" aria-hidden="true"></i> Documents ({{documentsList.length}})
+                <i class="fa fa-paperclip fa-rotate-270 fa-2x" aria-hidden="true"></i> Documents ({{documentsList.length}})
                 <span class="float-right">
           <button class="btn" [routerLink]="'/add/document'">
             <i class="fa fa-plus" aria-hidden="true"></i>
