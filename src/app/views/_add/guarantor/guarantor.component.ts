@@ -135,11 +135,11 @@ export class GuarantorComponent implements OnInit {
   private initNewGuarantor(): Guarantor {
     return {
       contract_id: this.selectedContract.id,
-      name: this.addGuarantorForm.controls['name'].value,
-      code: this.addGuarantorForm.controls['code'].value,
-      phone: this.addGuarantorForm.controls['phone'].value,
-      address: this.addGuarantorForm.controls['address'].value,
-      email: this.addGuarantorForm.controls['email'].value,
+      name: this.f['name'].value,
+      code: this.f['code'].value,
+      phone: this.f['phone'].value,
+      address: this.f['address'].value,
+      email: this.f['email'].value,
     };
   }
 
