@@ -53,8 +53,8 @@ export class DocumentsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          const tmp = data as GuarantorTableElement[];
-          this.guarantorsList = tmp;
+          const tmp = data as DocumentTableElement[];
+          this.documentsList = tmp;
         },
         (error) => {
           console.log(error);
