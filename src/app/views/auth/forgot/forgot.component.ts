@@ -13,11 +13,13 @@ import { first } from 'rxjs/operators';
 import { SnotifyService } from 'ng-snotify';
 
 import { environment } from '@environments/environment';
+import { bgColorAnimation, inOutAnimation } from '@shared/helpers';
 
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
   styleUrls: ['./forgot.component.scss'],
+  animations: [inOutAnimation(), bgColorAnimation()],
 })
 export class ForgotComponent implements OnInit {
   forgotForm: FormGroup = new FormGroup({
@@ -68,17 +70,27 @@ export class ForgotComponent implements OnInit {
       .subscribe(
         (data) => {
           this.submitted = false;
-          // this.loading = true;
-          this.message_after_send =
-            'The email with further instructions was sent to the submitted email address. If you don’t receive a message in 5 minutes, check the junk folder. ';
+          this.loading = true;
+          this.translate
+            .get('toast.password.forgot.email_sent')
+            .subscribe((ok: string) => {
+              this.snotifyService.info(ok);
+            });
+          setTimeout(() => {
+            this.message_after_send =
+              'The email with further instructions was sent to the submitted email address. If you don’t receive a message in 5 minutes, check the junk folder. ';
+          }, 2200);
         },
         (error) => {
           this.submitted = false;
-          this.loading = false;
+          this.loading = true;
           // TODO: Http failure response error?
           this.translate.get('toast.error.').subscribe((err: string) => {
             this.snotifyService.error(error);
           });
+          setTimeout(() => {
+            this.loading = false;
+          }, 5500);
         }
       );
   }

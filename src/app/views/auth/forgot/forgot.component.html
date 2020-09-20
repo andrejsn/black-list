@@ -7,7 +7,7 @@
           <div class="col-md-6 mx-auto">
             <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()" role="form">
               <div class="card mx-4">
-                <div class="card-body p-4">
+                <div *ngIf="!message_after_send" class="card-body p-4">
 
                   <h1>Forgot password?</h1>
                   <p class="text-muted">Change your password in three easy steps.</p>
@@ -31,18 +31,23 @@
                     <div *ngIf="submitted && f.email.errors && f.email.errors.email" class="invalid-feedback">
                       {{'register.error.email.notvalid' | translate}}</div>
                   </div>
-
                   <!-- submit -->
                   <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Get New Password</button>
+                  <!-- go signup -->
+                  <div class="row" [@inOutAnimation]>
+                    <div class="col-6"><a [routerLink]="'/auth/signup'">No account? Go signup!</a></div>
+                    <div class="col-6"></div>
+                  </div>
                 </div>
-                <div class="card-footer p-4">
-                  {{message_after_send}}
+                <div *ngIf="message_after_send">
+                  <div class="card-footer p-4" [@bgColorAnimation]>
+                    {{message_after_send}}
+                  </div>
+                  <div class="row">
+                    <div class="col-6"> </div>
+                    <div class="col-6"><a [routerLink]="'/auth/login'">Go to login page</a></div>
+                  </div>
                 </div>
-                <div *ngIf="message_after_send"  class="row">
-                  <div class="col-6"> </div>
-                  <div class="col-6"><a [routerLink]="'/auth/login'">Go to login</a></div>
-                </div>
-
               </div>
             </form>
           </div>

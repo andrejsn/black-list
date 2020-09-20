@@ -8,6 +8,7 @@ import {
   ResetComponent,
   SignupComponent,
 } from '.';
+import { ErrorComponent } from './reset/error/error.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'reset/:token',
     component: ResetComponent,
+  },
+  {
+    path: 'error',
+    component: ErrorComponent,
   },
   {
     path: 'signup',

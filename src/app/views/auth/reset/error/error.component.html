@@ -1,0 +1,33 @@
+<div class="animated fadeIn">
+  <!-- reset user account -->
+  <div class="app-body padding_top">
+    <main class="main d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+
+              <div class="card mx-4">
+                <div class="card-body p-4">
+
+                  <h1>Ooops... </h1>
+                  <p class="text-muted">an error occurred</p>
+                <div>
+                  This link for password reset is invalid, out of date or previously used. Please try reset password again.
+                </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-1"></div>
+                  <div class="col-7"><a [routerLink]="'/auth/forgot'">Reset your password again</a> </div>
+                  <div class="col-4"><a [routerLink]="'/auth/login'">You have account?</a></div>
+                </div>
+              </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>

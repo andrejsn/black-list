@@ -13,6 +13,7 @@ import {
   SignupComponent,
   ForgotComponent,
   ResetComponent,
+  ErrorComponent,
 } from '.';
 
 @NgModule({
@@ -22,6 +23,7 @@ import {
     SignupComponent,
     ForgotComponent,
     ResetComponent,
+    ErrorComponent,
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@
   <div class="app-body padding_top">
     <main class="main d-flex align-items-center">
       <div class="container">
-        <div *ngIf="!isPasswordChanged" class="row">
+        <div *ngIf="!isPasswordChanged && !isErrorOccured" class="row">
           <div class="col-md-6 mx-auto" [@inOutAnimation]>
             <form [formGroup]="resetForm" (ngSubmit)="onSubmit()" role="form">
               <div class="card mx-4">
@@ -79,6 +79,18 @@
             </div>
           </div>
         </div>
+        <!-- is error occured -->
+        <div *ngIf="isErrorOccured" class="row">
+          <div class="col-md-6 mx-auto" [@inOutAnimation]>
+            <div class="card mx-4">
+              <div class="card-body p-4">
+                <h1>Reset password again</h1>
+                <p class="text-muted"><a [routerLink]="'/auth/forgot'">Go to reset password</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
       </div>
     </main>
   </div>
