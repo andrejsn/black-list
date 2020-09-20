@@ -32,7 +32,7 @@
                       {{'register.error.email.notvalid' | translate}}</div>
                   </div>
                   <!-- submit -->
-                  <button [disabled]="loading" type="submit" class="btn btn-block btn-success">Get New Password</button>
+                  <button *ngIf="!message_after_send" [disabled]="loading" type="submit" class="btn btn-block btn-success">Get New Password</button>
                   <!-- go signup -->
                   <div class="row" [@inOutAnimation]>
                     <div class="col-6"><a [routerLink]="'/auth/signup'">No account? Go signup!</a></div>
