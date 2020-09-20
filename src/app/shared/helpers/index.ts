@@ -1,4 +1,5 @@
 export * from './animations/in_out_animation';
+export * from './animations/bg_color_animation';
 export * from './authentication/authentication.service';
 export * from './pipes/debtor-filter.pipe';
 export * from './pipes/enum-to-array.pipe';
