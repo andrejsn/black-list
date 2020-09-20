@@ -54,6 +54,8 @@ export class ResetComponent implements OnInit {
     this.token = this.route.snapshot.paramMap.get('token');
     this.key = this.route.snapshot.queryParamMap.get('key');
 
+    // TODO: set title?
+
     // clear url string
     this.router.navigate(['/auth/reset/from?email']);
 
@@ -72,7 +74,6 @@ export class ResetComponent implements OnInit {
         }
       );
 
-    // TODO: set title?
 
     // set Validators
     this.resetForm = this.formBuilder.group(

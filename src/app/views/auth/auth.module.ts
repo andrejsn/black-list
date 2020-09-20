@@ -8,13 +8,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import {
+  SignupComponent,
+  VerifyComponent,
   LoginComponent,
   LogoutComponent,
-  SignupComponent,
   ForgotComponent,
   ResetComponent,
   ErrorComponent,
 } from '.';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {
     ForgotComponent,
     ResetComponent,
     ErrorComponent,
+    VerifyComponent,
   ],
   imports: [
     CommonModule,

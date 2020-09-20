@@ -2,15 +2,24 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import {
+  SignupComponent,
+  VerifyComponent,
   LoginComponent,
   LogoutComponent,
   ForgotComponent,
   ResetComponent,
-  SignupComponent,
 } from '.';
 import { ErrorComponent } from './reset/error/error.component';
 
 const routes: Routes = [
+  {
+    path: 'signup',
+    component: SignupComponent,
+  },
+  {
+    path: 'verify/:token',
+    component: VerifyComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -30,10 +39,6 @@ const routes: Routes = [
   {
     path: 'error',
     component: ErrorComponent,
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
   },
 ];
 
