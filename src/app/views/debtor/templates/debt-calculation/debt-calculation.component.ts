@@ -18,6 +18,7 @@ import { ObjectsService } from '@shared/services';
 interface ContractCalcPay extends Contract {
   company: string;
   reg_number: string;
+  address: string;
   calcDate: Date;
   saveDoc: boolean;
 }
@@ -71,9 +72,11 @@ export class DebtCalculationComponent implements OnInit {
     }
 
     // this.loading = true;
-
-    this.contract.company = this.objectsService.debtor.company;
-    this.contract.reg_number = this.objectsService.debtor.reg_number;
+    const debtor: Debtor = this.objectsService.debtor;
+    this.contract.company = debtor.company;
+    this.contract.reg_number = debtor.reg_number;
+    this.contract.address =
+      debtor.legal_address + ' ' + debtor.city + ' ' + debtor.postal_code;
     this.contract.calcDate = this.calcPayForm.controls['calcDate'].value;
     this.contract.saveDoc = this.calcPayForm.controls['saveDoc'].value;
 
