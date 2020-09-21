@@ -11,9 +11,18 @@ export const navI18n: RegExp[] = [
 
 export const navItems: INavData[] = [
   {
-    name: 'Reports',
-    url: '/reports',
-    icon: 'icon-layers',
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'icon-speedometer',
+    // badge: {
+    //   variant: 'info',
+    //   text: 'NEW',
+    // },
+  },
+  {
+    name: 'Calendar',
+    url: '/calendar',
+    icon: 'icon-calendar',
   },
   {
     name: 'Debtors',
@@ -25,23 +34,19 @@ export const navItems: INavData[] = [
     url: '/add/debtor',
     icon: 'icon-user-follow',
   },
-  {
-    name: 'Calendar',
-    url: '/calendar',
-    icon: 'icon-calendar',
+   {
+    name: 'Help',
+    url: '/help',
+    icon: 'icon-support',
   },
 
   // #########################################
-
-  {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW',
-    },
+{
+    name: 'Reports',
+    url: '/reports',
+    icon: 'icon-layers',
   },
+  
   {
     title: true,
     name: 'Theme',
