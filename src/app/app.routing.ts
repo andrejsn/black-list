@@ -80,6 +80,14 @@ export const routes: Routes = [
           ),
         canActivate: [AuthenticationGuardService],
       },
+      {
+        path: 'help',
+        loadChildren: () =>
+          import('./views/help/help.module').then(
+            (m) => m.HelpModule
+          ),
+        canActivate: [AuthenticationGuardService],
+      },
       // user: profile, payments, lock account, logout
       {
         path: 'user',
