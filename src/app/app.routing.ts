@@ -12,7 +12,7 @@ import { AuthenticationGuardService } from './shared/helpers/authentication/auth
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'reports',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
