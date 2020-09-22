@@ -47,7 +47,7 @@ export class DebtCalculationComponent implements OnInit {
     private snotifyService: SnotifyService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { // TODO: validate contract date <= calc date
     this.calcPayForm = this.formBuilder.group({
       calcDate: ['', [Validators.required]],
       saveDoc: ['', ''],
@@ -72,19 +72,14 @@ export class DebtCalculationComponent implements OnInit {
     }
 
     // this.loading = true;
-    const debtor: Debtor = this.objectsService.debtor;
-    this.contract.company = debtor.company;
-    this.contract.reg_number = debtor.reg_number;
-    this.contract.address =
-      debtor.legal_address + ' ' + debtor.city + ' ' + debtor.postal_code;
-    this.contract.calcDate = this.calcPayForm.controls['calcDate'].value;
-    this.contract.saveDoc = this.calcPayForm.controls['saveDoc'].value;
 
     this.http
       .post<any>(
         `${environment.apiUrl}/pdf/contract/calc`,
         {
-          contract: this.contract,
+          contract_id: this.contract.id,
+          calc_date: this.f['calcDate'].value,
+          save_doc: this.f['saveDoc'].value
         },
         { responseType: 'blob' as 'json' }
       )
