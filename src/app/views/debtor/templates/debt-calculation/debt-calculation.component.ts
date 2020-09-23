@@ -11,17 +11,9 @@ import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
-import { Contract, Debtor } from '@app/models';
+import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
-
-interface ContractCalcPay extends Contract {
-  company: string;
-  reg_number: string;
-  address: string;
-  calcDate: Date;
-  saveDoc: boolean;
-}
 
 @Component({
   selector: 'app-debt-calculation',
@@ -29,7 +21,7 @@ interface ContractCalcPay extends Contract {
   styleUrls: ['./debt-calculation.component.scss'],
 })
 export class DebtCalculationComponent implements OnInit {
-  @Input() contract: ContractCalcPay;
+  @Input() contract: Contract;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -80,6 +72,7 @@ export class DebtCalculationComponent implements OnInit {
           contract_id: this.contract.id,
           calc_date: this.f['calcDate'].value,
           save_doc: this.f['saveDoc'].value
+          // TODO: document place
         },
         { responseType: 'blob' as 'json' }
       )
