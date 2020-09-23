@@ -10,11 +10,6 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
-interface ContractRemindPay extends Contract {
-  place: string, number: string, days: number, remindDate: Date, saveDoc: boolean
-}
-
-
 @Component({
   selector: 'app-reminder-pay',
   templateUrl: './reminder-pay.component.html',
@@ -22,15 +17,15 @@ interface ContractRemindPay extends Contract {
 })
 export class ReminderPayComponent implements OnInit {
 
-  @Input() contract: ContractRemindPay;
+  @Input() contract: Contract;
 
   submitted: boolean = false;
   loading: boolean = false;
 
   reminderPayForm = new FormGroup({
     place: new FormControl(),
-    number: new FormControl(),
-    days: new FormControl(),
+    remindNumber: new FormControl(),
+    withinDays: new FormControl(),
     remindDate: new FormControl(new Date()),
     saveDoc: new FormControl()
   });
@@ -44,8 +39,8 @@ export class ReminderPayComponent implements OnInit {
     this.reminderPayForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
-        number: ['', Validators.required],
-        days: ['', [Validators.required, Validators.min(1)]],
+        remindNumber: ['', Validators.required],
+        withinDays: ['', [Validators.required, Validators.min(1)]],
         remindDate: ['', [Validators.required]],
         saveDoc: ['', '']
       }
@@ -68,15 +63,20 @@ export class ReminderPayComponent implements OnInit {
 
     this.loading = true;
 
-    this.contract.place = this.reminderPayForm.controls['place'].value;
-    this.contract.number = this.reminderPayForm.controls['number'].value;
-    this.contract.days = this.reminderPayForm.controls['days'].value;
-    this.contract.remindDate = this.reminderPayForm.controls['remindDate'].value;
-    this.contract.saveDoc = this.reminderPayForm.controls['saveDoc'].value;
+    // this.contract.place = this.reminderPayForm.controls['place'].value;
+    // this.contract.number = this.reminderPayForm.controls['number'].value;
+    // this.contract.days = this.reminderPayForm.controls['days'].value;
+    // this.contract.remindDate = this.reminderPayForm.controls['remindDate'].value;
+    // this.contract.saveDoc = this.reminderPayForm.controls['saveDoc'].value;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/remind`,
       {
-        'contract': this.contract
+        contract_id: this.contract.id,
+        document_place: this.f['place'].value,
+        remind_number: this.f['remindNumber'].value,
+        remind_date: this.f['remindDate'].value,
+        within_days: this.f['withinDays'].value,
+        save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
