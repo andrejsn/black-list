@@ -61,13 +61,7 @@ export class ReminderPayComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
-    // this.contract.place = this.reminderPayForm.controls['place'].value;
-    // this.contract.number = this.reminderPayForm.controls['number'].value;
-    // this.contract.days = this.reminderPayForm.controls['days'].value;
-    // this.contract.remindDate = this.reminderPayForm.controls['remindDate'].value;
-    // this.contract.saveDoc = this.reminderPayForm.controls['saveDoc'].value;
+    // this.loading = true;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/remind`,
       {
