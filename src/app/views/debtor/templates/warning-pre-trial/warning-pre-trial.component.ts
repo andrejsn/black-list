@@ -26,7 +26,7 @@ export class WarningPreTrialComponent implements OnInit {
     place: new FormControl(),
     warningPreTrialNumber: new FormControl(),
     within_days: new FormControl(),
-    warningDate: new FormControl(new Date()),
+    warningPreTrialDate: new FormControl(new Date()),
     saveDoc: new FormControl()
   });
 
@@ -41,7 +41,7 @@ export class WarningPreTrialComponent implements OnInit {
         place: ['', [Validators.required]],
         warningPreTrialNumber: ['', Validators.required],
         within_days: ['', [Validators.required, Validators.min(1)]],
-        warningDate: ['', [Validators.required]],
+        warningPreTrialDate: ['', [Validators.required]],
         saveDoc: ['', '']
       }
     );
@@ -68,17 +68,15 @@ export class WarningPreTrialComponent implements OnInit {
         contract_id: this.contract.id,
         document_place: this.f['place'].value,
         warning_pre_trial_number: this.f['warningPreTrialNumber'].value,
-        warning_date: this.f['warningDate'].value,
+        warning_pre_trial_date: this.f['warningPreTrialDate'].value,
         within_days: this.f['within_days'].value,
         save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
         data => {
-          console.log(data);
 
-
-          // window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(data));
         },
         error => {
 

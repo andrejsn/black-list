@@ -34,13 +34,13 @@
 
                 <div class="form-group">
                   <label for="warningPreTrialDate">Date of the document</label>
-                  <input id="warningPreTrialDate" class="form-control" bsDatepicker formControlName="warningDate"
+                  <input id="warningPreTrialDate" class="form-control" bsDatepicker formControlName="warningPreTrialDate"
                     placement="top" autocomplete="off"
-                    [ngClass]="{'is-invalid': submitted && f.warningDate.errors, 'is-valid': submitted && !f.warningDate.errors}"
+                    [ngClass]="{'is-invalid': submitted && f.warningPreTrialDate.errors, 'is-valid': submitted && !f.warningPreTrialDate.errors}"
                     [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                  <div *ngIf="submitted && f.warningDate.errors && f.warningDate.errors.required"
+                  <div *ngIf="submitted && f.warningPreTrialDate.errors && f.warningPreTrialDate.errors.required"
                     class="invalid-feedback">
-                    {{'template.error.warningDate.required' | translate}}</div>
+                    {{'template.error.warningPreTrialDate.required' | translate}}</div>
                 </div>
 
                 <div class="form-group">
