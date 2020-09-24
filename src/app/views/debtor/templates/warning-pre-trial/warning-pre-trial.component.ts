@@ -63,7 +63,7 @@ export class WarningPreTrialComponent implements OnInit {
 
     // this.loading = true;
 
-    this.http.post<any>(`${environment.apiUrl}/pdf/contract/warning/pre/trial`,
+    this.http.post<any>(`${environment.apiUrl}/pdf/contract/warning/pretrial`,
       {
         contract_id: this.contract.id,
         document_place: this.f['place'].value,
