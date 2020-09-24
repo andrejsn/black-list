@@ -25,18 +25,6 @@ enum Basis {
   services,
 }
 
-interface ContractClaimToCourt extends Contract {
-  place: string;
-  number: string;
-  judgesNumber: number;
-  court: Court;
-  courtName: string;
-  courtAddress: string;
-  attachments: any;
-  claimToCourtDate: Date;
-  basis: Basis;
-  saveDoc: boolean;
-}
 
 @Component({
   selector: 'app-claim-to-court',
@@ -44,18 +32,18 @@ interface ContractClaimToCourt extends Contract {
   styleUrls: ['./claim-to-court.component.scss'],
 })
 export class ClaimToCourtComponent implements OnInit {
-  @Input() contract: ContractClaimToCourt;
+  @Input() contract: Contract;
   debtorBasis = Basis;
   courts = Court;
   selectedCourt: Court;
-  apiUrl: string;
+  isArbitration: boolean;
 
   submitted: boolean = false;
   loading: boolean = false;
 
   claimToCourtForm = new FormGroup({
     place: new FormControl(),
-    number: new FormControl(),
+    claimToCourtlNumber: new FormControl(),
     judgesNumber: new FormControl(),
 
     basis: new FormControl(),
@@ -73,12 +61,13 @@ export class ClaimToCourtComponent implements OnInit {
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.isArbitration = false;
     this.claimToCourtForm = this.formBuilder.group({
       place: ['', [Validators.required]],
-      number: ['', Validators.required],
+      claimToCourtlNumber: ['', Validators.required],
       claimToCourtDate: ['', [Validators.required]],
 
       basis: [null, [Validators.required]],
@@ -126,39 +115,50 @@ export class ClaimToCourtComponent implements OnInit {
 
     // this.loading = true;
 
-    this.contract.place = this.claimToCourtForm.controls['place'].value;
-    this.contract.number = this.claimToCourtForm.controls['number'].value;
-    this.contract.judgesNumber = this.claimToCourtForm.controls[
-      'judgesNumber'
-    ].value;
-    this.contract.basis = this.claimToCourtForm.controls['basis'].value;
-    this.contract.court = this.claimToCourtForm.controls['court'].value;
-    this.contract.courtName = this.claimToCourtForm.controls['courtName'].value;
-    this.contract.courtAddress = this.claimToCourtForm.controls[
-      'courtAddress'
-    ].value;
-    this.contract.claimToCourtDate = this.claimToCourtForm.controls[
-      'claimToCourtDate'
-    ].value;
-    this.contract.attachments = this.claimToCourtForm.controls[
-      'attachments'
-    ].value;
-    this.contract.saveDoc = this.claimToCourtForm.controls['saveDoc'].value;
+    if (this.isArbitration) {
+      this.arbitration();
+    } else {
+      // state
+      this.state();
+    }
 
+    // this.contract.place = this.f['place'].value;
+    // this.contract.number = this.f['number'].value;
+    // this.contract.judgesNumber = this.f['judgesNumber'].value;
+    // this.contract.basis = this.f['basis'].value;
+    // this.contract.court = this.f['court'].value;
+    // this.contract.courtName = this.f['courtName'].value;
+    // this.contract.courtAddress = this.f['courtAddress'].value;
+    // this.contract.claimToCourtDate = this.f['claimToCourtDate'].value;
+    // this.contract.attachments = this.f['attachments'].value;
+    // this.contract.saveDoc = this.f['saveDoc'].value;
+
+
+  }
+
+  /**
+   * create PDF for arbitration
+   */
+  private arbitration() {
     this.http
       .post<any>(
-        `${environment.apiUrl}` + this.apiUrl,
+        `${environment.apiUrl}/pdf/contract/claim/to/arbitration/court`,
         {
-          contract: this.contract,
+          contract_id: this.contract.id,
+          document_place: this.f['place'].value,
+          claim_to_court_number: this.f['claimToCourtlNumber'].value,
+          claim_to_court_date: this.f['claimToCourtDate'].value,
+          debt_basis: this.f['basis'].value,
+          judges_number: this.f['judgesNumber'].value,
+          attachments: this.f['attachments'].value
         },
         { responseType: 'blob' as 'json' }
       )
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
 
-          // window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(data));
         },
         (error) => {
           console.log(error);
@@ -174,6 +174,37 @@ export class ClaimToCourtComponent implements OnInit {
       );
   }
 
+  private state() {
+    this.http
+      .post<any>(
+        `${environment.apiUrl}/pdf/contract/claim/to/state/court`,
+        {
+
+        },
+        { responseType: 'blob' as 'json' }
+      )
+      .pipe(first())
+      .subscribe(
+        (data) => {
+
+          window.open(window.URL.createObjectURL(data));
+        },
+        (error) => {
+          console.log(error);
+
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+
+  }
+
+
   selectCourt(_court) {
     this.selectedCourt = _court;
     this.f['judgesNumber'].setValue(
@@ -181,7 +212,7 @@ export class ClaimToCourtComponent implements OnInit {
     );
 
     if (this.selectedCourt + '' == 'arbitration') {
-      this.apiUrl = '/pdf/contract/claim/to/arbitration/court';
+      this.isArbitration = true;
 
       this.f['courtName'].setValue(
         this.f['courtName'].value != '' ? this.f['courtName'].value : ' '
@@ -191,7 +222,7 @@ export class ClaimToCourtComponent implements OnInit {
       );
     } else {
       // state
-      this.apiUrl = '/pdf/contract/claim/to/state/court';
+      this.isArbitration = false;
 
       this.f['courtName'].setValue(
         this.f['courtName'].value == ' ' ? '' : this.f['courtName'].value

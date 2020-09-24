@@ -20,11 +20,11 @@
 
                 <div class="form-group">
                   <label for="claimToCourtlNumber">Internal registration number</label>
-                  <input class="form-control" id="claimToCourtlNumber" formControlName="number" type="text"
+                  <input class="form-control" id="claimToCourtlNumber" formControlName="claimToCourtlNumber" type="text"
                     placeholder="Enter registration number" pattern="[^' ']+"
-                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-                    {{'template.error.number.required' | translate}}</div>
+                    [ngClass]="{'is-invalid': submitted && f.claimToCourtlNumber.errors, 'is-valid': submitted && !f.claimToCourtlNumber.errors}">
+                  <div *ngIf="submitted && f.claimToCourtlNumber.errors && f.claimToCourtlNumber.errors.required" class="invalid-feedback">
+                    {{'template.error.claimToCourtlNumber.required' | translate}}</div>
                 </div>
 
               </div>
