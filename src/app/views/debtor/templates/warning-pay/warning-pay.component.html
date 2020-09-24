@@ -44,14 +44,14 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="warningDays">Number of days to pay a debt</label>
-                  <input class="form-control" id="warningDays" formControlName="days" type="number"
+                  <label for="within_days">Number of days to pay a debt</label>
+                  <input class="form-control" id="within_days" formControlName="within_days" type="number"
                     placeholder="Enter number of days"
-                    [ngClass]="{'is-invalid': submitted && f.days.errors, 'is-valid': submitted && !f.days.errors}">
-                  <div *ngIf="submitted && f.days.errors && f.days.errors.required" class="invalid-feedback">
-                    {{'template.error.days.required' | translate}}</div>
-                  <div *ngIf="submitted && f.days.errors && f.days.errors.min" class="invalid-feedback">
-                    {{'template.error.days.min.required' | translate}}</div>
+                    [ngClass]="{'is-invalid': submitted && f.within_days.errors, 'is-valid': submitted && !f.within_days.errors}">
+                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.required" class="invalid-feedback">
+                    {{'template.error.within_days.required' | translate}}</div>
+                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.min" class="invalid-feedback">
+                    {{'template.error.within_days.min.required' | translate}}</div>
                 </div>
               </div>
             </div>

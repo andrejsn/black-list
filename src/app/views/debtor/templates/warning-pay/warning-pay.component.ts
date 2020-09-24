@@ -26,7 +26,7 @@ export class WarningPayComponent implements OnInit {
   warningPayForm = new FormGroup({
     place: new FormControl(),
     warningNumber: new FormControl(),
-    days: new FormControl(),
+    within_days: new FormControl(),
     warningDate: new FormControl(new Date()),
     saveDoc: new FormControl()
   });
@@ -42,7 +42,7 @@ export class WarningPayComponent implements OnInit {
       {
         place: ['', [Validators.required]],
         warningNumber: ['', Validators.required],
-        days: ['', [Validators.required, Validators.min(1)]],
+        within_days: ['', [Validators.required, Validators.min(1)]],
         warningDate: ['', [Validators.required]],
         saveDoc: ['', '']
       }
@@ -70,6 +70,7 @@ export class WarningPayComponent implements OnInit {
         document_place: this.f['place'].value,
         warning_number: this.f['warningNumber'].value,
         warning_date: this.f['warningDate'].value,
+        within_days: this.f['within_days'].value,
         save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
