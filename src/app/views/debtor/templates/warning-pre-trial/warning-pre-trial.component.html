@@ -20,11 +20,11 @@
 
                 <div class="form-group">
                   <label for="warningPreTrialNumber">Internal registration number</label>
-                  <input class="form-control" id="warningPreTrialNumber" formControlName="number" type="text"
+                  <input class="form-control" id="warningPreTrialNumber" formControlName="warningPreTrialNumber" type="text"
                     placeholder="Enter registration number"
-                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-                    {{'template.error.number.required' | translate}}</div>
+                    [ngClass]="{'is-invalid': submitted && f.warningPreTrialNumber.errors, 'is-valid': submitted && !f.warningPreTrialNumber.errors}">
+                  <div *ngIf="submitted && f.warningPreTrialNumber.errors && f.warningPreTrialNumber.errors.required" class="invalid-feedback">
+                    {{'template.error.warningPreTrialNumber.required' | translate}}</div>
                 </div>
               </div>
             </div>
@@ -44,14 +44,14 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="warningPreTrialDays">Number of days to pay a debt</label>
-                  <input class="form-control" id="warningPreTrialDays" formControlName="days" type="number"
+                  <label for="within_days">Number of days to pay a debt</label>
+                  <input class="form-control" id="warningPreTrialDays" formControlName="within_days" type="number"
                     placeholder="Enter number of days"
-                    [ngClass]="{'is-invalid': submitted && f.days.errors, 'is-valid': submitted && !f.days.errors}">
-                  <div *ngIf="submitted && f.days.errors && f.days.errors.required" class="invalid-feedback">
-                    {{'template.error.days.required' | translate}}</div>
-                  <div *ngIf="submitted && f.days.errors && f.days.errors.min" class="invalid-feedback">
-                    {{'template.error.days.min.required' | translate}}</div>
+                    [ngClass]="{'is-invalid': submitted && f.within_days.errors, 'is-valid': submitted && !f.within_days.errors}">
+                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.required" class="invalid-feedback">
+                    {{'template.error.within_days.required' | translate}}</div>
+                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.min" class="invalid-feedback">
+                    {{'template.error.within_days.min.required' | translate}}</div>
                 </div>
 
               </div>

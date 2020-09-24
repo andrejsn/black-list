@@ -10,10 +10,6 @@ import { SnotifyService } from 'ng-snotify';
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
-interface ContractWarningPreTrial extends Contract {
-  place: string, number: string, days: number, warningDate: Date, saveDoc: boolean
-}
-
 @Component({
   selector: 'app-warning-pre-trial',
   templateUrl: './warning-pre-trial.component.html',
@@ -21,15 +17,15 @@ interface ContractWarningPreTrial extends Contract {
 })
 export class WarningPreTrialComponent implements OnInit {
 
-  @Input() contract: ContractWarningPreTrial;
+  @Input() contract: Contract;
 
   submitted: boolean = false;
   loading: boolean = false;
 
   warningPreTrialForm = new FormGroup({
     place: new FormControl(),
-    number: new FormControl(),
-    days: new FormControl(),
+    warningPreTrialNumber: new FormControl(),
+    within_days: new FormControl(),
     warningDate: new FormControl(new Date()),
     saveDoc: new FormControl()
   });
@@ -43,8 +39,8 @@ export class WarningPreTrialComponent implements OnInit {
     this.warningPreTrialForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
-        number: ['', Validators.required],
-        days: ['', [Validators.required, Validators.min(1)]],
+        warningPreTrialNumber: ['', Validators.required],
+        within_days: ['', [Validators.required, Validators.min(1)]],
         warningDate: ['', [Validators.required]],
         saveDoc: ['', '']
       }
@@ -65,17 +61,16 @@ export class WarningPreTrialComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
-    this.contract.place = this.warningPreTrialForm.controls['place'].value;
-    this.contract.number = this.warningPreTrialForm.controls['number'].value;
-    this.contract.days = this.warningPreTrialForm.controls['days'].value;
-    this.contract.warningDate = this.warningPreTrialForm.controls['warningDate'].value;
-    this.contract.saveDoc = this.warningPreTrialForm.controls['saveDoc'].value;
+    // this.loading = true;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/warning/pre/trial`,
       {
-        'contract': this.contract
+        contract_id: this.contract.id,
+        document_place: this.f['place'].value,
+        warning_pre_trial_number: this.f['warningPreTrialNumber'].value,
+        warning_date: this.f['warningDate'].value,
+        within_days: this.f['within_days'].value,
+        save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
