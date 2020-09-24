@@ -21,11 +21,11 @@
 
                 <div class="form-group">
                   <label for="warningNumber">Internal registration number</label>
-                  <input class="form-control" id="warningNumber" formControlName="number" type="text"
+                  <input class="form-control" id="warningNumber" formControlName="warningNumber" type="text"
                     placeholder="Enter registration number"
-                    [ngClass]="{'is-invalid': submitted && f.number.errors, 'is-valid': submitted && !f.number.errors}">
-                  <div *ngIf="submitted && f.number.errors && f.number.errors.required" class="invalid-feedback">
-                    {{'template.error.number.required' | translate}}</div>
+                    [ngClass]="{'is-invalid': submitted && f.warningNumber.errors, 'is-valid': submitted && !f.warningNumber.errors}">
+                  <div *ngIf="submitted && f.warningNumber.errors && f.warningNumber.errors.required" class="invalid-feedback">
+                    {{'template.error.warningNumber.required' | translate}}</div>
                 </div>
               </div>
             </div>

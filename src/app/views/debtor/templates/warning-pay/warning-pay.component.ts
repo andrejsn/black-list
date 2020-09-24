@@ -11,10 +11,6 @@ import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
 
 
-interface ContractWarningPay extends Contract {
-  place: string, number: string, days: number, warningDate: Date, saveDoc: boolean
-}
-
 @Component({
   selector: 'app-warning-pay',
   templateUrl: './warning-pay.component.html',
@@ -22,14 +18,14 @@ interface ContractWarningPay extends Contract {
 })
 export class WarningPayComponent implements OnInit {
 
-  @Input() contract: ContractWarningPay;
+  @Input() contract: Contract;
 
   submitted: boolean = false;
   loading: boolean = false;
 
   warningPayForm = new FormGroup({
     place: new FormControl(),
-    number: new FormControl(),
+    warningNumber: new FormControl(),
     days: new FormControl(),
     warningDate: new FormControl(new Date()),
     saveDoc: new FormControl()
@@ -45,7 +41,7 @@ export class WarningPayComponent implements OnInit {
     this.warningPayForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
-        number: ['', Validators.required],
+        warningNumber: ['', Validators.required],
         days: ['', [Validators.required, Validators.min(1)]],
         warningDate: ['', [Validators.required]],
         saveDoc: ['', '']
@@ -66,25 +62,23 @@ export class WarningPayComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-
-    this.contract.place = this.warningPayForm.controls['place'].value;
-    this.contract.number = this.warningPayForm.controls['number'].value;
-    this.contract.days = this.warningPayForm.controls['days'].value;
-    this.contract.warningDate = this.warningPayForm.controls['warningDate'].value;
-    this.contract.saveDoc = this.warningPayForm.controls['saveDoc'].value;
+    // this.loading = true;
 
     this.http.post<any>(`${environment.apiUrl}/pdf/contract/warning`,
       {
-        'contract': this.contract
+        contract_id: this.contract.id,
+        document_place: this.f['place'].value,
+        warning_number: this.f['warningNumber'].value,
+        warning_date: this.f['warningDate'].value,
+        save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
         data => {
-          console.log(data);
+          // console.log(data);
 
 
-          // window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(data));
         },
         error => {
 
