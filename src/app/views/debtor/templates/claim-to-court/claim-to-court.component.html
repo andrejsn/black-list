@@ -9,6 +9,7 @@
           <div class="row">
             <div class="col-lg-6 tags p-b-2">
               <div class="card-body">
+                <!-- document place -->
                 <div class="form-group">
                   <label for="claimToCourtPlace">Place of writing the document</label>
                   <input class="form-control" id="claimToCourtPlace" formControlName="place" type="text"
@@ -17,20 +18,21 @@
                   <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
                     {{'template.error.place.required' | translate}}</div>
                 </div>
-
+                <!-- registration number -->
                 <div class="form-group">
                   <label for="claimToCourtlNumber">Internal registration number</label>
                   <input class="form-control" id="claimToCourtlNumber" formControlName="claimToCourtlNumber" type="text"
                     placeholder="Enter registration number" pattern="[^' ']+"
                     [ngClass]="{'is-invalid': submitted && f.claimToCourtlNumber.errors, 'is-valid': submitted && !f.claimToCourtlNumber.errors}">
-                  <div *ngIf="submitted && f.claimToCourtlNumber.errors && f.claimToCourtlNumber.errors.required" class="invalid-feedback">
+                  <div *ngIf="submitted && f.claimToCourtlNumber.errors && f.claimToCourtlNumber.errors.required"
+                    class="invalid-feedback">
                     {{'template.error.claimToCourtlNumber.required' | translate}}</div>
                 </div>
-
               </div>
             </div>
             <div class="col-lg-4 offset-lg-1">
               <div class="card-body">
+                <!-- document date -->
                 <div class="form-group">
                   <label for="claimToCourtDate">Date of the document</label>
                   <input id="claimToCourtDate" class="form-control" bsDatepicker formControlName="claimToCourtDate"
@@ -41,13 +43,13 @@
                     class="invalid-feedback">
                     {{'template.error.claimToCourtDate.required' | translate}}</div>
                 </div>
-
+                <!-- select debt basis -->
                 <div class="form-group">
                   <label for="claimToCourtsDebtBasis">Debt basis</label>
                   <select formControlName="basis" class="form-control"
                     [ngClass]="{'is-invalid': submitted && f.basis.errors, 'is-valid': submitted && !f.basis.errors}"
                     id="claimToCourtsDebtBasis">
-                    <option [ngValue]="null" disabled>{{'select.basis' | translate}}</option>
+                    <option [ngValue]="null" disabled selected>{{'select.basis' | translate}}</option>
                     <option [value]="basis" *ngFor="let basis of debtorBasis | enumToArray">
                       {{ 'basis.long.'+basis | translate}}
                     </option>
@@ -62,12 +64,13 @@
           <div class="row">
             <div class="col-lg-8">
               <div class="card-body">
+                <!-- select court if contract with agreement -->
                 <div *ngIf="(contract.with_agreement + '') == '1'" class="form-group">
                   <label for="claimToCourts">Court</label>
                   <select formControlName="court" class="form-control" (ngModelChange)="selectCourt($event)"
                     [ngClass]="{'is-invalid': submitted && f.court.errors, 'is-valid': submitted && !f.court.errors}"
                     id="claimToCourts">
-                    <option [ngValue]="null" disabled>{{'select.court' | translate}}</option>
+                    <option [ngValue]="null" disabled selected>{{'select.court' | translate}}</option>
                     <option [value]="court" *ngFor="let court of courts | enumToArray">
                       {{ 'court.long.'+court | translate}}
                     </option>
