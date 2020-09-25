@@ -32,6 +32,7 @@ import { SharingModule } from '@shared/shareModule';
 
 import { NgxCurrencyModule } from 'ngx-currency';
 import { customCurrencyMaskConfig } from '@app/app.module';
+import { SettlementAgreementComponent } from './templates/settlement-agreement/settlement-agreement.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { customCurrencyMaskConfig } from '@app/app.module';
     PaymentsComponent,
     TasksComponent,
     ShortenTextPipe,
+    SettlementAgreementComponent,
   ],
   imports: [
     CommonModule,
