@@ -9,6 +9,7 @@
           <div class="row">
             <div class="col-lg-6 tags p-b-2">
               <div class="card-body">
+                <!-- document place -->
                 <div class="form-group">
                   <label for="warningPreTrialPlace">Place of writing the document</label>
                   <input class="form-control" id="warningPreTrialPlace" formControlName="place" type="text"
@@ -17,7 +18,7 @@
                   <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
                     {{'template.error.place.required' | translate}}</div>
                 </div>
-
+                <!-- internal registration number -->
                 <div class="form-group">
                   <label for="warningPreTrialNumber">Internal registration number</label>
                   <input class="form-control" id="warningPreTrialNumber" formControlName="warningPreTrialNumber" type="text"
@@ -31,7 +32,7 @@
 
             <div class="col-lg-4 offset-lg-1">
               <div class="card-body">
-
+                <!-- warning date -->
                 <div class="form-group">
                   <label for="warningPreTrialDate">Date of the document</label>
                   <input id="warningPreTrialDate" class="form-control" bsDatepicker formControlName="warningPreTrialDate"
@@ -42,11 +43,11 @@
                     class="invalid-feedback">
                     {{'template.error.warningPreTrialDate.required' | translate}}</div>
                 </div>
-
+                <!-- number of days to pay -->
                 <div class="form-group">
                   <label for="within_days">Number of days to pay a debt</label>
                   <input class="form-control" id="warningPreTrialDays" formControlName="within_days" type="number"
-                    placeholder="Enter number of days"
+                    placeholder="Enter number of days" min="1"
                     [ngClass]="{'is-invalid': submitted && f.within_days.errors, 'is-valid': submitted && !f.within_days.errors}">
                   <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.required" class="invalid-feedback">
                     {{'template.error.within_days.required' | translate}}</div>

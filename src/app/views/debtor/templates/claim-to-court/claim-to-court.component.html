@@ -18,7 +18,7 @@
                   <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
                     {{'template.error.place.required' | translate}}</div>
                 </div>
-                <!-- registration number -->
+                <!-- internal registration number -->
                 <div class="form-group">
                   <label for="claimToCourtlNumber">Internal registration number</label>
                   <input class="form-control" id="claimToCourtlNumber" formControlName="claimToCourtlNumber" type="text"
@@ -109,7 +109,7 @@
                   *ngIf="(selectedCourt + '') === 'arbitration' && (contract.with_agreement + '') == '1'">
                   <label for="claimToCourtJudgesNumber">Number of judges</label>
                   <input class="form-control" id="claimToCourtJudgesNumber" formControlName="judgesNumber" type="number"
-                    placeholder="Enter number"
+                    placeholder="Enter number" min="1"
                     [ngClass]="{'is-invalid': submitted && f.judgesNumber.errors, 'is-valid': submitted && !f.judgesNumber.errors}">
                   <div *ngIf="submitted && f.judgesNumber.errors && f.judgesNumber.errors.required"
                     class="invalid-feedback">

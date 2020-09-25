@@ -46,7 +46,7 @@
                 <div class="form-group">
                   <label for="withinDays">Number of days to pay a debt</label>
                   <input class="form-control" id="withinDays" formControlName="withinDays" type="number"
-                    placeholder="Enter number of within days"
+                    placeholder="Enter number of within days" min="1"
                     [ngClass]="{'is-invalid': submitted && f.withinDays.errors, 'is-valid': submitted && !f.withinDays.errors}">
                   <div *ngIf="submitted && f.withinDays.errors && f.withinDays.errors.required" class="invalid-feedback">
                     {{'template.error.withinDays.required' | translate}}</div>
