@@ -25,7 +25,14 @@ export class DocumentComponent implements OnInit {
     submitted : boolean = false;
     loading : boolean = false;
 
-    constructor(private title : Title, private objectsService : ObjectsService, private router : Router, private translate : TranslateService, private http : HttpClient, private formBuilder : FormBuilder, private snotifyService : SnotifyService) {}
+  constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
+    private router: Router,
+    private translate: TranslateService,
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private snotifyService: SnotifyService) { }
 
     ngOnInit(): void {
         if (!this.objectsService.debtor && !this.objectsService.contract) { // no debtor&contract cached
