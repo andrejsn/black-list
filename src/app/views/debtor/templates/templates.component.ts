@@ -36,8 +36,8 @@ export class TemplateComponent implements OnInit {
     ).pipe(first())
       .subscribe(
         data => {
-
-          this.templateList = data;
+          const tmp = data as TemplateTableElement[];
+          this.templateList = tmp;
 
           // console.log(this.templateList);
         },

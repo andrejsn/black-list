@@ -46,6 +46,9 @@
                 <td *ngSwitchCase="'creditor_to_administrator'" colspan="3">
                   <app-creditor-to-administrator [contract]="contract"></app-creditor-to-administrator>
                 </td>
+                <td *ngSwitchCase="'debt_settlement_agreement'" colspan="3">
+                  <app-settlement-agreement [contract]="contract"></app-settlement-agreement>
+                </td>
                 <td *ngSwitchDefault></td>
 
               </tr>
