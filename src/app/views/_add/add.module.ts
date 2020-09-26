@@ -9,6 +9,7 @@ import {NgxCurrencyModule} from 'ngx-currency';
 import {customCurrencyMaskConfig} from '@app/app.module';
 import {SharingModule} from '@shared/shareModule';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 import {
     DebtorComponent,
@@ -41,6 +42,7 @@ import {
         TranslateModule,
         BsDatepickerModule,
         NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-    ]
+        MaterialFileInputModule,
+      ]
 })
 export class AddModule {}
