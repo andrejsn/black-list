@@ -1,79 +1,85 @@
-<div class="row">
-  <div class="col-lg-10">
-    <form [formGroup]="warningPreTrialForm" (ngSubmit)="onSubmit()" role="form">
-      <div class="card">
-        <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong> <small>
-            Information</small>
-        </div>
-        <div class="card-block">
-          <div class="row">
-            <div class="col-lg-6 tags p-b-2">
-              <div class="card-body">
-                <!-- document place -->
-                <div class="form-group">
-                  <label for="warningPreTrialPlace">Place of writing the document</label>
-                  <input class="form-control" id="warningPreTrialPlace" formControlName="place" type="text"
-                    placeholder="Enter place"
-                    [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
-                  <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
-                    {{'template.error.place.required' | translate}}</div>
+<div class="animated fadeIn">
+  <!-- warning pre trial -->
+  <div class="row">
+    <div class="col-lg-10">
+      <form [formGroup]="warningPreTrialForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong>
+            <small>
+              Information</small>
+          </div>
+          <div class="card-block">
+            <div class="row">
+              <div class="col-lg-6 tags p-b-2">
+                <div class="card-body">
+                  <!-- document place -->
+                  <div class="form-group">
+                    <label for="warningPreTrialPlace">Place of writing the document</label>
+                    <input class="form-control" id="warningPreTrialPlace" formControlName="place" type="text"
+                      placeholder="Enter place"
+                      [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
+                    <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
+                      {{'template.error.place.required' | translate}}</div>
+                  </div>
+                  <!-- internal registration number -->
+                  <div class="form-group">
+                    <label for="warningPreTrialNumber">Internal registration number</label>
+                    <input class="form-control" id="warningPreTrialNumber" formControlName="warningPreTrialNumber"
+                      type="text" placeholder="Enter registration number"
+                      [ngClass]="{'is-invalid': submitted && f.warningPreTrialNumber.errors, 'is-valid': submitted && !f.warningPreTrialNumber.errors}">
+                    <div *ngIf="submitted && f.warningPreTrialNumber.errors && f.warningPreTrialNumber.errors.required"
+                      class="invalid-feedback">
+                      {{'template.error.warningPreTrialNumber.required' | translate}}</div>
+                  </div>
                 </div>
-                <!-- internal registration number -->
-                <div class="form-group">
-                  <label for="warningPreTrialNumber">Internal registration number</label>
-                  <input class="form-control" id="warningPreTrialNumber" formControlName="warningPreTrialNumber" type="text"
-                    placeholder="Enter registration number"
-                    [ngClass]="{'is-invalid': submitted && f.warningPreTrialNumber.errors, 'is-valid': submitted && !f.warningPreTrialNumber.errors}">
-                  <div *ngIf="submitted && f.warningPreTrialNumber.errors && f.warningPreTrialNumber.errors.required" class="invalid-feedback">
-                    {{'template.error.warningPreTrialNumber.required' | translate}}</div>
+              </div>
+
+              <div class="col-lg-4 offset-lg-1">
+                <div class="card-body">
+                  <!-- warning date -->
+                  <div class="form-group">
+                    <label for="warningPreTrialDate">Date of the document</label>
+                    <input id="warningPreTrialDate" class="form-control" bsDatepicker
+                      formControlName="warningPreTrialDate" placement="top" autocomplete="off"
+                      [ngClass]="{'is-invalid': submitted && f.warningPreTrialDate.errors, 'is-valid': submitted && !f.warningPreTrialDate.errors}"
+                      [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
+                    <div *ngIf="submitted && f.warningPreTrialDate.errors && f.warningPreTrialDate.errors.required"
+                      class="invalid-feedback">
+                      {{'template.error.warningPreTrialDate.required' | translate}}</div>
+                  </div>
+                  <!-- number of days to pay -->
+                  <div class="form-group">
+                    <label for="within_days">Number of days to pay a debt</label>
+                    <input class="form-control" id="warningPreTrialDays" formControlName="within_days" type="number"
+                      placeholder="Enter number of days" min="1"
+                      [ngClass]="{'is-invalid': submitted && f.within_days.errors, 'is-valid': submitted && !f.within_days.errors}">
+                    <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.required"
+                      class="invalid-feedback">
+                      {{'template.error.within_days.required' | translate}}</div>
+                    <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.min" class="invalid-feedback">
+                      {{'template.error.within_days.min.required' | translate}}</div>
+                  </div>
+
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-4 offset-lg-1">
-              <div class="card-body">
-                <!-- warning date -->
-                <div class="form-group">
-                  <label for="warningPreTrialDate">Date of the document</label>
-                  <input id="warningPreTrialDate" class="form-control" bsDatepicker formControlName="warningPreTrialDate"
-                    placement="top" autocomplete="off"
-                    [ngClass]="{'is-invalid': submitted && f.warningPreTrialDate.errors, 'is-valid': submitted && !f.warningPreTrialDate.errors}"
-                    [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                  <div *ngIf="submitted && f.warningPreTrialDate.errors && f.warningPreTrialDate.errors.required"
-                    class="invalid-feedback">
-                    {{'template.error.warningPreTrialDate.required' | translate}}</div>
-                </div>
-                <!-- number of days to pay -->
-                <div class="form-group">
-                  <label for="within_days">Number of days to pay a debt</label>
-                  <input class="form-control" id="warningPreTrialDays" formControlName="within_days" type="number"
-                    placeholder="Enter number of days" min="1"
-                    [ngClass]="{'is-invalid': submitted && f.within_days.errors, 'is-valid': submitted && !f.within_days.errors}">
-                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.required" class="invalid-feedback">
-                    {{'template.error.within_days.required' | translate}}</div>
-                  <div *ngIf="submitted && f.within_days.errors && f.within_days.errors.min" class="invalid-feedback">
-                    {{'template.error.within_days.min.required' | translate}}</div>
-                </div>
 
+
+            <div class="card-footer">
+              <div class="form-group">
+                <div class="form-check checkbox">
+                  <input class="form-check-input" id="saveWarningPreTrialDoc" formControlName="saveDoc" type="checkbox">
+                  <label class="form-check-label" for="saveWarningPreTrialDoc">Save to my docs</label>
+                </div>
               </div>
+              <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+                Create</button>
+              <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
             </div>
           </div>
-
-
-
-          <div class="card-footer">
-            <div class="form-group">
-              <div class="form-check checkbox">
-                <input class="form-check-input" id="saveWarningPreTrialDoc" formControlName="saveDoc" type="checkbox">
-                <label class="form-check-label" for="saveWarningPreTrialDoc">Save to my docs</label>
-              </div>
-            </div>
-            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-              Create</button>
-            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
-          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
