@@ -1,3 +1,4 @@
+import { HttpEvent, HttpRequest } from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
@@ -13,6 +14,7 @@ import * as moment from 'moment';
 import {Debtor, Contract, Guarantor} from '@app/models';
 import {environment} from '@environments/environment';
 import {ObjectsService} from '@shared/services';
+import { Observable } from 'rxjs';
 
 @Component({selector: 'app-document', templateUrl: './document.component.html', styleUrls: ['./document.component.css']})
 export class DocumentComponent implements OnInit {
@@ -102,6 +104,15 @@ export class DocumentComponent implements OnInit {
         }
     }
 
+    private upload(file: File): Observable<HttpEvent<any>> {
+      const formData: FormData = new FormData();
+
+      formData.append('file', file);
+
+      const req = new HttpRequest('POST', )
+
+      return null;
+    }
 
     // convenience getter for easy access to form fields
     get f() {
