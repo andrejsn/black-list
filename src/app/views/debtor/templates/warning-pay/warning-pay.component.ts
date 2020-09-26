@@ -17,7 +17,6 @@ import { environment } from '@environments/environment';
   styleUrls: ['./warning-pay.component.scss']
 })
 export class WarningPayComponent implements OnInit {
-
   @Input() contract: Contract;
 
   submitted: boolean = false;
@@ -49,9 +48,10 @@ export class WarningPayComponent implements OnInit {
     );
     this.warningPayForm.patchValue({ saveDoc: true });
   }
+
   /**
-     * submit form
-     */
+  * submit form
+  */
   onSubmit() {
     this.submitted = true;
 
