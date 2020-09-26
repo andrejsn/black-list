@@ -22,6 +22,7 @@ export class SettlementAgreementComponent implements OnInit {
 
   settlementForm = new FormGroup({
     place: new FormControl(),
+    settlementDate: new FormControl(),
     saveDoc: new FormControl()
   });
 
@@ -59,7 +60,7 @@ export class SettlementAgreementComponent implements OnInit {
       {
         contract_id: this.contract.id,
         document_place: this.f['place'].value,
-        settlementDate: this.f['settlementDate'].value,
+        settlement_date: this.f['settlementDate'].value,
         save_doc: this.f['saveDoc'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
