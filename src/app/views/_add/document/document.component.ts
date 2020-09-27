@@ -28,7 +28,10 @@ export class DocumentComponent implements OnInit {
 
   fileInfos: Observable<any>;
   maxFileSize = 5 * 1024 * 1024; // 5MB
-  addDocumentForm = new FormGroup({ name: new FormControl() });
+  addDocumentForm = new FormGroup({
+    documentName: new FormControl(),
+    file: new FormControl()
+  });
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -83,20 +86,14 @@ export class DocumentComponent implements OnInit {
 
     // create validation
     this.addDocumentForm = this.formBuilder.group({
-      name: [
-        '',
-        [Validators.required]
-      ],
-      file: ['', Validators.compose([
-        // FileValidator.
-      ])]
-
+      documentName: ['', [Validators.required]],
+      file: ['', [Validators.required]]
     });
   }
 
   /**
- * submit form
- */
+  * submit form
+  */
   onSubmit() {
     this.submitted = true;
 
@@ -139,6 +136,8 @@ export class DocumentComponent implements OnInit {
   private upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
+    formData.append('contract_id', this.selectedContract.id + '');
+    formData.append('document_name', this.f['documentName'].value);
     formData.append('file', file);
 
     const req = new HttpRequest(
