@@ -26,14 +26,36 @@
                             <!--choose file
                             https://stackoverflow.com/questions/47936183/angular-file-upload
                             https://github.com/merlosy/ngx-material-file-input
-                            
-                            
+
+
                             -->
                             <label class="col-md-3 col-form-label" for="file">Choose file</label>
-                            <div class="col-md-8">
+                            <!-- <div class="col-md-8">
                                 <input id="file" formControlName="file" type="file" placeholder="{{'document.enter.name' | translate}}" autocomplete="off" class="form-control" [ngClass]="{'is-invalid': submitted && f.file.errors, 'is-valid': submitted && !f.file.errors}">
                                 <div *ngIf="submitted && f.file.errors && f.file.errors.required" class="invalid-feedback">
                                     {{'document.error.file.required' | translate}}</div>
+                            </div> -->
+                            <div class="col-md-8">
+                              <label class="btn btn-default">
+                                <input type="file" (change)="selectFile($event)" />
+                              </label>
+                              <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFile()">
+                                Upload
+                              </button>
+                              <div class="alert alert-light" role="alert">{{ message }}</div>
+                            </div>
+                            <!-- file upload progress time line -->
+                            <div *ngIf="currentFile" class="progress col-md-12">
+                              <div
+                                class="progress-bar progress-bar-info progress-bar-striped"
+                                role="progressbar"
+                                attr.aria-valuenow="{{ progress }}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                [ngStyle]="{ width: progress + '%' }"
+                              >
+                                {{ progress }}%
+                              </div>
                             </div>
                         </div>
                     </div>

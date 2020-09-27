@@ -1,31 +1,37 @@
-import { HttpEvent, HttpRequest } from '@angular/common/http';
-import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
+import { HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import {first} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
-import {SnotifyService, Snotify} from 'ng-snotify';
+import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
 
-import {Debtor, Contract, Guarantor} from '@app/models';
-import {environment} from '@environments/environment';
-import {ObjectsService} from '@shared/services';
+import { Debtor, Contract, Guarantor } from '@app/models';
+import { environment } from '@environments/environment';
+import { ObjectsService } from '@shared/services';
 import { Observable } from 'rxjs';
 
-@Component({selector: 'app-document', templateUrl: './document.component.html', styleUrls: ['./document.component.css']})
+@Component({ selector: 'app-document', templateUrl: './document.component.html', styleUrls: ['./document.component.css'] })
 export class DocumentComponent implements OnInit {
-    selectedDebtor : Debtor;
-    selectedContract : Contract;
+  selectedDebtor: Debtor;
+  selectedContract: Contract;
 
-    maxFileSize = 5 * 1024 * 1024; // 5MB
-    addDocumentForm = new FormGroup({name: new FormControl()});
+  selectedFiles: FileList;
+  currentFile: File;
+  progress = 0;
+  message = '';
 
-    submitted : boolean = false;
-    loading : boolean = false;
+  fileInfos: Observable<any>;
+  maxFileSize = 5 * 1024 * 1024; // 5MB
+  addDocumentForm = new FormGroup({ name: new FormControl() });
+
+  submitted: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private title: Title,
@@ -36,86 +42,117 @@ export class DocumentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snotifyService: SnotifyService) { }
 
-    ngOnInit(): void {
-        if (!this.objectsService.debtor && !this.objectsService.contract) { // no debtor&contract cached
-            this.router.navigate(['/debtors']);
+  ngOnInit(): void {
+    if (!this.objectsService.debtor && !this.objectsService.contract) { // no debtor&contract cached
+      this.router.navigate(['/debtors']);
 
-            return;
+      return;
+    }
+    this.selectedDebtor = this.objectsService.debtor;
+    this.selectedContract = this.objectsService.contract;
+
+    // set browser title
+    this.title.setTitle(this.selectedDebtor.company + '- add guarantor');
+    // set bread crumb menu
+    this.objectsService.setBreadCrumb([
+      {
+        route: '/',
+        name: 'Home',
+        active: false
+      },
+      {
+        route: '/debtors',
+        name: 'Debtors',
+        active: false
+      },
+      {
+        route: '/debtor',
+        name: 'Debtor: ' + this.selectedDebtor.company,
+        active: false
+      },
+      {
+        route: '/contract',
+        name: 'Contract: ' + this.selectedContract.number,
+        active: true
+      }, {
+        route: '/add/document',
+        name: 'Add document',
+        active: true
+      },
+    ]);
+
+    // create validation
+    this.addDocumentForm = this.formBuilder.group({
+      name: [
+        '',
+        [Validators.required]
+      ],
+      file: ['', Validators.compose([
+        // FileValidator.
+      ])]
+
+    });
+  }
+
+  /**
+ * submit form
+ */
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.addDocumentForm.invalid) {
+      this.translate.get('toast.error.template.form').subscribe((error: string) => {
+        this.snotifyService.error(error);
+      });
+
+      return;
+    }
+  }
+
+  selectFile(event): void {
+    this.selectedFiles = event.target.files;
+  }
+
+  uploadFile(): void {
+    this.progress = 0;
+
+    this.currentFile = this.selectedFiles.item(0);
+    this.upload(this.currentFile).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+          // this.fileInfos = this.uploadService.getFiles();
         }
-        this.selectedDebtor = this.objectsService.debtor;
-        this.selectedContract = this.objectsService.contract;
+      },
+      err => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
+        this.currentFile = undefined;
+      }
+    );
+    this.selectedFiles = undefined;
+  }
 
-        // set browser title
-        this.title.setTitle(this.selectedDebtor.company + '- add guarantor');
-        // set bread crumb menu
-        this.objectsService.setBreadCrumb([
-            {
-                route: '/',
-                name: 'Home',
-                active: false
-            },
-            {
-                route: '/debtors',
-                name: 'Debtors',
-                active: false
-            },
-            {
-                route: '/debtor',
-                name: 'Debtor: ' + this.selectedDebtor.company,
-                active: false
-            },
-            {
-                route: '/contract',
-                name: 'Contract: ' + this.selectedContract.number,
-                active: true
-            }, {
-                route: '/add/document',
-                name: 'Add document',
-                active: true
-            },
-        ]);
+  private upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
 
-        // create validation
-        this.addDocumentForm = this.formBuilder.group({
-            name: [
-                '',
-                [Validators.required]
-            ],
-            file: ['', Validators.compose([
-              // FileValidator.
-            ])]
+    formData.append('file', file);
 
-        });
-    }
+    const req = new HttpRequest(
+      'POST',
+      `${environment.apiUrl}/upload/file`,
+      formData,
+      { reportProgress: true, responseType: 'json' }
+    );
 
-    /**
-   * submit form
-   */
-    onSubmit() {
-        this.submitted = true;
+    return this.http.request(req);
+  }
 
-        // stop here if form is invalid
-        if (this.addDocumentForm.invalid) {
-            this.translate.get('toast.error.template.form').subscribe((error : string) => {
-                this.snotifyService.error(error);
-            });
-
-            return;
-        }
-    }
-
-    private upload(file: File): Observable<HttpEvent<any>> {
-      const formData: FormData = new FormData();
-
-      formData.append('file', file);
-
-      const req = new HttpRequest('POST', )
-
-      return null;
-    }
-
-    // convenience getter for easy access to form fields
-    get f() {
-        return this.addDocumentForm.controls;
-    }
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.addDocumentForm.controls;
+  }
 }
