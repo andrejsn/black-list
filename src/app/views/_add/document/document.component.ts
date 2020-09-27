@@ -1,4 +1,4 @@
-import { HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpRequest, HttpResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -86,7 +86,7 @@ export class DocumentComponent implements OnInit {
 
     // create validation
     this.addDocumentForm = this.formBuilder.group({
-      documentName: ['', [Validators.required]],
+      documentName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
       file: ['', [Validators.required]]
     });
   }
@@ -116,7 +116,7 @@ export class DocumentComponent implements OnInit {
 
     this.currentFile = this.selectedFiles.item(0);
     this.upload(this.currentFile).subscribe(
-      event => {
+      (event) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
@@ -124,10 +124,24 @@ export class DocumentComponent implements OnInit {
           // this.fileInfos = this.uploadService.getFiles();
         }
       },
-      err => {
+
+      (error) => {
+
+        console.log(error.error);
+
+
         this.progress = 0;
-        this.message = 'Could not upload the file!';
         this.currentFile = undefined;
+        this.loading = false;
+        this.submitted = false;
+        this.message = ' ,,, not uploaded';
+
+
+        this.translate
+          .get('toast.error.response')
+          .subscribe((err: string) => {
+            this.snotifyService.error(error);
+          });
       }
     );
     this.selectedFiles = undefined;
@@ -142,7 +156,7 @@ export class DocumentComponent implements OnInit {
 
     const req = new HttpRequest(
       'POST',
-      `${environment.apiUrl}/upload/file`,
+      `${environment.apiUrl}/document/store`,
       formData,
       { reportProgress: true, responseType: 'json' }
     );

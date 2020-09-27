@@ -24,6 +24,12 @@
                 <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.required"
                   class="invalid-feedback">
                   {{'document.error.documentName.required' | translate}}</div>
+                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.minlength"
+                  class="invalid-feedback">
+                  {{'document.error.documentName.minlength' | translate}}</div>
+                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.maxlength"
+                  class="invalid-feedback">
+                  {{'document.error.documentName.maxlength' | translate}}</div>
               </div>
 
               <!--choose file
