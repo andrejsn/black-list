@@ -7,6 +7,7 @@ import {
   Invoice,
   Representative,
   Guarantor,
+  Document
 } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -21,6 +22,7 @@ export class ObjectsService {
   invoice: Invoice;
   representative: Representative;
   guarantor: Guarantor;
+  document: Document;
 
   // breadCrumb
   menuItems: MenuItem[] = [{ route: '/', name: 'Home', active: true }];

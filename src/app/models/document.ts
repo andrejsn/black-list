@@ -1,7 +1,7 @@
 export interface Document {
-    id?: number;
+  id?: number;
 
-    name: string;
-    md5?:string;
-    path?:string;
+  byname: string;
+  name: string;
+  updated_at: string;
 }

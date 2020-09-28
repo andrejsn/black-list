@@ -35,22 +35,20 @@ export class DocumentsComponent implements OnInit {
     private http: HttpClient,
     private translate: TranslateService,
     private snotifyService: SnotifyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // TODO: schould list visible
     // if -> yes reset another -> see guarantors coponent
 
-    // get Data 
+
     // get data
     this.http
-      .get<any>(
-        `${environment.apiUrl}/get/contract/` +
-          this.contract.id +
-          `/documents`,
+      .get<any>(`${environment.apiUrl}/get/contract/`
+        + this.contract.id
+        + `/documents`,
         {}
-      )
-      .pipe(first())
+      ).pipe(first())
       .subscribe(
         (data) => {
           const tmp = data as DocumentTableElement[];
@@ -62,4 +60,21 @@ export class DocumentsComponent implements OnInit {
       );
   }
 
+  /**
+  * toggle row
+  */
+  toggle(id: number) {
+    this.documentsList.forEach((document) => {
+      document.visible = document.id === id ? !document.visible : false;
+    });
+  }
+
+  editGuarantor(selectedDocument: DocumentTableElement) {
+    this.objectsService.document = selectedDocument;
+    this.router.navigate(['/edit/guarantor']);
+  }
+
+  private cancelDeleteDocument(documentToDelete: DocumentTableElement) {
+    documentToDelete.toDelete = false;
+  }
 }
