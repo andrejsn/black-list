@@ -24,12 +24,12 @@ export class DocumentComponent implements OnInit {
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
-  message = '';
 
   fileInfos: Observable<any>;
   maxFileSize = 5 * 1024 * 1024; // 5MB
   addDocumentForm = new FormGroup({
     documentName: new FormControl(),
+    fileName: new FormControl(),
     file: new FormControl()
   });
 
@@ -87,7 +87,8 @@ export class DocumentComponent implements OnInit {
     // create validation
     this.addDocumentForm = this.formBuilder.group({
       documentName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
-      file: ['', [Validators.required]]
+      fileName: ['', [Validators.required]],
+      file: ['', [Validators.required]],
     });
   }
 
@@ -105,13 +106,17 @@ export class DocumentComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.uploadFile();
   }
 
   selectFile(event): void {
     this.selectedFiles = event.target.files;
+    this.f['fileName'].setValue(this.selectedFiles[0].name);
   }
 
-  uploadFile(): void {
+  private uploadFile(): void {
     this.progress = 0;
 
     this.currentFile = this.selectedFiles.item(0);
@@ -120,12 +125,22 @@ export class DocumentComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-          // this.fileInfos = this.uploadService.getFiles();
+          // File has been uploaded
+          // console.log(event.body.success);
+
+          this.snotifyService.success('File has been uploaded', 'Example title', {
+            timeout: 2000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true
+          });
+
+          this.router.navigate(['/debtor/contracts']);
         }
       },
 
       (error) => {
+        this.loading = false;
 
         console.log(error.error);
 
@@ -134,7 +149,7 @@ export class DocumentComponent implements OnInit {
         this.currentFile = undefined;
         this.loading = false;
         this.submitted = false;
-        this.message = ' ,,, not uploaded';
+
 
 
         this.translate

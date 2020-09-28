@@ -14,6 +14,22 @@
           <!-- card body -->
           <div class="card-body">
             <div class="form-group row">
+              <!-- choose file -->
+              <label class="col-md-3 col-form-label" for="file">Choose file
+                &nbsp;&nbsp;&nbsp;
+                <label for="file" class="custom-file-upload">
+                  <i class="fa fa-upload"></i>
+                  <input id="file" formControlName="file" type="file" (change)="selectFile($event)"
+                    class="form-control" />
+                </label>
+              </label>
+              <div class="col-md-8">
+                <input type="text" formControlName="fileName" readonly
+                  placeholder="{{'document.enter.fileName' | translate}}" autocomplete="off" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.fileName.errors, 'is-valid': submitted && !f.fileName.errors}">
+                <div *ngIf="submitted && f.fileName.errors && f.fileName.errors.required" class="invalid-feedback">
+                  {{'document.error.fileName.required' | translate}}</div>
+              </div>
 
               <!-- document name -->
               <label class="col-md-3 col-form-label" for="documentName">Document name</label>
@@ -32,35 +48,6 @@
                   {{'document.error.documentName.maxlength' | translate}}</div>
               </div>
 
-              <!--choose file
-                            https://stackoverflow.com/questions/47936183/angular-file-upload
-                            https://github.com/merlosy/ngx-material-file-input
-
-
-                            -->
-              <label class="col-md-3 col-form-label" for="file">Choose file</label>
-              <!-- <div class="col-md-8">
-                                <input id="file" formControlName="file" type="file" placeholder="{{'document.enter.name' | translate}}" autocomplete="off" class="form-control" [ngClass]="{'is-invalid': submitted && f.file.errors, 'is-valid': submitted && !f.file.errors}">
-                                <div *ngIf="submitted && f.file.errors && f.file.errors.required" class="invalid-feedback">
-                                    {{'document.error.file.required' | translate}}</div>
-                            </div> -->
-              <div class="col-md-8">
-                <label class="btn btn-default">
-                  <input id="file" formControlName="file" type="file" (change)="selectFile($event)"
-                    placeholder="{{'document.enter.name' | translate}}" autocomplete="off" class="form-control"
-                    [ngClass]="{'is-invalid': submitted && f.file.errors, 'is-valid': submitted && !f.file.errors}" />
-                  <div *ngIf="submitted && f.file.errors && f.file.errors.required" class="invalid-feedback">
-                    {{'document.error.file.required' | translate}}</div>
-                </label>
-              </div>
-              <div class="col-md-3">
-                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadFile()">
-                  Upload
-                </button>
-              </div>
-              <div class="col-md-8">
-                <div class="alert alert-light" role="alert">{{ message }}</div>
-              </div>
               <!-- file upload progress time line -->
               <div *ngIf="currentFile" class="progress col-md-12">
                 <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
