@@ -171,7 +171,7 @@ export class DocumentComponent implements OnInit {
 
     const req = new HttpRequest(
       'POST',
-      `${environment.apiUrl}/document/store`,
+      `${environment.apiUrl}/document/upload`,
       formData,
       { reportProgress: true, responseType: 'json' }
     );
