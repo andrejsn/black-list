@@ -1,1 +1,48 @@
-<p>document works!</p>
+<div class="animated fadeIn">
+  <!-- edit document name -->
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="editDocumentForm" (ngSubmit)="onSubmit()" role="form">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-paperclip fa-rotate-270 fa-2x" aria-hidden="true"></i> Edit document details
+            <span class="float-right">
+              <a class="btn btn-default btn-sm" [routerLink]="'/debtor/contracts'">
+                <i class="fa fa-chevron-left"></i> Return to Contracts</a>
+            </span>
+          </div>
+          <!-- card body -->
+          <div class="card-body">
+            <div class="form-group row">
+
+              <!-- document name -->
+              <label class="col-md-3 col-form-label" for="documentName">Document name</label>
+              <div class="col-md-8">
+                <input id="documentName" formControlName="documentName" type="text"
+                  placeholder="{{'document.enter.documentName' | translate}}" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.documentName.errors, 'is-valid': submitted && !f.documentName.errors}">
+                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.required"
+                  class="invalid-feedback">
+                  {{'document.error.documentName.required' | translate}}</div>
+                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.minlength"
+                  class="invalid-feedback">
+                  {{'document.error.documentName.minlength' | translate}}</div>
+                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.maxlength"
+                  class="invalid-feedback">
+                  {{'document.error.documentName.maxlength' | translate}}</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- card footer -->
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Update</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
