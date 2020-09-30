@@ -117,6 +117,8 @@ export class DocumentComponent implements OnInit {
       .subscribe(
         (data) => {
           this.objectsService.document.byname = this.f['byname'].value;
+          this.snotifyService.info('Document is changed');
+
           this.router.navigate(['/debtor/contracts']);
         },
         (error) => {
