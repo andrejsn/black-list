@@ -10,11 +10,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
 import { Debtor, Contract, Guarantor } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
-import { Observable } from 'rxjs';
 
 @Component({ selector: 'app-document', templateUrl: './document.component.html', styleUrls: ['./document.component.css'] })
 export class DocumentComponent implements OnInit {
@@ -55,7 +55,7 @@ export class DocumentComponent implements OnInit {
     this.selectedContract = this.objectsService.contract;
 
     // set browser title
-    this.title.setTitle(this.selectedDebtor.company + '- add guarantor');
+    this.title.setTitle(this.selectedDebtor.company + '- add document');
     // set bread crumb menu
     this.objectsService.setBreadCrumb([
       {
