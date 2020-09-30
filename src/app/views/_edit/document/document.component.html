@@ -16,20 +16,20 @@
             <div class="form-group row">
 
               <!-- document name -->
-              <label class="col-md-3 col-form-label" for="documentName">Document name</label>
+              <label class="col-md-3 col-form-label" for="byname">Document name</label>
               <div class="col-md-8">
-                <input id="documentName" formControlName="documentName" type="text"
-                  placeholder="{{'document.enter.documentName' | translate}}" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.documentName.errors, 'is-valid': submitted && !f.documentName.errors}">
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.required"
+                <input id="byname" formControlName="byname" type="text"
+                  placeholder="{{'document.enter.byname' | translate}}" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.byname.errors, 'is-valid': submitted && !f.byname.errors}">
+                <div *ngIf="submitted && f.byname.errors && f.byname.errors.required"
                   class="invalid-feedback">
-                  {{'document.error.documentName.required' | translate}}</div>
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.minlength"
+                  {{'document.error.byname.required' | translate}}</div>
+                <div *ngIf="submitted && f.byname.errors && f.byname.errors.minlength"
                   class="invalid-feedback">
-                  {{'document.error.documentName.minlength' | translate}}</div>
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.maxlength"
+                  {{'document.error.byname.minlength' | translate}}</div>
+                <div *ngIf="submitted && f.byname.errors && f.byname.errors.maxlength"
                   class="invalid-feedback">
-                  {{'document.error.documentName.maxlength' | translate}}</div>
+                  {{'document.error.byname.maxlength' | translate}}</div>
               </div>
 
             </div>
