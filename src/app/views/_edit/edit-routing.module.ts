@@ -2,7 +2,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskComponent, RepresentativeComponent, GuarantorComponent, ContractComponent } from '.';
+import { TaskComponent, RepresentativeComponent, GuarantorComponent, ContractComponent, DocumentComponent } from '.';
 import { P404Component } from '../error/404.component';
 
 const routes: Routes = [
@@ -18,6 +18,14 @@ const routes: Routes = [
     component: TaskComponent,
   },
   {
+    path: 'contract',
+    component: ContractComponent,
+  },
+  {
+    path: 'invoice',
+    component: InvoiceComponent,
+  },
+  {
     path: 'representative',
     component: RepresentativeComponent,
   },
@@ -26,13 +34,11 @@ const routes: Routes = [
     component: GuarantorComponent,
   },
   {
-    path: 'invoice',
-    component: InvoiceComponent,
+    path: 'document',
+    component: DocumentComponent,
   },
-  {
-    path: 'contract',
-    component: ContractComponent,
-  },
+
+
   { path: '**', component: P404Component },
 ];
 

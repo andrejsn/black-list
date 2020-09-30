@@ -12,19 +12,22 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import {
   TaskComponent,
+  ContractComponent,
+  InvoiceComponent,
   RepresentativeComponent,
   GuarantorComponent,
-  InvoiceComponent,
-  ContractComponent,
+  DocumentComponent
 } from '.';
+
 
 @NgModule({
   declarations: [
     TaskComponent,
+    ContractComponent,
+    InvoiceComponent,
     RepresentativeComponent,
     GuarantorComponent,
-    InvoiceComponent,
-    ContractComponent,
+    DocumentComponent,
   ],
   imports: [
     CommonModule,
