@@ -69,9 +69,55 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-  editGuarantor(selectedDocument: DocumentTableElement) {
+  editDocument(selectedDocument: DocumentTableElement) {
     this.objectsService.document = selectedDocument;
-    this.router.navigate(['/edit/guarantor']);
+    this.router.navigate(['/edit/document']);
+  }
+
+  /**
+  * delete document
+  * @param documentToDelete - document
+  */
+  notifyDeleteDocument(documentToDelete: DocumentTableElement) {
+    this.loading = true;
+    documentToDelete.toDelete = true;
+
+    this.snotifyService.confirm('The document will be deleted', 'Are you sure?', {
+      timeout: 5000,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      buttons: [
+        {
+          text: 'Yes',
+          action: () => this.deleteDocument(documentToDelete),
+          bold: false
+        }, {
+          text: 'No',
+          action: () => this.cancelDeleteDocument(documentToDelete)
+        },
+      ]
+    }).on('beforeHide', (toast: Snotify) => {
+      this.cancelDeleteDocument(documentToDelete);
+    });
+  }
+
+  private deleteDocument(documentToDelete: DocumentTableElement) {
+    this.http.post<any>(`${environment.apiUrl
+      }/document/destroy`, { id: documentToDelete.id }).pipe(first()).subscribe((data) => {
+        const response = data;
+        // TODO: data.error ?
+        if (response.deleted) {
+          this.documentsList = reject(this.documentsList, function (document: DocumentTableElement) {
+            return (document.id as number) === (response.deleted as number);
+          });
+        }
+      }, (error) => {
+        this.loading = false;
+        this.translate.get('toast.error.response').subscribe((err: string) => {
+          this.snotifyService.error(error);
+        });
+      });
   }
 
   private cancelDeleteDocument(documentToDelete: DocumentTableElement) {
