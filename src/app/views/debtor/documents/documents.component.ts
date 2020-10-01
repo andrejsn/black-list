@@ -120,6 +120,36 @@ export class DocumentsComponent implements OnInit {
       });
   }
 
+  download(document_id) {
+    this.http
+      .post<any>(
+        `${environment.apiUrl}/document/download`,
+        {
+          id: document_id
+        },
+        { responseType: 'blob' as 'json' }
+      )
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          // console.log(data);
+
+          window.open(window.URL.createObjectURL(data));
+        },
+        (error) => {
+          console.log(error);
+
+          this.loading = false;
+
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+  }
+
   private cancelDeleteDocument(documentToDelete: DocumentTableElement) {
     documentToDelete.toDelete = false;
   }
