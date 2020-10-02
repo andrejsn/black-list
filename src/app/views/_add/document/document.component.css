@@ -3,7 +3,7 @@ input[type="file"] {
 }
 
 input.form-control:read-only {
-  background-color: #fff;
+  background-color: #f0f3f5;
 }
 
 .custom-file-upload {

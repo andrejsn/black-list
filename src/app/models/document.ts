@@ -1,7 +1,7 @@
 export interface Document {
   id?: number;
 
-  byname: string;
-  name: string;
+  file_name: string;
+  description: string;
   updated_at: string;
 }

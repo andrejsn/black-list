@@ -18,6 +18,7 @@
             <tr>
               <th></th>
               <th>Document name</th>
+              <th>Description</th>
               <th>Updated at</th>
               <th>Download</th>
             </tr>
@@ -29,7 +30,8 @@
                   <i aria-hidden="true" class="fa"
                     [ngClass]="{'fa-expand': !document.visible,'fa-compress': document.visible}"></i>
                 </td>
-                <td [ngClass]="{'to-delete': document.toDelete}">{{document.byname}}</td>
+                <td [ngClass]="{'to-delete': document.toDelete}">{{document.file_name}}</td>
+                <td [ngClass]="{'to-delete': document.toDelete}">{{document.description}}</td>
                 <td [ngClass]="{'to-delete': document.toDelete}">{{document.updated_at | momentjs: 'YYYY. DD. MMMM'}}
                 </td>
                 <td [ngClass]="{'to-delete': document.toDelete}"><button class="btn btn-default btn-sm" (click)="download(document.id)"><i

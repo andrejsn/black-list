@@ -28,7 +28,7 @@ export class DocumentComponent implements OnInit {
   fileInfos: Observable<any>;
   maxFileSize = 5 * 1024 * 1024; // 5MB
   addDocumentForm = new FormGroup({
-    documentName: new FormControl(),
+    description: new FormControl(),
     fileName: new FormControl(),
     file: new FormControl()
   });
@@ -86,7 +86,8 @@ export class DocumentComponent implements OnInit {
 
     // create validation
     this.addDocumentForm = this.formBuilder.group({
-      documentName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
+      // description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
+      description: ['', [Validators.maxLength(128)]],
       fileName: ['', [Validators.required]],
       file: ['', [Validators.required]],
     });
@@ -166,7 +167,7 @@ export class DocumentComponent implements OnInit {
     const formData: FormData = new FormData();
 
     formData.append('contract_id', this.selectedContract.id + '');
-    formData.append('document_name', this.f['documentName'].value);
+    formData.append('description', this.f['description'].value);
     formData.append('file', file);
 
     const req = new HttpRequest(

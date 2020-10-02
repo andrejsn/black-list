@@ -31,21 +31,21 @@
                   {{'document.error.fileName.required' | translate}}</div>
               </div>
 
-              <!-- document name -->
-              <label class="col-md-3 col-form-label" for="documentName">Document name</label>
+              <!-- document description -->
+              <label class="col-md-3 col-form-label" for="description">Document description</label>
               <div class="col-md-8">
-                <input id="documentName" formControlName="documentName" type="text"
-                  placeholder="{{'document.enter.documentName' | translate}}" autocomplete="name" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.documentName.errors, 'is-valid': submitted && !f.documentName.errors}">
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.required"
+                <input id="description" formControlName="description" type="text"
+                  placeholder="{{'document.enter.description' | translate}}" autocomplete="name" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.description.errors, 'is-valid': submitted && !f.description.errors}">
+                <!-- <div *ngIf="submitted && f.description.errors && f.description.errors.required"
                   class="invalid-feedback">
-                  {{'document.error.documentName.required' | translate}}</div>
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.minlength"
+                  {{'document.error.description.required' | translate}}</div>
+                <div *ngIf="submitted && f.description.errors && f.description.errors.minlength"
                   class="invalid-feedback">
-                  {{'document.error.documentName.minlength' | translate}}</div>
-                <div *ngIf="submitted && f.documentName.errors && f.documentName.errors.maxlength"
+                  {{'document.error.description.minlength' | translate}}</div> -->
+                <div *ngIf="submitted && f.description.errors && f.description.errors.maxlength"
                   class="invalid-feedback">
-                  {{'document.error.documentName.maxlength' | translate}}</div>
+                  {{'document.error.description.maxlength' | translate}}</div>
               </div>
 
               <!-- file upload progress time line -->

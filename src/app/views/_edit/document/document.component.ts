@@ -27,7 +27,7 @@ export class DocumentComponent implements OnInit {
   selectedDocument: Document;
 
   editDocumentForm = new FormGroup({
-    byname: new FormControl(),
+    description: new FormControl(),
   });
 
   submitted: boolean = false;
@@ -87,7 +87,7 @@ export class DocumentComponent implements OnInit {
 
     // create validation
     this.editDocumentForm = this.formBuilder.group({
-      byname: [this.selectedDocument.byname, [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
+      description: [this.selectedDocument.description, [Validators.required, Validators.minLength(3), Validators.maxLength(128)]],
     });
 
   }
@@ -111,12 +111,12 @@ export class DocumentComponent implements OnInit {
     this.http
       .post<any>(`${environment.apiUrl}/document/update`, {
         id: this.selectedDocument.id,
-        byname: this.f['byname'].value
+        description: this.f['description'].value
       })
       .pipe(first())
       .subscribe(
         (data) => {
-          this.objectsService.document.byname = this.f['byname'].value;
+          this.objectsService.document.description = this.f['description'].value;
           this.snotifyService.info('Document is changed');
 
           this.router.navigate(['/debtor/contracts']);
