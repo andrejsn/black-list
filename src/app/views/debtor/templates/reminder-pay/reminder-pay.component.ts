@@ -9,11 +9,14 @@ import { SnotifyService } from 'ng-snotify';
 
 import { Contract } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation, requiredIfValidator } from '@shared/helpers';
+
 
 @Component({
   selector: 'app-reminder-pay',
   templateUrl: './reminder-pay.component.html',
-  styleUrls: ['./reminder-pay.component.scss']
+  styleUrls: ['./reminder-pay.component.scss'],
+  animations: [inOutAnimation()]
 })
 export class ReminderPayComponent implements OnInit {
 
@@ -27,7 +30,8 @@ export class ReminderPayComponent implements OnInit {
     remindNumber: new FormControl(),
     withinDays: new FormControl(),
     remindDate: new FormControl(new Date()),
-    saveDoc: new FormControl()
+    isSaveToDocs: new FormControl(),
+    documentDescription: new FormControl()
   });
 
   constructor(private formBuilder: FormBuilder,
@@ -36,16 +40,28 @@ export class ReminderPayComponent implements OnInit {
     private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
+    this.reminderPayForm.patchValue({ isSaveToDocs: false });
     this.reminderPayForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
         remindNumber: ['', Validators.required],
         withinDays: ['', [Validators.required, Validators.min(1)]],
         remindDate: ['', [Validators.required]],
-        saveDoc: ['', '']
+        isSaveToDocs: ['', ''],
+        documentDescription: ['', [
+          Validators.minLength(3),
+          Validators.maxLength(128),
+          // https://medium.com/ngx/3-ways-to-implement-conditional-validation-of-reactive-forms-c59ed6fc3325
+          requiredIfValidator(() => this.f['isSaveToDocs'].value)
+        ]]
       }
     );
-    // this.reminderPayForm.patchValue({ saveDoc: true });
+
+    this.f['isSaveToDocs'].valueChanges.subscribe(
+
+
+      value => { this.f['documentDescription'].updateValueAndValidity(); console.log(this.f['isSaveToDocs'].value); }
+    );
   }
 
   /**
@@ -70,7 +86,8 @@ export class ReminderPayComponent implements OnInit {
         remind_number: this.f['remindNumber'].value,
         remind_date: this.f['remindDate'].value,
         within_days: this.f['withinDays'].value,
-        save_doc: this.f['saveDoc'].value
+        save_doc: this.f['isSaveToDocs'].value,
+        document_description: this.f['documentDescription'].value
       }, { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
