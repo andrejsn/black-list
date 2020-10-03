@@ -79,7 +79,7 @@ export class ClaimToCourtComponent implements OnInit {
       attachments: this.formBuilder.array([]),
       saveDoc: ['', ''],
     });
-    this.claimToCourtForm.patchValue({ judgesNumber: 1, saveDoc: true });
+    this.claimToCourtForm.patchValue({ judgesNumber: 1, /*saveDoc: true*/ });
   }
 
   get attachments() {

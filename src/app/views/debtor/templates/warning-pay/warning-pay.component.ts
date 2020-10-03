@@ -46,7 +46,7 @@ export class WarningPayComponent implements OnInit {
         saveDoc: ['', '']
       }
     );
-    this.warningPayForm.patchValue({ saveDoc: true });
+    // this.warningPayForm.patchValue({ saveDoc: true });
   }
 
   /**

@@ -39,7 +39,7 @@ export class SettlementAgreementComponent implements OnInit {
         saveDoc: ['', '']
       }
     );
-    this.settlementForm.patchValue({ saveDoc: true });
+    // this.settlementForm.patchValue({ saveDoc: true });
   }
 
   /**

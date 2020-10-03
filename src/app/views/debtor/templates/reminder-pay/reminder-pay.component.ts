@@ -45,7 +45,7 @@ export class ReminderPayComponent implements OnInit {
         saveDoc: ['', '']
       }
     );
-    this.reminderPayForm.patchValue({ saveDoc: true });
+    // this.reminderPayForm.patchValue({ saveDoc: true });
   }
 
   /**

@@ -91,7 +91,7 @@ export class CreditorToAdministratorComponent implements OnInit {
       attachments: this.formBuilder.array([]),
       saveDoc: ['', ''],
     });
-    this.creditorToAdministratorForm.patchValue({ saveDoc: true });
+    // this.creditorToAdministratorForm.patchValue({ saveDoc: true });
   }
 
   /**

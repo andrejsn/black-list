@@ -44,7 +44,7 @@ export class DebtCalculationComponent implements OnInit {
       calcDate: ['', [Validators.required]],
       saveDoc: ['', ''],
     });
-    this.calcPayForm.patchValue({ saveDoc: true });
+    // this.calcPayForm.patchValue({ saveDoc: true });
   }
   /**
    * submit form
