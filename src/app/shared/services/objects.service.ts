@@ -7,7 +7,7 @@ import {
   Invoice,
   Representative,
   Guarantor,
-  Document
+  Document, DocumentTableElement
 } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -26,11 +26,16 @@ export class ObjectsService {
 
   // breadCrumb
   menuItems: MenuItem[] = [{ route: '/', name: 'Home', active: true }];
+  // document list
+  documentsList: DocumentTableElement[] = [];
 
   private breadCrumb = new BehaviorSubject<MenuItem[]>(this.menuItems);
   private breadCrumb$ = this.breadCrumb.asObservable();
 
-  constructor() {}
+  private documentTable = new BehaviorSubject<DocumentTableElement[]>(this.documentsList);
+  private documentTable$ = this.documentTable.asObservable();
+
+  constructor() { }
 
   setBreadCrumb(breadCrumb: MenuItem[]) {
     this.breadCrumb.next(breadCrumb);
@@ -39,4 +44,14 @@ export class ObjectsService {
   getBreadCrumb(): Observable<MenuItem[]> {
     return this.breadCrumb$;
   }
+
+  setDocumentTable(documentTable: DocumentTableElement[]) {
+    this.documentTable.next(documentTable);
+  }
+
+  getDocumentTable(): Observable<DocumentTableElement[]> {
+    return this.documentTable$;
+  }
+
+
 }
