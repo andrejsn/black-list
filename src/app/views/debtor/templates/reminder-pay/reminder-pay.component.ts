@@ -2,14 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { base64StringToBlob } from 'blob-util';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
 
-import { Contract } from '@app/models';
+import { Contract, DocumentTableElement } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation, requiredIfValidator } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 
 @Component({
@@ -19,8 +21,9 @@ import { inOutAnimation, requiredIfValidator } from '@shared/helpers';
   animations: [inOutAnimation()]
 })
 export class ReminderPayComponent implements OnInit {
-
   @Input() contract: Contract;
+  documentsList: DocumentTableElement[] = [];
+  templateFileName: string;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -34,12 +37,20 @@ export class ReminderPayComponent implements OnInit {
     documentDescription: new FormControl()
   });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private objectsService: ObjectsService,
+    private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
+    this.objectsService
+      .getDocumentTable()
+      .subscribe((documentsList) => (this.documentsList = documentsList));
+
+    this.translate.get('template.remind.pdf').subscribe((templateFileName: string) => { this.templateFileName = templateFileName; });
+
     this.reminderPayForm.patchValue({ isSaveToDocs: false });
     this.reminderPayForm = this.formBuilder.group(
       {
@@ -51,16 +62,13 @@ export class ReminderPayComponent implements OnInit {
         documentDescription: ['', [
           Validators.minLength(3),
           Validators.maxLength(128),
-          // https://medium.com/ngx/3-ways-to-implement-conditional-validation-of-reactive-forms-c59ed6fc3325
           requiredIfValidator(() => this.f['isSaveToDocs'].value)
         ]]
       }
     );
 
     this.f['isSaveToDocs'].valueChanges.subscribe(
-
-
-      value => { this.f['documentDescription'].updateValueAndValidity(); console.log(this.f['isSaveToDocs'].value); }
+      value => { this.f['documentDescription'].updateValueAndValidity(); }
     );
   }
 
@@ -87,21 +95,38 @@ export class ReminderPayComponent implements OnInit {
         remind_date: this.f['remindDate'].value,
         within_days: this.f['withinDays'].value,
         save_doc: this.f['isSaveToDocs'].value,
+        document_file_name: this.templateFileName,
         document_description: this.f['documentDescription'].value
-      }, { responseType: 'blob' as 'json' }
-    ).pipe(first())
+      },
+      // { responseType: 'blob' as 'json' }
+    )
+      .pipe(first())
       .subscribe(
         data => {
-          // console.log(data);
+          //
+          if (this.f['isSaveToDocs'].value) {
+            // add new PDF to document list
+            this.documentsList.push(
+              {
+                id: data.document.id,
+                file_name: data.document.file_name,
+                description: data.document.description,
+                toDelete: false,
+                updated_at: data.document.updated_at,
+                visible: false
+              }
+            );
+            this.objectsService.setDocumentTable(this.documentsList);
+          }
+          //
+          const contentType = 'application/pdf';
+          const b64data = data.pdf;
+          const blob = base64StringToBlob(b64data, contentType);
 
-
-          window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(blob));
         },
         error => {
-
-
           console.log(error);
-
 
           this.loading = false;
           this.submitted = false;
@@ -111,6 +136,11 @@ export class ReminderPayComponent implements OnInit {
   }
 
 
+  test() {
+    this.documentsList.push({ description: 'description', file_name: 'file_name', toDelete: false, updated_at: '', visible: true });
+    console.log(this.documentsList);
+
+  }
 
 
   // convenience getter for easy access to form fields

@@ -7,15 +7,12 @@ import { first } from 'rxjs/operators';
 import { SnotifyService, Snotify } from 'ng-snotify';
 import * as reject from 'lodash.reject';
 
-import { ContractTableElement, Document } from '@app/models';
+import { ContractTableElement, DocumentTableElement } from '@app/models';
 import { environment } from '@environments/environment';
 import { inOutAnimation } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
 
-interface DocumentTableElement extends Document {
-  toDelete: boolean;
-  visible: boolean;
-}
+
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
@@ -41,18 +38,18 @@ export class DocumentsComponent implements OnInit {
     // TODO: schould list visible
     // if -> yes reset another -> see guarantors coponent
 
+    this.objectsService
+      .getDocumentTable()
+      .subscribe((documentsList) => (this.documentsList = documentsList));
 
     // get data
     this.http
-      .get<any>(`${environment.apiUrl}/get/contract/`
-        + this.contract.id
-        + `/documents`,
-        {}
+      .get<any>(`${environment.apiUrl}/get/contract/` + this.contract.id + `/documents`
       ).pipe(first())
       .subscribe(
         (data) => {
           const tmp = data as DocumentTableElement[];
-          this.documentsList = tmp;
+          this.objectsService.setDocumentTable(tmp);
         },
         (error) => {
           console.log(error);
@@ -64,7 +61,7 @@ export class DocumentsComponent implements OnInit {
   * toggle row
   */
   toggle(id: number) {
-    this.documentsList.forEach((document) => {
+    this.documentsList.forEach((document: DocumentTableElement) => {
       document.visible = document.id === id ? !document.visible : false;
     });
   }
@@ -111,6 +108,8 @@ export class DocumentsComponent implements OnInit {
           this.documentsList = reject(this.documentsList, function (document: DocumentTableElement) {
             return (document.id as number) === (response.deleted as number);
           });
+
+          this.objectsService.setDocumentTable(this.documentsList);
         }
       }, (error) => {
         this.loading = false;
@@ -132,8 +131,6 @@ export class DocumentsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          // console.log(data);
-
           window.open(window.URL.createObjectURL(data));
         },
         (error) => {
