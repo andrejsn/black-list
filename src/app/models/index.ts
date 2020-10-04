@@ -11,6 +11,7 @@ export * from './payment_status';
 export * from './representative';
 export * from './guarantor';
 export * from './document';
+export * from './document_table_element';
 export * from './template';
 export * from './template_status';
 export * from './task';
