@@ -1,1 +1,58 @@
-<p>reports works!</p>
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h4>Calculator for debt</h4>
+      <ul class="timeline">
+        <li>
+          <h5>Step1: input debt sum</h5>
+          <!-- <a href="#" class="float-right">21 March, 2014</a> -->
+          <!-- invoice sum -->
+          <div class="form-group row">
+            <div class="input-group col-md-8">
+              <input formControlName="sum" autocomplete="off" class="form-control" type="text"
+                [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
+                placeholder="{{ 'placeholder.debt.sum' | translate}}" currencyMask>
+              <div class="input-group-append"><span class="input-group-text">€</span></div>
+              <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
+                {{'debt.error.sum.required' | translate}}</div>
+            </div>
+
+            <button class="btn" (click)="goStep2()">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+
+          </div>
+        </li>
+        <li>
+          <h5>Step2: Lorem lorem</h5>
+
+          <p *ngIf="step2" [@inOutAnimation]>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+            pellentesque felis vitae justo
+            accumsan, sed semper nisi sollicitudin...
+
+            <button class="btn" (click)="goStep3()">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </p>
+        </li>
+        <li>
+          <h5>Step3: Ipsum Ipsum</h5>
+          <p *ngIf="step3" [@inOutAnimation]>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
+            pellentesque felis vitae justo
+            accumsan, sed semper nisi sollicitudin...
+
+            <button class="btn" (click)="goStep4()">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="text-muted mt-5 mb-5 text-center small">
+  <button class="btn" (click)="recalculate()">recalculate
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+  </button>
+</div>
