@@ -135,14 +135,6 @@ export class ReminderPayComponent implements OnInit {
       );
   }
 
-
-  test() {
-    this.documentsList.push({ description: 'description', file_name: 'file_name', toDelete: false, updated_at: '', visible: true });
-    console.log(this.documentsList);
-
-  }
-
-
   // convenience getter for easy access to form fields
   get f() {
     return this.reminderPayForm.controls;

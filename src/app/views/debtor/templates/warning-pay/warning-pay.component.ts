@@ -2,22 +2,28 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { base64StringToBlob } from 'blob-util';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
 
-import { Contract } from '@app/models';
+import { Contract, DocumentTableElement } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation, requiredIfValidator } from '@shared/helpers';
+import { ObjectsService } from '@shared/services';
 
 
 @Component({
   selector: 'app-warning-pay',
   templateUrl: './warning-pay.component.html',
-  styleUrls: ['./warning-pay.component.scss']
+  styleUrls: ['./warning-pay.component.scss'],
+  animations: [inOutAnimation()]
 })
 export class WarningPayComponent implements OnInit {
   @Input() contract: Contract;
+  documentsList: DocumentTableElement[] = [];
+  templateFileName: string;
 
   submitted: boolean = false;
   loading: boolean = false;
@@ -27,26 +33,44 @@ export class WarningPayComponent implements OnInit {
     warningNumber: new FormControl(),
     within_days: new FormControl(),
     warningDate: new FormControl(new Date()),
-    saveDoc: new FormControl()
+    isSaveToDocs: new FormControl(),
+    documentDescription: new FormControl()
   });
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private objectsService: ObjectsService,
+    private formBuilder: FormBuilder,
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService) { }
 
   ngOnInit(): void {
+    this.objectsService
+      .getDocumentTable()
+      .subscribe((documentsList) => (this.documentsList = documentsList));
+
+    this.translate.get('template.warning-pay.pdf').subscribe((templateFileName: string) => { this.templateFileName = templateFileName; });
+
+    this.warningPayForm.patchValue({ isSaveToDocs: false });
     this.warningPayForm = this.formBuilder.group(
       {
         place: ['', [Validators.required]],
         warningNumber: ['', Validators.required],
         within_days: ['', [Validators.required, Validators.min(1)]],
         warningDate: ['', [Validators.required]],
-        saveDoc: ['', '']
+        isSaveToDocs: ['', ''],
+        documentDescription: ['', [
+          Validators.minLength(3),
+          Validators.maxLength(128),
+          requiredIfValidator(() => this.f['isSaveToDocs'].value)
+        ]]
       }
     );
-    // this.warningPayForm.patchValue({ saveDoc: true });
+
+    this.f['isSaveToDocs'].valueChanges.subscribe(
+      value => { this.f['documentDescription'].updateValueAndValidity(); }
+    );
   }
 
   /**
@@ -71,15 +95,35 @@ export class WarningPayComponent implements OnInit {
         warning_number: this.f['warningNumber'].value,
         warning_date: this.f['warningDate'].value,
         within_days: this.f['within_days'].value,
-        save_doc: this.f['saveDoc'].value
-      }, { responseType: 'blob' as 'json' }
+        save_doc: this.f['isSaveToDocs'].value,
+        document_file_name: this.templateFileName,
+        document_description: this.f['documentDescription'].value
+      },
+      // { responseType: 'blob' as 'json' }
     ).pipe(first())
       .subscribe(
         data => {
-          // console.log(data);
+          //
+          if (this.f['isSaveToDocs'].value) {
+            // add new PDF to document list
+            this.documentsList.push(
+              {
+                id: data.document.id,
+                file_name: data.document.file_name,
+                description: data.document.description,
+                toDelete: false,
+                updated_at: data.document.updated_at,
+                visible: false
+              }
+            );
+            this.objectsService.setDocumentTable(this.documentsList);
+          }
+          //
+          const contentType = 'application/pdf';
+          const b64data = data.pdf;
+          const blob = base64StringToBlob(b64data, contentType);
 
-
-          window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(blob));
         },
         error => {
 

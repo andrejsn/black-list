@@ -66,15 +66,12 @@
             </div>
 
             <div class="card-footer">
-
-              <div class="form-group row">
-
-                <!-- save doc checkbox -->
+              <!-- save doc checkbox -->
+              <div class="row form-group">
                 <div class="form-check checkbox">
-                  <input class="form-check-input" id="isSaveToDocs" formControlName="isSaveToDocs" type="checkbox">
-                  <label class="form-check-label" for="isSaveToDocs">Save to my docs</label>
+                  <input class="form-check-input" id="saveRemindDoc" formControlName="isSaveToDocs" type="checkbox">
+                  <label class="form-check-label" for="saveRemindDoc">Save to my docs</label>
                 </div>
-
               </div>
               <!-- document description -->
               <div *ngIf="f.isSaveToDocs.value === true" class="form-group row" [@inOutAnimation]>
@@ -93,7 +90,6 @@
                     class="invalid-feedback">
                     {{'register.error.documentDescription.maxlength' | translate}}</div>
                 </div>
-
               </div>
 
               <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
