@@ -13,6 +13,7 @@
             <div class="row">
               <div class="col-lg-6 tags p-b-2">
                 <div class="card-body">
+                  <!-- document place -->
                   <div class="form-group">
                     <label for="warningPlace">Place of writing the document</label>
                     <input class="form-control" id="warningPlace" formControlName="place" type="text"
@@ -21,7 +22,7 @@
                     <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
                       {{'template.error.place.required' | translate}}</div>
                   </div>
-
+                  <!-- registration number -->
                   <div class="form-group">
                     <label for="warningNumber">Internal registration number</label>
                     <input class="form-control" id="warningNumber" formControlName="warningNumber" type="text"
@@ -36,6 +37,7 @@
 
               <div class="col-lg-4 offset-lg-1">
                 <div class="card-body">
+                  <!-- document date -->
                   <div class="form-group">
                     <label for="warningDate">Date of the document</label>
                     <input id="warningDate" class="form-control" bsDatepicker formControlName="warningDate"
@@ -46,7 +48,7 @@
                       class="invalid-feedback">
                       {{'template.error.warningDate.required' | translate}}</div>
                   </div>
-
+                  <!-- days to pay -->
                   <div class="form-group">
                     <label for="within_days">Number of days to pay a debt</label>
                     <input class="form-control" id="within_days" formControlName="within_days" type="number"
@@ -62,7 +64,7 @@
               </div>
 
             </div>
-<!-- [DOM] Found 2 elements with non-unique id #saveWarningDoc -->
+
             <div class="card-footer">
               <div class="form-group">
                 <div class="form-check checkbox">
