@@ -7,28 +7,34 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { base64StringToBlob } from 'blob-util';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
 
-import { Contract } from '@app/models';
+import { Contract, DocumentTableElement } from '@app/models';
 import { environment } from '@environments/environment';
+import { inOutAnimation, requiredIfValidator } from '@shared/helpers';
 import { ObjectsService } from '@shared/services';
 
 @Component({
   selector: 'app-debt-calculation',
   templateUrl: './debt-calculation.component.html',
   styleUrls: ['./debt-calculation.component.scss'],
+  animations: [inOutAnimation()]
 })
 export class DebtCalculationComponent implements OnInit {
   @Input() contract: Contract;
+  documentsList: DocumentTableElement[] = [];
+  templateFileName: string;
 
   submitted: boolean = false;
   loading: boolean = false;
 
   calcPayForm = new FormGroup({
     calcDate: new FormControl(new Date()),
-    saveDoc: new FormControl(),
+    isSaveToDocs: new FormControl(),
+    documentDescription: new FormControl()
   });
 
   constructor(
@@ -37,14 +43,30 @@ export class DebtCalculationComponent implements OnInit {
     private translate: TranslateService,
     private http: HttpClient,
     private snotifyService: SnotifyService
-  ) {}
+  ) { }
 
   ngOnInit(): void { // TODO: validate contract date <= calc date
+    this.objectsService
+      .getDocumentTable()
+      .subscribe((documentsList) => (this.documentsList = documentsList));
+
+    this.translate.get('template.debt-calculation.pdf')
+      .subscribe((templateFileName: string) => { this.templateFileName = templateFileName; });
+
+    this.calcPayForm.patchValue({ isSaveToDocs: false });
     this.calcPayForm = this.formBuilder.group({
       calcDate: ['', [Validators.required]],
-      saveDoc: ['', ''],
+      isSaveToDocs: ['', ''],
+      documentDescription: ['', [
+        Validators.minLength(3),
+        Validators.maxLength(128),
+        requiredIfValidator(() => this.f['isSaveToDocs'].value)
+      ]]
     });
-    // this.calcPayForm.patchValue({ saveDoc: true });
+
+    this.f['isSaveToDocs'].valueChanges.subscribe(
+      value => { this.f['documentDescription'].updateValueAndValidity(); }
+    );
   }
   /**
    * submit form
@@ -71,17 +93,36 @@ export class DebtCalculationComponent implements OnInit {
         {
           contract_id: this.contract.id,
           calc_date: this.f['calcDate'].value,
-          save_doc: this.f['saveDoc'].value
-          // TODO: document place
+          save_doc: this.f['isSaveToDocs'].value,
+          document_file_name: this.templateFileName,
+          document_description: this.f['documentDescription'].value
         },
-        { responseType: 'blob' as 'json' }
+        // { responseType: 'blob' as 'json' }
       )
       .pipe(first())
       .subscribe(
         (data) => {
-          // console.log(data);
+          //
+          if (this.f['isSaveToDocs'].value) {
+            // add new PDF to document list
+            this.documentsList.push(
+              {
+                id: data.document.id,
+                file_name: data.document.file_name,
+                description: data.document.description,
+                toDelete: false,
+                updated_at: data.document.updated_at,
+                visible: false
+              }
+            );
+            this.objectsService.setDocumentTable(this.documentsList);
+          }
+          //
+          const contentType = 'application/pdf';
+          const b64data = data.pdf;
+          const blob = base64StringToBlob(b64data, contentType);
 
-          window.open(window.URL.createObjectURL(data));
+          window.open(window.URL.createObjectURL(blob));
         },
         (error) => {
           console.log(error);

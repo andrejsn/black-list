@@ -1,16 +1,17 @@
 <div class="animated fadeIn">
   <!-- calculation of debt -->
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
       <form [formGroup]="calcPayForm" (ngSubmit)="onSubmit()" role="form">
 
         <div class="card">
           <div class="card-header"><strong><i class="fa fa-info-circle" aria-hidden="true"></i>Additional</strong>
-            <small>
-              Information</small></div>
+            <small> Information</small>
+          </div>
+
 
           <div class="card-body">
-
+            <!-- document date -->
             <div class="form-group">
               <label for="calcDate">Date of the document</label>
               <input id="calcDate" class="form-control" bsDatepicker formControlName="calcDate" placement="top"
@@ -20,21 +21,40 @@
               <div *ngIf="submitted && f.calcDate.errors && f.calcDate.errors.required" class="invalid-feedback">
                 {{'template.error.calcDate.required' | translate}}</div>
             </div>
+          </div>
 
-            <div class="card-footer">
-              <div class="form-group">
-                <div class="form-check checkbox">
-                  <input class="form-check-input" id="saveCalcDoc" formControlName="saveDoc" type="checkbox">
-                  <label class="form-check-label" for="saveCalcDoc">Save to my docs</label>
-                </div>
+          <div class="card-footer">
+            <!-- save doc checkbox -->
+            <div class="row form-group">
+              <div class="form-check checkbox">
+                <input class="form-check-input" id="saveCalcDoc" formControlName="isSaveToDocs" type="checkbox">
+                <label class="form-check-label" for="saveCalcDoc">Save to my docs</label>
               </div>
-
-              <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-                Create</button>
-              <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
             </div>
+            <!-- document description -->
+            <div *ngIf="f.isSaveToDocs.value === true" class="form-group row" [@inOutAnimation]>
+              <label for="documentDescription" class="col-md-3 col-form-label">Document description</label>
+              <div class="col-md-7">
+                <input type="text" id="documentDescription" formControlName="documentDescription"
+                  placeholder="Enter please document description" class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.documentDescription.errors, 'is-valid': submitted && !f.documentDescription.errors}">
+                <div *ngIf="submitted && f.documentDescription.errors && f.documentDescription.errors.required"
+                  class="invalid-feedback">
+                  {{'register.error.documentDescription.required' | translate}}</div>
+                <div *ngIf="submitted && f.documentDescription.errors && f.documentDescription.errors.minlength"
+                  class="invalid-feedback">
+                  {{'register.error.documentDescription.minlength' | translate}}</div>
+                <div *ngIf="submitted && f.documentDescription.errors && f.documentDescription.errors.maxlength"
+                  class="invalid-feedback">
+                  {{'register.error.documentDescription.maxlength' | translate}}</div>
+              </div>
+            </div>
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Create</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Reset</button>
           </div>
         </div>
+
       </form>
     </div>
   </div>
