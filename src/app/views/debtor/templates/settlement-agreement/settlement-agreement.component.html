@@ -14,10 +14,9 @@
               <div class="col-lg-6 tags p-b-2">
                 <div class="card-body">
                   <!-- document place -->
-                  <!--  [DOM] Found 2 elements with non-unique id #warningPlace -->
                   <div class="form-group">
-                    <label for="warningPlace">Place of writing the document</label>
-                    <input class="form-control" id="warningPlace" formControlName="place" type="text"
+                    <label for="settlementPlace">Place of writing the document</label>
+                    <input class="form-control" id="settlementPlace" formControlName="place" type="text"
                       placeholder="Enter place"
                       [ngClass]="{'is-invalid': submitted && f.place.errors, 'is-valid': submitted && !f.place.errors}">
                     <div *ngIf="submitted && f.place.errors && f.place.errors.required" class="invalid-feedback">
