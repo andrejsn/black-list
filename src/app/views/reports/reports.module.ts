@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { ReportsComponent } from './reports.component';
-
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { ReportsRoutingModule } from './reports-routing.module';
+
+import { customCurrencyMaskConfig } from '@app/app.module';
 
 
 @NgModule({
@@ -12,7 +15,8 @@ import { ReportsRoutingModule } from './reports-routing.module';
   imports: [
     CommonModule,
     TranslateModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
   ]
 })
 export class ReportsModule { }
