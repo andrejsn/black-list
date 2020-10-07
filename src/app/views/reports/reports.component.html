@@ -1,39 +1,78 @@
+<!-- https://ppt.ru/calc/debt -->
+<!-- https://www.jurk.by/solutions/kak-pravilno-rasschitat-penyu-i-protsent -->
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <h4>Calculator for debt</h4>
+      <h4>Рассчитайте долговую сумму правильно!</h4>
+      <p>При взыскании задолженности можно получить не только основной долг, который указан в документах, но и
+        неустойку. </p>
+      <p>От правильного расчёта суммы долга зависит вероятность её взыскания. Если вас должник укажет на неправильный
+        расчёт взыскиваемых сумм, то судья скорее всего откажет во взыскании всей суммы! </p>
+
       <ul class="timeline">
         <li>
-          <h5>Step1: input debt sum</h5>
+          <h5>Шаг 1 - Внесите сумму основного долга</h5>
+          <p>Сумма основного долга нужна для расчёта полной задолжености</p>
           <!-- <a href="#" class="float-right">21 March, 2014</a> -->
           <!-- invoice sum -->
           <div class="form-group row">
             <div class="input-group col-md-8">
               <input formControlName="sum" autocomplete="off" class="form-control" type="text"
                 [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
-                placeholder="{{ 'placeholder.debt.sum' | translate}}" currencyMask>
+                placeholder="сумма долга" (ngModelChange)="doSomething($event)" currencyMask>
               <div class="input-group-append"><span class="input-group-text">€</span></div>
               <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
                 {{'debt.error.sum.required' | translate}}</div>
             </div>
 
-            <button class="btn" (click)="goStep2()">
+            <button *ngIf="!step2"  class="btn" [disabled]="isSumNotOk" (click)="goStep2()">
+              Переход к следующему шагу
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </button>
 
           </div>
         </li>
         <li>
-          <h5>Step2: Lorem lorem</h5>
+          <h5>Шаг 2 - Наличие или отсуствие договора</h5>
 
-          <p *ngIf="step2" [@inOutAnimation]>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam
-            pellentesque felis vitae justo
-            accumsan, sed semper nisi sollicitudin...
-
-            <button class="btn" (click)="goStep3()">
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          <div *ngIf="step2" [@inOutAnimation]> Есть ли у Вас договор с должником?
+            <button *ngIf="!withoutContract" class="btn" (click)="withContract = true" [@inOutAnimation]>
+              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+              Да, у меня есть договор с должником
             </button>
-          </p>
+            <button *ngIf="!noPenalty && withContract" class="btn" (click)="penalty = true" [@inOutAnimation]>
+              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+              ... и в этом договоре прописана неустойка
+            </button>
+            <p *ngIf="withContract && penalty" [@inOutAnimation]>
+              Если размер неустойки указан в договоре, то умножая сумму долга на оговоренные проценты, а также на
+              количество дней просрочки - получаем общую сумму задолженности.
+            </p>
+            <!--  -->
+            <button *ngIf="withContract && !penalty" class="btn" (click)="noPenalty = true" [@inOutAnimation]>
+              ... и в этом договоре нет неустойки
+              <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="!withContract" class="btn" (click)="withoutContract = true" [@inOutAnimation]>
+              Нет, у меня нет договора с должником
+              <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            </button>
+            <p *ngIf="withoutContract" [@inOutAnimation]>
+              Если у Вас нет договора с должником, то в этом случае также
+              можно взыскать с должника.
+            </p>
+            <p *ngIf="noPenalty" [@inOutAnimation]>
+              Если у Вас в договоре отсутствует размер неустойки, то в этом случае также
+              можно взыскать с должника.
+            </p>
+            <p>
+              <button *ngIf="!step3 && ((withContract && penalty) || withoutContract || noPenalty)" class="btn" (click)="goStep3()"
+                [@inOutAnimation]>
+                Переход к следующему шагу
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </p>
+          </div>
         </li>
         <li>
           <h5>Step3: Ipsum Ipsum</h5>
