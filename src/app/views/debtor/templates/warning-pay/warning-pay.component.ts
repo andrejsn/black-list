@@ -117,13 +117,15 @@ export class WarningPayComponent implements OnInit {
               }
             );
             this.objectsService.setDocumentTable(this.documentsList);
-          }
-          //
+            this.snotifyService.info('Document added to my docs');
+          } else {
+          // create new window  with document
           const contentType = 'application/pdf';
           const b64data = data.pdf;
           const blob = base64StringToBlob(b64data, contentType);
 
           window.open(window.URL.createObjectURL(blob));
+          }
         },
         error => {
 
