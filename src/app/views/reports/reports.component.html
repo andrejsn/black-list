@@ -1,3 +1,6 @@
+<div class="animated fadeIn">
+<!-- debt calculation -->
+<form [formGroup]="calculationDebtForm" (ngSubmit)="onSubmit()" role="form">
 <!-- https://ppt.ru/calc/debt -->
 <!-- https://www.jurk.by/solutions/kak-pravilno-rasschitat-penyu-i-protsent -->
 <div class="container mt-5 mb-5">
@@ -6,7 +9,7 @@
       <h4>Рассчитайте долговую сумму правильно!</h4>
       <p>При взыскании задолженности можно получить не только основной долг, который указан в документах, но и
         неустойку. </p>
-      <p>От правильного расчёта суммы долга зависит вероятность её взыскания. Если вас должник укажет на неправильный
+      <p>От правильного расчёта суммы долга зависит вероятность её взыскания.<br> Если вас должник укажет на неправильный
         расчёт взыскиваемых сумм, то судья скорее всего откажет во взыскании всей суммы! </p>
 
       <ul class="timeline">
@@ -19,13 +22,13 @@
             <div class="input-group col-md-8">
               <input formControlName="sum" autocomplete="off" class="form-control" type="text"
                 [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
-                placeholder="сумма долга" (ngModelChange)="doSomething($event)" currencyMask>
+                placeholder="сумма долга" (change)="doSomething()" currencyMask [readOnly]="step2">
               <div class="input-group-append"><span class="input-group-text">€</span></div>
               <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
                 {{'debt.error.sum.required' | translate}}</div>
             </div>
 
-            <button *ngIf="!step2"  class="btn" [disabled]="isSumNotOk" (click)="goStep2()">
+            <button *ngIf="isSumOk && !step2"  class="btn" (click)="goStep2()" [@inOutAnimation]>
               Переход к следующему шагу
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </button>
@@ -94,4 +97,6 @@
   <button class="btn" (click)="recalculate()">recalculate
     <i class="fa fa-refresh" aria-hidden="true"></i>
   </button>
+</div>
+</form>
 </div>

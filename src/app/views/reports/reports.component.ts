@@ -1,6 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { inOutAnimation } from '@shared/helpers';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
+import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import { SnotifyService } from 'ng-snotify';
+
+import { environment } from '@environments/environment';
+import { ObjectsService } from '@shared/services';
+import { inOutAnimation } from '@shared/helpers';
 
 @Component({
   selector: 'app-reports',
@@ -12,7 +27,7 @@ export class ReportsComponent implements OnInit {
   submitted: boolean;
 
   // step1: boolean;
-  isSumNotOk: boolean;
+  isSumOk: boolean;
   withContract: boolean;
   penalty: boolean;
   noPenalty: boolean;
@@ -21,9 +36,28 @@ export class ReportsComponent implements OnInit {
   step3: boolean;
   step4: boolean;
 
-  constructor(private snotifyService: SnotifyService) { }
+  calculationDebtForm: FormGroup = new FormGroup({
+    sum: new FormControl(),
+  });
+
+  constructor(
+    private title: Title,
+    private objectsService: ObjectsService,
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private http: HttpClient,
+    private router: Router,
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit(): void {
+    // TODO: set title
+
+    // init validators
+    this.calculationDebtForm = this.formBuilder.group({
+      sum: ['', []]
+    });
+
     this.reset();
 
 
@@ -32,8 +66,8 @@ export class ReportsComponent implements OnInit {
     this.snotifyService.info('Hello world');
   }
 
-  doSomething(event) {
-    console.log('hello from input sum');
+  doSomething() {
+    console.log(this.f['sum'].value);
   }
 
   goStep2() {
@@ -56,7 +90,7 @@ export class ReportsComponent implements OnInit {
   }
 
   private reset() {
-    this.isSumNotOk
+    this.isSumOk
       = this.withContract
       = this.penalty
       = this.noPenalty
@@ -64,6 +98,10 @@ export class ReportsComponent implements OnInit {
       = this.step2
       = this.step3
       = this.step4 = false;
+  }
+
+  onSubmit() {
+    console.log('hello from submit');
   }
 
   // convenience getter for easy access to form fields

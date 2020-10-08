@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyModule } from 'ngx-currency';
@@ -14,6 +15,8 @@ import { customCurrencyMaskConfig } from '@app/app.module';
   declarations: [ReportsComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule,
     ReportsRoutingModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
