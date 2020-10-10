@@ -15,19 +15,20 @@ import { SnotifyService } from 'ng-snotify';
 
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
-import { inOutAnimation } from '@shared/helpers';
+import { bgColorAnimation, inOutAnimation } from '@shared/helpers';
 
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss'],
-  animations: [inOutAnimation()],
+  animations: [inOutAnimation(), bgColorAnimation()],
 })
 export class ReportsComponent implements OnInit {
   submitted: boolean;
 
   // step1: boolean;
   isSumOk: boolean;
+  validateStep1: boolean;
   withContract: boolean;
   penalty: boolean;
   noPenalty: boolean;
@@ -55,7 +56,7 @@ export class ReportsComponent implements OnInit {
 
     // init validators
     this.calculationDebtForm = this.formBuilder.group({
-      sum: ['', []]
+      sum: ['', [Validators.required, Validators.min(99.99)]]
     });
 
     this.reset();
@@ -66,8 +67,10 @@ export class ReportsComponent implements OnInit {
     this.snotifyService.info('Hello world');
   }
 
-  doSomething() {
+  doStep1() {
     console.log(this.f['sum'].value);
+
+   this.isSumOk =  this.f['sum'].value > 99.99;
   }
 
   goStep2() {
@@ -90,7 +93,8 @@ export class ReportsComponent implements OnInit {
   }
 
   private reset() {
-    this.isSumOk
+    this.validateStep1
+      = this.isSumOk
       = this.withContract
       = this.penalty
       = this.noPenalty
@@ -106,6 +110,6 @@ export class ReportsComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return null; // this.addDebtorForm.controls;
+    return this.calculationDebtForm.controls;
   }
 }

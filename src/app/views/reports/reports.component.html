@@ -9,7 +9,7 @@
       <h4>Рассчитайте долговую сумму правильно!</h4>
       <p>При взыскании задолженности можно получить не только основной долг, который указан в документах, но и
         неустойку. </p>
-      <p>От правильного расчёта суммы долга зависит вероятность её взыскания.<br> Если вас должник укажет на неправильный
+      <p>От правильного расчёта суммы долга зависит вероятность её взыскания. Если вас должник укажет на неправильный
         расчёт взыскиваемых сумм, то судья скорее всего откажет во взыскании всей суммы! </p>
 
       <ul class="timeline">
@@ -21,14 +21,14 @@
           <div class="form-group row">
             <div class="input-group col-md-8">
               <input formControlName="sum" autocomplete="off" class="form-control" type="text"
-                [ngClass]="{'is-invalid': submitted && f.sum.errors, 'is-valid': submitted && !f.sum.errors}"
-                placeholder="сумма долга" (change)="doSomething()" currencyMask [readOnly]="step2">
+                [ngClass]="{'is-invalid': validateStep1 && f.sum.errors, 'is-valid': validateStep1 && !f.sum.errors}"
+                placeholder="сумма долга"  currencyMask (keyup)="doStep1()">
               <div class="input-group-append"><span class="input-group-text">€</span></div>
-              <div *ngIf="submitted && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
+              <div *ngIf="validateStep1 && f.sum.errors && f.sum.errors.required" class="invalid-feedback">
                 {{'debt.error.sum.required' | translate}}</div>
             </div>
 
-            <button *ngIf="isSumOk && !step2"  class="btn" (click)="goStep2()" [@inOutAnimation]>
+            <button *ngIf="isSumOk && !step2"  class="btn" (click)="goStep2()" [@bgColorAnimation]>
               Переход к следующему шагу
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </button>
