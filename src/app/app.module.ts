@@ -64,7 +64,6 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
 
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
@@ -114,7 +113,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
     AvatarModule,
     CollapseModule.forRoot(),
     BsDatepickerModule.forRoot(),
