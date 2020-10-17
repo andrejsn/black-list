@@ -66,8 +66,6 @@
   width: 100%;
 }
 
-
-
 .events-list {
   position: absolute;
   bottom: 0;
@@ -75,6 +73,9 @@
   overflow: hidden;
 }
 
+.pull-right {
+  float: right;
+}
 
 .event {
   display: block;
