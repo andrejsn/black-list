@@ -10,11 +10,13 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit {
   constructor(private router: Router,
     public translate: TranslateService) {
-    translate.addLangs(['en', 'ru', 'lv']);
-    translate.setDefaultLang('en');
+    translate.addLangs(['en', 'ru', 'lv', 'de']);
+    // translate.setDefaultLang('en');
+    translate.setDefaultLang('ru');
 
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/ru|lv/) ? browserLang : 'en');
+    // translate.use(browserLang.match(/ru|lv/) ? browserLang : 'en');
+    translate.use('ru');
   }
 
   ngOnInit() {
