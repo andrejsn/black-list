@@ -5,17 +5,17 @@
         <div class="col-md-8 mx-auto">
           <div class="panel widget">
             <div class="panel-body">
-              <div class="login-icon"> <i class="fa fa-sign-out"></i> </div>
-              <h1 class="font-semibold text-center" style="font-size:52px">You Have Been Logged Out</h1>
+              <div class="login-icon"> <i class="fas fa-sign-out-alt"></i> </div>
+              <h1 class="font-semibold text-center" style="font-size:52px">{{ 'user.logout.title' | translate }}</h1>
 
-                <div class="form-group">
-                  <div class="col-md-12">
-                    <h4 class="text-center mgbt-xs-20">Thank you for using our service</h4>
-                    <p class="text-center"> Please <a [routerLink]="['/auth/login']">click here</a> to login back</p>
-
-                  </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <h4 class="text-center mgbt-xs-20">{{ 'user.logout.thank' | translate }}</h4>
+                  <p class="text-center"> {{ 'user.logout.please' | translate }} <a
+                      [routerLink]="['/auth/login']">{{ 'user.logout.click' | translate }}</a>
+                    {{ 'user.logout.back' | translate }}</p>
                 </div>
-
+              </div>
 
             </div>
           </div>

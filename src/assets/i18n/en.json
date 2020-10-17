@@ -29,6 +29,13 @@
       "title": "Sign up",
       "text": "After free registration, you will have access to a simple and reliable service for calculating and collecting debts.",
       "submit": "Register now!"
+    },
+    "logout": {
+      "title": "You Have Been Logged Out",
+      "thank": "Thank you for using our service",
+      "please": "Please",
+      "click": "click here",
+      "back": "to login back"
     }
   },
   "app-sidebar-nav-link": {
