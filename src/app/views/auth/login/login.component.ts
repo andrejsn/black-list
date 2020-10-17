@@ -25,9 +25,6 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = false;
 
-
-
-
   constructor
     (
       private formBuilder: FormBuilder,
@@ -42,18 +39,8 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.loginForm = this.formBuilder.group(
       {
-        email:
-          ['',
-            [
-              Validators.required, Validators.email
-            ]
-          ],
-        password:
-          ['',
-            [
-              Validators.required, Validators.minLength(8), Validators.maxLength(32)
-            ]
-          ],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
       },
     );
   }
@@ -64,7 +51,7 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-      this.translate.get('toast.error.login_form').subscribe((error: string) => { this.snotifyService.error(error) });
+      this.translate.get('user.login.error.toast.form').subscribe((error: string) => { this.snotifyService.error(error); });
       return;
     }
 
@@ -81,7 +68,7 @@ export class LoginComponent implements OnInit {
       error => {
         this.loading = false;
         this.error = true;
-        this.translate.get('toast.error.login_error').subscribe((error: string) => { this.snotifyService.error(error) });
+        this.translate.get('user.login.error.toast.server').subscribe((err: string) => { this.snotifyService.error(err); });
       }
     );
   }

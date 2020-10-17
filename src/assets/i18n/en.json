@@ -1,4 +1,36 @@
 {
+  "title": "Debt collection portal",
+  "user": {
+    "login": {
+      "title": "Login",
+      "subtext": "Sign In to your account",
+      "email": {
+        "placeholder": "e-mail",
+        "required": "Email is required",
+        "notvalid": "Email is not valid"
+      },
+      "password": {
+        "placeholder": "password",
+        "required": "Password is required",
+        "short": "Password is too short",
+        "long": "Password is too long",
+        "forgot": "Forgot password?"
+      },
+      "error": {
+        "text": "Email or password is incorrect",
+        "toast": {
+          "form": "",
+          "server": ""
+        }
+      },
+      "submit": "Login"
+    },
+    "signup": {
+      "title": "Sign up",
+      "text": "After free registration, you will have access to a simple and reliable service for calculating and collecting debts.",
+      "submit": "Register now!"
+    }
+  },
   "app-sidebar-nav-link": {
     "reports": "Reports",
     "debtors": "Debtors",
@@ -56,7 +88,7 @@
       "hopeless": "Hopeless - inappropriate to bring a case to court",
       "insolvency": "Insolvency - debtor insolvency proceedings started"
     },
-    "short":{
+    "short": {
       "awaiting": "Awaiting",
       "in_work": "In Work",
       "debt_collected": "Debt collected",
