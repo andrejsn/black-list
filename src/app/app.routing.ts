@@ -61,6 +61,12 @@ export const routes: Routes = [
         canActivate: [AuthenticationGuardService],
       },
       {
+        path: 'debts',
+        loadChildren: () =>
+          import('./views/debts/debts.module').then((m) => m.DebtsModule),
+        canActivate: [AuthenticationGuardService],
+      },
+      {
         path: 'debtors',
         loadChildren: () =>
           import('./views/debtors/debtors.module').then((m) => m.DebtorsModule),
