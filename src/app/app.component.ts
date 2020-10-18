@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.translate.addLangs(['en', 'ru', 'lv', 'de']);
     // TODO: set default 'en' after debuging
-    this.translate.setDefaultLang('ru');
+    this.translate.setDefaultLang('en');
 
     const browserLang = this.translate.getBrowserLang();
     this.translate.use('ru');

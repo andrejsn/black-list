@@ -1,5 +1,12 @@
 {
   "title": "Debt collection portal",
+  "navigation":{
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "add_debt": "Add Debt",
+    "debts": "Debts",
+    "debtors": "Debtors"
+  },
   "user": {
     "login": {
       "title": "Login",
@@ -31,6 +38,7 @@
       "submit": "Register now!"
     },
     "logout": {
+      "text": "Logout",
       "title": "You Have Been Logged Out",
       "thank": "Thank you for using our service",
       "please": "Please",

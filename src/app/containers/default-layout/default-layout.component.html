@@ -58,7 +58,7 @@
           </strong></div>
         <a class="dropdown-item" [routerLink]="['/auth/logout']">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
-          Logout
+          {{ 'user.logout.text' | translate }}
         </a>
       </div>
     </li>
@@ -67,7 +67,53 @@
 <div class="app-body">
   <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
     (minimizedChange)="toggleMinimize($event)">
-    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <!-- <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav> -->
+
+    <nav class="sidebar-nav">
+      <ul class="nav">
+        <!-- dashboard -->
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['/dashboard']">
+            <i class="fas fa-tachometer-alt"></i>
+            <span class="nav-padding-left">{{ 'navigation.dashboard' | translate }}</span>
+          </a>
+        </li>
+        <!-- calendar -->
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['/calendar']">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="nav-padding-left">{{ 'navigation.calendar' | translate }}</span>
+            <!-- <span class="badge badge-primary">NEW</span> -->
+          </a>
+        </li>
+        <!-- add debt -->
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['/add/debt']">
+            <i class="fas fa-folder-plus"></i>
+            <span class="nav-padding-left">{{ 'navigation.add_debt' | translate }}</span>
+          </a>
+        </li>
+        <!-- debts -->
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['/debts']">
+            <i class="fas fa-folder"></i>
+            <span class="nav-padding-left">{{ 'navigation.debts' | translate }}</span>
+          </a>
+        </li>
+        <!-- debtors -->
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['/debtors']">
+            <i class="fas fa-user-friends"></i>
+            <span class="nav-padding-left">{{ 'navigation.debtors' | translate }}</span>
+          </a>
+        </li>
+        <li class="nav-title">Help</li>
+
+
+      </ul>
+    </nav>
+
+
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
   <!-- Main content -->
