@@ -69,7 +69,9 @@
       },
       "date": {
         "required": "Date required"
-      }
+      },
+      "submit": "Form a new debt",
+      "reset": "Reset"
     }
   },
 

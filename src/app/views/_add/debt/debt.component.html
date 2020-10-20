@@ -15,8 +15,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="name">{{ 'debt.name' | translate }}</label>
               <div class="col-md-6">
-                <input id="name" formControlName="name" type="text" placeholder="{{ 'debt.placeholder_name' | translate }}"
-                  class="form-control"
+                <input id="name" formControlName="name" type="text"
+                  placeholder="{{ 'debt.placeholder_name' | translate }}" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}">
                 <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
                   {{'debt.error.name.required' | translate}}</div>
@@ -27,8 +27,8 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="debt">{{ 'debt.sum' | translate }}</label>
               <div class="col-md-6">
-                <input id="debt" currencyMask formControlName="debt" type="tel" placeholder="{{ 'debt.placeholder_sum' | translate }}"
-                  class="form-control"
+                <input id="debt" currencyMask formControlName="debt" type="tel"
+                  placeholder="{{ 'debt.placeholder_sum' | translate }}" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.debt.errors, 'is-valid': submitted && !f.debt.errors}">
                 <div *ngIf="submitted && f.debt.errors && f.debt.errors.required" class="invalid-feedback">
                   {{'debt.error.sum.required' | translate}}</div>
@@ -43,9 +43,30 @@
                   autocomplete="off" placeholder="{{ 'debt.placeholder_date' | translate }}"
                   [ngClass]="{'is-invalid': submitted && f.debtDate.errors, 'is-valid': submitted && !f.debtDate.errors}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
-                <div *ngIf="submitted && f.debtDate.errors && f.debtDate.errors.required"
-                  class="invalid-feedback">
+                <div *ngIf="submitted && f.debtDate.errors && f.debtDate.errors.required" class="invalid-feedback">
                   {{'debt.error.date.required' | translate}}</div>
+              </div>
+            </div>
+            <!--  -->
+            <div class="form-group row">
+              <label for="inline-radios" class="col-md-3 col-form-label">Вид неустойки</label>
+              <div class="col-md-9 col-form-label">
+                <div id="inline-radios" class="form-check form-check mr-1">
+                  <input type="radio" name="inline-radios" id="inlineRadio1" value="option1" class="form-check-input">
+                  <label for="inlineRadio1" class="form-check-label">Пени 10% </label>
+                </div>
+                <div class="form-check form-check mr-1">
+                  <input type="radio" name="inline-radios" id="inlineRadio2" value="option2" class="form-check-input">
+                  <label for="inlineRadio2" class="form-check-label">Процентная ставка в день</label>
+                </div>
+                <div class="form-check form-check mr-1">
+                  <input type="radio" name="inline-radios" id="inlineRadio3" value="option3" class="form-check-input">
+                  <label for="inlineRadio3" class="form-check-label">Процентная ставка 6% в год</label>
+                </div>
+                <div class="form-check form-check mr-1">
+                  <input type="radio" name="inline-radios" id="inlineRadio4" value="option4" class="form-check-input">
+                  <label for="inlineRadio4" class="form-check-label">Процентная ставка 8% в год</label>
+                </div>
               </div>
             </div>
 
