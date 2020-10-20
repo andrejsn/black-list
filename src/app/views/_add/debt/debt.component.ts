@@ -18,7 +18,7 @@ import * as moment from 'moment';
 import { Debtor } from '@app/models';
 import { environment } from '@environments/environment';
 import { ObjectsService } from '@shared/services';
-import { inOutAnimation } from '@shared/helpers';
+import { timezoneOffset } from '@shared/helpers';
 
 @Component({
   selector: 'app-debt',
@@ -64,31 +64,38 @@ export class DebtComponent implements OnInit {
     });
   }
 
-  // /**
-  //  * add validator for input day percent
-  //  */
-  // private addValidator() {
-  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-  //   debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
-  // }
-
-  // /**
-  //  * remove validator for input day percent
-  //  */
-  // private removeValidator() {
-  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-  //   debtInDayPercent.clearValidators();
-  //   debtInDayPercent.updateValueAndValidity();
-  // }
-
   fine(radioButtonValue: string): void {
     this.debtTypeOfFine = radioButtonValue;
-    if (this.debtTypeOfFine !== 'in_day') {
-      this.f['debtInDayPercent'].setValue(0.0001);
-    }
+    // if (!this.f['debtInDayPercent'].value && this.debtTypeOfFine === 'in_day') {
+    //   this.f['debtInDayPercent'].setValue(0.0000);
+    // }
+  }
+
+  /**
+   * add validator for input day percent
+   */
+  private addDebtInDayPercentValidator() {
+    const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+    debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
+  }
+
+  /**
+   * remove validator for input day percent
+   */
+  private removeDebtInDayPercentValidator() {
+    const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+    debtInDayPercent.clearValidators();
+    debtInDayPercent.updateValueAndValidity();
   }
 
   onSubmit() {
+    // handle validator of debtInDayPercent
+    if (this.debtTypeOfFine !== 'in_day') {
+      this.removeDebtInDayPercentValidator();
+    } else {
+      this.addDebtInDayPercentValidator();
+    }
+
     this.submitted = true;
 
     // stop here if form is invalid
@@ -108,7 +115,8 @@ export class DebtComponent implements OnInit {
         {
           debtName: this.f['debtName'].value,
           debtSum: this.f['debtSum'].value,
-          debtDate: this.f['debtDate'].value,
+          // debtDate: this.f['debtDate'].value,
+          debtDate: timezoneOffset(moment(this.addDebtForm.controls['debtDate'].value, 'YYYY. DD. MMMM').toDate()),
           debtTypeOfFine: this.f['debtTypeOfFine'].value,
           debtInDayPercent: this.f['debtInDayPercent'].value,
         }
