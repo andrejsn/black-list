@@ -27,10 +27,13 @@ import { inOutAnimation } from '@shared/helpers';
 })
 export class DebtComponent implements OnInit {
 
+  typeOfFine: string; // penalty, in_day, statutory6%, statutory8%
+
   addDebtForm = new FormGroup({
     name: new FormControl(),
     debt: new FormControl(),
-    debtDate: new FormControl()
+    debtDate: new FormControl(),
+    typeOfFine: new FormControl()
   });
 
   submitted: boolean = false;
@@ -55,6 +58,7 @@ export class DebtComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(128)]],
       debt: ['', [Validators.required]],
       debtDate: ['', [Validators.required]],
+      typeOfFine: ['', [Validators.required]],
     });
   }
 
@@ -73,6 +77,10 @@ export class DebtComponent implements OnInit {
     }
   }
 
+  fine(radioButtonValue: string): void {
+    this.typeOfFine = radioButtonValue;
+
+  }
 
   // convenience getter for easy access to form fields
   get f() {

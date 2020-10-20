@@ -49,23 +49,41 @@
             </div>
             <!--  -->
             <div class="form-group row">
-              <label for="inline-radios" class="col-md-3 col-form-label">Вид неустойки</label>
+              <label for="typeOfFine" class="col-md-3 col-form-label">Вид неустойки</label>
               <div class="col-md-9 col-form-label">
-                <div id="inline-radios" class="form-check form-check mr-1">
-                  <input type="radio" name="inline-radios" id="inlineRadio1" value="option1" class="form-check-input">
+                <div id="typeOfFine" class="form-check form-check mr-1">
+                  <input type="radio" id="inlineRadio1" value="penalty" class=" form-check-input"
+                    formControlName="typeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio1" class="form-check-label">Пени 10% </label>
                 </div>
+                <div *ngIf="typeOfFine === 'penalty'" class="under_selected">
+                  - одноразовый 10%-ый штраф за просрочку платежа
+                </div>
                 <div class="form-check form-check mr-1">
-                  <input type="radio" name="inline-radios" id="inlineRadio2" value="option2" class="form-check-input">
+                  <input type="radio" name="typeOfFine" id="inlineRadio2" value="in_day" class="form-check-input"
+                    formControlName="typeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio2" class="form-check-label">Процентная ставка в день</label>
                 </div>
-                <div class="form-check form-check mr-1">
-                  <input type="radio" name="inline-radios" id="inlineRadio3" value="option3" class="form-check-input">
-                  <label for="inlineRadio3" class="form-check-label">Процентная ставка 6% в год</label>
+                <div *ngIf="typeOfFine === 'in_day'" class="col-md-9 under_selected">
+                  - договорной штраф за просрочку платежа
+                  <input type="text" class="col-md-9 form-control" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
+                  placeholder="введите дневной штраф">
                 </div>
                 <div class="form-check form-check mr-1">
-                  <input type="radio" name="inline-radios" id="inlineRadio4" value="option4" class="form-check-input">
+                  <input type="radio" name="typeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"
+                    formControlName="typeOfFine" (click)="fine($event.target.value)">
+                  <label for="inlineRadio3" class="form-check-label">Процентная ставка 6% в год</label>
+                </div>
+                <div *ngIf="typeOfFine === 'in_year_6'" class="under_selected">
+                  - предусмотренный законом <b>6%-ый</b> годовой штраф
+                </div>
+                <div class="form-check form-check mr-1">
+                  <input type="radio" name="typeOfFine" id="inlineRadio4" value="in_year_8" class="form-check-input"
+                    formControlName="typeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio4" class="form-check-label">Процентная ставка 8% в год</label>
+                </div>
+                <div *ngIf="typeOfFine === 'in_year_8'" class="under_selected">
+                  - предусмотренный законом <b>8%-ый</b> годовой штраф
                 </div>
               </div>
             </div>
