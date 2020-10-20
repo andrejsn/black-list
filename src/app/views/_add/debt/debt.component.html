@@ -66,8 +66,11 @@
                 </div>
                 <div *ngIf="typeOfFine === 'in_day'" class="col-md-9 under_selected">
                   - договорной штраф за просрочку платежа
-                  <input type="text" class="col-md-9 form-control" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
-                  placeholder="введите дневной штраф">
+                  <input type="text" class="col-md-9 form-control" formControlName="inDayPercent" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
+                  placeholder="введите дневной штраф" autocomplete="off"
+                  [ngClass]="{'is-invalid': submitted && f.inDayPercent.errors, 'is-valid': submitted && !f.inDayPercent.errors}">
+                  <div *ngIf="submitted && f.inDayPercent.errors && f.inDayPercent.errors.required" class="invalid-feedback">
+                    {{'debt.error.day_percent.required' | translate}}</div>
                 </div>
                 <div class="form-check form-check mr-1">
                   <input type="radio" name="typeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"

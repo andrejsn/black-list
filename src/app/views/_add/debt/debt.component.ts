@@ -33,7 +33,8 @@ export class DebtComponent implements OnInit {
     name: new FormControl(),
     debt: new FormControl(),
     debtDate: new FormControl(),
-    typeOfFine: new FormControl()
+    typeOfFine: new FormControl(),
+    inDayPercent: new FormControl()
   });
 
   submitted: boolean = false;
@@ -59,7 +60,34 @@ export class DebtComponent implements OnInit {
       debt: ['', [Validators.required]],
       debtDate: ['', [Validators.required]],
       typeOfFine: ['', [Validators.required]],
+      inDayPercent: ['', []],
     });
+  }
+
+  /**
+   * add validator for input day percent
+   */
+  private addValidator() {
+    const inDayPercentControl = this.addDebtForm.controls['inDayPercent'];
+    inDayPercentControl.setValidators(Validators.required);
+  }
+
+  /**
+   * remove validator for input day percent
+   */
+  private removeValidator() {
+    const inDayPercentControl = this.addDebtForm.controls['inDayPercent'];
+    inDayPercentControl.clearValidators();
+    inDayPercentControl.updateValueAndValidity();
+  }
+
+  fine(radioButtonValue: string): void {
+    this.typeOfFine = radioButtonValue;
+    if (this.typeOfFine === 'in_day') {
+      this.addValidator();
+    } else {
+      this.removeValidator();
+    }
   }
 
   onSubmit() {
@@ -75,11 +103,6 @@ export class DebtComponent implements OnInit {
 
       return;
     }
-  }
-
-  fine(radioButtonValue: string): void {
-    this.typeOfFine = radioButtonValue;
-
   }
 
   // convenience getter for easy access to form fields
