@@ -30,6 +30,7 @@ export class DebtComponent implements OnInit {
   addDebtForm = new FormGroup({
     name: new FormControl(),
     debt: new FormControl(),
+    debtDate: new FormControl()
   });
 
   submitted: boolean = false;
@@ -51,8 +52,9 @@ export class DebtComponent implements OnInit {
 
     // create validation
     this.addDebtForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.maxLength(128)]],
       debt: ['', [Validators.required]],
+      debtDate: ['', [Validators.required]],
     });
   }
 

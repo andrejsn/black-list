@@ -52,6 +52,28 @@
     "add_debtor": "+Debtor",
     "calendar": "Calendar"
   },
+  "debt":{
+    "title": "We form new debt",
+    "name": "Debt name or number:",
+    "placeholder_name":"enter name or number",
+    "sum": "Debt amount:",
+    "placeholder_sum": "enter the amount of debt",
+    "date": "Date of non-payment of debt from",
+    "placeholder_date": "enter the date from which the interest is calculated",
+    "error": {
+      "name": {
+        "required": "No name or debt number"
+      },
+      "sum": {
+        "required": "Amount of debt required"
+      },
+      "date": {
+        "required": "Date required"
+      }
+    }
+  },
+
+
   "debtor": {
     "basic_data": "Basic data",
     "company": "Company name",
