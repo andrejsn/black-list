@@ -38,7 +38,7 @@
             <!-- debt date -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="debtDate">{{ 'debt.date' | translate }}</label>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <input id="debtDate" class="form-control" bsDatepicker formControlName="debtDate" placement="auto"
                   autocomplete="off" placeholder="{{ 'debt.placeholder_date' | translate }}"
                   [ngClass]="{'is-invalid': submitted && f.debtDate.errors, 'is-valid': submitted && !f.debtDate.errors}"
