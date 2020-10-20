@@ -27,14 +27,14 @@ import { inOutAnimation } from '@shared/helpers';
 })
 export class DebtComponent implements OnInit {
 
-  typeOfFine: string; // penalty, in_day, statutory6%, statutory8%
+  debtTypeOfFine: string; // penalty, in_day, statutory6%, statutory8%
 
   addDebtForm = new FormGroup({
     name: new FormControl(),
     debt: new FormControl(),
     debtDate: new FormControl(),
-    typeOfFine: new FormControl(),
-    inDayPercent: new FormControl()
+    debtTypeOfFine: new FormControl(),
+    debtInDayPercent: new FormControl()
   });
 
   submitted: boolean = false;
@@ -56,37 +56,35 @@ export class DebtComponent implements OnInit {
 
     // create validation
     this.addDebtForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(128)]],
-      debt: ['', [Validators.required]],
+      debtName: ['', [Validators.required, Validators.maxLength(128)]],
+      debtSum: ['', [Validators.required]],
       debtDate: ['', [Validators.required]],
-      typeOfFine: ['', [Validators.required]],
-      inDayPercent: ['', []],
+      debtTypeOfFine: ['', [Validators.required]],
+      debtInDayPercent: ['', [Validators.required, Validators.min(0.0001)]],
     });
   }
 
-  /**
-   * add validator for input day percent
-   */
-  private addValidator() {
-    const inDayPercentControl = this.addDebtForm.controls['inDayPercent'];
-    inDayPercentControl.setValidators(Validators.required);
-  }
+  // /**
+  //  * add validator for input day percent
+  //  */
+  // private addValidator() {
+  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+  //   debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
+  // }
 
-  /**
-   * remove validator for input day percent
-   */
-  private removeValidator() {
-    const inDayPercentControl = this.addDebtForm.controls['inDayPercent'];
-    inDayPercentControl.clearValidators();
-    inDayPercentControl.updateValueAndValidity();
-  }
+  // /**
+  //  * remove validator for input day percent
+  //  */
+  // private removeValidator() {
+  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+  //   debtInDayPercent.clearValidators();
+  //   debtInDayPercent.updateValueAndValidity();
+  // }
 
   fine(radioButtonValue: string): void {
-    this.typeOfFine = radioButtonValue;
-    if (this.typeOfFine === 'in_day') {
-      this.addValidator();
-    } else {
-      this.removeValidator();
+    this.debtTypeOfFine = radioButtonValue;
+    if (this.debtTypeOfFine !== 'in_day') {
+      this.f['debtInDayPercent'].setValue(0.0001);
     }
   }
 
@@ -103,6 +101,34 @@ export class DebtComponent implements OnInit {
 
       return;
     }
+
+    this.loading = true;
+    this.http
+      .post<any>(`${environment.apiUrl}/debt/store`,
+        {
+          debtName: this.f['debtName'].value,
+          debtSum: this.f['debtSum'].value,
+          debtDate: this.f['debtDate'].value,
+          debtTypeOfFine: this.f['debtTypeOfFine'].value,
+          debtInDayPercent: this.f['debtInDayPercent'].value,
+        }
+      )
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          // this.router.navigate(['/debtor/tasks']);
+        },
+        (error) => {
+          this.loading = false;
+          this.submitted = false;
+          this.translate
+            .get('toast.error.response')
+            .subscribe((error: string) => {
+              this.snotifyService.error(error);
+            });
+        }
+      );
+
   }
 
   // convenience getter for easy access to form fields

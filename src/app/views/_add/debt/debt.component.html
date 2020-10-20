@@ -15,22 +15,22 @@
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="name">{{ 'debt.name' | translate }}</label>
               <div class="col-md-6">
-                <input id="name" formControlName="name" type="text"
+                <input id="name" formControlName="debtName" type="text" autocomplete="off"
                   placeholder="{{ 'debt.placeholder_name' | translate }}" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}">
-                <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
+                  [ngClass]="{'is-invalid': submitted && f.debtName.errors, 'is-valid': submitted && !f.debtName.errors}">
+                <div *ngIf="submitted && f.debtName.errors && f.debtName.errors.required" class="invalid-feedback">
                   {{'debt.error.name.required' | translate}}</div>
               </div>
               <span class="col-md-3"></span>
             </div>
-            <!-- debt -->
+            <!-- debt sum -->
             <div class="form-group row">
               <label class="col-md-3 col-form-label" for="debt">{{ 'debt.sum' | translate }}</label>
               <div class="col-md-6">
-                <input id="debt" currencyMask formControlName="debt" type="tel"
+                <input id="debt" currencyMask formControlName="debtSum" type="tel"
                   placeholder="{{ 'debt.placeholder_sum' | translate }}" class="form-control"
-                  [ngClass]="{'is-invalid': submitted && f.debt.errors, 'is-valid': submitted && !f.debt.errors}">
-                <div *ngIf="submitted && f.debt.errors && f.debt.errors.required" class="invalid-feedback">
+                  [ngClass]="{'is-invalid': submitted && f.debtSum.errors, 'is-valid': submitted && !f.debtSum.errors}">
+                <div *ngIf="submitted && f.debtSum.errors && f.debtSum.errors.required" class="invalid-feedback">
                   {{'debt.error.sum.required' | translate}}</div>
               </div>
               <span class="col-md-3">EUR</span>
@@ -49,43 +49,45 @@
             </div>
             <!--  -->
             <div class="form-group row">
-              <label for="typeOfFine" class="col-md-3 col-form-label">Вид неустойки</label>
+              <label for="debtTypeOfFine" class="col-md-3 col-form-label">Вид неустойки</label>
               <div class="col-md-9 col-form-label">
-                <div id="typeOfFine" class="form-check form-check mr-1">
-                  <input type="radio" id="inlineRadio1" value="penalty" class=" form-check-input"
-                    formControlName="typeOfFine" (click)="fine($event.target.value)">
+                <!-- penalty -->
+                <div id="debtTypeOfFine" class="form-check form-check mr-1">
+                  <input type="radio" id="inlineRadio1" value="penalty" class="form-check-input"
+                    formControlName="debtTypeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio1" class="form-check-label">Пени 10% </label>
                 </div>
-                <div *ngIf="typeOfFine === 'penalty'" class="under_selected">
+                <div *ngIf="debtTypeOfFine === 'penalty'" class="under_selected">
                   - одноразовый 10%-ый штраф за просрочку платежа
                 </div>
                 <div class="form-check form-check mr-1">
-                  <input type="radio" name="typeOfFine" id="inlineRadio2" value="in_day" class="form-check-input"
-                    formControlName="typeOfFine" (click)="fine($event.target.value)">
+                  <input type="radio" name="debtTypeOfFine" id="inlineRadio2" value="in_day" class="form-check-input"
+                    formControlName="debtTypeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio2" class="form-check-label">Процентная ставка в день</label>
                 </div>
-                <div *ngIf="typeOfFine === 'in_day'" class="col-md-9 under_selected">
+                <div *ngIf="debtTypeOfFine === 'in_day'" class="col-md-9 under_selected">
                   - договорной штраф за просрочку платежа
-                  <input type="text" class="col-md-9 form-control" formControlName="inDayPercent" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
+                  <!-- percent per day -->
+                  <input type="tel" class="col-md-9 form-control" formControlName="debtInDayPercent" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
                   placeholder="введите дневной штраф" autocomplete="off"
-                  [ngClass]="{'is-invalid': submitted && f.inDayPercent.errors, 'is-valid': submitted && !f.inDayPercent.errors}">
-                  <div *ngIf="submitted && f.inDayPercent.errors && f.inDayPercent.errors.required" class="invalid-feedback">
+                  [ngClass]="{'is-invalid': submitted && f.debtInDayPercent.errors, 'is-valid': submitted && !f.debtInDayPercent.errors}">
+                  <div *ngIf="submitted && f.debtInDayPercent.errors && (f.debtInDayPercent.errors.required || f.debtInDayPercent.errors.min)" class="invalid-feedback">
                     {{'debt.error.day_percent.required' | translate}}</div>
                 </div>
                 <div class="form-check form-check mr-1">
-                  <input type="radio" name="typeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"
-                    formControlName="typeOfFine" (click)="fine($event.target.value)">
+                  <input type="radio" name="debtTypeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"
+                    formControlName="debtTypeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio3" class="form-check-label">Процентная ставка 6% в год</label>
                 </div>
-                <div *ngIf="typeOfFine === 'in_year_6'" class="under_selected">
+                <div *ngIf="debtTypeOfFine === 'in_year_6'" class="under_selected">
                   - предусмотренный законом <b>6%-ый</b> годовой штраф
                 </div>
                 <div class="form-check form-check mr-1">
-                  <input type="radio" name="typeOfFine" id="inlineRadio4" value="in_year_8" class="form-check-input"
-                    formControlName="typeOfFine" (click)="fine($event.target.value)">
+                  <input type="radio" name="debtTypeOfFine" id="inlineRadio4" value="in_year_8" class="form-check-input"
+                    formControlName="debtTypeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio4" class="form-check-label">Процентная ставка 8% в год</label>
                 </div>
-                <div *ngIf="typeOfFine === 'in_year_8'" class="under_selected">
+                <div *ngIf="debtTypeOfFine === 'in_year_8'" class="under_selected">
                   - предусмотренный законом <b>8%-ый</b> годовой штраф
                 </div>
               </div>
