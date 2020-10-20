@@ -90,6 +90,11 @@
                 <div *ngIf="debtTypeOfFine === 'in_year_8'" class="under_selected">
                   - предусмотренный законом <b>8%-ый</b> годовой штраф
                 </div>
+                <div>
+                  <div *ngIf="submitted && f.debtTypeOfFine.errors && f.debtTypeOfFine.errors.required" class="invalid-feedback" style="display: block;">
+                    {{'debt.error.day_percent.required' | translate}}</div>
+                </div>
+
               </div>
             </div>
 

@@ -28,6 +28,7 @@ import { timezoneOffset } from '@shared/helpers';
 export class DebtComponent implements OnInit {
 
   debtTypeOfFine: string; // penalty, in_day, statutory6%, statutory8%
+  debtInDayPercentTemp: number;
 
   addDebtForm = new FormGroup({
     name: new FormControl(),
@@ -59,41 +60,39 @@ export class DebtComponent implements OnInit {
       debtName: ['', [Validators.required, Validators.maxLength(128)]],
       debtSum: ['', [Validators.required]],
       debtDate: ['', [Validators.required]],
-      debtTypeOfFine: ['', [Validators.required]],
+      debtTypeOfFine: [null, [Validators.required]],
       debtInDayPercent: ['', [Validators.required, Validators.min(0.0001)]],
     });
   }
 
   fine(radioButtonValue: string): void {
     this.debtTypeOfFine = radioButtonValue;
-    // if (!this.f['debtInDayPercent'].value && this.debtTypeOfFine === 'in_day') {
-    //   this.f['debtInDayPercent'].setValue(0.0000);
-    // }
+    if(this.debtTypeOfFine === 'in_day'){
+
+    }
   }
 
-  /**
-   * add validator for input day percent
-   */
-  private addDebtInDayPercentValidator() {
-    const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-    debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
-  }
+  // /**
+  //  * add validator for input day percent
+  //  */
+  // private addDebtInDayPercentValidator() {
+  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+  //   debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
+  // }
 
-  /**
-   * remove validator for input day percent
-   */
-  private removeDebtInDayPercentValidator() {
-    const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-    debtInDayPercent.clearValidators();
-    debtInDayPercent.updateValueAndValidity();
-  }
+  // /**
+  //  * remove validator for input day percent
+  //  */
+  // private removeDebtInDayPercentValidator() {
+  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
+  //   debtInDayPercent.clearValidators();
+  //   debtInDayPercent.updateValueAndValidity();
+  // }
 
   onSubmit() {
     // handle validator of debtInDayPercent
     if (this.debtTypeOfFine !== 'in_day') {
-      this.removeDebtInDayPercentValidator();
-    } else {
-      this.addDebtInDayPercentValidator();
+      this.f['debtInDayPercent'].setValue(123);
     }
 
     this.submitted = true;
