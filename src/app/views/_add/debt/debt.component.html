@@ -1,1 +1,52 @@
-<p>debt works!</p>
+<div class="animated fadeIn">
+  <!-- add new debt -->
+  <form [formGroup]="addDebtForm" (ngSubmit)="onSubmit()" role="form">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <!-- card header -->
+          <div class="card-header">
+            <i class="fas fa-people-arrows fa-2x"></i>
+            Формируем новую задолженность
+          </div>
+          <!-- card body -->
+          <div class="card-body">
+            <!-- name -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Имя или номер долга:</label>
+              <div class="col-md-6">
+                <input id="name" formControlName="name" type="text" placeholder="внутренний номер или имя"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.name.errors, 'is-valid': submitted && !f.name.errors}">
+                <div *ngIf="submitted && f.name.errors && f.name.errors.required" class="invalid-feedback">
+                  {{'add.name.required' | translate}}</div>
+              </div>
+              <span class="col-md-3"></span>
+            </div>
+            <!-- debt -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="debt">Сумма долгового обязательства:</label>
+              <div class="col-md-6">
+                <input id="debt" currencyMask formControlName="debt" type="tel" placeholder="Долг"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': submitted && f.debt.errors, 'is-valid': submitted && !f.debt.errors}">
+                <div *ngIf="submitted && f.debt.errors && f.debt.errors.required" class="invalid-feedback">
+                  {{'add.debt.required' | translate}}</div>
+              </div>
+              <span class="col-md-3">EUR</span>
+            </div>
+
+          </div>
+          <!-- card footer -->
+          <div class="card-footer">
+            <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
+              Занести долг</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="reset">Сбросить данные</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
