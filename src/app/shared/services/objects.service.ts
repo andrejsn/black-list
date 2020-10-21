@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {
   MenuItem,
+  Debt,
   Debtor,
   Contract,
   Task,
   Invoice,
   Representative,
   Guarantor,
-  Document, DocumentTableElement
+  Document, DocumentTableElement,
 } from '@app/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -16,6 +17,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ObjectsService {
   // cached objekts here:
+  debt: Debt;
   debtor: Debtor;
   task: Task;
   contract: Contract;

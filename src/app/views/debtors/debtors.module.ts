@@ -14,10 +14,10 @@ import { DebtorFilterPipe } from '@shared/helpers';
   imports: [
     CommonModule,
     SharingModule,
-    DebtorsRoutingModule,
     FormsModule,
     TranslateModule,
     PaginationModule,
+    DebtorsRoutingModule,
   ],
 })
 export class DebtorsModule {}

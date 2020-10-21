@@ -1,1 +1,103 @@
-<p>debts works!</p>
+<div class="animated fadeIn">
+  <!-- show debtors list -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+
+        <div class="card-header"><i class="fas fa-scroll fa-2x" aria-hidden="true"></i> Список долгов
+          ({{debtsList.length}})
+          <span class="float-right">
+            <button class="btn" (click)="addDebt()">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              добавить долг
+            </button>
+          </span>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div *ngIf="debtsList.length === 0" >
+                Поздравляем, к взысканию долгов нет!
+              </div>
+            </div>
+          </div>
+          <table *ngIf="debtsList.length > 0" id="debtors" class="table table-responsive-sm table-sm">
+            <thead>
+              <tr>
+                <th></th>
+                <th (click)="sortDebtName()" class="cursor_default">Название ии номер
+                  <i class="fa fa-chevron-up" *ngIf="sortDebtNameDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortDebtNameDirection === 'desc'"></i>
+                </th>
+                <th (click)="sortDebtDate()" class="cursor_default">Дата неоплаты
+                  <i class="fa fa-chevron-up" *ngIf="sortDebtDateDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortDebtDateDirection === 'desc'"></i>
+                </th>
+                <th (click)="sortDebtSum()" class="cursor_default">Сумма
+                  <i class="fa fa-chevron-up" *ngIf="sortDebtSumDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortDebtSumDirection === 'desc'"></i>
+                </th>
+                <th (click)="sortTypeOfFine()" class="cursor_default">Вид неустойки
+                  <i class="fa fa-chevron-up" *ngIf="sortTypeOfFineDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortTypeOfFineDirection === 'desc'"></i>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let debt of pagedDebtsList">
+                <tr>
+                  <td class="toggle" (click)="toggle(debt.id)">
+                    <i aria-hidden="true" class="fa" [ngClass]="{
+                      'fa-expand': !debt.visible,
+                      'fa-compress': debt.visible}"></i>
+                  </td>
+                  <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.name}}</td>
+                  <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.date | momentjs: 'YYYY. DD. MMMM' }}</td>
+                  <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.sum}}</td>
+                  <td (click)="selectTypeOfFines(debt.type_of_fine)">
+                    <span *ngIf="debt.type_of_fine.toString() === 'penalty'">
+                      <i class="fa fa-pause" aria-hidden="true" style="cursor: pointer;"></i> awaiting
+                    </span>
+                    <span *ngIf="debt.type_of_fine.toString() === 'in_day'">
+                      <i class="fa fa-check" aria-hidden="true" style="cursor: pointer;"></i> collected
+                    </span>
+                    <span *ngIf="debt.type_of_fine.toString() === 'in_year_6'">
+                      <i class="fa fa-cogs" aria-hidden="true" style="cursor: pointer;"></i> in work
+                    </span>
+                    <span *ngIf="debt.type_of_fine.toString() === 'in_year_8'">
+                      <i class="fa fa-gavel" aria-hidden="true"></i> to sue
+                    </span>
+                  </td>
+                </tr>
+                <!-- accordion for debtor -->
+                <tr *ngIf="debt.visible">
+                  <td class="no-top-border" colspan="5">
+                    <button class="btn">
+                      <i class="fa fa-pencil-square-o"></i>
+                      Edit</button>
+                    <button class="btn" (click)="notifyDeleteDebt(debt)">
+                      <i class="fa fa-trash"></i>
+                      Trash</button>
+                    <span class="float-right">
+                      <button class="btn" (click)="details(debt)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Details</button>
+                      <button [ngClass]="{'to-delete': debt.toDelete}" class="btn" (click)="contracts(debt)">
+                        <i [ngClass]="{'fa-2x': debt.toDelete}" class="fa fa-handshake-o" aria-hidden="true"></i>
+                        Contracts</button>
+                      <button [ngClass]="{'to-delete': debt.toDelete}" class="btn" (click)="tasks(debt)">
+                        <i [ngClass]="{'fa-2x': debt.toDelete}" class="fa fa-tasks" aria-hidden="true"></i>
+                        Tasks</button>
+                    </span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
