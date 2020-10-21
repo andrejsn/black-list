@@ -6,6 +6,6 @@ export interface Debt {
   name: string;
   sum: number;
   date: Date;
-  type_of_fine: DebtTypeOfFine;
+  typeOfFine: DebtTypeOfFine;
   inDayPercent: number;
 }
