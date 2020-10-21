@@ -120,9 +120,9 @@ export class DebtsComponent implements OnInit {
     this.router.navigate(['/debt/tasks']);
   }
 
-  selectTypeOfFines(type_of_fine: DebtTypeOfFine) {
+  selectTypeOfFines(typeOfFine: DebtTypeOfFine) {
     this.debtsList = [
-      ...this.rawDebtsList.filter((e) => e.type_of_fine === type_of_fine),
+      ...this.rawDebtsList.filter((e) => e.typeOfFine === typeOfFine),
     ];
 
     this.cdRef.detectChanges(); // fixed: Expression has changed after it was checked on
