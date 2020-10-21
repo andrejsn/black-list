@@ -26,11 +26,11 @@
             <thead>
               <tr>
                 <th></th>
-                <th (click)="sortDebtName()" class="cursor_default">Название ии номер
+                <th (click)="sortDebtName()" class="cursor_default">Обозначение
                   <i class="fa fa-chevron-up" *ngIf="sortDebtNameDirection === 'asc'"></i>
                   <i class="fa fa-chevron-down" *ngIf="sortDebtNameDirection === 'desc'"></i>
                 </th>
-                <th (click)="sortDebtDate()" class="cursor_default">Дата неоплаты
+                <th (click)="sortDebtDate()" class="cursor_default">С даты
                   <i class="fa fa-chevron-up" *ngIf="sortDebtDateDirection === 'asc'"></i>
                   <i class="fa fa-chevron-down" *ngIf="sortDebtDateDirection === 'desc'"></i>
                 </th>
@@ -38,9 +38,21 @@
                   <i class="fa fa-chevron-up" *ngIf="sortDebtSumDirection === 'asc'"></i>
                   <i class="fa fa-chevron-down" *ngIf="sortDebtSumDirection === 'desc'"></i>
                 </th>
-                <th (click)="sortTypeOfFine()" class="cursor_default">Вид неустойки
+                <th (click)="sortDebtSum()" class="cursor_default">Оплачено
+                  <!-- <i class="fa fa-chevron-up" *ngIf="sortDebtSumDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortDebtSumDirection === 'desc'"></i> -->
+                </th>
+                <th (click)="sortDebtSum()" class="cursor_default">Остаток
+                  <!-- <i class="fa fa-chevron-up" *ngIf="sortDebtSumDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortDebtSumDirection === 'desc'"></i> -->
+                </th>
+                <th (click)="sortTypeOfFine()" class="cursor_default">Проценты
                   <i class="fa fa-chevron-up" *ngIf="sortTypeOfFineDirection === 'asc'"></i>
                   <i class="fa fa-chevron-down" *ngIf="sortTypeOfFineDirection === 'desc'"></i>
+                </th>
+                <th (click)="sortTypeOfFine()" class="cursor_default">Прогресс
+                  <!-- <i class="fa fa-chevron-up" *ngIf="sortTypeOfFineDirection === 'asc'"></i>
+                  <i class="fa fa-chevron-down" *ngIf="sortTypeOfFineDirection === 'desc'"></i> -->
                 </th>
               </tr>
             </thead>
@@ -55,20 +67,23 @@
                   <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.name}}</td>
                   <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.date | momentjs: 'YYYY. DD. MMMM' }}</td>
                   <td [ngClass]="{'to-delete': debt.toDelete}">{{debt.sum}}</td>
-                  <td (click)="selectTypeOfFines(debt.type_of_fine)">
-                    <span *ngIf="debt.type_of_fine.toString() === 'penalty'">
-                      <i class="fa fa-pause" aria-hidden="true" style="cursor: pointer;"></i> awaiting
+                  <td [ngClass]="{'to-delete': debt.toDelete}">paid</td>
+                  <td [ngClass]="{'to-delete': debt.toDelete}">rest</td>
+                  <td (click)="selectTypeOfFines(debt.typeOfFine)">
+                    <span *ngIf="debt.typeOfFine.toString() === 'penalty'">
+                      <i class="fa fa-pause" aria-hidden="true" style="cursor: pointer;"></i> Пени 10%
                     </span>
-                    <span *ngIf="debt.type_of_fine.toString() === 'in_day'">
-                      <i class="fa fa-check" aria-hidden="true" style="cursor: pointer;"></i> collected
+                    <span *ngIf="debt.typeOfFine.toString() === 'in_day'">
+                      <i class="fa fa-check" aria-hidden="true" style="cursor: pointer;"></i>  {{ debt.inDayPercent }}% в день
                     </span>
-                    <span *ngIf="debt.type_of_fine.toString() === 'in_year_6'">
-                      <i class="fa fa-cogs" aria-hidden="true" style="cursor: pointer;"></i> in work
+                    <span *ngIf="debt.typeOfFine.toString() === 'in_year_6'">
+                      <i class="fa fa-cogs" aria-hidden="true" style="cursor: pointer;"></i> 6% в год
                     </span>
-                    <span *ngIf="debt.type_of_fine.toString() === 'in_year_8'">
-                      <i class="fa fa-gavel" aria-hidden="true"></i> to sue
+                    <span *ngIf="debt.typeOfFine.toString() === 'in_year_8'">
+                      <i class="fa fa-gavel" aria-hidden="true"></i> 8% в год
                     </span>
                   </td>
+                  <td [ngClass]="{'to-delete': debt.toDelete}">progress</td>
                 </tr>
                 <!-- accordion for debtor -->
                 <tr *ngIf="debt.visible">
