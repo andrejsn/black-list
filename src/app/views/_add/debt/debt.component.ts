@@ -28,7 +28,6 @@ import { timezoneOffset } from '@shared/helpers';
 export class DebtComponent implements OnInit {
 
   debtTypeOfFine: string; // penalty, in_day, statutory6%, statutory8%
-  debtInDayPercentTemp: number;
 
   addDebtForm = new FormGroup({
     name: new FormControl(),
@@ -61,15 +60,18 @@ export class DebtComponent implements OnInit {
       debtSum: ['', [Validators.required]],
       debtDate: ['', [Validators.required]],
       debtTypeOfFine: [null, [Validators.required]],
-      debtInDayPercent: ['', [Validators.required, Validators.min(0.0001)]],
+      debtInDayPercent: ['', []],
     });
   }
 
   fine(radioButtonValue: string): void {
     this.debtTypeOfFine = radioButtonValue;
-    if(this.debtTypeOfFine === 'in_day'){
-
+    if (this.debtTypeOfFine === 'in_day') {
+      this.f['debtInDayPercent'].setValidators([Validators.required, Validators.min(0.0001)]);
+    } else {
+      this.f['debtInDayPercent'].clearValidators();
     }
+    this.f['debtInDayPercent'].updateValueAndValidity();
   }
 
   // /**
@@ -90,11 +92,6 @@ export class DebtComponent implements OnInit {
   // }
 
   onSubmit() {
-    // handle validator of debtInDayPercent
-    if (this.debtTypeOfFine !== 'in_day') {
-      this.f['debtInDayPercent'].setValue(123);
-    }
-
     this.submitted = true;
 
     // stop here if form is invalid
