@@ -71,7 +71,9 @@
         "required": "Date required"
       },
       "day_percent": {
-        "required": "Day percent required"
+        "required": "Day percent required",
+        "max": "No more than 100% per day",
+        "maxLength": "Max length 8 symbols"
       },
       "submit": "Form a new debt",
       "reset": "Reset"

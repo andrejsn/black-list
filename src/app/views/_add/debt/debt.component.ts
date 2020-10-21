@@ -27,7 +27,7 @@ import { timezoneOffset } from '@shared/helpers';
 })
 export class DebtComponent implements OnInit {
 
-  debtTypeOfFine: string; // penalty, in_day, statutory6%, statutory8%
+  debtTypeOfFine: string; // penalty, in_day, in_year_6, in_year_8
 
   addDebtForm = new FormGroup({
     name: new FormControl(),
@@ -67,29 +67,18 @@ export class DebtComponent implements OnInit {
   fine(radioButtonValue: string): void {
     this.debtTypeOfFine = radioButtonValue;
     if (this.debtTypeOfFine === 'in_day') {
-      this.f['debtInDayPercent'].setValidators([Validators.required, Validators.min(0.0001)]);
+      this.f['debtInDayPercent'].setValidators(
+        [
+          Validators.required,
+          Validators.min(0.0001),
+          Validators.max(100.0),
+          Validators.maxLength(8)
+        ]);
     } else {
       this.f['debtInDayPercent'].clearValidators();
     }
     this.f['debtInDayPercent'].updateValueAndValidity();
   }
-
-  // /**
-  //  * add validator for input day percent
-  //  */
-  // private addDebtInDayPercentValidator() {
-  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-  //   debtInDayPercent.setValidators([Validators.required, Validators.min(0.0001)]);
-  // }
-
-  // /**
-  //  * remove validator for input day percent
-  //  */
-  // private removeDebtInDayPercentValidator() {
-  //   const debtInDayPercent = this.addDebtForm.controls['debtInDayPercent'];
-  //   debtInDayPercent.clearValidators();
-  //   debtInDayPercent.updateValueAndValidity();
-  // }
 
   onSubmit() {
     this.submitted = true;
@@ -105,16 +94,20 @@ export class DebtComponent implements OnInit {
       return;
     }
 
+    if (this.debtTypeOfFine !== 'in_day') {
+      this.f['debtInDayPercent'].setValue(null);
+    }
+
     this.loading = true;
     this.http
       .post<any>(`${environment.apiUrl}/debt/store`,
         {
-          debtName: this.f['debtName'].value,
-          debtSum: this.f['debtSum'].value,
+          name: this.f['debtName'].value,
+          sum: this.f['debtSum'].value,
           // debtDate: this.f['debtDate'].value,
-          debtDate: timezoneOffset(moment(this.addDebtForm.controls['debtDate'].value, 'YYYY. DD. MMMM').toDate()),
-          debtTypeOfFine: this.f['debtTypeOfFine'].value,
-          debtInDayPercent: this.f['debtInDayPercent'].value,
+          date: timezoneOffset(moment(this.addDebtForm.controls['debtDate'].value, 'YYYY. DD. MMMM').toDate()),
+          typeOfFine: this.f['debtTypeOfFine'].value,
+          inDayPercent: this.f['debtInDayPercent'].value,
         }
       )
       .pipe(first())

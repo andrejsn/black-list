@@ -73,6 +73,10 @@
                   [ngClass]="{'is-invalid': submitted && f.debtInDayPercent.errors, 'is-valid': submitted && !f.debtInDayPercent.errors}">
                   <div *ngIf="submitted && f.debtInDayPercent.errors && (f.debtInDayPercent.errors.required || f.debtInDayPercent.errors.min)" class="invalid-feedback">
                     {{'debt.error.day_percent.required' | translate}}</div>
+                    <div *ngIf="submitted && f.debtInDayPercent.errors && f.debtInDayPercent.errors.max" class="invalid-feedback">
+                      {{'debt.error.day_percent.max' | translate}}</div>
+                    <div *ngIf="submitted && f.debtInDayPercent.errors && f.debtInDayPercent.errors.maxLength" class="invalid-feedback">
+                      {{'debt.error.day_percent.maxLength' | translate}}</div>
                 </div>
                 <div class="form-check form-check mr-1">
                   <input type="radio" name="debtTypeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"
