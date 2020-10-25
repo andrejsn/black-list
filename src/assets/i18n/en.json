@@ -54,8 +54,8 @@
   },
   "debt":{
     "title": "We form new debt",
-    "name": "Debt name or number:",
-    "placeholder_name":"enter name or number",
+    "name": "Debtor name:",
+    "placeholder_name":"enter debor name",
     "sum": "Debt amount:",
     "placeholder_sum": "enter the amount of debt",
     "date": "Date of non-payment of debt from",
