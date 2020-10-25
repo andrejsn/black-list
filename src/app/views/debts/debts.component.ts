@@ -141,6 +141,14 @@ export class DebtsComponent implements OnInit {
   }
 
   /**
+   * edit debt
+   */
+  editDebt(debtToEdit: DebtTableElement): void {
+    this.objectsService.debt = debtToEdit;
+    this.router.navigate(['/edit/debt']);
+  }
+
+  /**
    * delete debt
    */
   notifyDeleteDebt(debtorToDelete: DebtTableElement) {

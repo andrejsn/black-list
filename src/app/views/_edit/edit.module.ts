@@ -11,23 +11,26 @@ import { SharingModule } from '@shared/shareModule';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import {
-  TaskComponent,
   ContractComponent,
+  DebtComponent,
+  DocumentComponent,
+  GuarantorComponent,
   InvoiceComponent,
   RepresentativeComponent,
-  GuarantorComponent,
-  DocumentComponent
+  TaskComponent,
 } from '.';
+
 
 
 @NgModule({
   declarations: [
-    TaskComponent,
     ContractComponent,
+    DebtComponent,
+    DocumentComponent,
+    GuarantorComponent,
     InvoiceComponent,
     RepresentativeComponent,
-    GuarantorComponent,
-    DocumentComponent,
+    TaskComponent,
   ],
   imports: [
     CommonModule,

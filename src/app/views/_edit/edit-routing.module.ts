@@ -1,8 +1,15 @@
-import { InvoiceComponent } from './invoice/invoice.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TaskComponent, RepresentativeComponent, GuarantorComponent, ContractComponent, DocumentComponent } from '.';
+import {
+  ContractComponent,
+  DebtComponent,
+  DocumentComponent,
+  GuarantorComponent,
+  InvoiceComponent,
+  RepresentativeComponent,
+  TaskComponent,
+} from '.';
 import { P404Component } from '../error/404.component';
 
 const routes: Routes = [
@@ -13,6 +20,10 @@ const routes: Routes = [
   //     title: 'Add Debtor',
   //   },
   // },
+  {
+    path: 'debt',
+    component: DebtComponent,
+  },
   {
     path: 'task',
     component: TaskComponent,
