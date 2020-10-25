@@ -144,7 +144,7 @@ export class DebtsComponent implements OnInit {
    * edit debt
    */
   editDebt(debtToEdit: DebtTableElement): void {
-    this.objectsService.debt = debtToEdit;
+    this.objectsService.debt = debtToEdit as Debt;
     this.router.navigate(['/edit/debt']);
   }
 

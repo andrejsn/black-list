@@ -7,44 +7,44 @@
           <!-- card header -->
           <div class="card-header">
             <i class="fas fa-people-arrows fa-2x"></i>
-            {{ 'debt.title' | translate }}
+            {{ 'debt.add.title' | translate }}
           </div>
           <!-- card body -->
           <div class="card-body">
             <!-- debtor name -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="name">{{ 'debt.name' | translate }}</label>
+              <label class="col-md-3 col-form-label" for="name">{{ 'debt.add.name' | translate }}</label>
               <div class="col-md-6">
                 <input id="name" formControlName="debtName" type="text" autocomplete="off"
-                  placeholder="{{ 'debt.placeholder_name' | translate }}" class="form-control"
+                  placeholder="{{ 'debt.add.placeholder_name' | translate }}" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.debtName.errors, 'is-valid': submitted && !f.debtName.errors}">
                 <div *ngIf="submitted && f.debtName.errors && f.debtName.errors.required" class="invalid-feedback">
-                  {{'debt.error.name.required' | translate}}</div>
+                  {{'debt.add.error.name.required' | translate}}</div>
               </div>
               <span class="col-md-3"></span>
             </div>
             <!-- debt sum -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="debt">{{ 'debt.sum' | translate }}</label>
+              <label class="col-md-3 col-form-label" for="debt">{{ 'debt.add.sum' | translate }}</label>
               <div class="col-md-6">
                 <input id="debt" currencyMask formControlName="debtSum" type="tel"
-                  placeholder="{{ 'debt.placeholder_sum' | translate }}" class="form-control"
+                  placeholder="{{ 'debt.add.placeholder_sum' | translate }}" class="form-control"
                   [ngClass]="{'is-invalid': submitted && f.debtSum.errors, 'is-valid': submitted && !f.debtSum.errors}">
                 <div *ngIf="submitted && f.debtSum.errors && f.debtSum.errors.required" class="invalid-feedback">
-                  {{'debt.error.sum.required' | translate}}</div>
+                  {{'debt.add.error.sum.required' | translate}}</div>
               </div>
               <span class="col-md-3">EUR</span>
             </div>
             <!-- debt date -->
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="debtDate">{{ 'debt.date' | translate }}</label>
+              <label class="col-md-3 col-form-label" for="debtDate">{{ 'debt.add.date' | translate }}</label>
               <div class="col-md-6">
                 <input id="debtDate" class="form-control" bsDatepicker formControlName="debtDate" placement="auto"
-                  autocomplete="off" placeholder="{{ 'debt.placeholder_date' | translate }}"
+                  autocomplete="off" placeholder="{{ 'debt.add.placeholder_date' | translate }}"
                   [ngClass]="{'is-invalid': submitted && f.debtDate.errors, 'is-valid': submitted && !f.debtDate.errors}"
                   [bsConfig]="{ dateInputFormat: 'YYYY. Do MMMM', isAnimated: true,  containerClass:'theme-blue' }">
                 <div *ngIf="submitted && f.debtDate.errors && f.debtDate.errors.required" class="invalid-feedback">
-                  {{'debt.error.date.required' | translate}}</div>
+                  {{'debt.add.error.date.required' | translate}}</div>
               </div>
             </div>
             <!--  -->
@@ -72,11 +72,11 @@
                   placeholder="введите дневной штраф" autocomplete="off"
                   [ngClass]="{'is-invalid': submitted && f.debtInDayPercent.errors, 'is-valid': submitted && !f.debtInDayPercent.errors}">
                   <div *ngIf="submitted && f.debtInDayPercent.errors && (f.debtInDayPercent.errors.required || f.debtInDayPercent.errors.min)" class="invalid-feedback">
-                    {{'debt.error.day_percent.required' | translate}}</div>
+                    {{'debt.add.error.day_percent.required' | translate}}</div>
                     <div *ngIf="submitted && f.debtInDayPercent.errors && f.debtInDayPercent.errors.max" class="invalid-feedback">
-                      {{'debt.error.day_percent.max' | translate}}</div>
+                      {{'debt.add.error.day_percent.max' | translate}}</div>
                     <div *ngIf="submitted && f.debtInDayPercent.errors && f.debtInDayPercent.errors.maxLength" class="invalid-feedback">
-                      {{'debt.error.day_percent.maxLength' | translate}}</div>
+                      {{'debt.add.error.day_percent.maxLength' | translate}}</div>
                 </div>
                 <div class="form-check form-check mr-1">
                   <input type="radio" name="debtTypeOfFine" id="inlineRadio3" value="in_year_6" class="form-check-input"
@@ -96,7 +96,7 @@
                 </div>
                 <div>
                   <div *ngIf="submitted && f.debtTypeOfFine.errors && f.debtTypeOfFine.errors.required" class="invalid-feedback" style="display: block;">
-                    {{'debt.error.day_percent.required' | translate}}</div>
+                    {{'debt.add.error.day_percent.required' | translate}}</div>
                 </div>
 
               </div>

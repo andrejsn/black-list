@@ -1,6 +1,6 @@
 {
   "title": "Debt collection portal",
-  "navigation":{
+  "navigation": {
     "dashboard": "Dashboard",
     "calendar": "Calendar",
     "add_debt": "Add Debt",
@@ -52,35 +52,62 @@
     "add_debtor": "+Debtor",
     "calendar": "Calendar"
   },
-  "debt":{
-    "title": "We form new debt",
-    "name": "Debtor name:",
-    "placeholder_name":"enter debor name",
-    "sum": "Debt amount:",
-    "placeholder_sum": "enter the amount of debt",
-    "date": "Date of non-payment of debt from",
-    "placeholder_date": "enter the date from which the interest is calculated",
-    "error": {
-      "name": {
-        "required": "No name or debt number"
-      },
-      "sum": {
-        "required": "Amount of debt required"
-      },
-      "date": {
-        "required": "Date required"
-      },
-      "day_percent": {
-        "required": "Day percent required",
-        "max": "No more than 100% per day",
-        "maxLength": "Max length 8 symbols"
-      },
-      "submit": "Form a new debt",
-      "reset": "Reset"
+  "debt": {
+    "add": {
+      "title": "We form new debt",
+      "name": "Debtor name:",
+      "placeholder_name": "enter debor name",
+      "sum": "Debt amount:",
+      "placeholder_sum": "enter the amount of debt",
+      "date": "Date of non-payment of debt from",
+      "placeholder_date": "enter the date from which the interest is calculated",
+      "error": {
+        "name": {
+          "required": "No name or debt number"
+        },
+        "sum": {
+          "required": "Amount of debt required"
+        },
+        "date": {
+          "required": "Date required"
+        },
+        "day_percent": {
+          "required": "Day percent required",
+          "max": "No more than 100% per day",
+          "maxLength": "Max length 8 symbols"
+        },
+        "submit": "Form a new debt",
+        "reset": "Reset"
+      }
+    },
+    "edit": {
+      "title": "We form new debt",
+      "name": "Debtor name:",
+      "placeholder_name": "enter debor name",
+      "sum": "Debt amount:",
+      "placeholder_sum": "enter the amount of debt",
+      "date": "Date of non-payment of debt from",
+      "placeholder_date": "enter the date from which the interest is calculated",
+      "error": {
+        "name": {
+          "required": "No name or debt number"
+        },
+        "sum": {
+          "required": "Amount of debt required"
+        },
+        "date": {
+          "required": "Date required"
+        },
+        "day_percent": {
+          "required": "Day percent required",
+          "max": "No more than 100% per day",
+          "maxLength": "Max length 8 symbols"
+        },
+        "submit": "Form a new debt",
+        "reset": "Reset"
+      }
     }
   },
-
-
   "debtor": {
     "basic_data": "Basic data",
     "company": "Company name",
