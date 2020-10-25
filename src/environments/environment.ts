@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://adventa.lv/black/api/public/api'
+  apiUrl: 'https://adventa.lv/black-list/api/public/api'
 };
