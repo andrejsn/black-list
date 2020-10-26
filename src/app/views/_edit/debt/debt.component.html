@@ -65,7 +65,7 @@
                     formControlName="debtTypeOfFine" (click)="fine($event.target.value)">
                   <label for="inlineRadio2" class="form-check-label">Процентная ставка в день</label>
                 </div>
-                <div *ngIf="debtToEdit.typeOfFine.toString() === 'in_day'" class="col-md-9 under_selected">
+                <div *ngIf="debtToEdit.typeOfFine.toString() === 'in_day' || debtTypeOfFine === 'in_day'" class="col-md-9 under_selected">
                   - договорной штраф за просрочку платежа
                   <!-- percent per day -->
                   <input type="tel" class="col-md-9 form-control" formControlName="debtInDayPercent" currencyMask [options]="{ prefix: ' в день % ', thousands: '', decimal: '.', precision: 4 }"
@@ -106,8 +106,8 @@
           <!-- card footer -->
           <div class="card-footer">
             <button [disabled]="loading" class="btn btn-sm btn-primary" type="submit">
-              Занести долг</button>
-            <button [disabled]="loading" class="btn btn-sm btn-warning" type="button" (click)="resetForm()">Сбросить данные</button>
+              Сохранить изменения</button>
+            <button [disabled]="loading" class="btn btn-sm btn-warning" type="button" (click)="resetForm()">Сбросить изменения</button>
           </div>
 
         </div>
