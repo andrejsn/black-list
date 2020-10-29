@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import * as moment from "moment";
+import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 
@@ -19,7 +19,7 @@ export class AuthenticationService {
         'email': email,
         'password': password,
       }
-    ).pipe(first())
+    ).pipe(first());
   }
 
   /*
@@ -52,7 +52,7 @@ export class AuthenticationService {
   }
 
   private getExpiration() {
-    const expiration = localStorage.getItem("expires_in");
+    const expiration = localStorage.getItem('expires_in');
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
   }
