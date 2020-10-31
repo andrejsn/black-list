@@ -1,0 +1,18 @@
+{
+  "title": "Inkassoportal",
+  "navigation": {
+    "dashboard": "Dashboard",
+    "calendar": "Kalender",
+    "add_debt": "Schulden hinzufügen",
+    "debts": "Schulden",
+    "debtors": "Schuldner"
+  },
+  "user": {
+    "login": {
+      "title": "Einloggen",
+      "subtext": "Melden Sie sich bei Ihrem Konto an",
+      "email": {
+        "placeholder": "Email",
+        "required": "E-Mail ist erforderlich",
+        "notvalid": "Email ist ungültig"
+      }}}}
